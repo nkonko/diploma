@@ -7,6 +7,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SysAnalizer", "SysAnalizer\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BE", "BE\BE.csproj", "{5254CDDB-BCB5-4D44-80E2-ACA6AB71DFFA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLL\BLL.csproj", "{38F6CE63-4A59-4DC9-B8A1-86D652931239}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{E65D285D-3D62-4FF6-BE74-844E358A140D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{21473F8A-C31E-439C-B133-4BAE60111683}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +30,14 @@ Global
 		{5254CDDB-BCB5-4D44-80E2-ACA6AB71DFFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5254CDDB-BCB5-4D44-80E2-ACA6AB71DFFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5254CDDB-BCB5-4D44-80E2-ACA6AB71DFFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38F6CE63-4A59-4DC9-B8A1-86D652931239}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38F6CE63-4A59-4DC9-B8A1-86D652931239}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38F6CE63-4A59-4DC9-B8A1-86D652931239}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38F6CE63-4A59-4DC9-B8A1-86D652931239}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E65D285D-3D62-4FF6-BE74-844E358A140D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E65D285D-3D62-4FF6-BE74-844E358A140D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E65D285D-3D62-4FF6-BE74-844E358A140D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E65D285D-3D62-4FF6-BE74-844E358A140D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
