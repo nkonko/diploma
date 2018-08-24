@@ -25,7 +25,7 @@
 
         public void logIn()
         {
-
+            return DAL.Usuario.Getinstancia().LogIn();
         }
 
 

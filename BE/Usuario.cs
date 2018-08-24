@@ -8,7 +8,8 @@
     using System.Threading.Tasks;
     public class Usuario 
     {
-        public string _Usuario { get; set; }
-        public string Contraseña { get; set; }
+        public int id { get; set; }
+        public string contraseña { get; set; }
+        public string email { get; set; }
     }
 }

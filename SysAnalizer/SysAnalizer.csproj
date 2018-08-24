@@ -70,11 +70,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SYSANALIZER2DataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SYSANALIZER2DataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Venta de productos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -114,20 +109,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="SYSANALIZER2DataSet.xsc">
-      <DependentUpon>SYSANALIZER2DataSet.xsd</DependentUpon>
-    </None>
-    <None Include="SYSANALIZER2DataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>SYSANALIZER2DataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="SYSANALIZER2DataSet.xss">
-      <DependentUpon>SYSANALIZER2DataSet.xsd</DependentUpon>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
