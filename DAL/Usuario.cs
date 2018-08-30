@@ -60,98 +60,94 @@
             var usu = usuarios.Where(s => s.email == email);
 
             return usu.FirstOrDefault();
-    }
-
-    private int ObtenerIngresos(int id)
-    {
-        int cIngresos = 0;
-        string queryString = ConfigurationManager.AppSettings["GetUserLoginAttemptQ"] + id;
-
-        using (SqlConnection connection = new SqlConnection(connectionString))
-        {
-            SqlCommand command = new SqlCommand(queryString, connection);
-            try
-            {
-                connection.Open();
-                command.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
         }
 
-        return cIngresos;
-    }
-
-    public string Encriptar(string contraseña)
-    {
-        MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
-        md5.ComputeHash(ASCIIEncoding.ASCII.GetBytes(contraseña));
-        byte[] encriptado = md5.Hash;
-        StringBuilder str = new StringBuilder();
-        for (int i = 1; i < encriptado.Length; i++)
+        private int ObtenerIngresos(int id)
         {
-            str.Append(encriptado[i].ToString("x2"));
-        }
-        return str.ToString();
-    }
+            int cIngresos = 0;
+            string queryString = ConfigurationManager.AppSettings["GetUserLoginAttemptQ"] + id;
 
-    public bool Create(BE.Usuario ObjAlta)
-    {
-        bool returnValue = false;
-
-        queryString = ConfigurationManager.AppSettings["CreateUserQ"];
-        using (SqlConnection connection = new SqlConnection(connectionString))
-        {
-            SqlCommand command = new SqlCommand(queryString, connection);
-            try
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                connection.Open();
-                command.ExecuteNonQuery();
+                SqlCommand command = new SqlCommand(queryString, connection);
+                try
+                {
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
 
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            return cIngresos;
         }
 
-        return returnValue;
-    }
-
-    public List<BE.Usuario> Retrive()
-    {
-        queryString = ConfigurationManager.AppSettings["GetUserQ"];
-
-        using (SqlConnection connection = new SqlConnection(connectionString))
+        public string Encriptar(string contraseña)
         {
-            SqlCommand command = new SqlCommand(queryString, connection);
-            try
+            MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
+            md5.ComputeHash(ASCIIEncoding.ASCII.GetBytes(contraseña));
+            byte[] encriptado = md5.Hash;
+            StringBuilder str = new StringBuilder();
+            for (int i = 1; i < encriptado.Length; i++)
             {
-                connection.Open();
-                command.ExecuteNonQuery();
+                str.Append(encriptado[i].ToString("x2"));
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            return str.ToString();
         }
 
-        return new List<BE.Usuario>
+        public bool Create(BE.Usuario ObjAlta)
         {
-            ///TODO
-        };
-    }
+            bool returnValue = false;
 
-    public bool Delete(BE.Usuario ObjDel)
-    {
-        throw new NotImplementedException();
-    }
+            queryString = ConfigurationManager.AppSettings["CreateUserQ"];
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                try
+                {
+                    connection.Open();
+                    command.ExecuteNonQuery();
 
-    public bool Update(BE.Usuario ObjUpd)
-    {
-        throw new NotImplementedException();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+
+            return returnValue;
+        }
+
+        public List<BE.Usuario> Retrive()
+        {
+            queryString = ConfigurationManager.AppSettings["GetUserQ"];
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                try
+                {
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+            return new List<BE.Usuario>(); ///TODO
+        }
+
+        public bool Delete(BE.Usuario ObjDel)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Update(BE.Usuario ObjUpd)
+        {
+            throw new NotImplementedException();
+        }
     }
-}
 }

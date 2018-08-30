@@ -23,9 +23,9 @@
             return instancia;
         }
 
-        public void logIn()
+        public bool logIn(string email,string contraseña)
         {
-            return DAL.Usuario.Getinstancia().LogIn();
+            return DAL.Usuario.Getinstancia().LogIn(email,contraseña);
         }
 
 

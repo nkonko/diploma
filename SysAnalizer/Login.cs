@@ -21,5 +21,13 @@ namespace SysAnalizer
         {
 
         }
+
+        private void btn_ingresar_Click(object sender, EventArgs e)
+        {
+            string usuario = txt_user.Text;
+            string contraseña = txt_contraseña.Text;
+
+            BLL.Usuario.Getinstancia().logIn(usuario,contraseña);
+        }
     }
 }
