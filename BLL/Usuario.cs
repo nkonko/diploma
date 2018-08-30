@@ -16,7 +16,7 @@
 
         public static Usuario Getinstancia()
         {
-            if (instancia != null)
+            if (instancia == null)
             {
                 instancia = new Usuario();
             }

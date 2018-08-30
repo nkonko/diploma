@@ -11,7 +11,13 @@
     public class Usuario : BE.ICRUD<BE.Usuario>
     {
         SqlCommand comm = new SqlCommand();
-        string connectionString = ConfigurationManager.AppSettings["connString"];
+
+        public static SqlConnection Connection(string name = "connString")
+        {
+            var conn = new SqlConnection(ConfigurationManager.AppSettings[name]);
+            return conn;
+        }
+
         string queryString;
 
         private Usuario()
@@ -22,7 +28,7 @@
 
         public static Usuario Getinstancia()
         {
-            if (instancia != null)
+            if (instancia == null)
             {
                 instancia = new Usuario();
             }
@@ -67,7 +73,7 @@
             int cIngresos = 0;
             string queryString = ConfigurationManager.AppSettings["GetUserLoginAttemptQ"] + id;
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = Connection())
             {
                 SqlCommand command = new SqlCommand(queryString, connection);
                 try
@@ -102,7 +108,7 @@
             bool returnValue = false;
 
             queryString = ConfigurationManager.AppSettings["CreateUserQ"];
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = Connection())
             {
                 SqlCommand command = new SqlCommand(queryString, connection);
                 try
@@ -124,7 +130,7 @@
         {
             queryString = ConfigurationManager.AppSettings["GetUserQ"];
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = Connection())
             {
                 SqlCommand command = new SqlCommand(queryString, connection);
                 try
