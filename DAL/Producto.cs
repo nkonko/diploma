@@ -3,23 +3,16 @@
     using System;
     using System.Collections.Generic;
     using System.Configuration;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using BE;
 
     public class Producto : BE.ICRUD<BE.Producto>
     {
-
-        string connectionString = ConfigurationManager.AppSettings["ConnStirng"];
-        string queryString = string.Empty;
-
+        private static Producto instancia;
+        private readonly string connectionString = ConfigurationManager.AppSettings["ConnStirng"];
+        private readonly string queryString = string.Empty;
 
         private Producto()
         {
         }
-
-        private static Producto instancia;
 
         public static Producto Getinstancia()
         {
@@ -27,16 +20,16 @@
             {
                 instancia = new Producto();
             }
+
             return instancia;
         }
 
-
-        public bool Create(BE.Producto ObjAlta)
+        public bool Create(BE.Producto objAlta)
         {
             throw new NotImplementedException();
         }
 
-        public bool Delete(BE.Producto ObjDel)
+        public bool Delete(BE.Producto objDel)
         {
             throw new NotImplementedException();
         }
@@ -46,7 +39,7 @@
             throw new NotImplementedException();
         }
 
-        public bool Update(BE.Producto ObjUpd)
+        public bool Update(BE.Producto objUpd)
         {
             throw new NotImplementedException();
         }

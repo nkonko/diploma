@@ -1,13 +1,9 @@
 ﻿namespace BLL
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
+
     public class Producto : BE.ICRUD<BE.Producto>
     {
-
         private Producto()
         {
         }
@@ -20,18 +16,13 @@
             {
                 instancia = new Producto();
             }
+
             return instancia;
         }
 
-        public void logIn()
+        public bool Create(BE.Producto objAlta)
         {
-
-        }
-
-
-        public bool Create(BE.Producto ObjAlta)
-        {
-            return DAL.Producto.Getinstancia().Create(ObjAlta);
+            return DAL.Producto.Getinstancia().Create(objAlta);
         }
 
         public List<BE.Producto> Retrive()
@@ -39,14 +30,14 @@
             return DAL.Producto.Getinstancia().Retrive();
         }
 
-        public bool Delete(BE.Producto ObjDel)
+        public bool Delete(BE.Producto objDel)
         {
-            return DAL.Producto.Getinstancia().Delete(ObjDel);
+            return DAL.Producto.Getinstancia().Delete(objDel);
         }
 
-        public bool Update(BE.Producto ObjUpd)
+        public bool Update(BE.Producto objUpd)
         {
-            return DAL.Producto.Getinstancia().Update(ObjUpd);
+            return DAL.Producto.Getinstancia().Update(objUpd);
         }
     }
 }

@@ -10,16 +10,13 @@
 
     public class Venta : BE.ICRUD<BE.Venta>
     {
-
-        string connectionString = ConfigurationManager.AppSettings["ConnStirng"];
-        string queryString = string.Empty;
-
+        private static Venta instancia;
+        private readonly string connectionString = ConfigurationManager.AppSettings["ConnStirng"];
+        private readonly string queryString = string.Empty;
 
         private Venta()
         {
         }
-
-        private static Venta instancia;
 
         public static Venta Getinstancia()
         {
@@ -27,16 +24,16 @@
             {
                 instancia = new Venta();
             }
+
             return instancia;
         }
 
-
-        public bool Create(BE.Venta ObjAlta)
+        public bool Create(BE.Venta objAlta)
         {
             throw new NotImplementedException();
         }
 
-        public bool Delete(BE.Venta ObjDel)
+        public bool Delete(BE.Venta objDel)
         {
             throw new NotImplementedException();
         }
@@ -46,7 +43,7 @@
             throw new NotImplementedException();
         }
 
-        public bool Update(BE.Venta ObjUpd)
+        public bool Update(BE.Venta objUpd)
         {
             throw new NotImplementedException();
         }

@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
+﻿
 namespace SysAnalizer
 {
+    using System;
+    using System.Windows.Forms;
+
     public partial class Login : Form
     {
         public Login()
@@ -27,7 +21,7 @@ namespace SysAnalizer
             string usuario = txt_user.Text;
             string contraseña = txt_contraseña.Text;
 
-            BLL.Usuario.Getinstancia().logIn(usuario,contraseña);
+            BLL.Usuario.Getinstancia().LogIn(usuario,contraseña);
         }
     }
 }

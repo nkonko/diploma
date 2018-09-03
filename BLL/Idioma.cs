@@ -1,18 +1,14 @@
 ﻿namespace BLL
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
+
     public class Idioma : BE.ICRUD<BE.Idioma>
     {
+        private static Idioma instancia;
 
         private Idioma()
         {
         }
-
-        private static Idioma instancia;
 
         public static Idioma Getinstancia()
         {
@@ -20,18 +16,13 @@
             {
                 instancia = new Idioma();
             }
+
             return instancia;
         }
 
-        public void logIn()
+        public bool Create(BE.Idioma objAlta)
         {
-
-        }
-
-
-        public bool Create(BE.Idioma ObjAlta)
-        {
-            return DAL.Idioma.Getinstancia().Create(ObjAlta);
+            return DAL.Idioma.Getinstancia().Create(objAlta);
         }
 
         public List<BE.Idioma> Retrive()
@@ -39,14 +30,14 @@
             return DAL.Idioma.Getinstancia().Retrive();
         }
 
-        public bool Delete(BE.Idioma ObjDel)
+        public bool Delete(BE.Idioma objDel)
         {
-            return DAL.Idioma.Getinstancia().Delete(ObjDel);
+            return DAL.Idioma.Getinstancia().Delete(objDel);
         }
 
-        public bool Update(BE.Idioma ObjUpd)
+        public bool Update(BE.Idioma objUpd)
         {
-            return DAL.Idioma.Getinstancia().Update(ObjUpd);
+            return DAL.Idioma.Getinstancia().Update(objUpd);
         }
     }
 }

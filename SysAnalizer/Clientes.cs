@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace SysAnalizer
+﻿namespace SysAnalizer
 {
+    using System;
+    using System.Windows.Forms;
+
     public partial class Clientes : Form
     {
         public Clientes()
@@ -19,12 +12,10 @@ namespace SysAnalizer
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-
         }
     }
 }

@@ -3,23 +3,16 @@
     using System;
     using System.Collections.Generic;
     using System.Configuration;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using BE;
 
     public class Idioma : BE.ICRUD<BE.Idioma>
     {
-
-        string connectionString = ConfigurationManager.AppSettings["ConnStirng"];
-        string queryString = string.Empty;
-
+        private static Idioma instancia;
+        private readonly string connectionString = ConfigurationManager.AppSettings["ConnStirng"];
+        private readonly string queryString = string.Empty;
 
         private Idioma()
         {
         }
-
-        private static Idioma instancia;
 
         public static Idioma Getinstancia()
         {
@@ -27,16 +20,16 @@
             {
                 instancia = new Idioma();
             }
+
             return instancia;
         }
 
-
-        public bool Create(BE.Idioma ObjAlta)
+        public bool Create(BE.Idioma objAlta)
         {
             throw new NotImplementedException();
         }
 
-        public bool Delete(BE.Idioma ObjDel)
+        public bool Delete(BE.Idioma objDel)
         {
             throw new NotImplementedException();
         }
@@ -46,7 +39,7 @@
             throw new NotImplementedException();
         }
 
-        public bool Update(BE.Idioma ObjUpd)
+        public bool Update(BE.Idioma objUpd)
         {
             throw new NotImplementedException();
         }

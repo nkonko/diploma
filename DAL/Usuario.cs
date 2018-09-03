@@ -13,7 +13,7 @@
     {
         private static Usuario instancia;
 
-        SqlCommand comm = new SqlCommand();
+        private SqlCommand comm = new SqlCommand();
 
         private Usuario()
         {
@@ -25,6 +25,7 @@
             {
                 instancia = new Usuario();
             }
+
             return instancia;
         }
 
@@ -35,19 +36,20 @@
             return conn;
         }
 
-
-        public bool Create(BE.Usuario ObjAlta)
+        public bool Create(BE.Usuario objAlta)
         {
-            var queryString = string.Format("INSERT INTO dbo.Usuario(Nombre, Apellido, Password, Email, Telefono, ContadorIngresosIncorrectos, IdCanalVenta, IdIdioma, PrimerLogin) values ({0}{1}{2}{3}{4}{5}{6}{7}{8})",
-                ObjAlta.nombre,
-                ObjAlta.apellido,
-                Encriptar(ObjAlta.contraseña),
-                ObjAlta.email,
-                ObjAlta.telefono,
-                ObjAlta.cIngresos = 0,
-                ObjAlta.idCanalVenta,
-                ObjAlta.idIdioma,
-                ObjAlta.primerLogin = true);
+            var queryString = string.Format(
+                                     "INSERT INTO Usuario(Nombre, Apellido, Password, Email, Telefono, ContadorIngresosIncorrectos, IdCanalVenta, IdIdioma, PrimerLogin) " +
+                                     "values ({0}{1}{2}{3}{4}{5}{6}{7}{8})",
+                objAlta.Nombre,
+                objAlta.Apellido,
+                Encriptar(objAlta.Contraseña),
+                objAlta.Email,
+                objAlta.Telefono,
+                objAlta.CIngresos = 0,
+                objAlta.IdCanalVenta,
+                objAlta.IdIdioma,
+                objAlta.PrimerLogin = true);
 
             bool returnValue = false;
 
@@ -58,7 +60,6 @@
                 {
                     connection.Open();
                     command.ExecuteNonQuery();
-
                 }
                 catch (Exception ex)
                 {
@@ -72,84 +73,140 @@
         public List<BE.Usuario> Retrive()
         {
             var usuario = new BE.Usuario();
-            var queryString = "SELECT * FROM dbo.Usuario;";
+            var queryString = "SELECT * FROM Usuario;";
             var comm = new SqlCommand();
 
             using (SqlConnection connection = Connection())
             {
                 try
                 {
-
                     comm.CommandText = queryString;
                     comm.Connection = connection;
                     comm.CommandType = CommandType.Text;
 
-                    var Da = new SqlDataAdapter();
-                    Da.SelectCommand = comm;
+                    var da = new SqlDataAdapter();
+                    da.SelectCommand = comm;
 
-                    DataTable Dt = new DataTable();
+                    DataTable dt = new DataTable();
 
-                    Da.Fill(Dt);
+                    da.Fill(dt);
 
-                    foreach (DataRow dr in Dt.Rows)
+                    foreach (DataRow dr in dt.Rows)
                     {
-                        usuario.id = Convert.ToInt32(dr["IdUsuario"]);
-                        usuario.nombre = Convert.ToString(dr["Nombre"]);
-                        usuario.apellido = Convert.ToString(dr["Apellido"]);
-                        usuario.contraseña = Convert.ToString(dr["Password"]);
-                        usuario.email = Convert.ToString(dr["Email"]);
-                        usuario.telefono = Convert.ToInt32(dr["Telefono"]);
-                        usuario.cIngresos = Convert.ToInt32(dr["ContadorIngresosIncorrectos"]);
-                        usuario.activo = Convert.ToBoolean(dr["Activo"]);
-                        usuario.idCanalVenta = Convert.ToInt32(dr["IdCanalVenta"]);
-                        usuario.idIdioma = Convert.ToInt32(dr["IdIdioma"]);
-                        usuario.primerLogin = Convert.ToBoolean(dr["PrimerLogin"]);
+                        usuario.Id = Convert.ToInt32(dr["IdUsuario"]);
+                        usuario.Nombre = Convert.ToString(dr["Nombre"]);
+                        usuario.Apellido = Convert.ToString(dr["Apellido"]);
+                        usuario.Contraseña = Convert.ToString(dr["Password"]);
+                        usuario.Email = Convert.ToString(dr["Email"]);
+                        usuario.Telefono = Convert.ToInt32(dr["Telefono"]);
+                        usuario.CIngresos = Convert.ToInt32(dr["ContadorIngresosIncorrectos"]);
+                        usuario.Activo = Convert.ToBoolean(dr["Activo"]);
+                        usuario.IdCanalVenta = Convert.ToInt32(dr["IdCanalVenta"]);
+                        usuario.IdIdioma = Convert.ToInt32(dr["IdIdioma"]);
+                        usuario.PrimerLogin = Convert.ToBoolean(dr["PrimerLogin"]);
                     }
+
                     return new List<BE.Usuario>();
                 }
                 catch (Exception)
                 {
-
                     throw;
                 }
             }
         }
 
-        public bool Delete(BE.Usuario ObjDel)
+        public bool Delete(BE.Usuario objDel)
         {
-            throw new NotImplementedException();
+            var queryString = string.Format("DELETE FROM Usuario WHERE IdUsuario = {0}", objDel.Id);
+            bool returnValue = false;
+
+            using (SqlConnection connection = Connection())
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                try
+                {
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+
+            return returnValue;
         }
 
-        public bool Update(BE.Usuario ObjUpd)
+        public bool Update(BE.Usuario objUpd)
         {
-            throw new NotImplementedException();
+            var queryString = string.Format("UPDATE Usuario SET Nombre = {1}, Apellido = {2}, Password = {3}, Email = {4}, Telefono = {5} WHERE IdUsuario = {0}", objUpd.Id, objUpd.Nombre, objUpd.Apellido, objUpd.Contraseña, objUpd.Email, objUpd.Telefono);
+            bool returnValue = false;
+
+            using (SqlConnection connection = Connection())
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                try
+                {
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+
+            return returnValue;
         }
 
         public bool LogIn(string email, string contraseña)
         {
             BE.Usuario usu = ObtenerUsuarioConEmail(email);
-            if (!usu.primerLogin)
+            if (!usu.PrimerLogin)
             {
-                var cIngresoInc = usu.cIngresos;
+                var cingresoInc = usu.CIngresos;
 
-                if (cIngresoInc < 3)
+                if (cingresoInc < 3)
                 {
                     string contEncriptada = Encriptar(contraseña);
                     bool ingresa = ValidarContraseña(usu, contEncriptada);
                     if (!ingresa)
                     {
-                        cIngresoInc++;
-                        //AumentarIngresos();
+                        cingresoInc++;
+
+                        ////AumentarIngresos();
                     }
+
+                    return true;
                 }
+
                 return false;
+
+                ////Enviar notificacion de cuenta bloqueada
             }
+
             return true;
+
+            ////Solicitar cambio de password
+        }
+
+        public string Encriptar(string contraseña)
+        {
+            MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
+            md5.ComputeHash(ASCIIEncoding.ASCII.GetBytes(contraseña));
+            byte[] encriptado = md5.Hash;
+            StringBuilder str = new StringBuilder();
+            for (int i = 1; i < encriptado.Length; i++)
+            {
+                str.Append(encriptado[i].ToString("x2"));
+            }
+
+            return str.ToString();
         }
 
         private bool ValidarContraseña(BE.Usuario usuario, string contEncriptada)
         {
-            if (usuario.contraseña == contEncriptada)
+            if (usuario.Contraseña == contEncriptada)
             {
                 return true;
             }
@@ -169,42 +226,30 @@
                 comm.Connection = connection;
                 comm.CommandType = CommandType.Text;
 
-                var Da = new SqlDataAdapter();
-                Da.SelectCommand = comm;
+                var da = new SqlDataAdapter();
+                da.SelectCommand = comm;
 
-                DataTable Dt = new DataTable();
+                DataTable dt = new DataTable();
 
-                Da.Fill(Dt);
+                da.Fill(dt);
 
-                foreach (DataRow dr in Dt.Rows)
+                foreach (DataRow dr in dt.Rows)
                 {
-                    usuario.id = Convert.ToInt32(dr["IdUsuario"]);
-                    usuario.nombre = Convert.ToString(dr["Nombre"]);
-                    usuario.apellido = Convert.ToString(dr["Apellido"]);
-                    usuario.contraseña = Convert.ToString(dr["Password"]);
-                    usuario.email = Convert.ToString(dr["Email"]);
-                    usuario.telefono = Convert.ToInt32(dr["Telefono"]);
-                    usuario.cIngresos = Convert.ToInt32(dr["ContadorIngresosIncorrectos"]);
-                    usuario.activo = Convert.ToBoolean(dr["Activo"]);
-                    usuario.idCanalVenta = Convert.ToInt32(dr["IdCanalVenta"]);
-                    usuario.idIdioma = Convert.ToInt32(dr["IdIdioma"]);
-                    usuario.primerLogin = Convert.ToBoolean(dr["PrimerLogin"]);
+                    usuario.Id = Convert.ToInt32(dr["IdUsuario"]);
+                    usuario.Nombre = Convert.ToString(dr["Nombre"]);
+                    usuario.Apellido = Convert.ToString(dr["Apellido"]);
+                    usuario.Contraseña = Convert.ToString(dr["Password"]);
+                    usuario.Email = Convert.ToString(dr["Email"]);
+                    usuario.Telefono = Convert.ToInt32(dr["Telefono"]);
+                    usuario.CIngresos = Convert.ToInt32(dr["ContadorIngresosIncorrectos"]);
+                    usuario.Activo = Convert.ToBoolean(dr["Activo"]);
+                    usuario.IdCanalVenta = Convert.ToInt32(dr["IdCanalVenta"]);
+                    usuario.IdIdioma = Convert.ToInt32(dr["IdIdioma"]);
+                    usuario.PrimerLogin = Convert.ToBoolean(dr["PrimerLogin"]);
                 }
+
                 return usuario;
             }
-        }
-
-        public string Encriptar(string contraseña)
-        {
-            MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
-            md5.ComputeHash(ASCIIEncoding.ASCII.GetBytes(contraseña));
-            byte[] encriptado = md5.Hash;
-            StringBuilder str = new StringBuilder();
-            for (int i = 1; i < encriptado.Length; i++)
-            {
-                str.Append(encriptado[i].ToString("x2"));
-            }
-            return str.ToString();
         }
     }
 }
