@@ -2,10 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Configuration;
     using System.Data;
     using System.Data.SqlClient;
-    using System.Linq;
     using System.Security.Cryptography;
     using System.Text;
 
@@ -41,15 +39,15 @@
             var queryString = string.Format(
                                      "INSERT INTO Usuario(Nombre, Apellido, Password, Email, Telefono, ContadorIngresosIncorrectos, IdCanalVenta, IdIdioma, PrimerLogin) " +
                                      "values ({0}{1}{2}{3}{4}{5}{6}{7}{8})",
-                objAlta.Nombre,
-                objAlta.Apellido,
-                Encriptar(objAlta.Contraseña),
-                objAlta.Email,
-                objAlta.Telefono,
-                objAlta.CIngresos = 0,
-                objAlta.IdCanalVenta,
-                objAlta.IdIdioma,
-                objAlta.PrimerLogin = true);
+                                    objAlta.Nombre,
+                                    objAlta.Apellido,
+                                    Encriptar(objAlta.Contraseña),
+                                    objAlta.Email,
+                                    objAlta.Telefono,
+                                    objAlta.CIngresos = 0,
+                                    objAlta.IdCanalVenta,
+                                    objAlta.IdIdioma,
+                                    objAlta.PrimerLogin = true);
 
             bool returnValue = false;
 
