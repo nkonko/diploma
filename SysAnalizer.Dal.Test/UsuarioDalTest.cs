@@ -10,8 +10,13 @@
     {
         public DAL.Usuario Usuario { get; set; }
 
+        public UsuarioDalTest()
+        {
+            Usuario = DAL.Usuario.Getinstancia();
+        }
+
         [Test]
-        private bool CreateUsuarioShouldReturnOk()
+        public void CreateUsuarioShouldReturnOk()
         {
             Usuario.Create(new BE.Usuario { Nombre = "LALA",
                                             Apellido = "peppe",
@@ -23,7 +28,7 @@
                                             CIngresos = 1,
                                             Activo = true,
                                             IdCanalVenta = 1 });
-            return true;
+            Assert.True(true);
         }
     }
 }
