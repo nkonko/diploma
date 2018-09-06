@@ -103,6 +103,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Usuarios.resx">
+      <DependentUpon>Usuarios.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Venta de productos.resx">
       <DependentUpon>Venta de productos.cs</DependentUpon>
     </EmbeddedResource>

@@ -6,9 +6,12 @@ namespace SysAnalizer
 
     public partial class Login : Form
     {
+        private Principal PrincipalForm;
+
         public Login()
         {
             InitializeComponent();
+            PrincipalForm = new Principal();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -21,7 +24,12 @@ namespace SysAnalizer
             string usuario = txt_user.Text;
             string contraseña = txt_contraseña.Text;
 
-            BLL.Usuario.Getinstancia().LogIn(usuario,contraseña);
+            bool ingresa = BLL.Usuario.Getinstancia().LogIn(usuario,contraseña);
+
+            if (ingresa)
+            {
+                PrincipalForm.Show();
+            }
         }
     }
 }

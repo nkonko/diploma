@@ -11,6 +11,8 @@
     {
         private static Usuario instancia;
 
+        private Encriptador encriptador;
+
         private SqlCommand comm = new SqlCommand();
 
         private Usuario()
@@ -36,12 +38,13 @@
 
         public bool Create(BE.Usuario objAlta)
         {
+            string contEncript =encriptador.Encriptar(objAlta.Contraseña);
             var queryString = string.Format(
                                      "INSERT INTO Usuario(Nombre, Apellido, Password, Email, Telefono, ContadorIngresosIncorrectos, IdCanalVenta, IdIdioma, PrimerLogin) " +
                                      "values ({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8})",
                                     objAlta.Nombre,
                                     objAlta.Apellido,
-                                    Encriptar(objAlta.Contraseña),
+                                    contEncript,
                                     objAlta.Email,
                                     objAlta.Telefono,
                                     objAlta.CIngresos = 0,
@@ -166,13 +169,13 @@
 
                 if (cingresoInc < 3)
                 {
-                    string contEncriptada = Encriptar(contraseña);
+                    string contEncriptada = encriptador.Encriptar(contraseña);
                     bool ingresa = ValidarContraseña(usu, contEncriptada);
                     if (!ingresa)
                     {
                         cingresoInc++;
 
-                        ////AumentarIngresos();
+                        AumentarIngresos();
                     }
 
                     return true;
@@ -188,18 +191,8 @@
             ////Solicitar cambio de password
         }
 
-        public string Encriptar(string contraseña)
+        private void AumentarIngresos()
         {
-            MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
-            md5.ComputeHash(ASCIIEncoding.ASCII.GetBytes(contraseña));
-            byte[] encriptado = md5.Hash;
-            StringBuilder str = new StringBuilder();
-            for (int i = 1; i < encriptado.Length; i++)
-            {
-                str.Append(encriptado[i].ToString("x2"));
-            }
-
-            return str.ToString();
         }
 
         private bool ValidarContraseña(BE.Usuario usuario, string contEncriptada)
