@@ -24,12 +24,22 @@ namespace SysAnalizer
             string usuario = txt_user.Text;
             string contraseña = txt_contraseña.Text;
 
-            bool ingresa = BLL.Usuario.Getinstancia().LogIn(usuario,contraseña);
+            bool ingresa = true;//BLL.Usuario.Getinstancia().LogIn(usuario,contraseña);
 
             if (ingresa)
             {
                 PrincipalForm.Show();
             }
+        }
+
+        private void cbo_idioma_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_salir_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

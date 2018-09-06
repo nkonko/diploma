@@ -6,14 +6,22 @@ namespace SysAnalizer
 
     public partial class Principal : Form
     {
+        private Venta_de_productos venta_De_Productos;
+
         public Principal()
         {
             InitializeComponent();
+            venta_De_Productos = new Venta_de_productos();
         }
 
         private void Principal_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void nuevaVenta_Click(object sender, EventArgs e)
+        {
+            venta_De_Productos.Show();
         }
     }
 }

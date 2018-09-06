@@ -4,8 +4,6 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Data.SqlClient;
-    using System.Security.Cryptography;
-    using System.Text;
 
     public class Usuario : BE.ICRUD<BE.Usuario>
     {

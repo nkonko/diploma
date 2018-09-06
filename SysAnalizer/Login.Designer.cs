@@ -40,9 +40,9 @@ namespace SysAnalizer
             this.cbo_idioma = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            //// 
-            //// label1
-            //// 
+            // 
+            // label1
+            // 
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(9, 15);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
@@ -50,9 +50,9 @@ namespace SysAnalizer
             this.label1.Size = new System.Drawing.Size(252, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Por favor ingrese usuario y contraseña para ingresar";
-            //// 
-            //// label2
-            //// 
+            // 
+            // label2
+            // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(10, 54);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
@@ -60,25 +60,25 @@ namespace SysAnalizer
             this.label2.Size = new System.Drawing.Size(46, 13);
             this.label2.TabIndex = 1;
             this.label2.Text = "Usuario:";
-            //// 
-            //// txt_user
-            //// 
+            // 
+            // txt_user
+            // 
             this.txt_user.Location = new System.Drawing.Point(12, 71);
             this.txt_user.Margin = new System.Windows.Forms.Padding(2);
             this.txt_user.Name = "txt_user";
             this.txt_user.Size = new System.Drawing.Size(255, 20);
             this.txt_user.TabIndex = 2;
-            //// 
-            //// txt_contraseña
-            //// 
+            // 
+            // txt_contraseña
+            // 
             this.txt_contraseña.Location = new System.Drawing.Point(11, 126);
             this.txt_contraseña.Margin = new System.Windows.Forms.Padding(2);
             this.txt_contraseña.Name = "txt_contraseña";
             this.txt_contraseña.Size = new System.Drawing.Size(255, 20);
             this.txt_contraseña.TabIndex = 4;
-            //// 
-            //// label3
-            //// 
+            // 
+            // label3
+            // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(9, 110);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
@@ -86,9 +86,9 @@ namespace SysAnalizer
             this.label3.Size = new System.Drawing.Size(64, 13);
             this.label3.TabIndex = 3;
             this.label3.Text = "Contraseña:";
-            //// 
-            //// Lnk_Recuperar_Password
-            //// 
+            // 
+            // Lnk_Recuperar_Password
+            // 
             this.Lnk_Recuperar_Password.AutoSize = true;
             this.Lnk_Recuperar_Password.Location = new System.Drawing.Point(10, 154);
             this.Lnk_Recuperar_Password.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
@@ -97,9 +97,9 @@ namespace SysAnalizer
             this.Lnk_Recuperar_Password.TabIndex = 5;
             this.Lnk_Recuperar_Password.TabStop = true;
             this.Lnk_Recuperar_Password.Text = "Recuperar Contraseña";
-            //// 
-            //// btn_ingresar
-            //// 
+            // 
+            // btn_ingresar
+            // 
             this.btn_ingresar.Location = new System.Drawing.Point(20, 266);
             this.btn_ingresar.Margin = new System.Windows.Forms.Padding(2);
             this.btn_ingresar.Name = "btn_ingresar";
@@ -108,9 +108,9 @@ namespace SysAnalizer
             this.btn_ingresar.Text = "Ingresar";
             this.btn_ingresar.UseVisualStyleBackColor = true;
             this.btn_ingresar.Click += new System.EventHandler(this.btn_ingresar_Click);
-            //// 
-            //// btn_salir
-            //// 
+            // 
+            // btn_salir
+            // 
             this.btn_salir.Location = new System.Drawing.Point(157, 266);
             this.btn_salir.Margin = new System.Windows.Forms.Padding(2);
             this.btn_salir.Name = "btn_salir";
@@ -118,18 +118,23 @@ namespace SysAnalizer
             this.btn_salir.TabIndex = 7;
             this.btn_salir.Text = "Salir";
             this.btn_salir.UseVisualStyleBackColor = true;
-            //// 
-            //// cbo_idioma
-            //// 
+            this.btn_salir.Click += new System.EventHandler(this.btn_salir_Click);
+            // 
+            // cbo_idioma
+            // 
             this.cbo_idioma.FormattingEnabled = true;
+            this.cbo_idioma.Items.AddRange(new object[] {
+            "Español",
+            "English"});
             this.cbo_idioma.Location = new System.Drawing.Point(158, 204);
             this.cbo_idioma.Margin = new System.Windows.Forms.Padding(2);
             this.cbo_idioma.Name = "cbo_idioma";
             this.cbo_idioma.Size = new System.Drawing.Size(92, 21);
             this.cbo_idioma.TabIndex = 8;
-            //// 
-            //// label4
-            //// 
+            this.cbo_idioma.SelectedIndexChanged += new System.EventHandler(this.cbo_idioma_SelectedIndexChanged);
+            // 
+            // label4
+            // 
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(10, 204);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
@@ -137,9 +142,9 @@ namespace SysAnalizer
             this.label4.Size = new System.Drawing.Size(97, 13);
             this.label4.TabIndex = 9;
             this.label4.Text = "Seleccionar Idioma";
-            //// 
-            //// Login
-            //// 
+            // 
+            // Login
+            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(275, 318);

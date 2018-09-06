@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Cliente.cs" />
     <Compile Include="DetalleVenta.cs" />
+    <Compile Include="DigitoVerificador.cs" />
     <Compile Include="ICRUD.cs" />
     <Compile Include="Idioma.cs" />
     <Compile Include="Producto.cs" />
