@@ -11,7 +11,7 @@
     {
         private static Usuario instancia;
 
-        private Encriptador encriptador;
+        private readonly Encriptador encriptador = new Encriptador();
 
         private SqlCommand comm = new SqlCommand();
 
@@ -38,7 +38,7 @@
 
         public bool Create(BE.Usuario objAlta)
         {
-            string contEncript =encriptador.Encriptar(objAlta.Contraseña);
+            string contEncript = encriptador.Encriptar(objAlta.Contraseña);
             var queryString = string.Format(
                                      "INSERT INTO Usuario(Nombre, Apellido, Password, Email, Telefono, ContadorIngresosIncorrectos, IdCanalVenta, IdIdioma, PrimerLogin) " +
                                      "values ({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8})",
