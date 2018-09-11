@@ -24,7 +24,7 @@ namespace SysAnalizer
             string usuario = txt_user.Text;
             string contraseña = txt_contraseña.Text;
 
-            bool ingresa = true;//BLL.Usuario.Getinstancia().LogIn(usuario,contraseña);
+            bool ingresa = BLL.Usuario.Getinstancia().LogIn(usuario,contraseña);
 
             if (ingresa)
             {
