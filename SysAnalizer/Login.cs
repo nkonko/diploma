@@ -24,12 +24,16 @@ namespace UI
             string usuario = txt_user.Text;
             string contraseña = txt_contraseña.Text;
 
-            bool ingresa = BLL.Usuario.Getinstancia().LogIn(usuario,contraseña);
+            bool ingresa = BLL.Usuario.Getinstancia().LogIn(usuario, contraseña);
 
             if (ingresa)
             {
                 this.Close();
                 PrincipalForm.Show();
+            }
+            else
+            {
+                MessageBox.Show("Su cuenta ha sido bloqueada contacte al Administrador");
             }
         }
 

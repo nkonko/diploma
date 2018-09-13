@@ -186,7 +186,7 @@ namespace UI
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(40, 13);
             this.label4.TabIndex = 10;
-            this.label4.Text = "Fecha:";
+            this.label4.Text = "fecha:";
             // 
             // button3
             // 

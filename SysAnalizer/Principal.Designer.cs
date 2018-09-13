@@ -37,7 +37,7 @@ namespace UI
             this.usuariosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.verProductosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.verStock = new System.Windows.Forms.ToolStripMenuItem();
-            this.verUsuarios = new System.Windows.Forms.ToolStripMenuItem();
+            this.verusuarios = new System.Windows.Forms.ToolStripMenuItem();
             this.nuevaVenta = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -89,10 +89,10 @@ namespace UI
             // usuariosToolStripMenuItem
             // 
             this.usuariosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.verUsuarios});
+            this.verusuarios});
             this.usuariosToolStripMenuItem.Name = "usuariosToolStripMenuItem";
             this.usuariosToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
-            this.usuariosToolStripMenuItem.Text = "Usuarios";
+            this.usuariosToolStripMenuItem.Text = "usuarios";
             // 
             // verProductosToolStripMenuItem
             // 
@@ -106,11 +106,11 @@ namespace UI
             this.verStock.Size = new System.Drawing.Size(180, 22);
             this.verStock.Text = "Ver Stock";
             // 
-            // verUsuarios
+            // verusuarios
             // 
-            this.verUsuarios.Name = "verUsuarios";
-            this.verUsuarios.Size = new System.Drawing.Size(180, 22);
-            this.verUsuarios.Text = "Ver Usuarios";
+            this.verusuarios.Name = "verusuarios";
+            this.verusuarios.Size = new System.Drawing.Size(180, 22);
+            this.verusuarios.Text = "Ver usuarios";
             // 
             // nuevaVenta
             // 
@@ -148,7 +148,7 @@ namespace UI
         private System.Windows.Forms.ToolStripMenuItem usuariosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem verProductosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem verStock;
-        private System.Windows.Forms.ToolStripMenuItem verUsuarios;
+        private System.Windows.Forms.ToolStripMenuItem verusuarios;
         private System.Windows.Forms.ToolStripMenuItem nuevaVenta;
     }
 }

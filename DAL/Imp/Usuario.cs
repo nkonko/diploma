@@ -1,6 +1,5 @@
 ﻿namespace DAL
 {
-    using DAL.Modules;
     using System;
     using System.Collections.Generic;
     using System.Data;
@@ -8,9 +7,9 @@
 
     public class Usuario : BE.ICRUD<BE.Usuario>
     {
-        private readonly IEncriptador encriptador;
-
         private static Usuario instancia;
+
+        private readonly IEncriptador encriptador;
 
         private SqlCommand comm = new SqlCommand();
 
@@ -174,19 +173,22 @@
                         cingresoInc++;
 
                         AumentarIngresos();
+                        return false;
                     }
 
                     return true;
                 }
 
                 return false;
-
-                ////Enviar notificacion de cuenta bloqueada
             }
 
+            CambiarPassword();
             return true;
+        }
 
-            ////Solicitar cambio de password
+        private void CambiarPassword()
+        {
+            throw new NotImplementedException();
         }
 
         private void AumentarIngresos()

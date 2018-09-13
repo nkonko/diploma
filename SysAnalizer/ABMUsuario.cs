@@ -4,9 +4,9 @@ namespace UI
     using System;
     using System.Windows.Forms;
 
-    public partial class ABMUsuario : Form
+    public partial class ABMusuario : Form
     {
-        public ABMUsuario()
+        public ABMusuario()
         {
             InitializeComponent();
         }
@@ -16,7 +16,7 @@ namespace UI
 
         }
 
-        private void Usuarios_Load(object sender, EventArgs e)
+        private void usuarios_Load(object sender, EventArgs e)
         {
 
         }

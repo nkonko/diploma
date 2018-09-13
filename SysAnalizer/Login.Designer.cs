@@ -59,7 +59,7 @@ namespace UI
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(46, 13);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Usuario:";
+            this.label2.Text = "usuario:";
             // 
             // txt_user
             // 

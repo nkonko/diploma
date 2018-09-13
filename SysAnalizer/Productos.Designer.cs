@@ -165,7 +165,7 @@ namespace UI
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(66, 13);
             this.label1.TabIndex = 21;
-            this.label1.Text = "Descripcion:";
+            this.label1.Text = "descripcion:";
             // 
             // button3
             // 
