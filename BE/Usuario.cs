@@ -20,6 +20,8 @@
 
         public int IdCanalVenta { get; set; }
 
+        public int DVH { get; set; }
+
         public int IdIdioma { get; set; }
 
         public bool PrimerLogin { get; set; }

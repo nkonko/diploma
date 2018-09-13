@@ -23,12 +23,17 @@ namespace UI
 
         private void btn_nuevo_Click(object sender, EventArgs e)
         {
-
+            BLL.Usuario.Getinstancia().Create(new BE.Usuario() { Nombre = txtNombre.Text, Apellido = txtApellido.Text, Email = txtEmail.Text, Telefono = Int32.Parse(txtTel.Text), PrimerLogin = true, CIngresos = 0, Activo = true });
         }
 
         private void btn_modificar_Click(object sender, EventArgs e)
         {
+            BLL.Usuario.Getinstancia().Update(new BE.Usuario() { Nombre = txtNombre.Text, Apellido = txtApellido.Text, Email = txtEmail.Text, Telefono = Int32.Parse(txtTel.Text), PrimerLogin = true, CIngresos = 0, Activo = true });
+        }
 
+        private void btnBorrar_Click(object sender, EventArgs e)
+        {
+            BLL.Usuario.Getinstancia().Delete(new BE.Usuario() { Nombre = txtNombre.Text, Apellido = txtApellido.Text, Email = txtEmail.Text, Telefono = Int32.Parse(txtTel.Text), PrimerLogin = true, CIngresos = 0, Activo = true });
         }
     }
 }

@@ -36,10 +36,10 @@
 
         public bool Create(BE.Usuario objAlta)
         {
-            string contEncript = encriptador.Encriptar(objAlta.Contraseña);
+            string contEncript = encriptador.Encriptar(objAlta.Contraseña = "");
             var queryString = string.Format(
-                                     "INSERT INTO Usuario(Nombre, Apellido, Password, Email, Telefono, ContadorIngresosIncorrectos, IdCanalVenta, IdIdioma, PrimerLogin) " +
-                                     "values ({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8})",
+                                     "INSERT INTO Usuario(Nombre, Apellido, Password, Email, Telefono, ContadorIngresosIncorrectos, IdCanalVenta, IdIdioma, PrimerLogin, DigitoVerificadorH) " +
+                                     "values ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', {6}, {7}, {8}, {9})",
                                     objAlta.Nombre,
                                     objAlta.Apellido,
                                     contEncript,
@@ -48,7 +48,8 @@
                                     objAlta.CIngresos = 0,
                                     objAlta.IdCanalVenta,
                                     objAlta.IdIdioma,
-                                    objAlta.PrimerLogin = true);
+                                    Convert.ToByte(objAlta.PrimerLogin = true),
+                                    CalcularDigitoVerificador(objAlta.DVH));
 
             bool returnValue = false;
 
@@ -67,6 +68,11 @@
             }
 
             return returnValue;
+        }
+
+        private object CalcularDigitoVerificador(int dVH)
+        {
+            throw new NotImplementedException();
         }
 
         public List<BE.Usuario> Retrive()
@@ -115,7 +121,9 @@
 
         public bool Delete(BE.Usuario objDel)
         {
-            var queryString = string.Format("DELETE FROM Usuario WHERE IdUsuario = {0}", objDel.Id);
+            var usu = ObtenerUsuarioConEmail(objDel.Email);
+
+            var queryString = string.Format("DELETE FROM Usuario WHERE IdUsuario = {0}", usu.Id);
             bool returnValue = false;
 
             using (SqlConnection connection = Connection())
@@ -137,7 +145,9 @@
 
         public bool Update(BE.Usuario objUpd)
         {
-            var queryString = string.Format("UPDATE Usuario SET Nombre = {1}, Apellido = {2}, Password = {3}, Email = {4}, Telefono = {5} WHERE IdUsuario = {0}", objUpd.Id, objUpd.Nombre, objUpd.Apellido, objUpd.Contraseña, objUpd.Email, objUpd.Telefono);
+            var usu = ObtenerUsuarioConEmail(objUpd.Email);
+
+            var queryString = string.Format("UPDATE Usuario SET Nombre = {1}, Apellido = {2}, Password = {3}, Email = {4}, Telefono = {5} WHERE IdUsuario = {0}", usu.Id, objUpd.Nombre, objUpd.Apellido, objUpd.Contraseña, objUpd.Email, objUpd.Telefono);
             bool returnValue = false;
 
             using (SqlConnection connection = Connection())

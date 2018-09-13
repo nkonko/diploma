@@ -7,11 +7,13 @@ namespace UI
     public partial class Principal : Form
     {
         private Venta_de_productos venta_De_Productos;
+        private ABMusuario abmUsuario;
 
         public Principal()
         {
             InitializeComponent();
             venta_De_Productos = new Venta_de_productos();
+            abmUsuario = new ABMusuario();
         }
 
         private void Principal_Load(object sender, EventArgs e)
@@ -22,6 +24,17 @@ namespace UI
         private void nuevaVenta_Click(object sender, EventArgs e)
         {
             venta_De_Productos.Show();
+        }
+
+        private void usuariosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void usuariosToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            this.Hide();
+            abmUsuario.Show();
         }
     }
 }

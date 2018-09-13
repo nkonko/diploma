@@ -28,7 +28,7 @@ namespace UI
 
             if (ingresa)
             {
-                this.Close();
+                this.Hide();
                 PrincipalForm.Show();
             }
             else
