@@ -1,5 +1,6 @@
 ﻿namespace DAL
 {
+    using DAL.Modules;
     using System;
     using System.Collections.Generic;
     using System.Data;
@@ -7,21 +8,22 @@
 
     public class Usuario : BE.ICRUD<BE.Usuario>
     {
-        private static Usuario instancia;
+        private readonly IEncriptador encriptador;
 
-        private readonly Encriptador encriptador = new Encriptador();
+        private static Usuario instancia;
 
         private SqlCommand comm = new SqlCommand();
 
-        private Usuario()
+        private Usuario(IEncriptador encriptador)
         {
+            this.encriptador = encriptador;
         }
 
         public static Usuario Getinstancia()
         {
             if (instancia == null)
             {
-                instancia = new Usuario();
+                instancia = new Usuario(new Encriptador());
             }
 
             return instancia;
@@ -29,8 +31,7 @@
 
         public static SqlConnection Connection()
         {
-            var conn = new SqlConnection();
-            conn.ConnectionString = @"Data Source=DESKTOP\SQLEXPRESS;Initial Catalog=SYSANALIZER2;Integrated Security=True";
+            var conn = new SqlConnection(@"Data Source=DESKTOP\SQLEXPRESS;Initial Catalog=SYSANALIZER2;Integrated Security=True");
             return conn;
         }
 
@@ -83,8 +84,7 @@
                     comm.Connection = connection;
                     comm.CommandType = CommandType.Text;
 
-                    var da = new SqlDataAdapter();
-                    da.SelectCommand = comm;
+                    var da = new SqlDataAdapter(comm);
 
                     DataTable dt = new DataTable();
 
@@ -215,8 +215,7 @@
                 comm.Connection = connection;
                 comm.CommandType = CommandType.Text;
 
-                var da = new SqlDataAdapter();
-                da.SelectCommand = comm;
+                var da = new SqlDataAdapter(comm);
 
                 DataTable dt = new DataTable();
 

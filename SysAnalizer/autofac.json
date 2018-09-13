@@ -1,15 +1,10 @@
 {
-  "defaultAssembly": "SysAnalizer",
+  "defaultAssembly": "UI",
   "modules": [
     {
-      "type": "SysAnalizer.DAL.Modules.DatabaseModules",
+      "type": "DAL.Modules.DatabaseModules, DAL",
       "properties": {
-        "ConnectionString": "Data Source=DESKTOP\\SQLEXPRESS;Initial Catalog=SYSANALIZER2;Integrated Security=True"
-      }
-    },
-    {
-      "type": "",
-      "properties": {
+        "ConnectionString": "Data Source=DESKTOP\\SQLEXPRESS;Initial Catalog=UI2;Integrated Security=True"
       }
     }
   ]

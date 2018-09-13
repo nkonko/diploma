@@ -5,6 +5,18 @@
 
     public class Encriptador : IEncriptador
     {
+        private Encriptador _Encriptador { get; set; }
+
+        public Encriptador ObtenerEncriptador()
+        {
+            if (_Encriptador == null)
+            {
+                _Encriptador = new Encriptador();
+            }
+
+            return _Encriptador;
+        }
+
         public string Desencriptar()
         {
             return null;

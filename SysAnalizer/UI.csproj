@@ -7,11 +7,26 @@
     <ProjectGuid>{1D65310B-2CF5-4FC3-9F5E-6EF9EB0BD37B}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SysAnalizer</RootNamespace>
-    <AssemblyName>SysAnalizer</AssemblyName>
+    <RootNamespace>UI</RootNamespace>
+    <AssemblyName>UI</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -32,6 +47,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>UI.Program</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autofac, Version=4.8.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.4.8.1\lib\net45\Autofac.dll</HintPath>
@@ -44,6 +62,9 @@
     </Reference>
     <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Configuration.Abstractions.1.1.2\lib\netstandard1.0\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.FileExtensions, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.FileExtensions.1.1.2\lib\net451\Microsoft.Extensions.Configuration.FileExtensions.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Extensions.Configuration.Json, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Configuration.Json.1.1.2\lib\net451\Microsoft.Extensions.Configuration.Json.dll</HintPath>
@@ -85,6 +106,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bitacora.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Bitacora.Designer.cs">
+      <DependentUpon>Bitacora.cs</DependentUpon>
+    </Compile>
     <Compile Include="Clientes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -111,11 +138,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Usuarios.cs">
+    <Compile Include="ABMUsuario.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Usuarios.Designer.cs">
-      <DependentUpon>Usuarios.cs</DependentUpon>
+    <Compile Include="ABMUsuario.Designer.cs">
+      <DependentUpon>ABMUsuario.cs</DependentUpon>
     </Compile>
     <Compile Include="Venta de productos.cs">
       <SubType>Form</SubType>
@@ -123,6 +150,9 @@
     <Compile Include="Venta de productos.Designer.cs">
       <DependentUpon>Venta de productos.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Bitacora.resx">
+      <DependentUpon>Bitacora.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Clientes.resx">
       <DependentUpon>Clientes.cs</DependentUpon>
     </EmbeddedResource>
@@ -145,8 +175,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Usuarios.resx">
-      <DependentUpon>Usuarios.cs</DependentUpon>
+    <EmbeddedResource Include="ABMUsuario.resx">
+      <DependentUpon>ABMUsuario.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Venta de productos.resx">
       <DependentUpon>Venta de productos.cs</DependentUpon>
@@ -165,10 +195,24 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BE\BE.csproj">
+      <Project>{5254cddb-bcb5-4d44-80e2-aca6ab71dffa}</Project>
+      <Name>BE</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BLL\BLL.csproj">
       <Project>{38f6ce63-4a59-4dc9-b8a1-86d652931239}</Project>
       <Name>BLL</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
