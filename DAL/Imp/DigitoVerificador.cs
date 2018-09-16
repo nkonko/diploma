@@ -1,11 +1,14 @@
 ﻿namespace DAL
 {
+    using DAL.Utils;
     using System;
+    using System.Collections.Generic;
     using System.Data;
     using System.Data.SqlClient;
 
     public class DigitoVerificador : IDigitoVerificador
     {
+
         public static SqlConnection Connection()
         {
             var conn = new SqlConnection();
@@ -13,9 +16,11 @@
             return conn;
         }
 
-        public void CalcularDVHorizontal()
+        public int CalcularDVHorizontal(List<string> registros)
         {
-            throw new NotImplementedException();
+            var sqlUtils = new SqlUtils();
+            var lalal = sqlUtils.tables;
+            return 0;
         }
 
         public BE.DigitoVerificador ObtenerDigito(int id_Entidad)
