@@ -31,7 +31,7 @@
 
         private static string GetStringsFromRegister(string table, string connectionString)
         {
-            string returnValue;
+            string returnValue  = "not implemented" ;
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
