@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-
-namespace DAL
+﻿namespace DAL
 {
+    using System.Collections.Generic;
+
     public interface IDigitoVerificador
     {
-        BE.DigitoVerificador ObtenerDigito(int id_Entidad);
+        //BE.DigitoVerificador ObtenerDigito(int id_Entidad);
 
-        int CalcularDVHorizontal(List<string> registros);
+        //int CalcularDVHorizontal(List<string> columnas, string entidad);
     }
 }

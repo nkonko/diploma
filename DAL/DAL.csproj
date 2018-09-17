@@ -88,9 +88,7 @@
     <Compile Include="Modules\DatabaseModules.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Imp\Venta.cs" />
-    <Compile Include="Utils\SqlUtils.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
+    <Compile Include="Utils\SqlUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BE\BE.csproj">

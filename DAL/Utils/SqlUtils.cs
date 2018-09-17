@@ -7,11 +7,11 @@
 
     public class SqlUtils
     {
-        public List<string> tables { get; set; }
+        public List<string> Tables { get; set; }
 
         public SqlUtils()
         {
-            tables = GetTables(@"Data Source=DESKTOP\SQLEXPRESS;Initial Catalog=SYSANALIZER2;Integrated Security=True");
+            Tables = GetTables(@"Data Source=DESKTOP\SQLEXPRESS;Initial Catalog=SYSANALIZER2;Integrated Security=True");
         }
 
         private static List<string> GetTables(string connectionString)
@@ -20,12 +20,12 @@
             {
                 connection.Open();
                 DataTable schema = connection.GetSchema("Tables");
-                List<string> TableNames = new List<string>();
+                List<string> tableNames = new List<string>();
                 foreach (DataRow row in schema.Rows)
                 {
-                    TableNames.Add(row[2].ToString());
+                    tableNames.Add(row[2].ToString());
                 }
-                return TableNames;
+                return tableNames;
             }
         }
 
@@ -43,7 +43,6 @@
 
                 var da = new SqlDataAdapter(command);
                 
-
                 try
                 {
                     connection.Open();
@@ -60,6 +59,7 @@
                     throw;
                 }
             }
+
             return returnValue;
         }
     }

@@ -24,6 +24,7 @@ namespace UI
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterModule(new ConfigurationModule(config.Build()));
             containerBuilder.Build();
+
             Application.Run(new Login());
         }
     }
