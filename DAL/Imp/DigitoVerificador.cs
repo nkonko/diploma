@@ -18,12 +18,12 @@
             return conn;
         }
 
-        public static int CalcularDVHorizontal(List<string> columnas, string entidad)
+        public int CalcularDVHorizontal(List<string> columnas, string entidad)
         {
             var sqlUtils = new SqlUtils();
             var lalal = sqlUtils.Tables;
 
-            int cantCol = ObtenerColumnas(entidad);
+            int cantCol = 3; //ObtenerColumnas(entidad);
 
             StringBuilder sB = new StringBuilder();
 
@@ -31,14 +31,15 @@
             sB.Append(subQuery);
             for (var i = 0; i < cantCol; i++)
             {
-                //string.Format("LEN({" + i + "}), ", columnas[i]).Length();
-                sB.Insert(30, string.Format("LEN({" + i + "}), ", columnas[i]));
+                sB.Insert(sB.Length - 2, string.Format("LEN({0}), ", columnas[i]));
+                if(i==cantCol-1)
+                {
+                sB.Remove(sB.Length - 4, 2);
+                }
             }
 
             var query = string.Format(@"SELECT ASCII(Substring(Concat(LEN(IdUsuario), LEN(Email), LEN(Password), LEN(Activo)), 1, 1)) * 1 +
                                         ASCII(Substring(Concat(LEN(IdUsuario), LEN(Email), LEN(Password), LEN(Activo)), 2, 2)) * 2 FROM Usuario");
-
-
             return 0;
         }
 

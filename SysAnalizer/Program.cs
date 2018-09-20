@@ -3,8 +3,10 @@ namespace UI
 {
     using Autofac;
     using Autofac.Configuration;
+    using DAL;
     using Microsoft.Extensions.Configuration;
     using System;
+    using System.Collections.Generic;
     using System.Windows.Forms;
 
     static class Program
@@ -24,7 +26,8 @@ namespace UI
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterModule(new ConfigurationModule(config.Build()));
             containerBuilder.Build();
-
+            DigitoVerificador digitoVerificador = new DigitoVerificador();
+            digitoVerificador.CalcularDVHorizontal(new List<string>() { "Nombre", "Apellido", "Password" }, "usuario");
             Application.Run(new Login());
         }
     }
