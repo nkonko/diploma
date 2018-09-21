@@ -25,17 +25,17 @@
                 {
                     tableNames.Add(row[2].ToString());
                 }
+
                 return tableNames;
             }
         }
 
         private static string GetStringsFromRegister(string table, string connectionString)
         {
-            string returnValue  = "not implemented" ;
+            string returnValue  = "not implemented";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string aux;
                 var queryString = "SELECT * FROM Usuario;";
 
                 SqlCommand command = new SqlCommand(queryString, connection);
@@ -51,7 +51,6 @@
 
                     foreach (DataRow dr in dt.Rows)
                     {
-
                     }
                 }
                 catch (Exception)

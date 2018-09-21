@@ -1,6 +1,5 @@
 ﻿namespace DAL
 {
-    using BE;
     using DAL.Utils;
     using System;
     using System.Collections.Generic;
@@ -10,37 +9,31 @@
 
     public class DigitoVerificador : IDigitoVerificador
     {
-
         public static SqlConnection Connection()
         {
-            var conn = new SqlConnection();
-            conn.ConnectionString = @"Data Source=DESKTOP\SQLEXPRESS;Initial Catalog=SYSANALIZER2;Integrated Security=True";
+            var conn = new SqlConnection(@"Data Source=DESKTOP\SQLEXPRESS;Initial Catalog=SYSANALIZER2;Integrated Security=True");
             return conn;
         }
 
-        public int CalcularDVHorizontal(List<string> columnas, string entidad)
+        public int CalcularDVHorizontal(string entidad, List<string> columnasString, List<int> columnasInt)
         {
-            var sqlUtils = new SqlUtils();
-            var lalal = sqlUtils.Tables;
+            var colLenght = new List<int>();
+            var digito = 0;
 
-            int cantCol = 3; //ObtenerColumnas(entidad);
-
-            StringBuilder sB = new StringBuilder();
-
-            var subQuery = "SELECT ASCII(Substring(Concat())";
-            sB.Append(subQuery);
-            for (var i = 0; i < cantCol; i++)
+            foreach (var col in columnasString)
             {
-                sB.Insert(sB.Length - 2, string.Format("LEN({0}), ", columnas[i]));
-                if(i==cantCol-1)
+                colLenght.Add(col.Length);
+
+                if (columnasString[columnasString.Count - 1] == col)
                 {
-                sB.Remove(sB.Length - 4, 2);
+                    foreach (var colL in colLenght)
+                    {
+                        digito += colL * colLenght.FindIndex(x => x == colL);
+                    }
                 }
             }
 
-            var query = string.Format(@"SELECT ASCII(Substring(Concat(LEN(IdUsuario), LEN(Email), LEN(Password), LEN(Activo)), 1, 1)) * 1 +
-                                        ASCII(Substring(Concat(LEN(IdUsuario), LEN(Email), LEN(Password), LEN(Activo)), 2, 2)) * 2 FROM Usuario");
-            return 0;
+            return digito;
         }
 
         public BE.DigitoVerificador ObtenerDigito(int id_Entidad)
@@ -58,8 +51,7 @@
                     comm.Connection = connection;
                     comm.CommandType = CommandType.Text;
 
-                    var da = new SqlDataAdapter();
-                    da.SelectCommand = comm;
+                    var da = new SqlDataAdapter(comm);
 
                     DataTable dt = new DataTable();
 
@@ -76,29 +68,6 @@
                 }
 
                 return digitoVerificador;
-            }
-        }
-
-        private static int ObtenerColumnas(string entidad)
-        {
-            int cantCol = 0;
-            var queryColumns = "SELECT count(*) as cantidad FROM information_schema.columns WHERE table_name = '" + entidad + "'";
-
-            using (SqlConnection connection = Connection())
-            {
-                SqlCommand command = new SqlCommand(queryColumns, connection);
-                try
-                {
-                    connection.Open();
-                    cantCol = int.Parse(command.ExecuteScalar().ToString());
-
-                    return cantCol;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-                return cantCol;
             }
         }
     }

@@ -39,20 +39,23 @@
             Random random = new Random();
             string nuevoPass = random.Next().ToString();
             string contEncript = encriptador.Encriptar(objAlta.Contraseña = nuevoPass);
+            string clase = "Usuario";
+            var digitoVH = CalcularDigitoVerificador(clase, objAlta.Nombre, objAlta.Email, contEncript, 1);
 
             var queryString = string.Format(
-                                     "INSERT INTO Usuario(Nombre, Apellido, Password, Email, Telefono, ContadorIngresosIncorrectos, IdCanalVenta, IdIdioma, PrimerLogin, DigitoVerificadorH) " +
-                                     "values ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', {6}, {7}, {8}, {9})",
-                                    objAlta.Nombre,
-                                    objAlta.Apellido,
-                                    contEncript,
-                                    objAlta.Email,
-                                    objAlta.Telefono,
-                                    objAlta.CIngresos = 0,
-                                    objAlta.IdCanalVenta,
-                                    objAlta.IdIdioma,
-                                    Convert.ToByte(objAlta.PrimerLogin = true),
-                                    CalcularDigitoVerificador(objAlta.DVH));
+                         "INSERT INTO Usuario(Nombre, Apellido, Password, Email, Telefono, ContadorIngresosIncorrectos, IdCanalVenta, IdIdioma, PrimerLogin, DigitoVerificadorH, Activo)" +
+                         "values ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', {6}, {7}, {8},{9}, {10})",
+                        objAlta.Nombre,
+                        objAlta.Apellido,
+                        contEncript,
+                        objAlta.Email,
+                        objAlta.Telefono,
+                        objAlta.CIngresos = 0,
+                        objAlta.IdCanalVenta,
+                        objAlta.IdIdioma,
+                        Convert.ToByte(objAlta.PrimerLogin = true),
+                        digitoVH,
+                        1);
 
             bool returnValue = false;
 
@@ -63,6 +66,8 @@
                 {
                     connection.Open();
                     command.ExecuteNonQuery();
+
+                    return returnValue = true;
                 }
                 catch (Exception ex)
                 {
@@ -73,9 +78,11 @@
             return returnValue;
         }
 
-        private object CalcularDigitoVerificador(int dVH)
+        private int CalcularDigitoVerificador(string entidad, string nombre, string email, string password, int activo)
         {
-            throw new NotImplementedException();
+            DigitoVerificador digitoVerificador = new DigitoVerificador();
+            var digito = digitoVerificador.CalcularDVHorizontal(entidad, new List<string> { nombre, email, password }, new List<int> { activo });
+            return digito;
         }
 
         public List<BE.Usuario> Retrive()

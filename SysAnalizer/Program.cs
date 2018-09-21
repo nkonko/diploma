@@ -26,8 +26,6 @@ namespace UI
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterModule(new ConfigurationModule(config.Build()));
             containerBuilder.Build();
-            DigitoVerificador digitoVerificador = new DigitoVerificador();
-            digitoVerificador.CalcularDVHorizontal(new List<string>() { "Nombre", "Apellido", "Password" }, "usuario");
             Application.Run(new Login());
         }
     }

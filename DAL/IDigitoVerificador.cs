@@ -6,6 +6,6 @@
     {
         //BE.DigitoVerificador ObtenerDigito(int id_Entidad);
 
-        //int CalcularDVHorizontal(List<string> columnas, string entidad);
+        int CalcularDVHorizontal(string entidad, List<string> columnasString, List<int> columnasInt);
     }
 }
