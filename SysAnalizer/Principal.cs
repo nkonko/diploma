@@ -14,6 +14,7 @@ namespace UI
             InitializeComponent();
             venta_De_Productos = new Venta_de_productos();
             abmUsuario = new ABMusuario();
+
         }
 
         private void Principal_Load(object sender, EventArgs e)

@@ -192,7 +192,7 @@
                     {
                         cingresoInc++;
 
-                        AumentarIngresos();
+                        AumentarIngresos(usu, cingresoInc);
                         return false;
                     }
 
@@ -202,17 +202,46 @@
                 return false;
             }
 
-            CambiarPassword();
+            CambiarPassword(usu);
             return true;
         }
 
-        private void CambiarPassword()
+        private void CambiarPassword(BE.Usuario usuario)
         {
-            throw new NotImplementedException();
+            var queryString = string.Format("UPDATE Usuario SET Password = {1} WHERE IdUsuario = {0}", usuario.Id, usuario.Contraseña);
+
+            using (SqlConnection connection = Connection())
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                try
+                {
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
         }
 
-        private void AumentarIngresos()
+        private void AumentarIngresos(BE.Usuario usuario, int ingresos)
         {
+            var queryString = string.Format("UPDATE Usuario SET Password = {1} WHERE IdUsuario = {0}", usuario.Id, ingresos);
+
+            using (SqlConnection connection = Connection())
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                try
+                {
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
         }
 
         private bool ValidarContraseña(BE.Usuario usuario, string contEncriptada)

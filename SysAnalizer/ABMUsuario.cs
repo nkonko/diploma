@@ -33,7 +33,12 @@ namespace UI
 
         private void btnBorrar_Click(object sender, EventArgs e)
         {
-            BLL.Usuario.Getinstancia().Delete(new BE.Usuario() { Nombre = txtNombre.Text, Apellido = txtApellido.Text, Email = txtEmail.Text, Telefono = Int32.Parse(txtTel.Text), PrimerLogin = true, CIngresos = 0, Activo = true });
+            BLL.Usuario.Getinstancia().Delete(new BE.Usuario() { Email = txtEmail.Text });
+        }
+
+        private void btnVolver_Click(object sender, EventArgs e)
+        {
+            this.Hide();
         }
     }
 }

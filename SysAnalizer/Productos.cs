@@ -20,5 +20,25 @@ namespace UI
         {
 
         }
+
+        private void btnNuevo_Click(object sender, EventArgs e)
+        {
+            BLL.Producto.Getinstancia().Create(new BE.Producto() { Descripcion = txtDescripcion.Text, PVenta = float.Parse(txtPcosto.Text), PUnitario = float.Parse(txtPunitario.Text), Stock = int.Parse(txtCantidad.Text) });
+        }
+
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            BLL.Producto.Getinstancia().Update(new BE.Producto() { Descripcion = txtDescripcion.Text, PVenta = float.Parse(txtPcosto.Text), PUnitario = float.Parse(txtPunitario.Text), Stock = int.Parse(txtCantidad.Text) });
+        }
+
+        private void btnBorrar_Click(object sender, EventArgs e)
+        {
+            BLL.Producto.Getinstancia().Delete(new BE.Producto() { NroProd = int.Parse(txtNroProd.Text) });
+        }
+
+        private void btnVolver_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+        }
     }
 }
