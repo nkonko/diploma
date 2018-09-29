@@ -34,6 +34,9 @@
     <Reference Include="Autofac, Version=4.8.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.4.8.1\lib\net45\Autofac.dll</HintPath>
     </Reference>
+    <Reference Include="EasyEncryption, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EasyEncryption.1.0.2\lib\EasyEncryption.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Extensions.Configuration, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Configuration.1.1.2\lib\netstandard1.1\Microsoft.Extensions.Configuration.dll</HintPath>
     </Reference>
@@ -78,10 +81,8 @@
     <Compile Include="IDigitoVerificador.cs" />
     <Compile Include="Imp\Bitacora.cs" />
     <Compile Include="Imp\DigitoVerificador.cs" />
-    <Compile Include="Imp\Encriptador.cs" />
     <Compile Include="Imp\Familia.cs" />
     <Compile Include="Imp\Idioma.cs" />
-    <Compile Include="IEncriptador.cs" />
     <Compile Include="Imp\Patente.cs" />
     <Compile Include="Imp\Producto.cs" />
     <Compile Include="Imp\Usuario.cs" />

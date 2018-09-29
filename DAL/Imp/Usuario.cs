@@ -4,25 +4,23 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Data.SqlClient;
+    using EasyEncryption;
 
     public class Usuario : BE.ICRUD<BE.Usuario>
     {
         private static Usuario instancia;
 
-        private readonly IEncriptador encriptador;
-
         private SqlCommand comm = new SqlCommand();
 
-        private Usuario(IEncriptador encriptador)
+        private Usuario()
         {
-            this.encriptador = encriptador;
         }
 
         public static Usuario Getinstancia()
         {
             if (instancia == null)
             {
-                instancia = new Usuario(new Encriptador());
+                instancia = new Usuario();
             }
 
             return instancia;
@@ -38,7 +36,7 @@
         {
             Random random = new Random();
             string nuevoPass = random.Next().ToString();
-            string contEncript = encriptador.Encriptar(objAlta.Contraseña = nuevoPass);
+            var contEncript = MD5.ComputeMD5Hash(objAlta.Contraseña = nuevoPass);
             string clase = "Usuario";
             var digitoVH = CalcularDigitoVerificador(clase, objAlta.Nombre, objAlta.Email, contEncript, 1);
 
@@ -76,13 +74,6 @@
             }
 
             return returnValue;
-        }
-
-        private int CalcularDigitoVerificador(string entidad, string nombre, string email, string password, int activo)
-        {
-            DigitoVerificador digitoVerificador = new DigitoVerificador();
-            var digito = digitoVerificador.CalcularDVHorizontal(entidad, new List<string> { nombre, email, password }, new List<int> { activo });
-            return digito;
         }
 
         public List<BE.Usuario> Retrive()
@@ -186,7 +177,7 @@
 
                 if (cingresoInc < 3)
                 {
-                    string contEncriptada = encriptador.Encriptar(contraseña);
+                    var contEncriptada = MD5.ComputeMD5Hash(contraseña);
                     bool ingresa = ValidarContraseña(usu, contEncriptada);
                     if (!ingresa)
                     {
@@ -204,6 +195,13 @@
 
             CambiarPassword(usu);
             return true;
+        }
+
+        private int CalcularDigitoVerificador(string entidad, string nombre, string email, string password, int activo)
+        {
+            DigitoVerificador digitoVerificador = new DigitoVerificador();
+            var digito = digitoVerificador.CalcularDVHorizontal(entidad, new List<string> { nombre, email, password }, new List<int> { activo });
+            return digito;
         }
 
         private void CambiarPassword(BE.Usuario usuario)

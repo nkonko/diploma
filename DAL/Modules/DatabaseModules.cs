@@ -10,7 +10,6 @@
 
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<Encriptador>().As<IEncriptador>().InstancePerDependency();
             builder.RegisterType<SqlConnection>().As<DbConnection>()
                 .WithParameter("ConnectionString", ConnectionString)
                 .InstancePerDependency();
