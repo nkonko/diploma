@@ -8,13 +8,15 @@ namespace UI
     {
         private Venta_de_productos venta_De_Productos;
         private ABMusuario abmUsuario;
+        private Bitacora bitacora;
+
 
         public Principal()
         {
             InitializeComponent();
             venta_De_Productos = new Venta_de_productos();
             abmUsuario = new ABMusuario();
-
+            bitacora = new Bitacora();
         }
 
         private void Principal_Load(object sender, EventArgs e)
@@ -36,6 +38,12 @@ namespace UI
         {
             this.Hide();
             abmUsuario.Show();
+        }
+
+        private void bitacoraToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            bitacora.Show();
         }
     }
 }

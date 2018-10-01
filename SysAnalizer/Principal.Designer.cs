@@ -39,10 +39,11 @@ namespace UI
             this.verStock = new System.Windows.Forms.ToolStripMenuItem();
             this.administradorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.usuariosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.usuariosToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.verUsuariosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.patentesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.familiasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.usuariosToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.verUsuariosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bitacoraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -74,13 +75,13 @@ namespace UI
             // clientesToolStripMenuItem
             // 
             this.clientesToolStripMenuItem.Name = "clientesToolStripMenuItem";
-            this.clientesToolStripMenuItem.Size = new System.Drawing.Size(167, 26);
+            this.clientesToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.clientesToolStripMenuItem.Text = "Ver Ventas";
             // 
             // nuevaVenta
             // 
             this.nuevaVenta.Name = "nuevaVenta";
-            this.nuevaVenta.Size = new System.Drawing.Size(167, 26);
+            this.nuevaVenta.Size = new System.Drawing.Size(181, 26);
             this.nuevaVenta.Text = "Nueva Venta";
             this.nuevaVenta.Click += new System.EventHandler(this.nuevaVenta_Click);
             // 
@@ -95,7 +96,7 @@ namespace UI
             // verProductosToolStripMenuItem
             // 
             this.verProductosToolStripMenuItem.Name = "verProductosToolStripMenuItem";
-            this.verProductosToolStripMenuItem.Size = new System.Drawing.Size(175, 26);
+            this.verProductosToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.verProductosToolStripMenuItem.Text = "Ver Productos";
             // 
             // stockToolStripMenuItem
@@ -109,7 +110,7 @@ namespace UI
             // verStock
             // 
             this.verStock.Name = "verStock";
-            this.verStock.Size = new System.Drawing.Size(145, 26);
+            this.verStock.Size = new System.Drawing.Size(181, 26);
             this.verStock.Text = "Ver Stock";
             // 
             // administradorToolStripMenuItem
@@ -117,7 +118,8 @@ namespace UI
             this.administradorToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.usuariosToolStripMenuItem,
             this.patentesToolStripMenuItem,
-            this.familiasToolStripMenuItem});
+            this.familiasToolStripMenuItem,
+            this.bitacoraToolStripMenuItem});
             this.administradorToolStripMenuItem.Name = "administradorToolStripMenuItem";
             this.administradorToolStripMenuItem.Size = new System.Drawing.Size(116, 24);
             this.administradorToolStripMenuItem.Text = "Administrador";
@@ -128,6 +130,18 @@ namespace UI
             this.usuariosToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.usuariosToolStripMenuItem.Text = "Usuarios";
             this.usuariosToolStripMenuItem.Click += new System.EventHandler(this.usuariosToolStripMenuItem_Click_1);
+            // 
+            // patentesToolStripMenuItem
+            // 
+            this.patentesToolStripMenuItem.Name = "patentesToolStripMenuItem";
+            this.patentesToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.patentesToolStripMenuItem.Text = "Patentes";
+            // 
+            // familiasToolStripMenuItem
+            // 
+            this.familiasToolStripMenuItem.Name = "familiasToolStripMenuItem";
+            this.familiasToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.familiasToolStripMenuItem.Text = "Familias";
             // 
             // usuariosToolStripMenuItem1
             // 
@@ -143,17 +157,12 @@ namespace UI
             this.verUsuariosToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.verUsuariosToolStripMenuItem.Text = "Ver Usuarios";
             // 
-            // patentesToolStripMenuItem
+            // bitacoraToolStripMenuItem
             // 
-            this.patentesToolStripMenuItem.Name = "patentesToolStripMenuItem";
-            this.patentesToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
-            this.patentesToolStripMenuItem.Text = "Patentes";
-            // 
-            // familiasToolStripMenuItem
-            // 
-            this.familiasToolStripMenuItem.Name = "familiasToolStripMenuItem";
-            this.familiasToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
-            this.familiasToolStripMenuItem.Text = "Familias";
+            this.bitacoraToolStripMenuItem.Name = "bitacoraToolStripMenuItem";
+            this.bitacoraToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.bitacoraToolStripMenuItem.Text = "Bitacora";
+            this.bitacoraToolStripMenuItem.Click += new System.EventHandler(this.bitacoraToolStripMenuItem_Click);
             // 
             // Principal
             // 
@@ -190,5 +199,6 @@ namespace UI
         private System.Windows.Forms.ToolStripMenuItem familiasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem usuariosToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem verUsuariosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem bitacoraToolStripMenuItem;
     }
 }

@@ -38,9 +38,9 @@ namespace UI
             this.descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.criticidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.checkedListBox2 = new System.Windows.Forms.CheckedListBox();
+            this.checkListCriticidad = new System.Windows.Forms.CheckedListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
+            this.checkListUsuarios = new System.Windows.Forms.CheckedListBox();
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
@@ -63,6 +63,8 @@ namespace UI
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.fecha,
@@ -107,7 +109,7 @@ namespace UI
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.checkedListBox2);
+            this.groupBox2.Controls.Add(this.checkListCriticidad);
             this.groupBox2.Location = new System.Drawing.Point(31, 246);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
@@ -117,22 +119,22 @@ namespace UI
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "criticidad";
             // 
-            // checkedListBox2
+            // checkListCriticidad
             // 
-            this.checkedListBox2.FormattingEnabled = true;
-            this.checkedListBox2.Items.AddRange(new object[] {
+            this.checkListCriticidad.FormattingEnabled = true;
+            this.checkListCriticidad.Items.AddRange(new object[] {
             "Baja",
             "Media",
             "Alta"});
-            this.checkedListBox2.Location = new System.Drawing.Point(16, 21);
-            this.checkedListBox2.Margin = new System.Windows.Forms.Padding(4);
-            this.checkedListBox2.Name = "checkedListBox2";
-            this.checkedListBox2.Size = new System.Drawing.Size(265, 106);
-            this.checkedListBox2.TabIndex = 44;
+            this.checkListCriticidad.Location = new System.Drawing.Point(16, 21);
+            this.checkListCriticidad.Margin = new System.Windows.Forms.Padding(4);
+            this.checkListCriticidad.Name = "checkListCriticidad";
+            this.checkListCriticidad.Size = new System.Drawing.Size(265, 106);
+            this.checkListCriticidad.TabIndex = 44;
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.checkedListBox1);
+            this.groupBox1.Controls.Add(this.checkListUsuarios);
             this.groupBox1.Location = new System.Drawing.Point(31, 70);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
@@ -142,20 +144,20 @@ namespace UI
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "usuarios";
             // 
-            // checkedListBox1
+            // checkListUsuarios
             // 
-            this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Items.AddRange(new object[] {
+            this.checkListUsuarios.FormattingEnabled = true;
+            this.checkListUsuarios.Items.AddRange(new object[] {
             "usuario 1",
             "usuario 2",
             "usuario 3",
             "usuario 4",
             "usuario 5"});
-            this.checkedListBox1.Location = new System.Drawing.Point(18, 21);
-            this.checkedListBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(265, 106);
-            this.checkedListBox1.TabIndex = 43;
+            this.checkListUsuarios.Location = new System.Drawing.Point(18, 21);
+            this.checkListUsuarios.Margin = new System.Windows.Forms.Padding(4);
+            this.checkListUsuarios.Name = "checkListUsuarios";
+            this.checkListUsuarios.Size = new System.Drawing.Size(265, 106);
+            this.checkListUsuarios.TabIndex = 43;
             // 
             // dateTimePicker2
             // 
@@ -201,6 +203,7 @@ namespace UI
             this.btn_volver.TabIndex = 70;
             this.btn_volver.Text = "Volver";
             this.btn_volver.UseVisualStyleBackColor = true;
+            this.btn_volver.Click += new System.EventHandler(this.btn_volver_Click);
             // 
             // Bitacora
             // 
@@ -237,9 +240,9 @@ namespace UI
         private System.Windows.Forms.DataGridViewTextBoxColumn descripcion;
         private System.Windows.Forms.DataGridViewTextBoxColumn criticidad;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.CheckedListBox checkedListBox2;
+        private System.Windows.Forms.CheckedListBox checkListCriticidad;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.CheckedListBox checkedListBox1;
+        private System.Windows.Forms.CheckedListBox checkListUsuarios;
         private System.Windows.Forms.DateTimePicker dateTimePicker2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;

@@ -5,6 +5,7 @@
     using System.Data;
     using System.Data.SqlClient;
     using EasyEncryption;
+    using Dapper;
 
     public class Usuario : BE.ICRUD<BE.Usuario>
     {
@@ -57,13 +58,12 @@
 
             bool returnValue = false;
 
-            using (SqlConnection connection = Connection())
+            using (IDbConnection connection = new SqlConnection(@"Data Source=DESKTOP\SQLEXPRESS;Initial Catalog=SYSANALIZER2;Integrated Security=True"))
             {
-                SqlCommand command = new SqlCommand(queryString, connection);
                 try
                 {
                     connection.Open();
-                    command.ExecuteNonQuery();
+                    connection.Execute(queryString);
 
                     return returnValue = true;
                 }
@@ -80,43 +80,21 @@
         {
             var usuario = new BE.Usuario();
             var queryString = "SELECT * FROM Usuario;";
-            var comm = new SqlCommand();
 
-            using (SqlConnection connection = Connection())
+            using (IDbConnection connection = new SqlConnection(@"Data Source=DESKTOP\SQLEXPRESS;Initial Catalog=SYSANALIZER2;Integrated Security=True"))
             {
                 try
                 {
-                    comm.CommandText = queryString;
-                    comm.Connection = connection;
-                    comm.CommandType = CommandType.Text;
+                    connection.Open();
+                    var usuarios = (List<BE.Usuario>)connection.Query<BE.Usuario>(queryString);
 
-                    var da = new SqlDataAdapter(comm);
-
-                    DataTable dt = new DataTable();
-
-                    da.Fill(dt);
-
-                    foreach (DataRow dr in dt.Rows)
-                    {
-                        usuario.Id = Convert.ToInt32(dr["IdUsuario"]);
-                        usuario.Nombre = Convert.ToString(dr["Nombre"]);
-                        usuario.Apellido = Convert.ToString(dr["Apellido"]);
-                        usuario.Contraseña = Convert.ToString(dr["Password"]);
-                        usuario.Email = Convert.ToString(dr["Email"]);
-                        usuario.Telefono = Convert.ToInt32(dr["Telefono"]);
-                        usuario.CIngresos = Convert.ToInt32(dr["ContadorIngresosIncorrectos"]);
-                        usuario.Activo = Convert.ToBoolean(dr["Activo"]);
-                        usuario.IdCanalVenta = Convert.ToInt32(dr["IdCanalVenta"]);
-                        usuario.IdIdioma = Convert.ToInt32(dr["IdIdioma"]);
-                        usuario.PrimerLogin = Convert.ToBoolean(dr["PrimerLogin"]);
-                    }
-
-                    return new List<BE.Usuario>();
+                    return usuarios;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw;
+                    Console.WriteLine(ex.Message);
                 }
+                return null;
             }
         }
 

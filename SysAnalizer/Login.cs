@@ -11,12 +11,11 @@ namespace UI
         public Login()
         {
             InitializeComponent();
-            PrincipalForm = new Principal();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            PrincipalForm = new Principal();
         }
 
         private void btn_ingresar_Click(object sender, EventArgs e)
