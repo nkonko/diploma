@@ -41,9 +41,9 @@ namespace UI
             this.usuariosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.patentesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.familiasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bitacoraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.usuariosToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.verUsuariosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.bitacoraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -75,13 +75,13 @@ namespace UI
             // clientesToolStripMenuItem
             // 
             this.clientesToolStripMenuItem.Name = "clientesToolStripMenuItem";
-            this.clientesToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.clientesToolStripMenuItem.Size = new System.Drawing.Size(167, 26);
             this.clientesToolStripMenuItem.Text = "Ver Ventas";
             // 
             // nuevaVenta
             // 
             this.nuevaVenta.Name = "nuevaVenta";
-            this.nuevaVenta.Size = new System.Drawing.Size(181, 26);
+            this.nuevaVenta.Size = new System.Drawing.Size(167, 26);
             this.nuevaVenta.Text = "Nueva Venta";
             this.nuevaVenta.Click += new System.EventHandler(this.nuevaVenta_Click);
             // 
@@ -96,7 +96,7 @@ namespace UI
             // verProductosToolStripMenuItem
             // 
             this.verProductosToolStripMenuItem.Name = "verProductosToolStripMenuItem";
-            this.verProductosToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.verProductosToolStripMenuItem.Size = new System.Drawing.Size(175, 26);
             this.verProductosToolStripMenuItem.Text = "Ver Productos";
             // 
             // stockToolStripMenuItem
@@ -110,7 +110,7 @@ namespace UI
             // verStock
             // 
             this.verStock.Name = "verStock";
-            this.verStock.Size = new System.Drawing.Size(181, 26);
+            this.verStock.Size = new System.Drawing.Size(145, 26);
             this.verStock.Text = "Ver Stock";
             // 
             // administradorToolStripMenuItem
@@ -127,21 +127,28 @@ namespace UI
             // usuariosToolStripMenuItem
             // 
             this.usuariosToolStripMenuItem.Name = "usuariosToolStripMenuItem";
-            this.usuariosToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.usuariosToolStripMenuItem.Size = new System.Drawing.Size(140, 26);
             this.usuariosToolStripMenuItem.Text = "Usuarios";
             this.usuariosToolStripMenuItem.Click += new System.EventHandler(this.usuariosToolStripMenuItem_Click_1);
             // 
             // patentesToolStripMenuItem
             // 
             this.patentesToolStripMenuItem.Name = "patentesToolStripMenuItem";
-            this.patentesToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.patentesToolStripMenuItem.Size = new System.Drawing.Size(140, 26);
             this.patentesToolStripMenuItem.Text = "Patentes";
             // 
             // familiasToolStripMenuItem
             // 
             this.familiasToolStripMenuItem.Name = "familiasToolStripMenuItem";
-            this.familiasToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.familiasToolStripMenuItem.Size = new System.Drawing.Size(140, 26);
             this.familiasToolStripMenuItem.Text = "Familias";
+            // 
+            // bitacoraToolStripMenuItem
+            // 
+            this.bitacoraToolStripMenuItem.Name = "bitacoraToolStripMenuItem";
+            this.bitacoraToolStripMenuItem.Size = new System.Drawing.Size(140, 26);
+            this.bitacoraToolStripMenuItem.Text = "Bitacora";
+            this.bitacoraToolStripMenuItem.Click += new System.EventHandler(this.bitacoraToolStripMenuItem_Click);
             // 
             // usuariosToolStripMenuItem1
             // 
@@ -154,15 +161,8 @@ namespace UI
             // verUsuariosToolStripMenuItem
             // 
             this.verUsuariosToolStripMenuItem.Name = "verUsuariosToolStripMenuItem";
-            this.verUsuariosToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.verUsuariosToolStripMenuItem.Size = new System.Drawing.Size(165, 26);
             this.verUsuariosToolStripMenuItem.Text = "Ver Usuarios";
-            // 
-            // bitacoraToolStripMenuItem
-            // 
-            this.bitacoraToolStripMenuItem.Name = "bitacoraToolStripMenuItem";
-            this.bitacoraToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
-            this.bitacoraToolStripMenuItem.Text = "Bitacora";
-            this.bitacoraToolStripMenuItem.Click += new System.EventHandler(this.bitacoraToolStripMenuItem_Click);
             // 
             // Principal
             // 

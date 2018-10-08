@@ -6,17 +6,26 @@ namespace UI
 
     public partial class Principal : Form
     {
+        private static Principal instancia;
         private Venta_de_productos venta_De_Productos;
         private ABMusuario abmUsuario;
         private Bitacora bitacora;
 
-
-        public Principal()
+        private Principal()
         {
             InitializeComponent();
             venta_De_Productos = new Venta_de_productos();
             abmUsuario = new ABMusuario();
             bitacora = new Bitacora();
+        }
+
+        public static Principal GetInstancia()
+        {
+            if(instancia == null)
+            {
+                instancia = new Principal();
+            }
+            return instancia;
         }
 
         private void Principal_Load(object sender, EventArgs e)
@@ -26,6 +35,7 @@ namespace UI
 
         private void nuevaVenta_Click(object sender, EventArgs e)
         {
+            this.Hide();
             venta_De_Productos.Show();
         }
 

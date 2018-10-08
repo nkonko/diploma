@@ -1,17 +1,19 @@
 ﻿namespace DAL
 {
+    using DAL.Utils;
+    using Dapper;
+    using EasyEncryption;
+    using log4net;
     using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Data.SqlClient;
-    using EasyEncryption;
-    using Dapper;
 
     public class Usuario : BE.ICRUD<BE.Usuario>
     {
-        private static Usuario instancia;
+        public ILog Logger { get; set; }
 
-        private SqlCommand comm = new SqlCommand();
+        private static Usuario instancia;
 
         private Usuario()
         {
@@ -25,12 +27,6 @@
             }
 
             return instancia;
-        }
-
-        public static SqlConnection Connection()
-        {
-            var conn = new SqlConnection(@"Data Source=DESKTOP\SQLEXPRESS;Initial Catalog=SYSANALIZER2;Integrated Security=True");
-            return conn;
         }
 
         public bool Create(BE.Usuario objAlta)
@@ -58,7 +54,7 @@
 
             bool returnValue = false;
 
-            using (IDbConnection connection = new SqlConnection(@"Data Source=DESKTOP\SQLEXPRESS;Initial Catalog=SYSANALIZER2;Integrated Security=True"))
+            using (IDbConnection connection = SqlUtils.Connection())
             {
                 try
                 {
@@ -72,7 +68,7 @@
                     Console.WriteLine(ex.Message);
                 }
             }
-
+            Logger.Info("Usuario Creado");
             return returnValue;
         }
 
@@ -81,7 +77,7 @@
             var usuario = new BE.Usuario();
             var queryString = "SELECT * FROM Usuario;";
 
-            using (IDbConnection connection = new SqlConnection(@"Data Source=DESKTOP\SQLEXPRESS;Initial Catalog=SYSANALIZER2;Integrated Security=True"))
+            using (IDbConnection connection = SqlUtils.Connection())
             {
                 try
                 {
@@ -94,6 +90,7 @@
                 {
                     Console.WriteLine(ex.Message);
                 }
+
                 return null;
             }
         }
@@ -105,7 +102,7 @@
             var queryString = string.Format("DELETE FROM Usuario WHERE IdUsuario = {0}", usu.Id);
             bool returnValue = false;
 
-            using (SqlConnection connection = Connection())
+            using (SqlConnection connection = SqlUtils.Connection())
             {
                 SqlCommand command = new SqlCommand(queryString, connection);
                 try
@@ -129,7 +126,7 @@
             var queryString = string.Format("UPDATE Usuario SET Nombre = {1}, Apellido = {2}, Password = {3}, Email = {4}, Telefono = {5} WHERE IdUsuario = {0}", usu.Id, objUpd.Nombre, objUpd.Apellido, objUpd.Contraseña, objUpd.Email, objUpd.Telefono);
             bool returnValue = false;
 
-            using (SqlConnection connection = Connection())
+            using (SqlConnection connection = SqlUtils.Connection())
             {
                 SqlCommand command = new SqlCommand(queryString, connection);
                 try
@@ -186,7 +183,7 @@
         {
             var queryString = string.Format("UPDATE Usuario SET Password = {1} WHERE IdUsuario = {0}", usuario.Id, usuario.Contraseña);
 
-            using (SqlConnection connection = Connection())
+            using (SqlConnection connection = SqlUtils.Connection())
             {
                 SqlCommand command = new SqlCommand(queryString, connection);
                 try
@@ -205,7 +202,7 @@
         {
             var queryString = string.Format("UPDATE Usuario SET Password = {1} WHERE IdUsuario = {0}", usuario.Id, ingresos);
 
-            using (SqlConnection connection = Connection())
+            using (SqlConnection connection = SqlUtils.Connection())
             {
                 SqlCommand command = new SqlCommand(queryString, connection);
                 try
@@ -236,7 +233,7 @@
             var queryString = string.Format("SELECT * FROM dbo.Usuario WHERE Email = '{0}'", email);
             var comm = new SqlCommand();
 
-            using (SqlConnection connection = Connection())
+            using (SqlConnection connection = SqlUtils.Connection())
             {
                 comm.CommandText = queryString;
                 comm.Connection = connection;

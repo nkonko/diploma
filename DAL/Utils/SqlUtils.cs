@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Configuration;
     using System.Data;
     using System.Data.SqlClient;
 
@@ -11,12 +12,17 @@
 
         public SqlUtils()
         {
-            Tables = GetTables(@"Data Source=DESKTOP\SQLEXPRESS;Initial Catalog=SYSANALIZER2;Integrated Security=True");
+        }
+
+        public static SqlConnection Connection()
+        {
+            var conn = new SqlConnection(ConfigurationManager.AppSettings["connString"]);
+            return conn;
         }
 
         private static List<string> GetTables(string connectionString)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = Connection())
             {
                 connection.Open();
                 DataTable schema = connection.GetSchema("Tables");

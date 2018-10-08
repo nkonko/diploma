@@ -10,6 +10,7 @@ namespace UI
         {
             InitializeComponent();
         }
+        log4net.ILog log;
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -18,12 +19,23 @@ namespace UI
 
         private void usuarios_Load(object sender, EventArgs e)
         {
-
+            log4net.Config.XmlConfigurator.Configure();
+            log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         }
 
         private void btn_nuevo_Click(object sender, EventArgs e)
         {
-            BLL.Usuario.Getinstancia().Create(new BE.Usuario() { Nombre = txtNombre.Text, Apellido = txtApellido.Text, Email = txtEmail.Text, Telefono = Int32.Parse(txtTel.Text), PrimerLogin = true, CIngresos = 0, Activo = true });
+           var creado = BLL.Usuario.Getinstancia().Create(new BE.Usuario() { Nombre = txtNombre.Text, Apellido = txtApellido.Text, Email = txtEmail.Text, Telefono = Int32.Parse(txtTel.Text), PrimerLogin = true, CIngresos = 0, Activo = true });
+            if (creado)
+            {
+                log.Info("Se ha creado un nuevo usuario");
+                MessageBox.Show("Registro exitoso");
+            }
+            else
+            {
+                log.Info("El registro de nuevo usuario ha fallado");
+                MessageBox.Show("El registro de nuevo usuario ha fallado");
+            }
         }
 
         private void btn_modificar_Click(object sender, EventArgs e)
@@ -39,6 +51,8 @@ namespace UI
         private void btnVolver_Click(object sender, EventArgs e)
         {
             this.Hide();
+            var principal = Principal.GetInstancia();
+            principal.Show();
         }
     }
 }

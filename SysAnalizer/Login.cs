@@ -13,9 +13,13 @@ namespace UI
             InitializeComponent();
         }
 
+        log4net.ILog log;
+
         private void Form1_Load(object sender, EventArgs e)
         {
-            PrincipalForm = new Principal();
+            log4net.Config.XmlConfigurator.Configure();
+            log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+            PrincipalForm = Principal.GetInstancia();
         }
 
         private void btn_ingresar_Click(object sender, EventArgs e)
@@ -27,11 +31,13 @@ namespace UI
 
             if (ingresa)
             {
+                log.Info("Login Correcto de usuario");
                 this.Hide();
                 PrincipalForm.Show();
             }
             else
             {
+                log.Info("Login Incorrecto de usuario");
                 MessageBox.Show("Su cuenta ha sido bloqueada contacte al Administrador");
             }
         }
