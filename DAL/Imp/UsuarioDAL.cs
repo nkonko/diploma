@@ -1,5 +1,6 @@
 ﻿namespace DAL
 {
+    using BE;
     using DAL.Utils;
     using Dapper;
     using EasyEncryption;
@@ -9,27 +10,23 @@
     using System.Data;
     using System.Data.SqlClient;
 
-    public class Usuario : BE.ICRUD<BE.Usuario>
+    public class UsuarioDAL : ICRUD<Usuario>, IUsuarioDAL
     {
         public ILog Logger { get; set; }
 
-        private static Usuario instancia;
+        private static UsuarioDAL instancia;
 
-        private Usuario()
-        {
-        }
-
-        public static Usuario Getinstancia()
+        public static UsuarioDAL Getinstancia()
         {
             if (instancia == null)
             {
-                instancia = new Usuario();
+                instancia = new UsuarioDAL();
             }
 
             return instancia;
         }
 
-        public bool Create(BE.Usuario objAlta)
+        public bool Create(Usuario objAlta)
         {
             Random random = new Random();
             string nuevoPass = random.Next().ToString();
@@ -72,7 +69,7 @@
             return returnValue;
         }
 
-        public List<BE.Usuario> Retrive()
+        public List<Usuario> Retrive()
         {
             var usuario = new BE.Usuario();
             var queryString = "SELECT * FROM Usuario;";
@@ -95,7 +92,7 @@
             }
         }
 
-        public bool Delete(BE.Usuario objDel)
+        public bool Delete(Usuario objDel)
         {
             var usu = ObtenerUsuarioConEmail(objDel.Email);
 
@@ -119,7 +116,7 @@
             return returnValue;
         }
 
-        public bool Update(BE.Usuario objUpd)
+        public bool Update(Usuario objUpd)
         {
             var usu = ObtenerUsuarioConEmail(objUpd.Email);
 
@@ -179,7 +176,7 @@
             return digito;
         }
 
-        private void CambiarPassword(BE.Usuario usuario)
+        private void CambiarPassword(Usuario usuario)
         {
             var queryString = string.Format("UPDATE Usuario SET Password = {1} WHERE IdUsuario = {0}", usuario.Id, usuario.Contraseña);
 
@@ -198,7 +195,7 @@
             }
         }
 
-        private void AumentarIngresos(BE.Usuario usuario, int ingresos)
+        private void AumentarIngresos(Usuario usuario, int ingresos)
         {
             var queryString = string.Format("UPDATE Usuario SET Password = {1} WHERE IdUsuario = {0}", usuario.Id, ingresos);
 
@@ -217,7 +214,7 @@
             }
         }
 
-        private bool ValidarContraseña(BE.Usuario usuario, string contEncriptada)
+        private bool ValidarContraseña(Usuario usuario, string contEncriptada)
         {
             if (usuario.Contraseña == contEncriptada)
             {
@@ -227,7 +224,7 @@
             return false;
         }
 
-        private BE.Usuario ObtenerUsuarioConEmail(string email)
+        private Usuario ObtenerUsuarioConEmail(string email)
         {
             var usuario = new BE.Usuario();
             var queryString = string.Format("SELECT * FROM dbo.Usuario WHERE Email = '{0}'", email);

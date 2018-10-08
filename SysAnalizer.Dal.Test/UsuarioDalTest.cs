@@ -7,11 +7,11 @@
     [TestFixture]
     public class UsuarioDalTest
     {
-        public DAL.Usuario Usuario { get; set; }
+        public DAL.UsuarioDAL Usuario { get; set; }
 
         public UsuarioDalTest()
         {
-            Usuario = DAL.Usuario.Getinstancia();
+            Usuario = DAL.UsuarioDAL.Getinstancia();
         }
 
         [Test]

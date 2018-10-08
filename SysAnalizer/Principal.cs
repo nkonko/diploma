@@ -4,7 +4,7 @@ namespace UI
     using System;
     using System.Windows.Forms;
 
-    public partial class Principal : Form
+    public partial class Principal : Form, IPrincipal
     {
         private static Principal instancia;
         private Venta_de_productos venta_De_Productos;

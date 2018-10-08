@@ -86,9 +86,10 @@
     <Compile Include="Imp\DigitoVerificador.cs" />
     <Compile Include="Imp\Familia.cs" />
     <Compile Include="Imp\Idioma.cs" />
+    <Compile Include="Imp\IUsuarioDAL.cs" />
     <Compile Include="Imp\Patente.cs" />
     <Compile Include="Imp\Producto.cs" />
-    <Compile Include="Imp\Usuario.cs" />
+    <Compile Include="Imp\UsuarioDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Imp\Venta.cs" />
     <Compile Include="Utils\SqlUtils.cs" />
