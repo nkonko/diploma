@@ -7,6 +7,7 @@ namespace UI
 
     public partial class Login : Form
     {
+        log4net.ILog log;
         private IPrincipal PrincipalForm;
         private IUsuarioBLL usuarionBLL;
 
@@ -15,7 +16,6 @@ namespace UI
             InitializeComponent();
         }
 
-        log4net.ILog log;
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -37,13 +37,11 @@ namespace UI
 
                 if (ingresa)
                 {
-                    log.Info("Login Correcto de usuario");
                     this.Hide();
                     PrincipalForm.Show();
                 }
                 else
                 {
-                    log.Info("Login Incorrecto de usuario");
                     MessageBox.Show("Su cuenta ha sido bloqueada contacte al Administrador");
                 }
             },

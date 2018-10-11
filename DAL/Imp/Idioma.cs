@@ -24,22 +24,22 @@
             return instancia;
         }
 
-        public bool Create(BE.Idioma objAlta)
+        public bool Crear(BE.Idioma objAlta)
         {
             throw new NotImplementedException();
         }
 
-        public bool Delete(BE.Idioma objDel)
+        public bool Borrar(BE.Idioma objDel)
         {
             throw new NotImplementedException();
         }
 
-        public List<BE.Idioma> Retrive()
+        public List<BE.Idioma> Cargar()
         {
             throw new NotImplementedException();
         }
 
-        public bool Update(BE.Idioma objUpd)
+        public bool Actualizar(BE.Idioma objUpd)
         {
             throw new NotImplementedException();
         }

@@ -4,42 +4,42 @@
     using System.Collections.Generic;
     using System.Configuration;
 
-    public class Producto : BE.ICRUD<BE.Producto>
+    public class ProductoDAL : BE.ICRUD<BE.Producto>
     {
-        private static Producto instancia;
+        private static ProductoDAL instancia;
         private readonly string connectionString = ConfigurationManager.AppSettings["ConnStirng"];
         private readonly string queryString = string.Empty;
 
-        private Producto()
+        private ProductoDAL()
         {
         }
 
-        public static Producto Getinstancia()
+        public static ProductoDAL Getinstancia()
         {
             if (instancia != null)
             {
-                instancia = new Producto();
+                instancia = new ProductoDAL();
             }
 
             return instancia;
         }
 
-        public bool Create(BE.Producto objAlta)
+        public bool Crear(BE.Producto objAlta)
         {
             throw new NotImplementedException();
         }
 
-        public bool Delete(BE.Producto objDel)
+        public bool Borrar(BE.Producto objDel)
         {
             throw new NotImplementedException();
         }
 
-        public List<BE.Producto> Retrive()
+        public List<BE.Producto> Cargar()
         {
             throw new NotImplementedException();
         }
 
-        public bool Update(BE.Producto objUpd)
+        public bool Actualizar(BE.Producto objUpd)
         {
             throw new NotImplementedException();
         }

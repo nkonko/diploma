@@ -29,7 +29,7 @@ namespace UI
 
         private void btn_nuevo_Click(object sender, EventArgs e)
         {
-           var creado = usuarioBLL.Create(new BE.Usuario() { Nombre = txtNombre.Text, Apellido = txtApellido.Text, Email = txtEmail.Text, Telefono = Int32.Parse(txtTel.Text), PrimerLogin = true, CIngresos = 0, Activo = true });
+           var creado = usuarioBLL.Crear(new BE.Usuario() { Nombre = txtNombre.Text, Apellido = txtApellido.Text, Email = txtEmail.Text, Telefono = Int32.Parse(txtTel.Text), PrimerLogin = true, CIngresos = 0, Activo = true });
             if (creado)
             {
                 log.Info("Se ha creado un nuevo usuario");
@@ -44,12 +44,12 @@ namespace UI
 
         private void btn_modificar_Click(object sender, EventArgs e)
         {
-            usuarioBLL.Update(new BE.Usuario() { Nombre = txtNombre.Text, Apellido = txtApellido.Text, Email = txtEmail.Text, Telefono = Int32.Parse(txtTel.Text), PrimerLogin = true, CIngresos = 0, Activo = true });
+            usuarioBLL.Actualizar(new BE.Usuario() { Nombre = txtNombre.Text, Apellido = txtApellido.Text, Email = txtEmail.Text, Telefono = Int32.Parse(txtTel.Text), PrimerLogin = true, CIngresos = 0, Activo = true });
         }
 
         private void btnBorrar_Click(object sender, EventArgs e)
         {
-            usuarioBLL.Delete(new BE.Usuario() { Email = txtEmail.Text });
+            usuarioBLL.Borrar(new BE.Usuario() { Email = txtEmail.Text });
         }
 
         private void btnVolver_Click(object sender, EventArgs e)

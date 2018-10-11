@@ -4,9 +4,9 @@ namespace UI
     using System;
     using System.Windows.Forms;
 
-    public partial class Venta_de_productos : Form
+    public partial class VtaProd : Form
     {
-        public Venta_de_productos()
+        public VtaProd()
         {
             InitializeComponent();
         }
@@ -23,7 +23,7 @@ namespace UI
         {
         }
 
-        private void Venta_de_productos_Load(object sender, EventArgs e)
+        private void VtaProd_Load(object sender, EventArgs e)
         {
 
         }

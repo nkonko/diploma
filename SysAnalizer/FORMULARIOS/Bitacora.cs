@@ -29,7 +29,7 @@ namespace UI
 
         private void FillCheckedList()
         {
-           var userList = usuarionBll.Retrive();
+           var userList = usuarionBll.Cargar();
             
             foreach (var usu in userList)
             {

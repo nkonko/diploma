@@ -7,14 +7,14 @@ namespace UI
     public partial class Principal : Form, IPrincipal
     {
         private static Principal instancia;
-        private Venta_de_productos venta_De_Productos;
+        private VtaProd venta_De_Productos;
         private ABMusuario abmUsuario;
         private Bitacora bitacora;
 
         private Principal()
         {
             InitializeComponent();
-            venta_De_Productos = new Venta_de_productos();
+            venta_De_Productos = new VtaProd();
             abmUsuario = new ABMusuario();
             bitacora = new Bitacora();
         }
@@ -54,6 +54,11 @@ namespace UI
         {
             this.Hide();
             bitacora.Show();
+        }
+
+        private void verProductosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

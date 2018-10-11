@@ -1,8 +1,8 @@
 ﻿namespace BE
 {
-    public class Venta
+    public class Patente
     {
-        public int Id { get; set; }
+        public int IdPatente { get; set; }
 
         public string Descripcion { get; set; }
     }

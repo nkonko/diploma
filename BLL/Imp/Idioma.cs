@@ -20,24 +20,24 @@
             return instancia;
         }
 
-        public bool Create(BE.Idioma objAlta)
+        public bool Crear(BE.Idioma objAlta)
         {
-            return DAL.Idioma.Getinstancia().Create(objAlta);
+            return DAL.Idioma.Getinstancia().Crear(objAlta);
         }
 
-        public List<BE.Idioma> Retrive()
+        public List<BE.Idioma> Cargar()
         {
-            return DAL.Idioma.Getinstancia().Retrive();
+            return DAL.Idioma.Getinstancia().Cargar();
         }
 
-        public bool Delete(BE.Idioma objDel)
+        public bool Borrar(BE.Idioma objDel)
         {
-            return DAL.Idioma.Getinstancia().Delete(objDel);
+            return DAL.Idioma.Getinstancia().Borrar(objDel);
         }
 
-        public bool Update(BE.Idioma objUpd)
+        public bool Actualizar(BE.Idioma objUpd)
         {
-            return DAL.Idioma.Getinstancia().Update(objUpd);
+            return DAL.Idioma.Getinstancia().Actualizar(objUpd);
         }
     }
 }

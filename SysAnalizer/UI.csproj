@@ -109,66 +109,99 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bitacora.cs">
+    <Compile Include="FORMULARIOS\AdminPatFamilia.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Bitacora.Designer.cs">
+    <Compile Include="FORMULARIOS\AdminPatFamilia.Designer.cs">
+      <DependentUpon>AdminPatFamilia.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FORMULARIOS\AdminPatente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMULARIOS\AdminPatente.Designer.cs">
+      <DependentUpon>AdminPatente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FORMULARIOS\Backup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMULARIOS\Backup.Designer.cs">
+      <DependentUpon>Backup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FORMULARIOS\Bitacora.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMULARIOS\Bitacora.Designer.cs">
       <DependentUpon>Bitacora.cs</DependentUpon>
     </Compile>
-    <Compile Include="Clientes.cs">
+    <Compile Include="FORMULARIOS\Clientes.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Clientes.Designer.cs">
+    <Compile Include="FORMULARIOS\Clientes.Designer.cs">
       <DependentUpon>Clientes.cs</DependentUpon>
     </Compile>
     <Compile Include="FormExtensions.cs" />
     <Compile Include="IoCContainer.cs" />
     <Compile Include="IPrincipal.cs" />
-    <Compile Include="Login.cs">
+    <Compile Include="FORMULARIOS\Login.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Login.Designer.cs">
+    <Compile Include="FORMULARIOS\Login.Designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
     </Compile>
-    <Compile Include="Principal.cs">
+    <Compile Include="FORMULARIOS\Principal.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Principal.Designer.cs">
+    <Compile Include="FORMULARIOS\Principal.Designer.cs">
       <DependentUpon>Principal.cs</DependentUpon>
     </Compile>
-    <Compile Include="Productos.cs">
+    <Compile Include="FORMULARIOS\Productos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Productos.Designer.cs">
+    <Compile Include="FORMULARIOS\Productos.Designer.cs">
       <DependentUpon>Productos.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ABMUsuario.cs">
+    <Compile Include="FORMULARIOS\ABMUsuario.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ABMUsuario.Designer.cs">
+    <Compile Include="FORMULARIOS\ABMUsuario.Designer.cs">
       <DependentUpon>ABMUsuario.cs</DependentUpon>
     </Compile>
-    <Compile Include="Venta de productos.cs">
+    <Compile Include="FORMULARIOS\Restore.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Venta de productos.Designer.cs">
-      <DependentUpon>Venta de productos.cs</DependentUpon>
+    <Compile Include="FORMULARIOS\Restore.Designer.cs">
+      <DependentUpon>Restore.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Bitacora.resx">
+    <Compile Include="FORMULARIOS\VtaProd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMULARIOS\VtaProd.Designer.cs">
+      <DependentUpon>VtaProd.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="FORMULARIOS\AdminPatente.resx">
+      <DependentUpon>AdminPatente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMULARIOS\AdminPatFamilia.resx">
+      <DependentUpon>AdminPatFamilia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMULARIOS\Backup.resx">
+      <DependentUpon>Backup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMULARIOS\Bitacora.resx">
       <DependentUpon>Bitacora.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Clientes.resx">
+    <EmbeddedResource Include="FORMULARIOS\Clientes.resx">
       <DependentUpon>Clientes.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Login.resx">
+    <EmbeddedResource Include="FORMULARIOS\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Principal.resx">
+    <EmbeddedResource Include="FORMULARIOS\Principal.resx">
       <DependentUpon>Principal.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Productos.resx">
+    <EmbeddedResource Include="FORMULARIOS\Productos.resx">
       <DependentUpon>Productos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -181,11 +214,14 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="ABMUsuario.resx">
+    <EmbeddedResource Include="FORMULARIOS\ABMUsuario.resx">
       <DependentUpon>ABMUsuario.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Venta de productos.resx">
-      <DependentUpon>Venta de productos.cs</DependentUpon>
+    <EmbeddedResource Include="FORMULARIOS\Restore.resx">
+      <DependentUpon>Restore.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMULARIOS\VtaProd.resx">
+      <DependentUpon>VtaProd.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="packages.config" />

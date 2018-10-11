@@ -12,7 +12,7 @@
 
     public class UsuarioDAL : ICRUD<Usuario>, IUsuarioDAL
     {
-        public ILog Logger { get; set; }
+        public ILog Log { get; set; }
 
         private static UsuarioDAL instancia;
 
@@ -26,7 +26,7 @@
             return instancia;
         }
 
-        public bool Create(Usuario objAlta)
+        public bool Crear(Usuario objAlta)
         {
             Random random = new Random();
             string nuevoPass = random.Next().ToString();
@@ -65,13 +65,14 @@
                     Console.WriteLine(ex.Message);
                 }
             }
-            Logger.Info("Usuario Creado");
+
+            Log.Info("Usuario Creado");
             return returnValue;
         }
 
-        public List<Usuario> Retrive()
+        public List<Usuario> Cargar()
         {
-            var usuario = new BE.Usuario();
+            var usuario = new Usuario();
             var queryString = "SELECT * FROM Usuario;";
 
             using (IDbConnection connection = SqlUtils.Connection())
@@ -92,7 +93,7 @@
             }
         }
 
-        public bool Delete(Usuario objDel)
+        public bool Borrar(Usuario objDel)
         {
             var usu = ObtenerUsuarioConEmail(objDel.Email);
 
@@ -116,7 +117,7 @@
             return returnValue;
         }
 
-        public bool Update(Usuario objUpd)
+        public bool Actualizar(Usuario objUpd)
         {
             var usu = ObtenerUsuarioConEmail(objUpd.Email);
 
@@ -142,7 +143,7 @@
 
         public bool LogIn(string email, string contraseña)
         {
-            BE.Usuario usu = ObtenerUsuarioConEmail(email);
+            Usuario usu = ObtenerUsuarioConEmail(email);
             if (!usu.PrimerLogin)
             {
                 var cingresoInc = usu.CIngresos;
@@ -156,17 +157,32 @@
                         cingresoInc++;
 
                         AumentarIngresos(usu, cingresoInc);
+                        Log.Info("Login Incorrecto de usuario");
+                        RegistrarEnBitacora(usu);
+
                         return false;
                     }
 
+                    Log.Info("Login Correcto de usuario");
+                    RegistrarEnBitacora(usu);
+
                     return true;
                 }
+
+                Log.Info("Usuario bloqueado");
+                RegistrarEnBitacora(usu);
 
                 return false;
             }
 
             CambiarPassword(usu);
             return true;
+        }
+
+        private void RegistrarEnBitacora(Usuario usu)
+        {
+            GlobalContext.Properties["IdUsuario"] = usu.Id;
+            GlobalContext.Properties["DVH"] = usu.DVH;
         }
 
         private int CalcularDigitoVerificador(string entidad, string nombre, string email, string password, int activo)

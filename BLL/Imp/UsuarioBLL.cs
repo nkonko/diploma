@@ -17,24 +17,24 @@
             return usuarioDAL.LogIn(email, contraseña);
         }
 
-        public bool Create(BE.Usuario objAlta)
+        public bool Crear(BE.Usuario objAlta)
         {
-            return usuarioDAL.Create(objAlta);
+            return usuarioDAL.Crear(objAlta);
         }
 
-        public List<BE.Usuario> Retrive()
+        public List<BE.Usuario> Cargar()
         {
-            return usuarioDAL.Retrive();
+            return usuarioDAL.Cargar();
         }
 
-        public bool Delete(BE.Usuario objDel)
+        public bool Borrar(BE.Usuario objDel)
         {
-            return usuarioDAL.Delete(objDel);
+            return usuarioDAL.Borrar(objDel);
         }
 
-        public bool Update(BE.Usuario objUpd)
+        public bool Actualizar(BE.Usuario objUpd)
         {
-            return usuarioDAL.Update(objUpd);
+            return usuarioDAL.Actualizar(objUpd);
         }
     }
 }

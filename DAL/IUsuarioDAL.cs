@@ -5,7 +5,7 @@
 
     public interface IUsuarioDAL : ICRUD<Usuario>
     {
-        ILog Logger { get; }
+        ILog Log { get; }
 
         bool LogIn(string email, string contraseña);
     }
