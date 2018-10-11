@@ -6,27 +6,13 @@
 
     public class ProductoDAL : BE.ICRUD<BE.Producto>
     {
-        private static ProductoDAL instancia;
         private readonly string connectionString = ConfigurationManager.AppSettings["ConnStirng"];
         private readonly string queryString = string.Empty;
 
-        private ProductoDAL()
-        {
-        }
-
-        public static ProductoDAL Getinstancia()
-        {
-            if (instancia != null)
-            {
-                instancia = new ProductoDAL();
-            }
-
-            return instancia;
-        }
-
         public bool Crear(BE.Producto objAlta)
         {
-            throw new NotImplementedException();
+            var queryString = string.Format(
+                                ""
         }
 
         public bool Borrar(BE.Producto objDel)

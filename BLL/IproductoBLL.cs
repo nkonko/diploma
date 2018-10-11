@@ -4,6 +4,5 @@
 
     public interface IProductoBLL : ICRUD<Producto>
     {
-        void CargarProductos();
     }
 }

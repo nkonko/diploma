@@ -14,18 +14,6 @@
     {
         public ILog Log { get; set; }
 
-        private static UsuarioDAL instancia;
-
-        public static UsuarioDAL Getinstancia()
-        {
-            if (instancia == null)
-            {
-                instancia = new UsuarioDAL();
-            }
-
-            return instancia;
-        }
-
         public bool Crear(Usuario objAlta)
         {
             Random random = new Random();

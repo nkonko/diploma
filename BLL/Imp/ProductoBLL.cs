@@ -32,9 +32,5 @@
         {
             return productoDAL.Actualizar(objUpd);
         }
-
-        public void CargarProductos()
-        {
-        }
     }
 }
