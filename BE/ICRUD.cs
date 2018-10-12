@@ -4,12 +4,12 @@
 
     public interface ICRUD<T>
     {
-        bool Create(T objAlta);
+        bool Crear(T objAlta);
 
-        List<T> Retrive();
+        List<T> Cargar();
 
-        bool Delete(T objDel);
+        bool Borrar(T objDel);
 
-        bool Update(T objUpd);
+        bool Actualizar(T objUpd);
     }
 }

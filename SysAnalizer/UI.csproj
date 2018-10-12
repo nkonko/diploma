@@ -57,6 +57,9 @@
     <Reference Include="Autofac.Configuration, Version=4.1.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.Configuration.4.1.0\lib\net45\Autofac.Configuration.dll</HintPath>
     </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Extensions.Configuration, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Configuration.1.1.2\lib\netstandard1.1\Microsoft.Extensions.Configuration.dll</HintPath>
     </Reference>
@@ -81,6 +84,7 @@
     <Reference Include="Microsoft.Extensions.Primitives, Version=1.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Primitives.1.1.1\lib\netstandard1.0\Microsoft.Extensions.Primitives.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -106,63 +110,102 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bitacora.cs">
+    <Compile Include="FORMULARIOS\AdminPatFamilia.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Bitacora.Designer.cs">
+    <Compile Include="FORMULARIOS\AdminPatFamilia.Designer.cs">
+      <DependentUpon>AdminPatFamilia.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FORMULARIOS\AdminPatente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMULARIOS\AdminPatente.Designer.cs">
+      <DependentUpon>AdminPatente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FORMULARIOS\Backup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMULARIOS\Backup.Designer.cs">
+      <DependentUpon>Backup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FORMULARIOS\Bitacora.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMULARIOS\Bitacora.Designer.cs">
       <DependentUpon>Bitacora.cs</DependentUpon>
     </Compile>
-    <Compile Include="Clientes.cs">
+    <Compile Include="FORMULARIOS\Clientes.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Clientes.Designer.cs">
+    <Compile Include="FORMULARIOS\Clientes.Designer.cs">
       <DependentUpon>Clientes.cs</DependentUpon>
     </Compile>
-    <Compile Include="Login.cs">
+    <Compile Include="FormExtensions.cs" />
+    <Compile Include="FORMULARIOS\IBitacora.cs" />
+    <Compile Include="IABMUsuario.cs" />
+    <Compile Include="IVtaProd.cs" />
+    <Compile Include="IoCContainer.cs" />
+    <Compile Include="IPrincipal.cs" />
+    <Compile Include="FORMULARIOS\Login.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Login.Designer.cs">
+    <Compile Include="FORMULARIOS\Login.Designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
     </Compile>
-    <Compile Include="Principal.cs">
+    <Compile Include="FORMULARIOS\Principal.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Principal.Designer.cs">
+    <Compile Include="FORMULARIOS\Principal.Designer.cs">
       <DependentUpon>Principal.cs</DependentUpon>
     </Compile>
-    <Compile Include="Productos.cs">
+    <Compile Include="FORMULARIOS\Productos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Productos.Designer.cs">
+    <Compile Include="FORMULARIOS\Productos.Designer.cs">
       <DependentUpon>Productos.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ABMUsuario.cs">
+    <Compile Include="FORMULARIOS\ABMUsuario.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ABMUsuario.Designer.cs">
+    <Compile Include="FORMULARIOS\ABMUsuario.Designer.cs">
       <DependentUpon>ABMUsuario.cs</DependentUpon>
     </Compile>
-    <Compile Include="Venta de productos.cs">
+    <Compile Include="FORMULARIOS\Restore.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Venta de productos.Designer.cs">
-      <DependentUpon>Venta de productos.cs</DependentUpon>
+    <Compile Include="FORMULARIOS\Restore.Designer.cs">
+      <DependentUpon>Restore.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Bitacora.resx">
+    <Compile Include="FORMULARIOS\VtaProd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMULARIOS\VtaProd.Designer.cs">
+      <DependentUpon>VtaProd.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="FORMULARIOS\AdminPatente.resx">
+      <DependentUpon>AdminPatente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMULARIOS\AdminPatFamilia.resx">
+      <DependentUpon>AdminPatFamilia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMULARIOS\Backup.resx">
+      <DependentUpon>Backup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMULARIOS\Bitacora.resx">
       <DependentUpon>Bitacora.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Clientes.resx">
+    <EmbeddedResource Include="FORMULARIOS\Clientes.resx">
       <DependentUpon>Clientes.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Login.resx">
+    <EmbeddedResource Include="FORMULARIOS\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Principal.resx">
+    <EmbeddedResource Include="FORMULARIOS\Principal.resx">
       <DependentUpon>Principal.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Productos.resx">
+    <EmbeddedResource Include="FORMULARIOS\Productos.resx">
       <DependentUpon>Productos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -175,14 +218,16 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="ABMUsuario.resx">
+    <EmbeddedResource Include="FORMULARIOS\ABMUsuario.resx">
       <DependentUpon>ABMUsuario.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Venta de productos.resx">
-      <DependentUpon>Venta de productos.cs</DependentUpon>
+    <EmbeddedResource Include="FORMULARIOS\Restore.resx">
+      <DependentUpon>Restore.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMULARIOS\VtaProd.resx">
+      <DependentUpon>VtaProd.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
-    <None Include="autofac.json" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -202,6 +247,10 @@
     <ProjectReference Include="..\BLL\BLL.csproj">
       <Project>{38f6ce63-4a59-4dc9-b8a1-86d652931239}</Project>
       <Name>BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DAL\DAL.csproj">
+      <Project>{E65D285D-3D62-4FF6-BE74-844E358A140D}</Project>
+      <Name>DAL</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

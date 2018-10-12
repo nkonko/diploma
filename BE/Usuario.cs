@@ -2,7 +2,7 @@
 {
     public class Usuario 
     {
-        public int Id { get; set; }
+        public int IdUsuario { get; set; }
 
         public string Nombre { get; set; }
 
@@ -19,6 +19,8 @@
         public bool Activo { get; set; }
 
         public int IdCanalVenta { get; set; }
+
+        public int DVH { get; set; }
 
         public int IdIdioma { get; set; }
 

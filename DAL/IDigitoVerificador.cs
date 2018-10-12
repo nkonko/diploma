@@ -1,9 +1,9 @@
 ﻿namespace DAL
 {
+    using System.Collections.Generic;
+
     public interface IDigitoVerificador
     {
-        BE.DigitoVerificador ObtenerDigito(int id_Entidad);
-
-        void CalcularDVHorizontal();
+        int CalcularDVHorizontal(List<string> columnasString = null, List<int> columnasInt = null);
     }
 }

@@ -1,26 +1,44 @@
 ﻿namespace DAL
 {
+    using DAL.Utils;
     using System;
+    using System.Collections.Generic;
     using System.Data;
     using System.Data.SqlClient;
+    using System.Text;
 
     public class DigitoVerificador : IDigitoVerificador
     {
         public static SqlConnection Connection()
         {
-            var conn = new SqlConnection();
-            conn.ConnectionString = @"Data Source=DESKTOP\SQLEXPRESS;Initial Catalog=SYSANALIZER2;Integrated Security=True";
+            var conn = new SqlConnection(@"Data Source=DESKTOP\SQLEXPRESS;Initial Catalog=SYSANALIZER2;Integrated Security=True");
             return conn;
         }
 
-        public void CalcularDVHorizontal()
+        public int CalcularDVHorizontal(List<string> columnasString, List<int> columnasInt)
         {
-            throw new NotImplementedException();
+            var colLenght = new List<int>();
+            var digito = 0;
+
+            foreach (var col in columnasString)
+            {
+                colLenght.Add(col.Length);
+
+                if (columnasString[columnasString.Count - 1] == col)
+                {
+                    foreach (var colL in colLenght)
+                    {
+                        digito += colL * colLenght.FindIndex(x => x == colL);
+                    }
+                }
+            }
+
+            return digito;
         }
 
         public BE.DigitoVerificador ObtenerDigito(int id_Entidad)
         {
-            var sqlQuery = string.Format("SELECT valor FROM DigitoVerificadorVertical WHERE IdEntidad = {0}", id_Entidad);
+            var sqlQuery = string.Format(@"SELECT valor FROM DigitoVerificadorVertical WHERE IdEntidad = {0}", id_Entidad);
 
             var comm = new SqlCommand();
 
@@ -33,8 +51,7 @@
                     comm.Connection = connection;
                     comm.CommandType = CommandType.Text;
 
-                    var da = new SqlDataAdapter();
-                    da.SelectCommand = comm;
+                    var da = new SqlDataAdapter(comm);
 
                     DataTable dt = new DataTable();
 

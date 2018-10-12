@@ -28,22 +28,22 @@
             return instancia;
         }
 
-        public bool Create(BE.Venta objAlta)
+        public bool Crear(BE.Venta objAlta)
         {
             throw new NotImplementedException();
         }
 
-        public bool Delete(BE.Venta objDel)
+        public bool Borrar(BE.Venta objDel)
         {
             throw new NotImplementedException();
         }
 
-        public List<BE.Venta> Retrive()
+        public List<BE.Venta> Cargar()
         {
             throw new NotImplementedException();
         }
 
-        public bool Update(BE.Venta objUpd)
+        public bool Actualizar(BE.Venta objUpd)
         {
             throw new NotImplementedException();
         }

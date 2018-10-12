@@ -1,14 +1,10 @@
-﻿namespace DAL
+﻿namespace BLL
 {
-    using System;
     using System.Collections.Generic;
-    using System.Configuration;
 
     public class Idioma : BE.ICRUD<BE.Idioma>
     {
         private static Idioma instancia;
-        private readonly string connectionString = ConfigurationManager.AppSettings["ConnStirng"];
-        private readonly string queryString = string.Empty;
 
         private Idioma()
         {
@@ -26,22 +22,22 @@
 
         public bool Crear(BE.Idioma objAlta)
         {
-            throw new NotImplementedException();
-        }
-
-        public bool Borrar(BE.Idioma objDel)
-        {
-            throw new NotImplementedException();
+            return DAL.Idioma.Getinstancia().Crear(objAlta);
         }
 
         public List<BE.Idioma> Cargar()
         {
-            throw new NotImplementedException();
+            return DAL.Idioma.Getinstancia().Cargar();
+        }
+
+        public bool Borrar(BE.Idioma objDel)
+        {
+            return DAL.Idioma.Getinstancia().Borrar(objDel);
         }
 
         public bool Actualizar(BE.Idioma objUpd)
         {
-            throw new NotImplementedException();
+            return DAL.Idioma.Getinstancia().Actualizar(objUpd);
         }
     }
 }
