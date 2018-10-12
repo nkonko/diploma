@@ -4,8 +4,6 @@
 
     public interface IDigitoVerificador
     {
-        ////BE.DigitoVerificador ObtenerDigito(int id_Entidad);
-
-        int CalcularDVHorizontal(string entidad, List<string> columnasString, List<int> columnasInt);
+        int CalcularDVHorizontal(List<string> columnasString = null, List<int> columnasInt = null);
     }
 }

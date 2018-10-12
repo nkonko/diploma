@@ -15,7 +15,7 @@
             return conn;
         }
 
-        public int CalcularDVHorizontal(string entidad, List<string> columnasString, List<int> columnasInt)
+        public int CalcularDVHorizontal(List<string> columnasString, List<int> columnasInt)
         {
             var colLenght = new List<int>();
             var digito = 0;

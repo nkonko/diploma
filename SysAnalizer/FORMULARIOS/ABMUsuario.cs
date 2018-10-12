@@ -5,12 +5,14 @@ namespace UI
     using System;
     using System.Windows.Forms;
 
-    public partial class ABMusuario : Form
+    public partial class ABMusuario : Form, IABMUsuario
     {
+        ////private readonly IPrincipal principal;
         private IUsuarioBLL usuarioBLL;
 
         public ABMusuario()
         {
+            ///this.principal = principal;
             InitializeComponent();
         }
         log4net.ILog log;
@@ -55,8 +57,7 @@ namespace UI
         private void btnVolver_Click(object sender, EventArgs e)
         {
             this.Hide();
-            var principal = Principal.GetInstancia();
-            principal.Show();
+           ////principal.Show();
         }
     }
 }

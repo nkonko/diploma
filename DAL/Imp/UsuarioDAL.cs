@@ -8,19 +8,22 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.Data.SqlClient;
 
     public class UsuarioDAL : ICRUD<Usuario>, IUsuarioDAL
     {
         public ILog Log { get; set; }
 
+        private readonly IDigitoVerificador digitoVerificador;
+
+        public UsuarioDAL(IDigitoVerificador digitoVerificador)
+        {
+            this.digitoVerificador = digitoVerificador;
+        }
+
         public bool Crear(Usuario objAlta)
         {
-            Random random = new Random();
-            string nuevoPass = random.Next().ToString();
-            var contEncript = MD5.ComputeMD5Hash(objAlta.Contraseña = nuevoPass);
-            string clase = "Usuario";
-            var digitoVH = CalcularDigitoVerificador(clase, objAlta.Nombre, objAlta.Email, contEncript, 1);
+            var contEncript = MD5.ComputeMD5Hash(new Random().Next().ToString());
+            var digitoVH = digitoVerificador.CalcularDVHorizontal(new List<string> { objAlta.Nombre, objAlta.Email, contEncript });
 
             var queryString = string.Format(
                          "INSERT INTO Usuario(Nombre, Apellido, Password, Email, Telefono, ContadorIngresosIncorrectos, IdCanalVenta, IdIdioma, PrimerLogin, DigitoVerificadorH, Activo)" +
@@ -35,7 +38,7 @@
                         objAlta.IdIdioma,
                         Convert.ToByte(objAlta.PrimerLogin = true),
                         digitoVH,
-                        1);
+                        0);
 
             bool returnValue = false;
 
@@ -68,7 +71,7 @@
                 try
                 {
                     connection.Open();
-                    var usuarios = (List<BE.Usuario>)connection.Query<BE.Usuario>(queryString);
+                    var usuarios = (List<Usuario>)connection.Query<Usuario>(queryString);
 
                     return usuarios;
                 }
@@ -85,16 +88,15 @@
         {
             var usu = ObtenerUsuarioConEmail(objDel.Email);
 
-            var queryString = string.Format("DELETE FROM Usuario WHERE IdUsuario = {0}", usu.Id);
+            var queryString = string.Format("DELETE FROM Usuario WHERE IdUsuario = {0}", usu.IdUsuario);
             bool returnValue = false;
 
-            using (SqlConnection connection = SqlUtils.Connection())
+            using (IDbConnection connection = SqlUtils.Connection())
             {
-                SqlCommand command = new SqlCommand(queryString, connection);
                 try
                 {
                     connection.Open();
-                    command.ExecuteNonQuery();
+                    connection.Execute(queryString);
                 }
                 catch (Exception ex)
                 {
@@ -109,16 +111,15 @@
         {
             var usu = ObtenerUsuarioConEmail(objUpd.Email);
 
-            var queryString = string.Format("UPDATE Usuario SET Nombre = {1}, Apellido = {2}, Password = {3}, Email = {4}, Telefono = {5} WHERE IdUsuario = {0}", usu.Id, objUpd.Nombre, objUpd.Apellido, objUpd.Contraseña, objUpd.Email, objUpd.Telefono);
+            var queryString = string.Format("UPDATE Usuario SET Nombre = {1}, Apellido = {2}, Password = {3}, Email = {4}, Telefono = {5} WHERE IdUsuario = {0}", usu.IdUsuario, objUpd.Nombre, objUpd.Apellido, objUpd.Contraseña, objUpd.Email, objUpd.Telefono);
             bool returnValue = false;
 
-            using (SqlConnection connection = SqlUtils.Connection())
+            using (IDbConnection connection = SqlUtils.Connection())
             {
-                SqlCommand command = new SqlCommand(queryString, connection);
                 try
                 {
                     connection.Open();
-                    command.ExecuteNonQuery();
+                    connection.Execute(queryString);
                 }
                 catch (Exception ex)
                 {
@@ -131,7 +132,7 @@
 
         public bool LogIn(string email, string contraseña)
         {
-            Usuario usu = ObtenerUsuarioConEmail(email);
+            var usu = ObtenerUsuarioConEmail(email);
             if (!usu.PrimerLogin)
             {
                 var cingresoInc = usu.CIngresos;
@@ -163,58 +164,42 @@
                 return false;
             }
 
-            CambiarPassword(usu);
             return true;
         }
 
-        private void RegistrarEnBitacora(Usuario usu)
+        public bool CambiarPassword(Usuario usuario, string nuevaContraseña)
         {
-            GlobalContext.Properties["IdUsuario"] = usu.Id;
-            GlobalContext.Properties["DVH"] = usu.DVH;
-        }
+            var returnValue = false;
 
-        private int CalcularDigitoVerificador(string entidad, string nombre, string email, string password, int activo)
-        {
-            DigitoVerificador digitoVerificador = new DigitoVerificador();
-            var digito = digitoVerificador.CalcularDVHorizontal(entidad, new List<string> { nombre, email, password }, new List<int> { activo });
-            return digito;
-        }
+            var queryString = string.Format("UPDATE Usuario SET Password = '{1}' WHERE IdUsuario = {0}", usuario.IdUsuario, nuevaContraseña);
 
-        private void CambiarPassword(Usuario usuario)
-        {
-            var queryString = string.Format("UPDATE Usuario SET Password = {1} WHERE IdUsuario = {0}", usuario.Id, usuario.Contraseña);
-
-            using (SqlConnection connection = SqlUtils.Connection())
+            using (IDbConnection connection = SqlUtils.Connection())
             {
-                SqlCommand command = new SqlCommand(queryString, connection);
                 try
                 {
                     connection.Open();
-                    command.ExecuteNonQuery();
+                    connection.Execute(queryString);
+                    returnValue = true;
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
             }
+
+            return returnValue;
         }
 
-        private void AumentarIngresos(Usuario usuario, int ingresos)
+        public Usuario ObtenerUsuarioConEmail(string email)
         {
-            var queryString = string.Format("UPDATE Usuario SET Password = {1} WHERE IdUsuario = {0}", usuario.Id, ingresos);
+            var queryString = string.Format("SELECT * FROM dbo.Usuario WHERE Email = '{0}'", email);
 
-            using (SqlConnection connection = SqlUtils.Connection())
+            using (IDbConnection connection = SqlUtils.Connection())
             {
-                SqlCommand command = new SqlCommand(queryString, connection);
-                try
-                {
-                    connection.Open();
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
+                connection.Open();
+                var usuario = (List<Usuario>)connection.Query<Usuario>(queryString);
+
+                return usuario[0];
             }
         }
 
@@ -228,40 +213,27 @@
             return false;
         }
 
-        private Usuario ObtenerUsuarioConEmail(string email)
+        private void RegistrarEnBitacora(Usuario usu)
         {
-            var usuario = new BE.Usuario();
-            var queryString = string.Format("SELECT * FROM dbo.Usuario WHERE Email = '{0}'", email);
-            var comm = new SqlCommand();
+            GlobalContext.Properties["IdUsuario"] = usu.IdUsuario;
+            GlobalContext.Properties["DVH"] = usu.DVH;
+        }
 
-            using (SqlConnection connection = SqlUtils.Connection())
+        private void AumentarIngresos(Usuario usuario, int ingresos)
+        {
+            var queryString = string.Format("UPDATE Usuario SET Password = {1} WHERE IdUsuario = {0}", usuario.IdUsuario, ingresos);
+
+            using (IDbConnection connection = SqlUtils.Connection())
             {
-                comm.CommandText = queryString;
-                comm.Connection = connection;
-                comm.CommandType = CommandType.Text;
-
-                var da = new SqlDataAdapter(comm);
-
-                DataTable dt = new DataTable();
-
-                da.Fill(dt);
-
-                foreach (DataRow dr in dt.Rows)
+                try
                 {
-                    usuario.Id = Convert.ToInt32(dr["IdUsuario"]);
-                    usuario.Nombre = Convert.ToString(dr["Nombre"]);
-                    usuario.Apellido = Convert.ToString(dr["Apellido"]);
-                    usuario.Contraseña = Convert.ToString(dr["Password"]);
-                    usuario.Email = Convert.ToString(dr["Email"]);
-                    usuario.Telefono = Convert.ToInt32(dr["Telefono"]);
-                    usuario.CIngresos = Convert.ToInt32(dr["ContadorIngresosIncorrectos"]);
-                    usuario.Activo = Convert.ToBoolean(dr["Activo"]);
-                    usuario.IdCanalVenta = Convert.ToInt32(dr["IdCanalVenta"]);
-                    usuario.IdIdioma = Convert.ToInt32(dr["IdIdioma"]);
-                    usuario.PrimerLogin = Convert.ToBoolean(dr["PrimerLogin"]);
+                    connection.Open();
+                    connection.Execute(queryString);
                 }
-
-                return usuario;
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
             }
         }
     }

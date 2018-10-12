@@ -21,7 +21,6 @@ namespace UI
         {
             log4net.Config.XmlConfigurator.Configure();
             log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-            //PrincipalForm = Principal.GetInstancia();
             PrincipalForm = IoCContainer.Resolve<IPrincipal>();
             usuarionBLL = IoCContainer.Resolve<IUsuarioBLL>();
         }
@@ -38,6 +37,7 @@ namespace UI
                 if (ingresa)
                 {
                     this.Hide();
+                    PrincipalForm.ComprobarSiEsPrimerLogin(usuario);
                     PrincipalForm.Show();
                 }
                 else

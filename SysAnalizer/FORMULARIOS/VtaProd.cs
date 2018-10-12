@@ -4,7 +4,7 @@ namespace UI
     using System;
     using System.Windows.Forms;
 
-    public partial class VtaProd : Form
+    public partial class VtaProd : Form, IVtaProd
     {
         public VtaProd()
         {
@@ -36,8 +36,8 @@ namespace UI
         private void btnVolver_Click(object sender, EventArgs e)
         {
             this.Hide();
-            var principal = Principal.GetInstancia();
-            principal.Show();
+            //var principal = Principal.GetInstancia();
+            //principal.Show();
         }
     }
 }

@@ -8,6 +8,7 @@ namespace UI
 
     public partial class Productos : Form
     {
+
         private readonly IProductoBLL productoBLL;
 
         public Productos(IProductoBLL productoBLL)
@@ -44,8 +45,8 @@ namespace UI
         private void btnVolver_Click(object sender, EventArgs e)
         {
             this.Hide();
-            var principal = Principal.GetInstancia();
-            principal.Show();
+            //var principal = Principal.GetInstancia();
+            //principal.Show();
         }
     }
 }

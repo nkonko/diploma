@@ -8,5 +8,9 @@
         ILog Log { get; }
 
         bool LogIn(string email, string contraseña);
+
+        bool CambiarPassword(Usuario usuario, string nuevaContraseña);
+
+        Usuario ObtenerUsuarioConEmail(string email);
     }
 }

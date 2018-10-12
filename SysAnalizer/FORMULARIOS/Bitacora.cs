@@ -5,7 +5,7 @@ namespace UI
     using System;
     using System.Windows.Forms;
 
-    public partial class Bitacora : Form
+    public partial class Bitacora : Form, IBitacora
     {
         private readonly IUsuarioBLL usuarionBll;
 
@@ -23,8 +23,8 @@ namespace UI
         private void btn_volver_Click(object sender, EventArgs e)
         {
             Hide();
-            var principal = Principal.GetInstancia();
-            principal.Show();
+            //var principal = Principal.GetInstancia();
+            //principal.Show();
         }
 
         private void FillCheckedList()

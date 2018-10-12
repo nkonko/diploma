@@ -21,9 +21,14 @@
         private static IContainer CreateContainer()
         {
             var contBuilder = new ContainerBuilder();
-            contBuilder.Register((ctx) => Principal.GetInstancia()).As<IPrincipal>().SingleInstance();
+            contBuilder.RegisterType<Principal>().As<IPrincipal>().SingleInstance();
+            ////contBuilder.Register((ctx) => Principal.GetInstancia()).As<IPrincipal>().SingleInstance();
             contBuilder.RegisterType<UsuarioDAL>().As<IUsuarioDAL>().SingleInstance();
             contBuilder.RegisterType<UsuarioBLL>().As<IUsuarioBLL>().SingleInstance();
+            contBuilder.RegisterType<DigitoVerificador>().As<IDigitoVerificador>().InstancePerDependency();
+            contBuilder.RegisterType<VtaProd>().As<IVtaProd>().SingleInstance();
+            contBuilder.RegisterType<ABMusuario>().As<IABMUsuario>().SingleInstance();
+            contBuilder.RegisterType<Bitacora>().As<IBitacora>().SingleInstance();
             return contBuilder.Build();
         }
     }
