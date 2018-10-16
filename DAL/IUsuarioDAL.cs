@@ -5,11 +5,9 @@
 
     public interface IUsuarioDAL : ICRUD<Usuario>
     {
-        ILog Log { get; }
-
         bool LogIn(string email, string contraseña);
 
-        bool CambiarPassword(Usuario usuario, string nuevaContraseña);
+        bool CambiarPassword(Usuario usuario, string nuevaContraseña, bool primerLogin);
 
         Usuario ObtenerUsuarioConEmail(string email);
     }

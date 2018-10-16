@@ -11,7 +11,7 @@
 
     public class UsuarioDAL : ICRUD<Usuario>, IUsuarioDAL
     {
-        public ILog Log { get; set; }
+        private readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private readonly IDigitoVerificador digitoVerificador;
 
@@ -26,7 +26,7 @@
             var digitoVH = digitoVerificador.CalcularDVHorizontal(new List<string> { objAlta.Nombre, objAlta.Email, contEncript });
 
             var queryString = string.Format(
-                         "INSERT INTO Usuario(Nombre, Apellido, Password, Email, Telefono, ContadorIngresosIncorrectos, IdCanalVenta, IdIdioma, PrimerLogin, DigitoVerificadorH, Activo)" +
+                         "INSERT INTO Usuario(Nombre, Apellido, Password, Email, Telefono, ContadorIngresosIncorrectos, IdCanalVenta, IdIdioma, PrimerLogin, DVH, Activo)" +
                          "values ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', {6}, {7}, {8},{9}, {10})",
                         objAlta.Nombre,
                         objAlta.Apellido,
@@ -57,13 +57,11 @@
                 }
             }
 
-            Log.Info("Usuario Creado");
             return returnValue;
         }
 
         public List<Usuario> Cargar()
         {
-            var usuario = new Usuario();
             var queryString = "SELECT * FROM Usuario;";
 
             using (IDbConnection connection = SqlUtils.Connection())
@@ -146,20 +144,17 @@
                         cingresoInc++;
 
                         AumentarIngresos(usu, cingresoInc);
-                        Log.Info("Login Incorrecto de usuario");
-                        RegistrarEnBitacora(usu);
+                        log.Info("Login Incorrecto de usuario");
 
                         return false;
                     }
 
-                    Log.Info("Login Correcto de usuario");
-                    RegistrarEnBitacora(usu);
+                    log.Info("Login Correcto de usuario");
 
                     return true;
                 }
 
-                Log.Info("Usuario bloqueado");
-                RegistrarEnBitacora(usu);
+                log.Info("Usuario bloqueado");
 
                 return false;
             }
@@ -167,11 +162,19 @@
             return true;
         }
 
-        public bool CambiarPassword(Usuario usuario, string nuevaContraseña)
+        public bool CambiarPassword(Usuario usuario, string nuevaContraseña, bool primerLogin = false)
         {
             var returnValue = false;
-
-            var queryString = string.Format("UPDATE Usuario SET Password = '{1}' WHERE IdUsuario = {0}", usuario.IdUsuario, nuevaContraseña);
+            var contEncript = MD5.ComputeMD5Hash(nuevaContraseña);
+            var queryString = string.Empty;
+            if (primerLogin == true)
+            {
+                queryString = string.Format("UPDATE Usuario SET Password = '{1}', PrimerLogin = 0 WHERE IdUsuario = {0}", usuario.IdUsuario, contEncript);
+            }
+            else
+            {
+                string.Format("UPDATE Usuario SET Password = '{1}' WHERE IdUsuario = {0}", usuario.IdUsuario, contEncript);
+            }
 
             using (IDbConnection connection = SqlUtils.Connection())
             {
@@ -180,10 +183,12 @@
                     connection.Open();
                     connection.Execute(queryString);
                     returnValue = true;
+                    log.Info("Password modificado");
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
+                    log.Info("Fallo la modificacion");
                 }
             }
 
@@ -211,12 +216,6 @@
             }
 
             return false;
-        }
-
-        private void RegistrarEnBitacora(Usuario usu)
-        {
-            GlobalContext.Properties["IdUsuario"] = usu.IdUsuario;
-            GlobalContext.Properties["DVH"] = usu.DVH;
         }
 
         private void AumentarIngresos(Usuario usuario, int ingresos)

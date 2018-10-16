@@ -9,7 +9,6 @@ namespace UI
 
     public partial class Principal : Form, IPrincipal
     {
-        public ILog Log { get; set; }
         private readonly IUsuarioDAL usuarioDAL;
         private readonly IVtaProd venta_De_Productos;
         private readonly IABMUsuario abmUsuario;
@@ -61,15 +60,18 @@ namespace UI
             var usu = usuarioDAL.ObtenerUsuarioConEmail(usuario);
             if (usu.PrimerLogin)
             {
-                var nuevaContraseña = Interaction.InputBox("Ingrese su nuevo password","Nuevo Password", "");
-                var cambioExitoso = usuarioDAL.CambiarPassword(usu, nuevaContraseña);
+                var nuevaContraseña = Interaction.InputBox("Ingrese su nuevo password", "Nuevo Password", "");
+                var cambioExitoso = usuarioDAL.CambiarPassword(usu, nuevaContraseña, true);
                 if (cambioExitoso)
                 {
-                    Log.Info("Password Actualizado");
+                    //Log.Info("Password Actualizado");
                     MessageBox.Show("Su Password fue actualizado");
                 }
-                Log.Info("Fallo la actualizacion del password");
-                MessageBox.Show("Error Password no actualizado");
+                else
+                {
+                    //Log.Info("Fallo la actualizacion del password");
+                    MessageBox.Show("Error Password no actualizado");
+                }
             }
         }
     }

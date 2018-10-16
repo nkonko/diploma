@@ -7,7 +7,7 @@ namespace UI
 
     public partial class Login : Form
     {
-        log4net.ILog log;
+        private log4net.ILog log;
         private IPrincipal PrincipalForm;
         private IUsuarioBLL usuarionBLL;
 

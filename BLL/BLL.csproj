@@ -43,7 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Imp\Bitacora.cs" />
+    <Compile Include="Imp\BitacoraBLL.cs" />
     <Compile Include="Imp\Idioma.cs" />
     <Compile Include="IproductoBLL.cs" />
     <Compile Include="IUsuarioBLL.cs" />

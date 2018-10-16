@@ -81,8 +81,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IBitacoraDAL.cs" />
     <Compile Include="IDigitoVerificador.cs" />
-    <Compile Include="Imp\Bitacora.cs" />
+    <Compile Include="Imp\BitacoraDAL.cs" />
     <Compile Include="Imp\DigitoVerificador.cs" />
     <Compile Include="Imp\Familia.cs" />
     <Compile Include="Imp\Idioma.cs" />

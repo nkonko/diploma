@@ -2,12 +2,16 @@
 namespace UI
 {
     using BLL;
+    using DAL.Utils;
+    using log4net;
     using System;
     using System.Windows.Forms;
 
     public partial class ABMusuario : Form, IABMUsuario
     {
         ////private readonly IPrincipal principal;
+        ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         private IUsuarioBLL usuarioBLL;
 
         public ABMusuario()
@@ -15,7 +19,6 @@ namespace UI
             ///this.principal = principal;
             InitializeComponent();
         }
-        log4net.ILog log;
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -24,8 +27,6 @@ namespace UI
 
         private void usuarios_Load(object sender, EventArgs e)
         {
-            log4net.Config.XmlConfigurator.Configure();
-            log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
             usuarioBLL = IoCContainer.Resolve<IUsuarioBLL>();
         }
 
