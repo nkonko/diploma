@@ -14,5 +14,10 @@ using System.Windows.Forms;
         {
 
         }
+
+        private void btnExaminar_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

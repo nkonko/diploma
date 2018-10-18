@@ -84,6 +84,10 @@
     <Reference Include="Microsoft.Extensions.Primitives, Version=1.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Primitives.1.1.1\lib\netstandard1.0\Microsoft.Extensions.Primitives.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.SqlServer.ConnectionInfo, Version=14.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.SqlServer.ConnectionInfoExtended, Version=14.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.SqlServer.Smo, Version=14.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.SqlServer.SmoExtended, Version=14.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -134,11 +138,11 @@
     <Compile Include="FORMULARIOS\AdminPatente.Designer.cs">
       <DependentUpon>AdminPatente.cs</DependentUpon>
     </Compile>
-    <Compile Include="FORMULARIOS\Backup.cs">
+    <Compile Include="FORMULARIOS\BackupUI.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FORMULARIOS\Backup.Designer.cs">
-      <DependentUpon>Backup.cs</DependentUpon>
+    <Compile Include="FORMULARIOS\BackupUI.Designer.cs">
+      <DependentUpon>BackupUI.cs</DependentUpon>
     </Compile>
     <Compile Include="FORMULARIOS\Bitacora.cs">
       <SubType>Form</SubType>
@@ -153,6 +157,12 @@
       <DependentUpon>Clientes.cs</DependentUpon>
     </Compile>
     <Compile Include="FormExtensions.cs" />
+    <Compile Include="FORMULARIOS\FileExplorer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMULARIOS\FileExplorer.Designer.cs">
+      <DependentUpon>FileExplorer.cs</DependentUpon>
+    </Compile>
     <Compile Include="IBitacora.cs" />
     <Compile Include="IABMUsuario.cs" />
     <Compile Include="IVtaProd.cs" />
@@ -208,14 +218,17 @@
     <EmbeddedResource Include="FORMULARIOS\AdminPatFamilia.resx">
       <DependentUpon>AdminPatFamilia.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FORMULARIOS\Backup.resx">
-      <DependentUpon>Backup.cs</DependentUpon>
+    <EmbeddedResource Include="FORMULARIOS\BackupUI.resx">
+      <DependentUpon>BackupUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FORMULARIOS\Bitacora.resx">
       <DependentUpon>Bitacora.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FORMULARIOS\Clientes.resx">
       <DependentUpon>Clientes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMULARIOS\FileExplorer.resx">
+      <DependentUpon>FileExplorer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FORMULARIOS\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
