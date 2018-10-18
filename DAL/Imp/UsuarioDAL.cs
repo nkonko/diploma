@@ -11,8 +11,6 @@
 
     public class UsuarioDAL : ICRUD<Usuario>, IUsuarioDAL
     {
-        private readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
         private readonly IDigitoVerificador digitoVerificador;
 
         public UsuarioDAL(IDigitoVerificador digitoVerificador)
@@ -137,23 +135,18 @@
                 if (cingresoInc < 3)
                 {
                     var contEncriptada = MD5.ComputeMD5Hash(contraseña);
-                    var ingresa = ValidarContraseña(usu, contEncriptada);
+                    var ingresa = ValidarContraseña(usu.Contraseña, contEncriptada);
                     if (!ingresa)
                     {
                         cingresoInc++;
 
                         AumentarIngresos(usu, cingresoInc);
-                        log.Info("Login Incorrecto de usuario");
 
                         return false;
                     }
 
-                    log.Info("Login Correcto de usuario");
-
                     return true;
                 }
-
-                log.Info("Usuario bloqueado");
 
                 return false;
             }
@@ -172,7 +165,7 @@
             }
             else
             {
-                string.Format("UPDATE Usuario SET Password = '{1}' WHERE IdUsuario = {0}", usuario.IdUsuario, contEncript);
+                queryString = string.Format("UPDATE Usuario SET Password = '{1}' WHERE IdUsuario = {0}", usuario.IdUsuario, contEncript);
             }
 
             using (IDbConnection connection = SqlUtils.Connection())
@@ -182,12 +175,10 @@
                     connection.Open();
                     connection.Execute(queryString);
                     returnValue = true;
-                    log.Info("Password modificado");
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
-                    log.Info("Fallo la modificacion");
                 }
             }
 
@@ -214,9 +205,9 @@
             }
         }
 
-        private bool ValidarContraseña(Usuario usuario, string contEncriptada)
+        private bool ValidarContraseña(string contraseña, string contEncriptada)
         {
-            if (usuario.Contraseña == contEncriptada)
+            if (contraseña == contEncriptada)
             {
                 return true;
             }

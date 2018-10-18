@@ -31,11 +31,6 @@ namespace UI
         {
             this.btnVolver = new System.Windows.Forms.Button();
             this.dgusuario = new System.Windows.Forms.DataGridView();
-            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Telefono = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Apellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Domicilio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -70,12 +65,6 @@ namespace UI
             // dgusuario
             // 
             this.dgusuario.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgusuario.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Nombre,
-            this.Telefono,
-            this.Email,
-            this.Apellido,
-            this.Domicilio});
             this.dgusuario.Location = new System.Drawing.Point(15, 270);
             this.dgusuario.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgusuario.Name = "dgusuario";
@@ -83,31 +72,6 @@ namespace UI
             this.dgusuario.Size = new System.Drawing.Size(583, 224);
             this.dgusuario.TabIndex = 26;
             this.dgusuario.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            // 
-            // Nombre
-            // 
-            this.Nombre.HeaderText = "Nombre";
-            this.Nombre.Name = "Nombre";
-            // 
-            // Telefono
-            // 
-            this.Telefono.HeaderText = "Telefono";
-            this.Telefono.Name = "Telefono";
-            // 
-            // Email
-            // 
-            this.Email.HeaderText = "Email";
-            this.Email.Name = "Email";
-            // 
-            // Apellido
-            // 
-            this.Apellido.HeaderText = "Apellido";
-            this.Apellido.Name = "Apellido";
-            // 
-            // Domicilio
-            // 
-            this.Domicilio.HeaderText = "Domicilio";
-            this.Domicilio.Name = "Domicilio";
             // 
             // label3
             // 
@@ -196,7 +160,7 @@ namespace UI
             // txtEmail
             // 
             this.txtEmail.Location = new System.Drawing.Point(333, 71);
-            this.txtEmail.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtEmail.Margin = new System.Windows.Forms.Padding(4);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(265, 22);
             this.txtEmail.TabIndex = 2;
@@ -232,7 +196,7 @@ namespace UI
             // txtCP
             // 
             this.txtCP.Location = new System.Drawing.Point(333, 176);
-            this.txtCP.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtCP.Margin = new System.Windows.Forms.Padding(4);
             this.txtCP.Name = "txtCP";
             this.txtCP.Size = new System.Drawing.Size(92, 22);
             this.txtCP.TabIndex = 6;
@@ -251,7 +215,7 @@ namespace UI
             // txtTel
             // 
             this.txtTel.Location = new System.Drawing.Point(139, 231);
-            this.txtTel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtTel.Margin = new System.Windows.Forms.Padding(4);
             this.txtTel.Name = "txtTel";
             this.txtTel.Size = new System.Drawing.Size(165, 22);
             this.txtTel.TabIndex = 7;
@@ -291,7 +255,7 @@ namespace UI
             this.Controls.Add(this.txtApellido);
             this.Controls.Add(this.txtNombre);
             this.Controls.Add(this.btnNuevo);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ABMusuario";
             this.Text = "ABM usuarios";
             this.Load += new System.EventHandler(this.usuarios_Load);
@@ -314,11 +278,6 @@ namespace UI
         private System.Windows.Forms.TextBox txtApellido;
         private System.Windows.Forms.TextBox txtNombre;
         private System.Windows.Forms.Button btnNuevo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Telefono;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Email;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Apellido;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Domicilio;
         private System.Windows.Forms.TextBox txtEmail;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label4;

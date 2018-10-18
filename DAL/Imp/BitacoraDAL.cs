@@ -72,8 +72,7 @@
 
         public int ObtenerUltimoIdBitacora()
         {
-            ////Cambiar Log por Bitacora
-            var queryString = "SELECT IDENT_CURRENT ('[dbo].[Log]') AS Current_Identity;";
+            var queryString = "SELECT IDENT_CURRENT ('[dbo].[Bitacora]') AS Current_Identity;";
 
             using (IDbConnection connection = SqlUtils.Connection())
             {
