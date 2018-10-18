@@ -5,16 +5,9 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Data.SqlClient;
-    using System.Text;
 
     public class DigitoVerificador : IDigitoVerificador
     {
-        public static SqlConnection Connection()
-        {
-            var conn = new SqlConnection(@"Data Source=DESKTOP\SQLEXPRESS;Initial Catalog=SYSANALIZER2;Integrated Security=True");
-            return conn;
-        }
-
         public int CalcularDVHorizontal(List<string> columnasString, List<int> columnasInt)
         {
             var colLenght = new List<int>();
@@ -42,7 +35,7 @@
 
             var comm = new SqlCommand();
 
-            using (SqlConnection connection = Connection())
+            using (SqlConnection connection = SqlUtils.Connection())
             {
                 var digitoVerificador = new BE.DigitoVerificador();
                 try

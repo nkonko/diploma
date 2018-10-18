@@ -19,7 +19,6 @@ namespace UI
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            log4net.Config.XmlConfigurator.Configure();
             log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
             PrincipalForm = IoCContainer.Resolve<IPrincipal>();
             usuarionBLL = IoCContainer.Resolve<IUsuarioBLL>();

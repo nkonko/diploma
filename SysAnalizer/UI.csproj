@@ -110,6 +110,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FORMULARIOS\ABMFamilias.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMULARIOS\ABMFamilias.Designer.cs">
+      <DependentUpon>ABMFamilias.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FORMULARIOS\Familias.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMULARIOS\Familias.Designer.cs">
+      <DependentUpon>Familias.cs</DependentUpon>
+    </Compile>
     <Compile Include="FORMULARIOS\AdminPatFamilia.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -184,6 +196,12 @@
     <Compile Include="FORMULARIOS\VtaProd.Designer.cs">
       <DependentUpon>VtaProd.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="FORMULARIOS\ABMFamilias.resx">
+      <DependentUpon>ABMFamilias.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMULARIOS\Familias.resx">
+      <DependentUpon>Familias.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FORMULARIOS\AdminPatente.resx">
       <DependentUpon>AdminPatente.cs</DependentUpon>
     </EmbeddedResource>

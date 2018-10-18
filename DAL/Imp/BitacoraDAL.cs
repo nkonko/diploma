@@ -96,7 +96,7 @@
         {
             var bitacoraId = ObtenerUltimoIdBitacora();
             var bitacora = LeerBitacoraConId(bitacoraId);
-            var digitoVH = digitoVerificador.CalcularDVHorizontal(new List<string> { bitacora.InformacionAsociada, bitacora.Actividad, bitacora.Criticidad }, new List<int> { usu.IdUsuario, bitacora.IdLog });
+            var digitoVH = digitoVerificador.CalcularDVHorizontal(new List<string> { bitacora.InformacionAsociada, bitacora.Actividad, bitacora.Criticidad }, new List<int> { usu.IdUsuario, bitacoraId });
             return digitoVH;
         }
     }

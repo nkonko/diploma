@@ -3,14 +3,14 @@ namespace UI
 {
 using System;
 using System.Windows.Forms;
-    public partial class Backup : Form
+    public partial class Familias : Form
     {
-        public Backup()
+        public Familias()
         {
             InitializeComponent();
         }
 
-        private void Backup_Load(object sender, EventArgs e)
+        private void Familias_Load(object sender, EventArgs e)
         {
 
         }
