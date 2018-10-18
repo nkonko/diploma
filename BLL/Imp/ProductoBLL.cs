@@ -4,7 +4,7 @@
     using DAL;
     using System.Collections.Generic;
 
-    public class ProductoBLL : BE.ICRUD<BE.Producto>, IProductoBLL
+    public class ProductoBLL : ICRUD<Producto>, IProductoBLL
     {
         private readonly IProductoDAL productoDAL;
 

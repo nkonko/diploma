@@ -85,8 +85,9 @@
     <Compile Include="IDigitoVerificador.cs" />
     <Compile Include="Imp\BitacoraDAL.cs" />
     <Compile Include="Imp\DigitoVerificador.cs" />
-    <Compile Include="Imp\Familia.cs" />
+    <Compile Include="Imp\FamiliaDAL.cs" />
     <Compile Include="Imp\Idioma.cs" />
+    <Compile Include="IFamiliaDAL.cs" />
     <Compile Include="IProductoDAL.cs" />
     <Compile Include="IUsuarioDAL.cs" />
     <Compile Include="Imp\Patente.cs" />

@@ -1,9 +1,10 @@
 ﻿namespace BLL
 {
+    using BE;
     using DAL;
     using System.Collections.Generic;
 
-    public class UsuarioBLL : BE.ICRUD<BE.Usuario>, IUsuarioBLL
+    public class UsuarioBLL : ICRUD<Usuario>, IUsuarioBLL
     {
         private readonly IUsuarioDAL usuarioDAL;
 
@@ -17,22 +18,22 @@
             return usuarioDAL.LogIn(email, contraseña);
         }
 
-        public bool Crear(BE.Usuario objAlta)
+        public bool Crear(Usuario objAlta)
         {
             return usuarioDAL.Crear(objAlta);
         }
 
-        public List<BE.Usuario> Cargar()
+        public List<Usuario> Cargar()
         {
             return usuarioDAL.Cargar();
         }
 
-        public bool Borrar(BE.Usuario objDel)
+        public bool Borrar(Usuario objDel)
         {
             return usuarioDAL.Borrar(objDel);
         }
 
-        public bool Actualizar(BE.Usuario objUpd)
+        public bool Actualizar(Usuario objUpd)
         {
             return usuarioDAL.Actualizar(objUpd);
         }

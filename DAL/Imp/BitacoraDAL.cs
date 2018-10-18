@@ -69,6 +69,7 @@
                 return null;
             }
         }
+
         public string ObtenerUltimoIdBitacora()
         {
             ////Cambiar Log por Bitacora
@@ -94,10 +95,9 @@
         public int GenerarDVH(Usuario usu)
         {
             var bitacoraId = ObtenerUltimoIdBitacora();
-            LeerBitacoraConId(Int16.Parse(bitacoraId));
-            var digitoVH = digitoVerificador.CalcularDVHorizontal(new List<string> { }, new List<int> { usu.IdUsuario });
-            return 0;
+            var bitacora = LeerBitacoraConId(short.Parse(bitacoraId));
+            var digitoVH = digitoVerificador.CalcularDVHorizontal(new List<string> { bitacora.InformacionAsociada, bitacora.Actividad, bitacora.Criticidad }, new List<int> { usu.IdUsuario, bitacora.IdLog });
+            return digitoVH;
         }
-
     }
 }

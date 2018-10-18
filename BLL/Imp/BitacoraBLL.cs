@@ -3,7 +3,6 @@
     using BE;
     using DAL;
     using log4net;
-    using System.Collections.Generic;
 
     public class BitacoraBLL
     {

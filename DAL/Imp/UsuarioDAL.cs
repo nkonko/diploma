@@ -22,12 +22,13 @@
 
         public bool Crear(Usuario objAlta)
         {
+            var returnValue = false;
             var contEncript = MD5.ComputeMD5Hash(new Random().Next().ToString());
             var digitoVH = digitoVerificador.CalcularDVHorizontal(new List<string> { objAlta.Nombre, objAlta.Email, contEncript });
 
             var queryString = string.Format(
                          "INSERT INTO Usuario(Nombre, Apellido, Password, Email, Telefono, ContadorIngresosIncorrectos, IdCanalVenta, IdIdioma, PrimerLogin, DVH, Activo)" +
-                         "values ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', {6}, {7}, {8},{9}, {10})",
+                         "VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', {6}, {7}, {8},{9}, {10})",
                         objAlta.Nombre,
                         objAlta.Apellido,
                         contEncript,
@@ -40,7 +41,6 @@
                         digitoVH,
                         0);
 
-            bool returnValue = false;
 
             using (IDbConnection connection = SqlUtils.Connection())
             {
@@ -87,7 +87,7 @@
             var usu = ObtenerUsuarioConEmail(objDel.Email);
 
             var queryString = string.Format("DELETE FROM Usuario WHERE IdUsuario = {0}", usu.IdUsuario);
-            bool returnValue = false;
+            var returnValue = false;
 
             using (IDbConnection connection = SqlUtils.Connection())
             {
@@ -110,7 +110,7 @@
             var usu = ObtenerUsuarioConEmail(objUpd.Email);
 
             var queryString = string.Format("UPDATE Usuario SET Nombre = {1}, Apellido = {2}, Password = {3}, Email = {4}, Telefono = {5} WHERE IdUsuario = {0}", usu.IdUsuario, objUpd.Nombre, objUpd.Apellido, objUpd.Contraseña, objUpd.Email, objUpd.Telefono);
-            bool returnValue = false;
+            var returnValue = false;
 
             using (IDbConnection connection = SqlUtils.Connection())
             {
@@ -138,7 +138,7 @@
                 if (cingresoInc < 3)
                 {
                     var contEncriptada = MD5.ComputeMD5Hash(contraseña);
-                    bool ingresa = ValidarContraseña(usu, contEncriptada);
+                    var ingresa = ValidarContraseña(usu, contEncriptada);
                     if (!ingresa)
                     {
                         cingresoInc++;

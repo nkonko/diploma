@@ -1,4 +1,4 @@
-﻿namespace DAL.Imp
+﻿namespace BLL.Imp
 {
     using System;
     using System.Collections.Generic;
@@ -6,7 +6,7 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    public class Familia
+    public class PatenteBLL
     {
     }
 }
