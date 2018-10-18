@@ -10,6 +10,6 @@
 
         int GenerarDVH(Usuario usu);
 
-        string ObtenerUltimoIdBitacora();
+        int ObtenerUltimoIdBitacora();
     }
 }

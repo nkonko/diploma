@@ -1,7 +1,7 @@
 ﻿namespace SysAnalizer.Dal.Test
 {
     using BE;
-    using DAL;
+    using DAL.Imp;
     using NUnit.Framework;
 
     [TestFixture]

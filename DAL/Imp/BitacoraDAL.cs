@@ -58,8 +58,8 @@
                 try
                 {
                     connection.Open();
-                    var bitacora = (Bitacora)connection.Query<Bitacora>(queryString);
-                    return bitacora;
+                    var bitacora = (List<Bitacora>)connection.Query<Bitacora>(queryString);
+                    return bitacora[0];
                 }
                 catch (Exception ex)
                 {
@@ -70,7 +70,7 @@
             }
         }
 
-        public string ObtenerUltimoIdBitacora()
+        public int ObtenerUltimoIdBitacora()
         {
             ////Cambiar Log por Bitacora
             var queryString = "SELECT IDENT_CURRENT ('[dbo].[Log]') AS Current_Identity;";
@@ -80,22 +80,22 @@
                 try
                 {
                     connection.Open();
-                    var bitacoraId = connection.Query<int>(queryString).ToString();
-                    return bitacoraId;
+                    var bitacoraId = connection.Query<int>(queryString).AsList();
+                    return bitacoraId[0];
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
 
-                return null;
+                return 0;
             }
         }
 
         public int GenerarDVH(Usuario usu)
         {
             var bitacoraId = ObtenerUltimoIdBitacora();
-            var bitacora = LeerBitacoraConId(short.Parse(bitacoraId));
+            var bitacora = LeerBitacoraConId(bitacoraId);
             var digitoVH = digitoVerificador.CalcularDVHorizontal(new List<string> { bitacora.InformacionAsociada, bitacora.Actividad, bitacora.Criticidad }, new List<int> { usu.IdUsuario, bitacora.IdLog });
             return digitoVH;
         }

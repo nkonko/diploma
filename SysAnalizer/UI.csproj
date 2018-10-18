@@ -141,7 +141,7 @@
       <DependentUpon>Clientes.cs</DependentUpon>
     </Compile>
     <Compile Include="FormExtensions.cs" />
-    <Compile Include="FORMULARIOS\IBitacora.cs" />
+    <Compile Include="IBitacora.cs" />
     <Compile Include="IABMUsuario.cs" />
     <Compile Include="IVtaProd.cs" />
     <Compile Include="IoCContainer.cs" />

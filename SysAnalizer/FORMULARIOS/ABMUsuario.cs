@@ -10,12 +10,15 @@ namespace UI
     public partial class ABMusuario : Form, IABMUsuario
     {
         ////private readonly IPrincipal principal;
+        private readonly IBitacoraBLL bitacoraBLL;
+
         ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private IUsuarioBLL usuarioBLL;
 
-        public ABMusuario()
+        public ABMusuario(IBitacoraBLL bitacoraBLL)
         {
+            this.bitacoraBLL = bitacoraBLL;
             ///this.principal = principal;
             InitializeComponent();
         }
@@ -32,15 +35,18 @@ namespace UI
 
         private void btn_nuevo_Click(object sender, EventArgs e)
         {
-           var creado = usuarioBLL.Crear(new Usuario() { Nombre = txtNombre.Text, Apellido = txtApellido.Text, Email = txtEmail.Text, Telefono = Int32.Parse(txtTel.Text), PrimerLogin = true, CIngresos = 0, Activo = true });
+            var creado = usuarioBLL.Crear(new Usuario() { Nombre = txtNombre.Text, Apellido = txtApellido.Text, Email = txtEmail.Text, Telefono = Int32.Parse(txtTel.Text), PrimerLogin = true, CIngresos = 0, Activo = true });
+            var usu = usuarioBLL.ObtenerUsuarioConEmail(txtEmail.Text);
             if (creado)
             {
                 log.Info("Se ha creado un nuevo usuario");
+                bitacoraBLL.RegistrarEnBitacora(usu);
                 MessageBox.Show("Registro exitoso");
             }
             else
             {
                 log.Info("El registro de nuevo usuario ha fallado");
+                bitacoraBLL.RegistrarEnBitacora(usu);
                 MessageBox.Show("El registro de nuevo usuario ha fallado");
             }
         }
@@ -58,7 +64,7 @@ namespace UI
         private void btnVolver_Click(object sender, EventArgs e)
         {
             this.Hide();
-           ////principal.Show();
+            ////principal.Show();
         }
     }
 }

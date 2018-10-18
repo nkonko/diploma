@@ -37,5 +37,10 @@
         {
             return usuarioDAL.Actualizar(objUpd);
         }
+
+        public Usuario ObtenerUsuarioConEmail(string email)
+        {
+            return usuarioDAL.ObtenerUsuarioConEmail(email);
+        }
     }
 }

@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Imp\BitacoraBLL.cs" />
     <Compile Include="Imp\FamiliaBLL.cs" />
+    <Compile Include="Imp\IBitacoraBLL.cs" />
     <Compile Include="Imp\Idioma.cs" />
     <Compile Include="Imp\PatenteBLL.cs" />
     <Compile Include="IproductoBLL.cs" />

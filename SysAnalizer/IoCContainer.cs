@@ -3,6 +3,7 @@
     using Autofac;
     using BLL;
     using DAL;
+    using DAL.Imp;
 
     public static class IoCContainer
     {
@@ -29,6 +30,8 @@
             contBuilder.RegisterType<VtaProd>().As<IVtaProd>().SingleInstance();
             contBuilder.RegisterType<ABMusuario>().As<IABMUsuario>().SingleInstance();
             contBuilder.RegisterType<Bitacora>().As<IBitacora>().SingleInstance();
+            contBuilder.RegisterType<BitacoraBLL>().As<IBitacoraBLL>().InstancePerDependency();
+            contBuilder.RegisterType<BitacoraDAL>().As<IBitacoraDAL>().InstancePerDependency();
             return contBuilder.Build();
         }
     }

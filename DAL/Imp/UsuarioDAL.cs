@@ -1,4 +1,4 @@
-﻿namespace DAL
+﻿namespace DAL.Imp
 {
     using BE;
     using DAL.Utils;
@@ -40,7 +40,6 @@
                         Convert.ToByte(objAlta.PrimerLogin = true),
                         digitoVH,
                         0);
-
 
             using (IDbConnection connection = SqlUtils.Connection())
             {
@@ -201,10 +200,17 @@
 
             using (IDbConnection connection = SqlUtils.Connection())
             {
+                try
+                {
                 connection.Open();
                 var usuario = (List<Usuario>)connection.Query<Usuario>(queryString);
 
                 return usuario[0];
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
             }
         }
 
