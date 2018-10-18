@@ -31,7 +31,7 @@ namespace UI
             {
                 string usuario = txt_user.Text;
                 string contraseña = txt_contraseña.Text;
-
+                ////admin123
                 bool ingresa = usuarionBLL.LogIn(usuario, contraseña);
 
                 if (ingresa)
