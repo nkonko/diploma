@@ -1,7 +1,8 @@
 ﻿namespace BLL
 {
     using BE;
-    using DAL;
+    using BE.Entidades;
+    using DAL.Dao;
     using log4net;
     using System.Collections.Generic;
 

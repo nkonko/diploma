@@ -1,6 +1,8 @@
-﻿namespace DAL.Imp
+﻿namespace DAL.Dao.Imp
 {
     using BE;
+    using BE.Entidades;
+    using DAL.Dao;
     using DAL.Utils;
     using Dapper;
     using System;

@@ -40,19 +40,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bitacora.cs" />
-    <Compile Include="Cliente.cs" />
-    <Compile Include="DetalleVenta.cs" />
-    <Compile Include="DigitoVerificador.cs" />
-    <Compile Include="Familia.cs" />
+    <Compile Include="Entidades\Bitacora.cs" />
+    <Compile Include="Entidades\Cliente.cs" />
+    <Compile Include="Entidades\DetalleVenta.cs" />
+    <Compile Include="Entidades\Familia.cs" />
     <Compile Include="FiltrosBitacora.cs" />
     <Compile Include="ICRUD.cs" />
-    <Compile Include="Idioma.cs" />
-    <Compile Include="Patente.cs" />
-    <Compile Include="Producto.cs" />
+    <Compile Include="Entidades\Idioma.cs" />
+    <Compile Include="Entidades\Patente.cs" />
+    <Compile Include="Entidades\Producto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Usuario.cs" />
-    <Compile Include="Venta.cs" />
+    <Compile Include="Entidades\Usuario.cs" />
+    <Compile Include="Entidades\Venta.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

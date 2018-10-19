@@ -3,7 +3,7 @@
 //// la informacion del usuario.
 namespace UI
 {
-    using BE;
+    using BE.Entidades;
     using BLL;
     using System.Collections.Generic;
 

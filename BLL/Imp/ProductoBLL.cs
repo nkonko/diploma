@@ -1,7 +1,8 @@
 ﻿namespace BLL
 {
     using BE;
-    using DAL;
+    using BE.Entidades;
+    using DAL.Dao;
     using System.Collections.Generic;
 
     public class ProductoBLL : ICRUD<Producto>, IProductoBLL

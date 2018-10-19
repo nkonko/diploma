@@ -2,7 +2,9 @@
 {
     using System.Collections.Generic;
     using BE;
+    using BE.Entidades;
     using DAL;
+    using DAL.Dao;
 
     public class VentaBLL : ICRUD<Venta>, IVentaBLL
     {

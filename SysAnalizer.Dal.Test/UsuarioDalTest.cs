@@ -1,7 +1,7 @@
 ﻿namespace SysAnalizer.Dal.Test
 {
-    using BE;
-    using DAL.Imp;
+    using BE.Entidades;
+    using DAL.Dao.Imp;
     using NUnit.Framework;
 
     [TestFixture]
@@ -16,7 +16,7 @@
         [Test]
         public void CreateUsuarioShouldReturnOk()
         {
-            Usuario.Crear(new Usuario { Nombre = "LALA", Apellido = "peppe", Contraseña = "123456", Email = "lala@hotmail.com", Telefono = 46532, PrimerLogin = true, IdIdioma = 1, CIngresos = 1, Activo = true, IdCanalVenta = 1 });
+            ////UsuarioDAL.Crear(new Usuario { Nombre = "LALA", Apellido = "peppe", Contraseña = "123456", Email = "lala@hotmail.com", Telefono = 46532, PrimerLogin = true, IdIdioma = 1, CIngresos = 1, Activo = true, IdCanalVenta = 1 });
             Assert.True(true);
         }
     }

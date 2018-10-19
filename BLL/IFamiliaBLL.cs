@@ -1,6 +1,6 @@
 ﻿namespace BLL
 {
-    using BE;
+    using BE.Entidades;
     using System.Collections.Generic;
 
     public interface IFamiliaBLL

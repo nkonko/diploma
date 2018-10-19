@@ -1,7 +1,7 @@
 ﻿namespace BLL
 {
-    using BE;
-    using DAL;
+    using BE.Entidades;
+    using DAL.Dao;
     using log4net;
 
     public class BitacoraBLL : IBitacoraBLL

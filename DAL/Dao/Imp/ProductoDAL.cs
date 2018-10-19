@@ -1,38 +1,39 @@
-﻿namespace DAL
+﻿namespace DAL.Dao.Imp
 {
     using BE;
+    using BE.Entidades;
     using DAL.Utils;
     using Dapper;
     using System;
     using System.Collections.Generic;
     using System.Data;
 
-    public class VentaDAL : ICRUD<Venta>, IVentaDAL
+    public class ProductoDAL : ICRUD<Producto>, IProductoDAL
     {
         private readonly IDigitoVerificador digitoVerificador;
 
-        public VentaDAL(IDigitoVerificador digitoVerificador)
+        private readonly string queryString = string.Empty;
+
+        public ProductoDAL(IDigitoVerificador digitoVerificador)
         {
             this.digitoVerificador = digitoVerificador;
         }
 
-        public bool Crear(Venta objAlta)
+        public bool Crear(Producto objAlta)
         {
-            var digitoVH = digitoVerificador.CalcularDVHorizontal(new List<string>() { }, new List<int>() { });
-            ////Cambiar por los datos de venta
+            var digitoVH = digitoVerificador.CalcularDVHorizontal(new List<string>() { objAlta.Descripcion }, new List<int>() { objAlta.NroProd });
+
             var queryString = string.Format(
-                        "INSERT INTO Venta() VALUES ()",
-                       ////objAlta.Nombre,
-                       ////objAlta.Apellido,
-                       ////contEncript,
-                       ////objAlta.Email,
-                       ////objAlta.Telefono,
-                       ////objAlta.CIngresos = 0,
-                       ////objAlta.IdCanalVenta,
-                       ////objAlta.IdIdioma,
-                       ////Convert.ToByte(objAlta.PrimerLogin = true),
-                       digitoVH,
-                       0);
+                                "INSERT INTO Producto(Descripcion ,PUnitario, PVenta ,Stock ,DVH) " +
+                                "VALUES({0}, {1}, {2}, {3}, {4})",
+                                objAlta.Descripcion,
+                                objAlta.PUnitario,
+                                objAlta.PVenta,
+                                objAlta.Stock,
+                                digitoVH);
+
+            bool returnValue = false;
+
             using (IDbConnection connection = SqlUtils.Connection())
             {
                 try
@@ -40,7 +41,7 @@
                     connection.Open();
                     connection.Execute(queryString);
 
-                    return true;
+                    return returnValue = true;
                 }
                 catch (Exception ex)
                 {
@@ -48,12 +49,12 @@
                 }
             }
 
-            return false;
+            return returnValue;
         }
 
-        public bool Borrar(Venta objDel)
+        public bool Borrar(Producto objDel)
         {
-            var queryString = $"DELETE FROM Venta WHERE IdVenta = {objDel.Id}";
+            var queryString = $"DELETE FROM Producto WHERE IdProducto = {objDel.IdProducto}";
 
             using (IDbConnection connection = SqlUtils.Connection())
             {
@@ -72,18 +73,18 @@
             return false;
         }
 
-        public List<Venta> Cargar()
+        public List<Producto> Cargar()
         {
-            var queryString = "SELECT * FROM Venta;";
+            var queryString = "SELECT * FROM Producto;";
 
             using (IDbConnection connection = SqlUtils.Connection())
             {
                 try
                 {
                     connection.Open();
-                    var ventas = (List<Venta>)connection.Query<Venta>(queryString);
+                    var productos = (List<Producto>)connection.Query<Producto>(queryString);
 
-                    return ventas;
+                    return productos;
                 }
                 catch (Exception ex)
                 {
@@ -94,10 +95,10 @@
             }
         }
 
-        public bool Actualizar(Venta objUpd)
+        public bool Actualizar(Producto objUpd)
         {
-            ////terminar query
-            var queryString = string.Format("UPDATE Venta SET Descripcion = {1} WHERE IdVenta = {0}", objUpd.Id);
+            ////Cambiar por columnas de producto
+            var queryString = $"UPDATE Producto SET Nombre = , Apellido = , Password = , Email = , Telefono = WHERE IdProducto = ";
 
             using (IDbConnection connection = SqlUtils.Connection())
             {

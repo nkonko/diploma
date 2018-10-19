@@ -1,43 +1,42 @@
-﻿namespace BLL
-{
-    using System.Collections.Generic;
+﻿////namespace BLL
+////{
+////    using BE;
+////    using BE.Entidades;
+////    using DAL.Dao.Imp;
+////    using System.Collections.Generic;
 
-    public class Idioma : BE.ICRUD<BE.Idioma>
-    {
-        private static Idioma instancia;
+////    //public class IdiomaBLL : ICRUD<Idioma>
+////    //{
+////    //    private static Idioma instancia;
 
-        private Idioma()
-        {
-        }
+////    //    private Idioma()
+////    //    {
+////    //    }
 
-        public static Idioma Getinstancia()
-        {
-            if (instancia != null)
-            {
-                instancia = new Idioma();
-            }
+////    //    public static Idioma Getinstancia()
+////    //    {
+////    //        if (instancia != null)
+////    //        {
+////    //            instancia = new Idioma();
+////    //        }
 
-            return instancia;
-        }
+////    //        return instancia;
+////    //    }
 
-        public bool Crear(BE.Idioma objAlta)
-        {
-            return DAL.Idioma.Getinstancia().Crear(objAlta);
-        }
+////    //    public bool Crear(Idioma objAlta)
+////    //    {
+////    //    }
 
-        public List<BE.Idioma> Cargar()
-        {
-            return DAL.Idioma.Getinstancia().Cargar();
-        }
+////    //    public List<Idioma> Cargar()
+////    //    {
+////    //    }
 
-        public bool Borrar(BE.Idioma objDel)
-        {
-            return DAL.Idioma.Getinstancia().Borrar(objDel);
-        }
+////    //    public bool Borrar(Idioma objDel)
+////    //    {
+////    //    }
 
-        public bool Actualizar(BE.Idioma objUpd)
-        {
-            return DAL.Idioma.Getinstancia().Actualizar(objUpd);
-        }
-    }
-}
+////    //    public bool Actualizar(Idioma objUpd)
+////    //    {
+////    //    }
+////    }
+////}

@@ -1,6 +1,6 @@
 ﻿namespace UI
 {
-    using BE;
+    using BE.Entidades;
 
     public interface IFormControl
     {

@@ -1,4 +1,4 @@
-﻿namespace BE
+﻿namespace BE.Entidades
 {
     public class Cliente
     {

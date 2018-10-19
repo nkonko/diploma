@@ -1,4 +1,4 @@
-﻿namespace DAL.Imp
+﻿namespace DAL.Dao
 {
     public interface IPatenteDAL
     {

@@ -1,4 +1,4 @@
-﻿namespace DAL
+﻿namespace DAL.Dao
 {
     using System.Collections.Generic;
 

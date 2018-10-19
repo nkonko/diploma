@@ -1,7 +1,7 @@
 ﻿namespace BLL
 {
+    using BE.Entidades;
     using System.Collections.Generic;
-    using BE;
 
     public interface IVentaBLL
     {

@@ -1,7 +1,8 @@
 ﻿namespace BLL.Imp
 {
     using BE;
-    using DAL;
+    using BE.Entidades;
+    using DAL.Dao;
     using System.Collections.Generic;
 
     public class FamiliaBLL : ICRUD<Familia>, IFamiliaBLL

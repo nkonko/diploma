@@ -1,6 +1,6 @@
-﻿namespace BE
+﻿namespace BE.Entidades
 {
-    public class Idioma
+    public class Venta
     {
         public int Id { get; set; }
 

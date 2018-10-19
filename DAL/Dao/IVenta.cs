@@ -1,7 +1,7 @@
-﻿namespace DAL
+﻿namespace DAL.Dao
 {
+    using BE.Entidades;
     using System.Collections.Generic;
-    using BE;
 
     public interface IVentaDAL
     {

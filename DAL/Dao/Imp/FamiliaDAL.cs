@@ -1,4 +1,4 @@
-﻿namespace DAL.Imp
+﻿namespace DAL.Dao.Imp
 {
     using BE;
     using DAL.Utils;
