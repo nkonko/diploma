@@ -12,14 +12,16 @@ namespace UI
     {
         ////private readonly IPrincipal principal;
         private readonly IBitacoraBLL bitacoraBLL;
+        private readonly IFormControl formControl;
 
         ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private IUsuarioBLL usuarioBLL;
 
-        public ABMusuario(IBitacoraBLL bitacoraBLL)
+        public ABMusuario(IBitacoraBLL bitacoraBLL, IFormControl formControl)
         {
             this.bitacoraBLL = bitacoraBLL;
+            this.formControl = formControl;
             ///this.principal = principal;
             InitializeComponent();
         }
@@ -46,7 +48,7 @@ namespace UI
         private void btn_nuevo_Click(object sender, EventArgs e)
         {
             var creado = usuarioBLL.Crear(new Usuario() { Nombre = txtNombre.Text, Apellido = txtApellido.Text, Email = txtEmail.Text, Telefono = Int32.Parse(txtTel.Text), PrimerLogin = true, CIngresos = 0, Activo = true });
-            var usu = usuarioBLL.ObtenerUsuarioConEmail(txtEmail.Text);
+            var usu = formControl.ObtenerInfoUsuario();
             if (creado)
             {
                 log.Info("Se ha creado un nuevo usuario");
@@ -67,7 +69,7 @@ namespace UI
         private void btn_modificar_Click(object sender, EventArgs e)
         {
             var modificado = usuarioBLL.Actualizar(new Usuario() { Nombre = txtNombre.Text, Apellido = txtApellido.Text, Email = txtEmail.Text, Telefono = Int32.Parse(txtTel.Text), PrimerLogin = true, CIngresos = 0, Activo = true });
-            var usu = usuarioBLL.ObtenerUsuarioConEmail(txtEmail.Text);
+            var usu = formControl.ObtenerInfoUsuario();
             if (modificado)
             {
                 log.Info("Se ha creado un nuevo usuario");
@@ -89,7 +91,7 @@ namespace UI
         {
             var usuario = new Usuario() { Email = Interaction.InputBox("Ingrese email", "Borrar Usuario") };
             var borrado = usuarioBLL.Borrar(usuario);
-            var usu = usuarioBLL.ObtenerUsuarioConEmail(usuario.Email);
+            var usu = formControl.ObtenerInfoUsuario();
             if (borrado)
             {
                 log.Info("Se ha creado un nuevo usuario");

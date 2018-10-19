@@ -1,6 +1,8 @@
 ﻿namespace BE
 {
-    public class Usuario 
+    using System.Collections.Generic;
+
+    public class Usuario
     {
         public int IdUsuario { get; set; }
 
@@ -25,5 +27,9 @@
         public int IdIdioma { get; set; }
 
         public bool PrimerLogin { get; set; }
+
+        public Familia Familia { get; set; }
+
+        public List<Patente> Patentes { get; set; }
     }
 }

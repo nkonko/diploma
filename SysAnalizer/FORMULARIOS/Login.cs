@@ -8,10 +8,11 @@ namespace UI
 
     public partial class Login : Form
     {
-       
+
         private log4net.ILog log;
         private IPrincipal PrincipalForm;
         private IUsuarioBLL usuarioBLL;
+        private IFormControl formControl;
 
         public Login()
         {
@@ -24,6 +25,7 @@ namespace UI
             log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
             PrincipalForm = IoCContainer.Resolve<IPrincipal>();
             usuarioBLL = IoCContainer.Resolve<IUsuarioBLL>();
+            formControl = IoCContainer.Resolve<IFormControl>();
         }
 
         private void btn_ingresar_Click(object sender, EventArgs e)
@@ -38,6 +40,7 @@ namespace UI
                 if (ingresa)
                 {
                     this.Hide();
+                    formControl.GuardarDatosSesionUsuario(usuarioBLL.ObtenerUsuarioConEmail(usuario));
                     PrincipalForm.ComprobarSiEsPrimerLogin(usuario);
                     PrincipalForm.Show();
                 }

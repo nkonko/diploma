@@ -32,6 +32,7 @@
             contBuilder.RegisterType<Bitacora>().As<IBitacora>().SingleInstance();
             contBuilder.RegisterType<BitacoraBLL>().As<IBitacoraBLL>().InstancePerDependency();
             contBuilder.RegisterType<BitacoraDAL>().As<IBitacoraDAL>().InstancePerDependency();
+            contBuilder.RegisterType<FormControl>().As<IFormControl>().InstancePerDependency();
             return contBuilder.Build();
         }
     }

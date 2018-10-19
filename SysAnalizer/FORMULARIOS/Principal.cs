@@ -9,14 +9,16 @@ namespace UI
 
     public partial class Principal : Form, IPrincipal
     {
+        private readonly IFormControl formControl;
         private readonly IUsuarioDAL usuarioDAL;
         private readonly IVtaProd venta_De_Productos;
         private readonly IABMUsuario abmUsuario;
         private readonly IBitacora bitacora;
 
-        public Principal(IUsuarioDAL usuarioDAL, IVtaProd venta_De_Productos, IABMUsuario abmUsuario, IBitacora bitacora)
+        public Principal(IUsuarioDAL usuarioDAL, IVtaProd venta_De_Productos, IABMUsuario abmUsuario, IBitacora bitacora, IFormControl formControl)
         {
             InitializeComponent();
+            this.formControl = formControl;
             this.usuarioDAL = usuarioDAL;
             this.venta_De_Productos = venta_De_Productos;
             this.abmUsuario = abmUsuario;
@@ -41,7 +43,7 @@ namespace UI
         private void usuariosToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             this.Hide();
-            abmUsuario.Show();
+            formControl.ObtenerFormulario();
         }
 
         private void bitacoraToolStripMenuItem_Click(object sender, EventArgs e)
