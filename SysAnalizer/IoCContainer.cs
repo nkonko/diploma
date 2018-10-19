@@ -26,6 +26,8 @@
             ////contBuilder.Register((ctx) => Principal.GetInstancia()).As<IPrincipal>().SingleInstance();
             contBuilder.RegisterType<UsuarioDAL>().As<IUsuarioDAL>().SingleInstance();
             contBuilder.RegisterType<UsuarioBLL>().As<IUsuarioBLL>().SingleInstance();
+            contBuilder.RegisterType<VentaBLL>().As<IVentaBLL>().SingleInstance();
+            contBuilder.RegisterType<VentaDAL>().As<IVentaDAL>().SingleInstance();
             contBuilder.RegisterType<DigitoVerificador>().As<IDigitoVerificador>().InstancePerDependency();
             contBuilder.RegisterType<VtaProd>().As<IVtaProd>().SingleInstance();
             contBuilder.RegisterType<ABMusuario>().As<IABMUsuario>().SingleInstance();

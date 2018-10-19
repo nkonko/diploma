@@ -4,7 +4,6 @@
     using DAL.Utils;
     using Dapper;
     using EasyEncryption;
-    using log4net;
     using System;
     using System.Collections.Generic;
     using System.Data;
@@ -20,7 +19,6 @@
 
         public bool Crear(Usuario objAlta)
         {
-            var returnValue = false;
             var contEncript = MD5.ComputeMD5Hash(new Random().Next().ToString());
             var digitoVH = digitoVerificador.CalcularDVHorizontal(new List<string> { objAlta.Nombre, objAlta.Email, contEncript });
 
@@ -46,7 +44,7 @@
                     connection.Open();
                     connection.Execute(queryString);
 
-                    return returnValue = true;
+                    return true;
                 }
                 catch (Exception ex)
                 {
@@ -54,7 +52,7 @@
                 }
             }
 
-            return returnValue;
+            return false;
         }
 
         public List<Usuario> Cargar()
@@ -84,7 +82,6 @@
             var usu = ObtenerUsuarioConEmail(objDel.Email);
 
             var queryString = string.Format("DELETE FROM Usuario WHERE IdUsuario = {0}", usu.IdUsuario);
-            var returnValue = false;
 
             using (IDbConnection connection = SqlUtils.Connection())
             {
@@ -92,6 +89,7 @@
                 {
                     connection.Open();
                     connection.Execute(queryString);
+                    return true;
                 }
                 catch (Exception ex)
                 {
@@ -99,7 +97,7 @@
                 }
             }
 
-            return returnValue;
+            return false;
         }
 
         public bool Actualizar(Usuario objUpd)
@@ -107,7 +105,6 @@
             var usu = ObtenerUsuarioConEmail(objUpd.Email);
 
             var queryString = string.Format("UPDATE Usuario SET Nombre = {1}, Apellido = {2}, Password = {3}, Email = {4}, Telefono = {5} WHERE IdUsuario = {0}", usu.IdUsuario, objUpd.Nombre, objUpd.Apellido, objUpd.Contraseña, objUpd.Email, objUpd.Telefono);
-            var returnValue = false;
 
             using (IDbConnection connection = SqlUtils.Connection())
             {
@@ -115,6 +112,7 @@
                 {
                     connection.Open();
                     connection.Execute(queryString);
+                    return true;
                 }
                 catch (Exception ex)
                 {
@@ -122,7 +120,7 @@
                 }
             }
 
-            return returnValue;
+            return false;
         }
 
         public bool LogIn(string email, string contraseña)
@@ -197,6 +195,26 @@
                 var usuario = (List<Usuario>)connection.Query<Usuario>(queryString);
 
                 return usuario[0];
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+        }
+
+        public List<Patente> ObtenerPatentesDeUsuario(int usuarioId)
+        {
+            var queryString = $"SELECT IdPatente FROM UsuarioPatente WHERE IdUsuario = {usuarioId}";
+
+            using (IDbConnection connection = SqlUtils.Connection())
+            {
+                try
+                {
+                    connection.Open();
+                    var patentes = (List<Patente>)connection.Query<Patente>(queryString);
+
+                    return patentes;
                 }
                 catch (Exception)
                 {

@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
 
-    public class Filtros
+    public class FiltrosBitacora
     {
         public DateTime FechaDesde { get; set; }
 

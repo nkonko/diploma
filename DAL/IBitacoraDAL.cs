@@ -4,7 +4,7 @@
 
     public interface IBitacoraDAL
     {
-        void FiltrarBitacora(Filtros filtros);
+        void FiltrarBitacora(FiltrosBitacora filtros);
 
         Bitacora LeerBitacoraConId(int bitacoraId);
 

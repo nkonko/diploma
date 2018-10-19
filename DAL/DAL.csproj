@@ -89,6 +89,7 @@
     <Compile Include="Imp\Idioma.cs" />
     <Compile Include="IFamiliaDAL.cs" />
     <Compile Include="IProductoDAL.cs" />
+    <Compile Include="IPatenteDAL.cs" />
     <Compile Include="IUsuarioDAL.cs" />
     <Compile Include="Imp\Patente.cs" />
     <Compile Include="Imp\ProductoDAL.cs" />

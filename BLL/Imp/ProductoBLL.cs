@@ -13,7 +13,7 @@
             this.productoDAL = productoDAL;
         }
 
-        public bool Crear(BE.Producto objAlta)
+        public bool Crear(Producto objAlta)
         {
             return productoDAL.Crear(objAlta);
         }

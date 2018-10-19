@@ -4,7 +4,7 @@
     using DAL;
     using System.Collections.Generic;
 
-    public class FamiliaBLL : ICRUD<Familia>
+    public class FamiliaBLL : ICRUD<Familia>, IFamiliaBLL
     {
         private readonly IFamiliaDAL familiaDAL;
 
@@ -31,6 +31,11 @@
         public bool Crear(Familia objAlta)
         {
             return familiaDAL.Crear(objAlta);
+        }
+
+        public List<Patente> ObtenerPatentesFamilia(int familiaId)
+        {
+            return familiaDAL.ObtenerPatentesFamilia(familiaId);
         }
     }
 }

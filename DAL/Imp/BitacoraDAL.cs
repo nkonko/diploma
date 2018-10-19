@@ -17,7 +17,7 @@
             this.digitoVerificador = digitoVerificador;
         }
 
-        public void FiltrarBitacora(Filtros filtros)
+        public void FiltrarBitacora(FiltrosBitacora filtros)
         {
             var queryString = new StringBuilder();
 

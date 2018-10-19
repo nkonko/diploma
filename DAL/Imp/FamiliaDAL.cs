@@ -1,11 +1,11 @@
 ﻿namespace DAL.Imp
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Data;
     using BE;
     using DAL.Utils;
     using Dapper;
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
 
     public class FamiliaDAL : ICRUD<Familia>, IFamiliaDAL
     {
@@ -86,8 +86,7 @@
         {
             var returnValue = false;
 
-            var queryString = string.Format(
-                        "INSERT INTO Familia(Descripcion) VALUES ({0})", objAlta.Descripcion);
+            var queryString = $"INSERT INTO Familia(Descripcion) VALUES ({objAlta.Descripcion})";
 
             using (IDbConnection connection = SqlUtils.Connection())
             {
@@ -105,6 +104,26 @@
             }
 
             return returnValue;
+        }
+
+        public List<Patente> ObtenerPatentesFamilia(int familiaId)
+        {
+            var queryString = $"SELECT IdPatente FROM FamiliaPatente WHERE idFamilia = {familiaId}";
+
+            using (IDbConnection connection = SqlUtils.Connection())
+            {
+                try
+                {
+                    connection.Open();
+                    var patentes = (List<Patente>)connection.Query<Patente>(queryString);
+
+                    return patentes;
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
         }
 
         private Familia ObtenerFamilia(string descripcion)

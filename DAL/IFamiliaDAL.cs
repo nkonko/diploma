@@ -12,5 +12,7 @@
         List<Familia> Cargar();
 
         bool Crear(Familia objAlta);
+
+        List<Patente> ObtenerPatentesFamilia(int familiaId);
     }
 }

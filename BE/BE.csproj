@@ -45,7 +45,7 @@
     <Compile Include="DetalleVenta.cs" />
     <Compile Include="DigitoVerificador.cs" />
     <Compile Include="Familia.cs" />
-    <Compile Include="Filtros.cs" />
+    <Compile Include="FiltrosBitacora.cs" />
     <Compile Include="ICRUD.cs" />
     <Compile Include="Idioma.cs" />
     <Compile Include="Patente.cs" />

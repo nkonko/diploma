@@ -43,9 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IFamiliaBLL.cs" />
     <Compile Include="Imp\BitacoraBLL.cs" />
     <Compile Include="Imp\FamiliaBLL.cs" />
-    <Compile Include="Imp\IBitacoraBLL.cs" />
+    <Compile Include="IBitacoraBLL.cs" />
     <Compile Include="Imp\Idioma.cs" />
     <Compile Include="Imp\PatenteBLL.cs" />
     <Compile Include="IproductoBLL.cs" />

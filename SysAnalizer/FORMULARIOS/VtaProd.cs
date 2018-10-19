@@ -39,5 +39,15 @@ namespace UI
             //var principal = Principal.GetInstancia();
             //principal.Show();
         }
+
+        private void btnSelCliente_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnSelProd_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

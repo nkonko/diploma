@@ -2,6 +2,8 @@
 {
     public class Producto
     {
+        public int IdProducto { get; set; }
+
         public int NroProd { get; set; }
 
         public string Descripcion { get; set; }

@@ -70,6 +70,7 @@ namespace UI
             this.btnSelCliente.TabIndex = 1;
             this.btnSelCliente.Text = "Seleccionar Cliente";
             this.btnSelCliente.UseVisualStyleBackColor = true;
+            this.btnSelCliente.Click += new System.EventHandler(this.btnSelCliente_Click);
             // 
             // label2
             // 
@@ -183,6 +184,7 @@ namespace UI
             this.btnSelProd.TabIndex = 9;
             this.btnSelProd.Text = "Seleccionar Producto";
             this.btnSelProd.UseVisualStyleBackColor = true;
+            this.btnSelProd.Click += new System.EventHandler(this.btnSelProd_Click);
             // 
             // lblFecha
             // 

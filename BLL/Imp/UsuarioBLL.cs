@@ -65,5 +65,10 @@
         {
             return usuarioDAL.ObtenerUsuarioConEmail(email);
         }
+
+        public List<Patente> ObtenerPatentesDeUsuario(int usuarioId)
+        {
+            return usuarioDAL.ObtenerPatentesDeUsuario(usuarioId);
+        }
     }
 }
