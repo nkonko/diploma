@@ -1,7 +1,7 @@
-﻿using BE;
-
-namespace UI
+﻿namespace UI
 {
+    using BE;
+
     public class FormControl : IFormControl
     {
         private Usuario UsuarioActivo { get; set; }
