@@ -48,13 +48,15 @@
     <Compile Include="Imp\FamiliaBLL.cs" />
     <Compile Include="IBitacoraBLL.cs" />
     <Compile Include="Imp\Idioma.cs" />
+    <Compile Include="Imp\IPatenteBLL.cs" />
+    <Compile Include="Imp\IVentaBLL.cs" />
     <Compile Include="Imp\PatenteBLL.cs" />
     <Compile Include="IproductoBLL.cs" />
     <Compile Include="IUsuarioBLL.cs" />
     <Compile Include="Imp\ProductoBLL.cs" />
     <Compile Include="Imp\UsuarioBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Imp\Venta.cs" />
+    <Compile Include="Imp\VentaBLL.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BE\BE.csproj">
