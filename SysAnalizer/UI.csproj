@@ -115,12 +115,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FormControl.cs" />
-    <Compile Include="FORMULARIOS\ABMFamilias.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FORMULARIOS\ABMFamilias.Designer.cs">
-      <DependentUpon>ABMFamilias.cs</DependentUpon>
-    </Compile>
     <Compile Include="FORMULARIOS\Familias.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -209,9 +203,6 @@
     <Compile Include="FORMULARIOS\VtaProd.Designer.cs">
       <DependentUpon>VtaProd.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="FORMULARIOS\ABMFamilias.resx">
-      <DependentUpon>ABMFamilias.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="FORMULARIOS\Familias.resx">
       <DependentUpon>Familias.cs</DependentUpon>
     </EmbeddedResource>
