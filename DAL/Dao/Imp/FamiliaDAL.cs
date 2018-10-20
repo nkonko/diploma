@@ -1,6 +1,7 @@
 ﻿namespace DAL.Dao.Imp
 {
     using BE;
+    using BE.Entidades;
     using DAL.Utils;
     using Dapper;
     using System;
@@ -14,7 +15,7 @@
             ////Revisar no estoy obteniendo los cambios, cambiar y recibir objOld y objNew
             var returnValue = false;
 
-            var familia = ObtenerFamilia(objUpd.Descripcion);
+            var familia = ObtenerFamiliaConDescripcion(objUpd.Descripcion);
 
             ////var queryString = $"UPDATE Familia SET Descripcion = '{nuevaDescripcion}' WHERE IdFamilia = {objUpd.IdFamilia}";
 
@@ -40,7 +41,7 @@
         {
             var returnValue = false;
 
-            var familia = ObtenerFamilia(objDel.Descripcion);
+            var familia = ObtenerFamiliaConDescripcion(objDel.Descripcion);
 
             var queryString = $"DELETE FROM Familia WHERE IdFamilia = {familia.IdFamilia}";
 
@@ -62,7 +63,7 @@
 
         public List<Familia> Cargar()
         {
-            var queryString = "SELECT * FROM Familia;";
+            var queryString = "SELECT Descripcion FROM Familia;";
 
             using (IDbConnection connection = SqlUtils.Connection())
             {
@@ -105,6 +106,26 @@
 
             return returnValue;
         }
+        //// Cambiar a cargar y usar linq para devolver la familia que coincida con la descripcion para no repetir codigo
+        public Familia ObtenerFamiliaConDescripcion(string descripcion)
+        {
+            var queryString = $"SELECT * from Familia Where Descripcion = {descripcion}";
+
+            using (IDbConnection connection = SqlUtils.Connection())
+            {
+                try
+                {
+                    connection.Open();
+                    var familia = (List<Familia>)connection.Query<Familia>(queryString);
+
+                    return familia[0];
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+        }
 
         public List<Patente> ObtenerPatentesFamilia(int familiaId)
         {
@@ -118,26 +139,6 @@
                     var patentes = (List<Patente>)connection.Query<Patente>(queryString);
 
                     return patentes;
-                }
-                catch (Exception)
-                {
-                    throw;
-                }
-            }
-        }
-
-        private Familia ObtenerFamilia(string descripcion)
-        {
-            var queryString = $"SELECT * from Familia Where Descripcion = {descripcion}";
-
-            using (IDbConnection connection = SqlUtils.Connection())
-            {
-                try
-                {
-                    connection.Open();
-                    var familia = (List<Familia>)connection.Query<Familia>(queryString);
-
-                    return familia[0];
                 }
                 catch (Exception)
                 {

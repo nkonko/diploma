@@ -30,21 +30,21 @@ namespace UI
         /// </summary>
         private void InitializeComponent()
         {
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.lstFamilias = new System.Windows.Forms.ListBox();
             this.btnVolver = new System.Windows.Forms.Button();
             this.btnNueva = new System.Windows.Forms.Button();
             this.btnModificar = new System.Windows.Forms.Button();
             this.btnBaja = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // listBox1
+            // lstFamilias
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 16;
-            this.listBox1.Location = new System.Drawing.Point(29, 69);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(218, 212);
-            this.listBox1.TabIndex = 0;
+            this.lstFamilias.FormattingEnabled = true;
+            this.lstFamilias.ItemHeight = 16;
+            this.lstFamilias.Location = new System.Drawing.Point(36, 69);
+            this.lstFamilias.Name = "lstFamilias";
+            this.lstFamilias.Size = new System.Drawing.Size(286, 212);
+            this.lstFamilias.TabIndex = 0;
             // 
             // btnVolver
             // 
@@ -57,27 +57,28 @@ namespace UI
             // 
             // btnNueva
             // 
-            this.btnNueva.Location = new System.Drawing.Point(14, 303);
+            this.btnNueva.Location = new System.Drawing.Point(36, 303);
             this.btnNueva.Name = "btnNueva";
-            this.btnNueva.Size = new System.Drawing.Size(80, 34);
+            this.btnNueva.Size = new System.Drawing.Size(90, 34);
             this.btnNueva.TabIndex = 2;
             this.btnNueva.Text = "Nueva";
             this.btnNueva.UseVisualStyleBackColor = true;
+            this.btnNueva.Click += new System.EventHandler(this.btnNueva_Click);
             // 
             // btnModificar
             // 
-            this.btnModificar.Location = new System.Drawing.Point(109, 303);
+            this.btnModificar.Location = new System.Drawing.Point(132, 303);
             this.btnModificar.Name = "btnModificar";
-            this.btnModificar.Size = new System.Drawing.Size(75, 34);
+            this.btnModificar.Size = new System.Drawing.Size(92, 34);
             this.btnModificar.TabIndex = 3;
             this.btnModificar.Text = "Modificar";
             this.btnModificar.UseVisualStyleBackColor = true;
             // 
             // btnBaja
             // 
-            this.btnBaja.Location = new System.Drawing.Point(197, 303);
+            this.btnBaja.Location = new System.Drawing.Point(230, 303);
             this.btnBaja.Name = "btnBaja";
-            this.btnBaja.Size = new System.Drawing.Size(75, 34);
+            this.btnBaja.Size = new System.Drawing.Size(92, 34);
             this.btnBaja.TabIndex = 4;
             this.btnBaja.Text = "Baja";
             this.btnBaja.UseVisualStyleBackColor = true;
@@ -86,12 +87,12 @@ namespace UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(288, 364);
+            this.ClientSize = new System.Drawing.Size(359, 364);
             this.Controls.Add(this.btnBaja);
             this.Controls.Add(this.btnModificar);
             this.Controls.Add(this.btnNueva);
             this.Controls.Add(this.btnVolver);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.lstFamilias);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Familias";
             this.Text = "Familias";
@@ -102,7 +103,7 @@ namespace UI
 
         #endregion
 
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox lstFamilias;
         private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.Button btnNueva;
         private System.Windows.Forms.Button btnModificar;

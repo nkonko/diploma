@@ -2,8 +2,9 @@
 {
     using Autofac;
     using BLL;
-    using DAL;
-    using DAL.Imp;
+    using BLL.Imp;
+    using DAL.Dao;
+    using DAL.Dao.Imp;
 
     public static class IoCContainer
     {
@@ -35,6 +36,9 @@
             contBuilder.RegisterType<BitacoraBLL>().As<IBitacoraBLL>().InstancePerDependency();
             contBuilder.RegisterType<BitacoraDAL>().As<IBitacoraDAL>().InstancePerDependency();
             contBuilder.RegisterType<FormControl>().As<IFormControl>().InstancePerDependency();
+            contBuilder.RegisterType<Familias>().As<IFamilias>().SingleInstance();
+            contBuilder.RegisterType<FamiliaBLL>().As<IFamiliaBLL>().InstancePerDependency();
+            contBuilder.RegisterType<FamiliaDAL>().As<IFamiliaDAL>().InstancePerDependency();
             return contBuilder.Build();
         }
     }

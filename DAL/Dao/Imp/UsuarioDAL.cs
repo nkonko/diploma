@@ -184,6 +184,7 @@
             return returnValue;
         }
 
+        //// Cambiar a cargar y usar linq para devolver el usuario que coincida con la descripcion para no repetir codigo
         public Usuario ObtenerUsuarioConEmail(string email)
         {
             var queryString = string.Format("SELECT * FROM dbo.Usuario WHERE Email = '{0}'", email);

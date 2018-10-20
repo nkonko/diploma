@@ -166,6 +166,7 @@
     </Compile>
     <Compile Include="IBitacora.cs" />
     <Compile Include="IABMUsuario.cs" />
+    <Compile Include="IFamilias.cs" />
     <Compile Include="IFormControl.cs" />
     <Compile Include="IVtaProd.cs" />
     <Compile Include="IoCContainer.cs" />

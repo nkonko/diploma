@@ -1,6 +1,6 @@
 ﻿namespace BLL.Imp
 {
-    using DAL.Imp;
+    using DAL.Dao;
 
     public class PatenteBLL : IPatenteBLL
     {
