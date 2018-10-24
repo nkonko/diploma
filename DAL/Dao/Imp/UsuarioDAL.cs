@@ -9,7 +9,7 @@
     using System.Collections.Generic;
     using System.Data;
 
-    public class UsuarioDAL : ICRUD<Usuario>, IUsuarioDAL
+    public class UsuarioDAL : BaseDao, ICRUD<Usuario>, IUsuarioDAL
     {
         private readonly IDigitoVerificador digitoVerificador;
 
@@ -60,22 +60,24 @@
         {
             var queryString = "SELECT * FROM Usuario;";
 
-            using (IDbConnection connection = SqlUtils.Connection())
-            {
-                try
-                {
-                    connection.Open();
-                    var usuarios = (List<Usuario>)connection.Query<Usuario>(queryString);
+            return Exec<Usuario>(queryString);
 
-                    return usuarios;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
+            //using (IDbConnection connection = SqlUtils.Connection())
+            //{
+            //    try
+            //    {
+            //        connection.Open();
+            //        var usuarios = (List<Usuario>)connection.Query<Usuario>(queryString);
 
-                return null;
-            }
+            //        return usuarios;
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        Console.WriteLine(ex.Message);
+            //    }
+
+            //    return null;
+            //}
         }
 
         public bool Borrar(Usuario objDel)
