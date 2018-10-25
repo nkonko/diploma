@@ -38,20 +38,10 @@
                         digitoVH,
                         0);
 
-            using (IDbConnection connection = SqlUtils.Connection())
-            {
-                try
-                {
-                    connection.Open();
-                    connection.Execute(queryString);
-
-                    return true;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-            }
+            CatchException(() =>
+             {
+                 Exec(queryString);
+             });
 
             return false;
         }
@@ -60,24 +50,10 @@
         {
             var queryString = "SELECT * FROM Usuario;";
 
-            return Exec<Usuario>(queryString);
-
-            //using (IDbConnection connection = SqlUtils.Connection())
-            //{
-            //    try
-            //    {
-            //        connection.Open();
-            //        var usuarios = (List<Usuario>)connection.Query<Usuario>(queryString);
-
-            //        return usuarios;
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        Console.WriteLine(ex.Message);
-            //    }
-
-            //    return null;
-            //}
+            return CatchException(() =>
+            {
+                return Exec<Usuario>(queryString);
+            });
         }
 
         public bool Borrar(Usuario objDel)
@@ -195,10 +171,10 @@
             {
                 try
                 {
-                connection.Open();
-                var usuario = (List<Usuario>)connection.Query<Usuario>(queryString);
+                    connection.Open();
+                    var usuario = (List<Usuario>)connection.Query<Usuario>(queryString);
 
-                return usuario[0];
+                    return usuario[0];
                 }
                 catch (Exception)
                 {
