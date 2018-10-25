@@ -98,7 +98,7 @@
         public bool Actualizar(Venta objUpd)
         {
             ////terminar query
-            var queryString = string.Format("UPDATE Venta SET Descripcion = {1} WHERE IdVenta = {0}", objUpd.Id);
+            var queryString = string.Format("UPDATE Venta SET Descripcion = {1} WHERE IdVenta = {0}", objUpd.Id, objUpd.Descripcion);
 
             using (IDbConnection connection = SqlUtils.Connection())
             {

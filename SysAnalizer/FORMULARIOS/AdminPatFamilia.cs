@@ -5,12 +5,20 @@ using System;
 using System.Windows.Forms;
     public partial class AdminPatFamilia : Form
     {
-        public AdminPatFamilia()
+        private readonly IFormControl formControl;
+
+        public AdminPatFamilia(IFormControl formControl)
         {
             InitializeComponent();
+            this.formControl = formControl;
         }
 
         private void AdminPatFamilia_Load(object sender, EventArgs e)
+        {
+            lstPatentes.Items.Add(formControl.ObtenerInfoUsuario().Patentes);
+        }
+
+        private void lstPatentes_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

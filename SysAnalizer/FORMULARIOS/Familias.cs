@@ -27,7 +27,7 @@ namespace UI
                 descripciones.Add(familia.Descripcion);
             }
 
-            lstFamilias.DataSource = descripciones;
+            chklstFamilias.DataSource = descripciones;
         }
 
         private void btnNueva_Click(object sender, EventArgs e)

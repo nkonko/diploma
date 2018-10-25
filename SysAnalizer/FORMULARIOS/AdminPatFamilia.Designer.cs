@@ -33,7 +33,7 @@ namespace UI
             this.btnVolver = new System.Windows.Forms.Button();
             this.lblFamilia = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.chkdListPatente = new System.Windows.Forms.CheckedListBox();
+            this.lstPatentes = new System.Windows.Forms.CheckedListBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -66,7 +66,7 @@ namespace UI
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.chkdListPatente);
+            this.groupBox1.Controls.Add(this.lstPatentes);
             this.groupBox1.Location = new System.Drawing.Point(28, 43);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(136, 169);
@@ -74,10 +74,10 @@ namespace UI
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "PATENTES";
             // 
-            // chkdListPatente
+            // lstPatentes
             // 
-            this.chkdListPatente.FormattingEnabled = true;
-            this.chkdListPatente.Items.AddRange(new object[] {
+            this.lstPatentes.FormattingEnabled = true;
+            this.lstPatentes.Items.AddRange(new object[] {
             "Patente 1",
             "Patente 2",
             "Patente 3",
@@ -87,10 +87,11 @@ namespace UI
             "Patente 7",
             "Patente 8",
             "Patente 9"});
-            this.chkdListPatente.Location = new System.Drawing.Point(15, 19);
-            this.chkdListPatente.Name = "chkdListPatente";
-            this.chkdListPatente.Size = new System.Drawing.Size(106, 139);
-            this.chkdListPatente.TabIndex = 55;
+            this.lstPatentes.Location = new System.Drawing.Point(15, 19);
+            this.lstPatentes.Name = "lstPatentes";
+            this.lstPatentes.Size = new System.Drawing.Size(106, 139);
+            this.lstPatentes.TabIndex = 55;
+            this.lstPatentes.SelectedIndexChanged += new System.EventHandler(this.lstPatentes_SelectedIndexChanged);
             // 
             // AdminPatFamilia
             // 
@@ -116,6 +117,6 @@ namespace UI
         private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.Label lblFamilia;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.CheckedListBox chkdListPatente;
+        private System.Windows.Forms.CheckedListBox lstPatentes;
     }
 }

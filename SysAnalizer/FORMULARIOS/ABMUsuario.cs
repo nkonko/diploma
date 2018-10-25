@@ -48,6 +48,7 @@ namespace UI
 
         private void btn_nuevo_Click(object sender, EventArgs e)
         {
+
             var creado = usuarioBLL.Crear(new Usuario() { Nombre = txtNombre.Text, Apellido = txtApellido.Text, Email = txtEmail.Text, Telefono = Int32.Parse(txtTel.Text), PrimerLogin = true, CIngresos = 0, Activo = true });
             var usu = formControl.ObtenerInfoUsuario();
             if (creado)

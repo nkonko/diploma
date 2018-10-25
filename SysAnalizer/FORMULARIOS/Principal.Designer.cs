@@ -40,7 +40,6 @@ namespace UI
             this.administradorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.usuariosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.patentesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.familiasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bitacoraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.backUpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.restoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -121,7 +120,6 @@ namespace UI
             this.administradorToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.usuariosToolStripMenuItem,
             this.patentesToolStripMenuItem,
-            this.familiasToolStripMenuItem,
             this.bitacoraToolStripMenuItem,
             this.backUpToolStripMenuItem,
             this.restoreToolStripMenuItem});
@@ -141,13 +139,6 @@ namespace UI
             this.patentesToolStripMenuItem.Name = "patentesToolStripMenuItem";
             this.patentesToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.patentesToolStripMenuItem.Text = "Patentes";
-            // 
-            // familiasToolStripMenuItem
-            // 
-            this.familiasToolStripMenuItem.Name = "familiasToolStripMenuItem";
-            this.familiasToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
-            this.familiasToolStripMenuItem.Text = "Familias";
-            this.familiasToolStripMenuItem.Click += new System.EventHandler(this.familiasToolStripMenuItem_Click);
             // 
             // bitacoraToolStripMenuItem
             // 
@@ -215,7 +206,6 @@ namespace UI
         private System.Windows.Forms.ToolStripMenuItem administradorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem usuariosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem patentesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem familiasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem usuariosToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem verUsuariosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bitacoraToolStripMenuItem;

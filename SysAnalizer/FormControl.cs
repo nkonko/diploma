@@ -1,4 +1,4 @@
-﻿//// El objetivo de esta clase es el de poder devolver formularios en base a las patentes que tenga cargado el usuario, las patentes se deberan cargar luego
+﻿//// El objetivo de esta clase es el de poder devolver permisos de los formularios en base a las patentes que tenga cargado el usuario, las patentes se deberan cargar luego
 //// de consultarlas mediante la dal patente, se sumaran a las patentes del usuario las patentes obtenidas por la familia, otra funcionalidad sera la de mantener
 //// la informacion del usuario.
 namespace UI
@@ -11,7 +11,6 @@ namespace UI
     {
         private Usuario UsuarioActivo { get; set; }
 
-        ////private readonly IABMUsuario usuarioABM;
         ////private readonly IVtaProd ventaDeProductos;
         private readonly IUsuarioBLL usuarioBLL;
         private readonly IFamiliaBLL familiaBLL;
@@ -20,12 +19,11 @@ namespace UI
         {
             this.usuarioBLL = usuarioBLL;
             this.familiaBLL = familiaBLL;
-            ////this.usuarioABM = usuarioABM;
         }
 
         public void ObtenerFormulario()
         {
-            //// Este metodo debe validar las patentes de usuario y familia para devolver el formulario
+            
             ////usuarioABM.Show();
         }
 

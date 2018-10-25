@@ -30,21 +30,13 @@ namespace UI
         /// </summary>
         private void InitializeComponent()
         {
-            this.lstFamilias = new System.Windows.Forms.ListBox();
             this.btnVolver = new System.Windows.Forms.Button();
             this.btnNueva = new System.Windows.Forms.Button();
             this.btnModificar = new System.Windows.Forms.Button();
             this.btnBaja = new System.Windows.Forms.Button();
+            this.chklstFamilias = new System.Windows.Forms.CheckedListBox();
+            this.btnSelect = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // lstFamilias
-            // 
-            this.lstFamilias.FormattingEnabled = true;
-            this.lstFamilias.ItemHeight = 16;
-            this.lstFamilias.Location = new System.Drawing.Point(36, 69);
-            this.lstFamilias.Name = "lstFamilias";
-            this.lstFamilias.Size = new System.Drawing.Size(286, 212);
-            this.lstFamilias.TabIndex = 0;
             // 
             // btnVolver
             // 
@@ -57,7 +49,7 @@ namespace UI
             // 
             // btnNueva
             // 
-            this.btnNueva.Location = new System.Drawing.Point(36, 303);
+            this.btnNueva.Location = new System.Drawing.Point(233, 123);
             this.btnNueva.Name = "btnNueva";
             this.btnNueva.Size = new System.Drawing.Size(90, 34);
             this.btnNueva.TabIndex = 2;
@@ -67,7 +59,7 @@ namespace UI
             // 
             // btnModificar
             // 
-            this.btnModificar.Location = new System.Drawing.Point(132, 303);
+            this.btnModificar.Location = new System.Drawing.Point(233, 177);
             this.btnModificar.Name = "btnModificar";
             this.btnModificar.Size = new System.Drawing.Size(92, 34);
             this.btnModificar.TabIndex = 3;
@@ -76,23 +68,41 @@ namespace UI
             // 
             // btnBaja
             // 
-            this.btnBaja.Location = new System.Drawing.Point(230, 303);
+            this.btnBaja.Location = new System.Drawing.Point(233, 231);
             this.btnBaja.Name = "btnBaja";
             this.btnBaja.Size = new System.Drawing.Size(92, 34);
             this.btnBaja.TabIndex = 4;
             this.btnBaja.Text = "Baja";
             this.btnBaja.UseVisualStyleBackColor = true;
             // 
+            // chklstFamilias
+            // 
+            this.chklstFamilias.FormattingEnabled = true;
+            this.chklstFamilias.Location = new System.Drawing.Point(13, 68);
+            this.chklstFamilias.Name = "chklstFamilias";
+            this.chklstFamilias.Size = new System.Drawing.Size(187, 208);
+            this.chklstFamilias.TabIndex = 5;
+            // 
+            // btnSelect
+            // 
+            this.btnSelect.Location = new System.Drawing.Point(235, 68);
+            this.btnSelect.Name = "btnSelect";
+            this.btnSelect.Size = new System.Drawing.Size(90, 34);
+            this.btnSelect.TabIndex = 6;
+            this.btnSelect.Text = "Seleccionar";
+            this.btnSelect.UseVisualStyleBackColor = true;
+            // 
             // Familias
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(359, 364);
+            this.ClientSize = new System.Drawing.Size(345, 307);
+            this.Controls.Add(this.btnSelect);
+            this.Controls.Add(this.chklstFamilias);
             this.Controls.Add(this.btnBaja);
             this.Controls.Add(this.btnModificar);
             this.Controls.Add(this.btnNueva);
             this.Controls.Add(this.btnVolver);
-            this.Controls.Add(this.lstFamilias);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Familias";
             this.Text = "Familias";
@@ -102,11 +112,11 @@ namespace UI
         }
 
         #endregion
-
-        private System.Windows.Forms.ListBox lstFamilias;
         private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.Button btnNueva;
         private System.Windows.Forms.Button btnModificar;
         private System.Windows.Forms.Button btnBaja;
+        private System.Windows.Forms.CheckedListBox chklstFamilias;
+        private System.Windows.Forms.Button btnSelect;
     }
 }

@@ -22,9 +22,9 @@
 
         private static IContainer CreateContainer()
         {
+            ////contBuilder.Register((ctx) => Principal.GetInstancia()).As<IPrincipal>().SingleInstance();
             var contBuilder = new ContainerBuilder();
             contBuilder.RegisterType<Principal>().As<IPrincipal>().SingleInstance();
-            ////contBuilder.Register((ctx) => Principal.GetInstancia()).As<IPrincipal>().SingleInstance();
             contBuilder.RegisterType<UsuarioDAL>().As<IUsuarioDAL>().SingleInstance();
             contBuilder.RegisterType<UsuarioBLL>().As<IUsuarioBLL>().SingleInstance();
             contBuilder.RegisterType<VentaBLL>().As<IVentaBLL>().SingleInstance();

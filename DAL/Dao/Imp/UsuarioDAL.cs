@@ -21,7 +21,8 @@
         public bool Crear(Usuario objAlta)
         {
             var contEncript = MD5.ComputeMD5Hash(new Random().Next().ToString());
-            var digitoVH = digitoVerificador.CalcularDVHorizontal(new List<string> { objAlta.Nombre, objAlta.Email, contEncript }, new List<int> { });
+            objAlta.IdUsuario = ObtenerUltimoIdUsuario() + 1;
+            var digitoVH = digitoVerificador.CalcularDVHorizontal(new List<string> { objAlta.Nombre, objAlta.Email, contEncript }, new List<int> { objAlta.IdUsuario });
 
             var queryString = string.Format(
                          "INSERT INTO Usuario(Nombre, Apellido, Password, Email, Telefono, ContadorIngresosIncorrectos, IdCanalVenta, IdIdioma, PrimerLogin, DVH, Activo)" +
@@ -38,29 +39,20 @@
                         digitoVH,
                         0);
 
-            using (IDbConnection connection = SqlUtils.Connection())
-            {
-                try
-                {
-                    connection.Open();
-                    connection.Execute(queryString);
-
-                    return true;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-            }
-
-            return false;
+            return CatchException(() =>
+              {
+                  return Exec(queryString);
+              });
         }
 
         public List<Usuario> Cargar()
         {
             var queryString = "SELECT * FROM Usuario;";
 
-            return Exec<Usuario>(queryString);
+            return CatchException(() =>
+            {
+                return Exec<Usuario>(queryString);
+            });
         }
 
         public bool Borrar(Usuario objDel)
@@ -69,21 +61,10 @@
 
             var queryString = string.Format("DELETE FROM Usuario WHERE IdUsuario = {0}", usu.IdUsuario);
 
-            using (IDbConnection connection = SqlUtils.Connection())
+            return CatchException(() =>
             {
-                try
-                {
-                    connection.Open();
-                    connection.Execute(queryString);
-                    return true;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-            }
-
-            return false;
+                return Exec(queryString);
+            });
         }
 
         public bool Actualizar(Usuario objUpd)
@@ -92,21 +73,10 @@
 
             var queryString = string.Format("UPDATE Usuario SET Nombre = {1}, Apellido = {2}, Password = {3}, Email = {4}, Telefono = {5} WHERE IdUsuario = {0}", usu.IdUsuario, objUpd.Nombre, objUpd.Apellido, objUpd.Contraseña, objUpd.Email, objUpd.Telefono);
 
-            using (IDbConnection connection = SqlUtils.Connection())
+            return CatchException(() =>
             {
-                try
-                {
-                    connection.Open();
-                    connection.Execute(queryString);
-                    return true;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-            }
-
-            return false;
+                return Exec(queryString);
+            });
         }
 
         public bool LogIn(string email, string contraseña)
@@ -174,40 +144,20 @@
         {
             var queryString = string.Format("SELECT * FROM dbo.Usuario WHERE Email = '{0}'", email);
 
-            using (IDbConnection connection = SqlUtils.Connection())
+            return CatchException(() =>
             {
-                try
-                {
-                connection.Open();
-                var usuario = (List<Usuario>)connection.Query<Usuario>(queryString);
-
-                return usuario[0];
-                }
-                catch (Exception)
-                {
-                    throw;
-                }
-            }
+                return Exec<Usuario>(queryString)[0];
+            });
         }
 
         public List<Patente> ObtenerPatentesDeUsuario(int usuarioId)
         {
             var queryString = $"SELECT IdPatente FROM UsuarioPatente WHERE IdUsuario = {usuarioId}";
 
-            using (IDbConnection connection = SqlUtils.Connection())
+            return CatchException(() =>
             {
-                try
-                {
-                    connection.Open();
-                    var patentes = (List<Patente>)connection.Query<Patente>(queryString);
-
-                    return patentes;
-                }
-                catch (Exception)
-                {
-                    throw;
-                }
-            }
+                return Exec<Patente>(queryString);
+            });
         }
 
         private bool ValidarContraseña(string contraseña, string contEncriptada)
@@ -224,27 +174,19 @@
         {
             var queryString = string.Format("UPDATE Usuario SET Password = {1} WHERE IdUsuario = {0}", usuario.IdUsuario, ingresos);
 
-            using (IDbConnection connection = SqlUtils.Connection())
+            CatchException(() =>
             {
-                try
-                {
-                    connection.Open();
-                    connection.Execute(queryString);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-            }
+                return Exec(queryString);
+            });
         }
 
         private int ObtenerUltimoIdUsuario()
         {
             var queryString = "SELECT IDENT_CURRENT ('[dbo].[Usuario]') AS Current_Identity;";
 
-            return CatchExeption(() =>
+            return CatchException(() =>
             {
-                return Exec(queryString);
+                return Exec<int>(queryString)[0];
             });
         }
     }

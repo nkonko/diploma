@@ -46,7 +46,7 @@ namespace UI
                 }
                 else
                 {
-                    MessageBox.Show("Su cuenta ha sido bloqueada contacte al Administrador");
+                    MessageBox.Show("Login Incorrecto");
                 }
             },
             (ex) => MessageBox.Show($"Exploto por lo siguiente {ex.Message}"));
