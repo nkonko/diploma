@@ -36,5 +36,11 @@ namespace UI
 
             familiaBLL.Crear(new Familia() { Descripcion = nombreFamilia });
         }
+
+        private void btnSelect_Click(object sender, EventArgs e)
+        {
+            ////Guardar en FamiliaUsuario
+
+        }
     }
 }

@@ -5,13 +5,13 @@ namespace UI
 {
     using BE.Entidades;
     using BLL;
+    using DAL.Utils;
     using System.Collections.Generic;
 
-    public class FormControl : IFormControl
+    public class FormControl : BaseDao, IFormControl
     {
         private Usuario UsuarioActivo { get; set; }
 
-        ////private readonly IVtaProd ventaDeProductos;
         private readonly IUsuarioBLL usuarioBLL;
         private readonly IFamiliaBLL familiaBLL;
 
@@ -21,13 +21,17 @@ namespace UI
             this.familiaBLL = familiaBLL;
         }
 
-        public void ObtenerFormulario()
+        public List<Formulario> ObtenerPermisosFormularios()
         {
-            
-            ////usuarioABM.Show();
+            var query = "SELECT * FROM FormularioPatente";
+
+            return CatchException(() =>
+            {
+                return Exec<Formulario>(query);
+            });
         }
 
-        public void ObtenerPermisos()
+        public Usuario ObtenerPermisosUsuario()
         {
             var patentes = new List<Patente>();
 
@@ -36,6 +40,8 @@ namespace UI
             patentes.AddRange(familiaBLL.ObtenerPatentesFamilia(UsuarioActivo.Familia.IdFamilia));
 
             UsuarioActivo.Patentes = patentes;
+
+            return UsuarioActivo;
         }
 
         public void GuardarDatosSesionUsuario(Usuario usuario)
@@ -46,6 +52,32 @@ namespace UI
         public Usuario ObtenerInfoUsuario()
         {
             return UsuarioActivo;
+        }
+
+        public Dictionary<string, bool> AccesosUsuario()
+        {
+            var accesos = new Dictionary<string, bool>();
+            var patentesForm = ObtenerPermisosFormularios();
+            var patentesUsu = ObtenerPermisosUsuario().Patentes;
+            ////var patUsu = patentesUsu.Select(x => x.IdPatente);
+            ////var iguales = patUsu.Intersect(patentesForm.Select(pf => pf.IdPatente));
+
+            foreach (var form in patentesForm)
+            {
+                foreach (var patUsu in patentesUsu)
+                {
+                    if (form.IdPatente == patUsu.IdPatente)
+                    {
+                        accesos.Add(form.Descripcion, true);
+                    }
+                    else
+                    {
+                        accesos.Add(form.Descripcion, false);
+                    }
+                }
+            }
+
+            return accesos;
         }
     }
 }

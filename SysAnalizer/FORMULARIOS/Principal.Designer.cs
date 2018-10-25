@@ -43,8 +43,8 @@ namespace UI
             this.bitacoraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.backUpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.restoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.usuariosToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.verUsuariosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.usuarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.verDatosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -56,7 +56,7 @@ namespace UI
             this.productosToolStripMenuItem,
             this.stockToolStripMenuItem,
             this.administradorToolStripMenuItem,
-            this.usuariosToolStripMenuItem1});
+            this.usuarioToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
@@ -160,19 +160,20 @@ namespace UI
             this.restoreToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.restoreToolStripMenuItem.Text = "Restore";
             // 
-            // usuariosToolStripMenuItem1
+            // usuarioToolStripMenuItem
             // 
-            this.usuariosToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.verUsuariosToolStripMenuItem});
-            this.usuariosToolStripMenuItem1.Name = "usuariosToolStripMenuItem1";
-            this.usuariosToolStripMenuItem1.Size = new System.Drawing.Size(77, 24);
-            this.usuariosToolStripMenuItem1.Text = "Usuarios";
+            this.usuarioToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.verDatosToolStripMenuItem});
+            this.usuarioToolStripMenuItem.Name = "usuarioToolStripMenuItem";
+            this.usuarioToolStripMenuItem.Size = new System.Drawing.Size(71, 24);
+            this.usuarioToolStripMenuItem.Text = "Usuario";
             // 
-            // verUsuariosToolStripMenuItem
+            // verDatosToolStripMenuItem
             // 
-            this.verUsuariosToolStripMenuItem.Name = "verUsuariosToolStripMenuItem";
-            this.verUsuariosToolStripMenuItem.Size = new System.Drawing.Size(165, 26);
-            this.verUsuariosToolStripMenuItem.Text = "Ver Usuarios";
+            this.verDatosToolStripMenuItem.Name = "verDatosToolStripMenuItem";
+            this.verDatosToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.verDatosToolStripMenuItem.Text = "Ver Datos";
+            this.verDatosToolStripMenuItem.Click += new System.EventHandler(this.verUsuariosToolStripMenuItem_Click);
             // 
             // Principal
             // 
@@ -206,8 +207,8 @@ namespace UI
         private System.Windows.Forms.ToolStripMenuItem administradorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem usuariosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem patentesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem usuariosToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem verUsuariosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem usuarioToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem verDatosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bitacoraToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem backUpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem restoreToolStripMenuItem;

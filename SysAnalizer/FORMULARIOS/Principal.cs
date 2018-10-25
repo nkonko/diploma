@@ -4,6 +4,7 @@ namespace UI
     using DAL.Dao;
     using Microsoft.VisualBasic;
     using System;
+    using System.Collections.Generic;
     using System.Windows.Forms;
 
     public partial class Principal : Form, IPrincipal
@@ -28,6 +29,12 @@ namespace UI
 
         private void Principal_Load(object sender, EventArgs e)
         {
+            var acceso = formControl.AccesosUsuario();
+
+            if(acceso[abmUsuario.GetType().FullName])
+            {
+                usuariosToolStripMenuItem.Enabled = false;
+            }
         }
 
         private void nuevaVenta_Click(object sender, EventArgs e)
@@ -86,6 +93,11 @@ namespace UI
         private void familiasToolStripMenuItem_Click(object sender, EventArgs e)
         {
             familias.Show();
+        }
+
+        private void verUsuariosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

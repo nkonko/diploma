@@ -91,6 +91,7 @@ namespace UI
             this.btnSelect.TabIndex = 6;
             this.btnSelect.Text = "Seleccionar";
             this.btnSelect.UseVisualStyleBackColor = true;
+            this.btnSelect.Click += new System.EventHandler(this.btnSelect_Click);
             // 
             // Familias
             // 

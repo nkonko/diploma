@@ -44,6 +44,7 @@
     <Compile Include="Entidades\Cliente.cs" />
     <Compile Include="Entidades\DetalleVenta.cs" />
     <Compile Include="Entidades\Familia.cs" />
+    <Compile Include="Entidades\Formulario.cs" />
     <Compile Include="FiltrosBitacora.cs" />
     <Compile Include="ICRUD.cs" />
     <Compile Include="Entidades\Idioma.cs" />
