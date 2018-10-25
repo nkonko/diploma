@@ -40,6 +40,7 @@ namespace UI
             dgusuario.Columns.Remove("IdIdioma");
             dgusuario.Columns.Remove("IdCanalVenta");
             dgusuario.Columns.Remove("Activo");
+            dgusuario.Columns.Remove("Contraseña");
             dgusuario.Columns.Remove("CIngresos");
             dgusuario.Columns.Remove("DVH");
             dgusuario.Refresh();

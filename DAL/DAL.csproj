@@ -97,6 +97,7 @@
     <Compile Include="Dao\Imp\UsuarioDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Dao\Imp\VentaDAL.cs" />
+    <Compile Include="Utils\BaseDao.cs" />
     <Compile Include="Utils\SqlUtils.cs" />
   </ItemGroup>
   <ItemGroup>

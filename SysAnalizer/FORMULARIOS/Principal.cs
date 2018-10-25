@@ -44,7 +44,7 @@ namespace UI
         private void usuariosToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             this.Hide();
-            formControl.ObtenerFormulario();
+            abmUsuario.Show();
         }
 
         private void bitacoraToolStripMenuItem_Click(object sender, EventArgs e)

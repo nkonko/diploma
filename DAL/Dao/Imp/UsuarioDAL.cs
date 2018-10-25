@@ -21,7 +21,7 @@
         public bool Crear(Usuario objAlta)
         {
             var contEncript = MD5.ComputeMD5Hash(new Random().Next().ToString());
-            var digitoVH = digitoVerificador.CalcularDVHorizontal(new List<string> { objAlta.Nombre, objAlta.Email, contEncript });
+            var digitoVH = digitoVerificador.CalcularDVHorizontal(new List<string> { objAlta.Nombre, objAlta.Email, contEncript }, new List<int> { });
 
             var queryString = string.Format(
                          "INSERT INTO Usuario(Nombre, Apellido, Password, Email, Telefono, ContadorIngresosIncorrectos, IdCanalVenta, IdIdioma, PrimerLogin, DVH, Activo)" +
@@ -61,23 +61,6 @@
             var queryString = "SELECT * FROM Usuario;";
 
             return Exec<Usuario>(queryString);
-
-            //using (IDbConnection connection = SqlUtils.Connection())
-            //{
-            //    try
-            //    {
-            //        connection.Open();
-            //        var usuarios = (List<Usuario>)connection.Query<Usuario>(queryString);
-
-            //        return usuarios;
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        Console.WriteLine(ex.Message);
-            //    }
-
-            //    return null;
-            //}
         }
 
         public bool Borrar(Usuario objDel)
@@ -253,6 +236,16 @@
                     Console.WriteLine(ex.Message);
                 }
             }
+        }
+
+        private int ObtenerUltimoIdUsuario()
+        {
+            var queryString = "SELECT IDENT_CURRENT ('[dbo].[Usuario]') AS Current_Identity;";
+
+            return CatchExeption(() =>
+            {
+                return Exec(queryString);
+            });
         }
     }
 }
