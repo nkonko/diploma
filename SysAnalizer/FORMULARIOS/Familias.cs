@@ -12,7 +12,7 @@ namespace UI
     {
         private readonly IFamiliaBLL familiaBLL;
 
-        public Familias(IFamiliaBLL familiaBLL)
+        public Familias(IFamiliaBLL familiaBLL, IUsuarioBLL usuarioBLL)
         {
             InitializeComponent();
             this.familiaBLL = familiaBLL;
@@ -40,7 +40,7 @@ namespace UI
         private void btnSelect_Click(object sender, EventArgs e)
         {
             ////Guardar en FamiliaUsuario
-
+           var fam = chklstFamilias.SelectedItem;
         }
     }
 }

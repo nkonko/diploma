@@ -35,7 +35,7 @@
             contBuilder.RegisterType<Bitacora>().As<IBitacora>().SingleInstance();
             contBuilder.RegisterType<BitacoraBLL>().As<IBitacoraBLL>().InstancePerDependency();
             contBuilder.RegisterType<BitacoraDAL>().As<IBitacoraDAL>().InstancePerDependency();
-            contBuilder.RegisterType<FormControl>().As<IFormControl>().InstancePerDependency();
+            contBuilder.RegisterType<FormControl>().As<IFormControl>().SingleInstance();
             contBuilder.RegisterType<Familias>().As<IFamilias>().SingleInstance();
             contBuilder.RegisterType<FamiliaBLL>().As<IFamiliaBLL>().InstancePerDependency();
             contBuilder.RegisterType<FamiliaDAL>().As<IFamiliaDAL>().InstancePerDependency();

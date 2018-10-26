@@ -63,7 +63,7 @@
 
         public List<Familia> Cargar()
         {
-            var queryString = "SELECT Descripcion FROM Familia;";
+            var queryString = "SELECT * FROM Familia;";
 
             using (IDbConnection connection = SqlUtils.Connection())
             {

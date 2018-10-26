@@ -11,6 +11,7 @@ namespace UI
     public partial class ABMusuario : Form, IABMUsuario
     {
         ////private readonly IPrincipal principal;
+        private readonly IFamilias familias;
         private readonly IBitacoraBLL bitacoraBLL;
         private readonly IFormControl formControl;
 
@@ -18,11 +19,11 @@ namespace UI
 
         private IUsuarioBLL usuarioBLL;
 
-        public ABMusuario(IBitacoraBLL bitacoraBLL, IFormControl formControl)
+        public ABMusuario(IBitacoraBLL bitacoraBLL, IFormControl formControl, IFamilias familias)
         {
             this.bitacoraBLL = bitacoraBLL;
             this.formControl = formControl;
-            ///this.principal = principal;
+            this.familias = familias;
             InitializeComponent();
         }
 
@@ -48,7 +49,7 @@ namespace UI
 
         private void btn_nuevo_Click(object sender, EventArgs e)
         {
-
+            familias.Show();
             var creado = usuarioBLL.Crear(new Usuario() { Nombre = txtNombre.Text, Apellido = txtApellido.Text, Email = txtEmail.Text, Telefono = Int32.Parse(txtTel.Text), PrimerLogin = true, CIngresos = 0, Activo = true });
             var usu = formControl.ObtenerInfoUsuario();
             if (creado)
