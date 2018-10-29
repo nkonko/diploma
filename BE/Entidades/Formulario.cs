@@ -1,11 +1,13 @@
 ﻿namespace BE.Entidades
 {
-   public class Formulario
+    using System.Collections.Generic;
+
+    public class Formulario
     {
         public int Id { get; set; }
 
         public string Descripcion { get; set; }
 
-        public int IdPatente { get; set; }
+        public List<Patente> IdPatente { get; set; }
     }
 }

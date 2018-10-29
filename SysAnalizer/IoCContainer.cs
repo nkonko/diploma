@@ -39,6 +39,8 @@
             contBuilder.RegisterType<Familias>().As<IFamilias>().SingleInstance();
             contBuilder.RegisterType<FamiliaBLL>().As<IFamiliaBLL>().InstancePerDependency();
             contBuilder.RegisterType<FamiliaDAL>().As<IFamiliaDAL>().InstancePerDependency();
+            contBuilder.RegisterType<PatenteBLL>().As<IPatenteBLL>().InstancePerDependency();
+            contBuilder.RegisterType<PatenteDAL>().As<IPatenteDAL>().InstancePerDependency();
             return contBuilder.Build();
         }
     }

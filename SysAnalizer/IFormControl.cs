@@ -5,7 +5,7 @@
 
     public interface IFormControl
     {
-       List<Formulario> ObtenerPermisosFormularios();
+       List<Patente> ObtenerPermisosFormularios();
 
         void GuardarDatosSesionUsuario(Usuario usuario);
 
@@ -13,6 +13,6 @@
 
         Usuario ObtenerPermisosUsuario();
 
-        Dictionary<string, bool> AccesosUsuario();
+        ////Dictionary<string, bool> AccesosUsuario();
     }
 }

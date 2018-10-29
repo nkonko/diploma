@@ -8,7 +8,7 @@
     using System.Collections.Generic;
     using System.Data;
 
-    public class FamiliaDAL : ICRUD<Familia>, IFamiliaDAL
+    public class FamiliaDAL : BaseDao, ICRUD<Familia>, IFamiliaDAL
     {
         public bool Actualizar(Familia objUpd)
         {
@@ -65,22 +65,10 @@
         {
             var queryString = "SELECT * FROM Familia;";
 
-            using (IDbConnection connection = SqlUtils.Connection())
+            return CatchException(() =>
             {
-                try
-                {
-                    connection.Open();
-                    var familias = (List<Familia>)connection.Query<Familia>(queryString);
-
-                    return familias;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-
-                return null;
-            }
+                return Exec<Familia>(queryString);
+            });
         }
 
         public bool Crear(Familia objAlta)
@@ -106,6 +94,27 @@
 
             return returnValue;
         }
+
+        public void GuardarFamiliaUsuario(int familiaId, int usuarioId)
+        {
+            var queryString = $"INSERT INTO FamiliaUsuario(IdFamilia, IdUsuario) VALUE ({familiaId},{usuarioId})";
+
+            CatchException(() =>
+            {
+                return Exec(queryString);
+            });
+        }
+
+        public string ObtenerDescripcionFamiliaPorId(int familiaId)
+        {
+            var queryString = $"SELECT Descripcion FROM Familia WHERE IdFamilia = {familiaId}";
+
+            return CatchException(() =>
+            {
+                return Exec<string>(queryString)[0];
+            });
+        }
+
         //// Cambiar a cargar y usar linq para devolver la familia que coincida con la descripcion para no repetir codigo
         public Familia ObtenerFamiliaConDescripcion(string descripcion)
         {
@@ -127,24 +136,34 @@
             }
         }
 
+        public int ObtenerIdFamiliaPorDescripcion(string descripcion)
+        {
+            var queryString = "SELECT IdFamilia FROM Familia";
+
+            return CatchException(() =>
+            {
+                return Exec<int>(queryString)[0];
+            });
+        }
+
+        public int ObtenerIdFamiliaPorUsuario(int usuarioId)
+        {
+            var queryString = $"SELECT IdFamilia FROM FamiliaUsuario WHERE IdUsuario = {usuarioId}";
+
+            return CatchException(() =>
+            {
+                return Exec<int>(queryString)[0];
+            });
+        }
+
         public List<Patente> ObtenerPatentesFamilia(int familiaId)
         {
             var queryString = $"SELECT IdPatente FROM FamiliaPatente WHERE idFamilia = {familiaId}";
 
-            using (IDbConnection connection = SqlUtils.Connection())
+            return CatchException(() =>
             {
-                try
-                {
-                    connection.Open();
-                    var patentes = (List<Patente>)connection.Query<Patente>(queryString);
-
-                    return patentes;
-                }
-                catch (Exception)
-                {
-                    throw;
-                }
-            }
+                return Exec<Patente>(queryString);
+            });
         }
     }
 }

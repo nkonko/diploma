@@ -7,5 +7,13 @@
     public interface IFamiliaBLL : ICRUD<Familia>
     {
         List<Patente> ObtenerPatentesFamilia(int familiaId);
+
+        int ObtenerIdFamiliaPorDescripcion(string descripcion);
+
+        void GuardarFamiliaUsuario(int familiaId, int usuarioId);
+
+        int ObtenerIdFamiliaPorUsuario(int usuarioId);
+
+        string ObtenerDescripcionFamiliaPorId(int familiaId);
     }
 }

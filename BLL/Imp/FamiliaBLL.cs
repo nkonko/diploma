@@ -38,5 +38,25 @@
         {
             return familiaDAL.ObtenerPatentesFamilia(familiaId);
         }
+
+        public void GuardarFamiliaUsuario(int familiaId, int usuarioId)
+        {
+            familiaDAL.GuardarFamiliaUsuario(familiaId, usuarioId);
+        }
+
+        public int ObtenerIdFamiliaPorDescripcion(string descripcion)
+        {
+            return familiaDAL.ObtenerIdFamiliaPorDescripcion(descripcion);
+        }
+
+        public int ObtenerIdFamiliaPorUsuario(int usuarioId)
+        {
+            return familiaDAL.ObtenerIdFamiliaPorUsuario(usuarioId);
+        }
+
+        public string ObtenerDescripcionFamiliaPorId(int familiaId)
+        {
+            return familiaDAL.ObtenerDescripcionFamiliaPorId(familiaId);
+        }
     }
 }

@@ -5,6 +5,7 @@ namespace UI
     using DAL.Dao;
     using Microsoft.VisualBasic;
     using System;
+    using System.Linq;
     using System.Windows.Forms;
 
     public partial class Principal : Form, IPrincipal
@@ -32,11 +33,15 @@ namespace UI
         private void Principal_Load(object sender, EventArgs e)
         {
             ////Traer id de familia que machee con idusuario de familiaUsuario
-            var idFamilia = familiaBLL.Cargar().Find(
+            //var idFamilia = familiaBLL.Cargar().Find(
 
-            var acceso = formControl.AccesosUsuario();
+            var patForm = formControl.ObtenerPermisosFormularios();
 
-            if(acceso[abmUsuario.GetType().FullName])
+            var patUsu = formControl.ObtenerPermisosUsuario();
+
+            ////patentesUsu.Where(item => patentesForm.Select(item2 => item2.IdPatente).Contains(item.IdPatente)).ToList();
+
+            if (!patForm.Exists(item => patUsu.Patentes.Select(item2 => item2.IdPatente).Contains(item.IdPatente)))
             {
                 usuariosToolStripMenuItem.Enabled = false;
             }
