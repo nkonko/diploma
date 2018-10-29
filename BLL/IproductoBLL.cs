@@ -5,5 +5,6 @@
 
     public interface IProductoBLL : ICRUD<Producto>
     {
+        Producto ObtenerProductoPorCodigo(string codigo);
     }
 }

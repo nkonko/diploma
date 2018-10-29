@@ -33,5 +33,10 @@
         {
             return productoDAL.Actualizar(objUpd);
         }
+
+        public Producto ObtenerProductoPorCodigo(string codigo)
+        {
+            return productoDAL.ObtenerProductoPorCodigo(codigo);
+        }
     }
 }

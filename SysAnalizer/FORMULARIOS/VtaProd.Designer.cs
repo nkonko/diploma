@@ -195,6 +195,7 @@ namespace UI
             this.lblFecha.Size = new System.Drawing.Size(37, 13);
             this.lblFecha.TabIndex = 10;
             this.lblFecha.Text = "fecha:";
+            this.lblFecha.Click += new System.EventHandler(this.lblFecha_Click);
             // 
             // btnVolver
             // 

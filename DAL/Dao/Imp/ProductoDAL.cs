@@ -3,12 +3,10 @@
     using BE;
     using BE.Entidades;
     using DAL.Utils;
-    using Dapper;
     using System;
     using System.Collections.Generic;
-    using System.Data;
 
-    public class ProductoDAL : ICRUD<Producto>, IProductoDAL
+    public class ProductoDAL : BaseDao, ICRUD<Producto>, IProductoDAL
     {
         private readonly IDigitoVerificador digitoVerificador;
 
@@ -21,7 +19,7 @@
 
         public bool Crear(Producto objAlta)
         {
-            var digitoVH = digitoVerificador.CalcularDVHorizontal(new List<string>() { objAlta.Descripcion }, new List<int>() { objAlta.NroProd });
+            var digitoVH = digitoVerificador.CalcularDVHorizontal(new List<string>() { objAlta.Descripcion,  }, new List<int>() { int.Parse(objAlta.CodigoProducto) });
 
             var queryString = string.Format(
                                 "INSERT INTO Producto(Descripcion ,PUnitario, PVenta ,Stock ,DVH) " +
@@ -32,67 +30,30 @@
                                 objAlta.Stock,
                                 digitoVH);
 
-            bool returnValue = false;
-
-            using (IDbConnection connection = SqlUtils.Connection())
+            return CatchException(() =>
             {
-                try
-                {
-                    connection.Open();
-                    connection.Execute(queryString);
-
-                    return returnValue = true;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-            }
-
-            return returnValue;
+                return Exec(queryString);
+            });
         }
 
         public bool Borrar(Producto objDel)
         {
             var queryString = $"DELETE FROM Producto WHERE IdProducto = {objDel.IdProducto}";
 
-            using (IDbConnection connection = SqlUtils.Connection())
+            return CatchException(() =>
             {
-                try
-                {
-                    connection.Open();
-                    connection.Execute(queryString);
-                    return true;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-            }
-
-            return false;
+                return Exec(queryString);
+            });
         }
 
         public List<Producto> Cargar()
         {
             var queryString = "SELECT * FROM Producto;";
 
-            using (IDbConnection connection = SqlUtils.Connection())
+            return CatchException(() =>
             {
-                try
-                {
-                    connection.Open();
-                    var productos = (List<Producto>)connection.Query<Producto>(queryString);
-
-                    return productos;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-
-                return null;
-            }
+                return Exec<Producto>(queryString);
+            });
         }
 
         public bool Actualizar(Producto objUpd)
@@ -100,21 +61,20 @@
             ////Cambiar por columnas de producto
             var queryString = $"UPDATE Producto SET Nombre = , Apellido = , Password = , Email = , Telefono = WHERE IdProducto = ";
 
-            using (IDbConnection connection = SqlUtils.Connection())
+            return CatchException(() =>
             {
-                try
-                {
-                    connection.Open();
-                    connection.Execute(queryString);
-                    return true;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-            }
+                return Exec(queryString);
+            });
+        }
 
-            return false;
+        public Producto ObtenerProductoPorCodigo(string codigo)
+        {
+            var queryString = $"SELECT * FROM Producto WHERE CodigoProducto = {codigo}";
+
+            return CatchException(() =>
+            {
+                return Exec<Producto>(queryString)[0];
+            });
         }
     }
 }

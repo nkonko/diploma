@@ -12,5 +12,7 @@
         List<Producto> Cargar();
 
         bool Crear(Producto objAlta);
+
+        Producto ObtenerProductoPorCodigo(string codigo);
     }
 }

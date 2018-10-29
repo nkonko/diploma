@@ -39,7 +39,7 @@ namespace UI
 
         private void btnBorrar_Click(object sender, EventArgs e)
         {
-            productoBLL.Borrar(new Producto() { NroProd = int.Parse(txtNroProd.Text) });
+            productoBLL.Borrar(new Producto() { CodigoProducto = txtNroProd.Text });
         }
 
         private void btnVolver_Click(object sender, EventArgs e)
