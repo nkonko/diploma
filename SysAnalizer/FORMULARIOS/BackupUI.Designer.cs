@@ -47,84 +47,76 @@ namespace UI
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 27);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(10, 22);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(111, 17);
+            this.label3.Size = new System.Drawing.Size(83, 13);
             this.label3.TabIndex = 39;
             this.label3.Text = "Ingrese nombre:";
             // 
             // txtNombre
             // 
-            this.txtNombre.Location = new System.Drawing.Point(143, 24);
-            this.txtNombre.Margin = new System.Windows.Forms.Padding(4);
+            this.txtNombre.Location = new System.Drawing.Point(107, 20);
             this.txtNombre.Name = "txtNombre";
-            this.txtNombre.Size = new System.Drawing.Size(232, 22);
+            this.txtNombre.Size = new System.Drawing.Size(175, 20);
             this.txtNombre.TabIndex = 38;
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(211, 352);
-            this.btnCancelar.Margin = new System.Windows.Forms.Padding(4);
+            this.btnCancelar.Location = new System.Drawing.Point(158, 286);
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(173, 31);
+            this.btnCancelar.Size = new System.Drawing.Size(130, 25);
             this.btnCancelar.TabIndex = 37;
             this.btnCancelar.Text = "CANCELAR";
             this.btnCancelar.UseVisualStyleBackColor = true;
             // 
             // btnExaminar
             // 
-            this.btnExaminar.Location = new System.Drawing.Point(251, 179);
-            this.btnExaminar.Margin = new System.Windows.Forms.Padding(4);
+            this.btnExaminar.Location = new System.Drawing.Point(188, 145);
             this.btnExaminar.Name = "btnExaminar";
-            this.btnExaminar.Size = new System.Drawing.Size(133, 31);
+            this.btnExaminar.Size = new System.Drawing.Size(100, 25);
             this.btnExaminar.TabIndex = 36;
             this.btnExaminar.Text = "EXAMINAR";
             this.btnExaminar.UseVisualStyleBackColor = true;
+            this.btnExaminar.Click += new System.EventHandler(this.btnExaminar_Click);
             // 
             // cboCantidad
             // 
             this.cboCantidad.FormattingEnabled = true;
-            this.cboCantidad.Location = new System.Drawing.Point(144, 99);
-            this.cboCantidad.Margin = new System.Windows.Forms.Padding(4);
+            this.cboCantidad.Location = new System.Drawing.Point(108, 80);
             this.cboCantidad.Name = "cboCantidad";
-            this.cboCantidad.Size = new System.Drawing.Size(64, 24);
+            this.cboCantidad.Size = new System.Drawing.Size(49, 21);
             this.cboCantidad.TabIndex = 35;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(17, 101);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(13, 82);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(68, 17);
+            this.label2.Size = new System.Drawing.Size(52, 13);
             this.label2.TabIndex = 34;
             this.label2.Text = "Cantidad:";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(16, 134);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(12, 109);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(73, 17);
+            this.label1.Size = new System.Drawing.Size(55, 13);
             this.label1.TabIndex = 33;
             this.label1.Text = "Directorio:";
             // 
             // txtDirectorio
             // 
-            this.txtDirectorio.Location = new System.Drawing.Point(144, 131);
-            this.txtDirectorio.Margin = new System.Windows.Forms.Padding(4);
+            this.txtDirectorio.Location = new System.Drawing.Point(108, 106);
             this.txtDirectorio.Name = "txtDirectorio";
-            this.txtDirectorio.Size = new System.Drawing.Size(232, 22);
+            this.txtDirectorio.Size = new System.Drawing.Size(175, 20);
             this.txtDirectorio.TabIndex = 32;
             // 
             // btnAceptar
             // 
-            this.btnAceptar.Location = new System.Drawing.Point(9, 352);
-            this.btnAceptar.Margin = new System.Windows.Forms.Padding(4);
+            this.btnAceptar.Location = new System.Drawing.Point(7, 286);
             this.btnAceptar.Name = "btnAceptar";
-            this.btnAceptar.Size = new System.Drawing.Size(173, 31);
+            this.btnAceptar.Size = new System.Drawing.Size(130, 25);
             this.btnAceptar.TabIndex = 31;
             this.btnAceptar.Text = "ACEPTAR";
             this.btnAceptar.UseVisualStyleBackColor = true;
@@ -134,10 +126,9 @@ namespace UI
             // 
             this.chkDividir.AutoSize = true;
             this.chkDividir.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkDividir.Location = new System.Drawing.Point(15, 69);
-            this.chkDividir.Margin = new System.Windows.Forms.Padding(4);
+            this.chkDividir.Location = new System.Drawing.Point(11, 56);
             this.chkDividir.Name = "chkDividir";
-            this.chkDividir.Size = new System.Drawing.Size(145, 21);
+            this.chkDividir.Size = new System.Drawing.Size(112, 17);
             this.chkDividir.TabIndex = 40;
             this.chkDividir.Text = "Dividir volumenes:";
             this.chkDividir.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -145,36 +136,35 @@ namespace UI
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(19, 261);
+            this.progressBar1.Location = new System.Drawing.Point(14, 212);
+            this.progressBar1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(381, 32);
+            this.progressBar1.Size = new System.Drawing.Size(286, 26);
             this.progressBar1.TabIndex = 41;
             // 
             // lblProgreso
             // 
             this.lblProgreso.AutoSize = true;
-            this.lblProgreso.Location = new System.Drawing.Point(181, 299);
-            this.lblProgreso.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblProgreso.Location = new System.Drawing.Point(136, 243);
             this.lblProgreso.Name = "lblProgreso";
-            this.lblProgreso.Size = new System.Drawing.Size(28, 17);
+            this.lblProgreso.Size = new System.Drawing.Size(21, 13);
             this.lblProgreso.TabIndex = 42;
             this.lblProgreso.Text = "0%";
             // 
             // lblStatus
             // 
             this.lblStatus.AutoSize = true;
-            this.lblStatus.Location = new System.Drawing.Point(16, 223);
-            this.lblStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblStatus.Location = new System.Drawing.Point(12, 181);
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(52, 17);
+            this.lblStatus.Size = new System.Drawing.Size(40, 13);
             this.lblStatus.TabIndex = 43;
             this.lblStatus.Text = "Status:";
             // 
-            // Backup
+            // BackupUI
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(427, 402);
+            this.ClientSize = new System.Drawing.Size(320, 327);
             this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.lblProgreso);
             this.Controls.Add(this.progressBar1);
@@ -188,8 +178,7 @@ namespace UI
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtDirectorio);
             this.Controls.Add(this.btnAceptar);
-            this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "Backup";
+            this.Name = "BackupUI";
             this.Text = "Backup";
             this.Load += new System.EventHandler(this.Backup_Load);
             this.ResumeLayout(false);

@@ -22,12 +22,15 @@ namespace UI
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             progressBar1.Value = 0;
-
+            var cantVolumenes = Convert.ToInt32(cboCantidad.SelectedItem);
             try
             {
                 var dbServer = new Server(new ServerConnection(SqlUtils.Connection()));
                 var dbBackUp = new Backup() { Action = BackupActionType.Database, Database = "SYSANALIZER2" };
-                dbBackUp.Devices.AddDevice(@"C:\Data\SYSANALIZER2.bak", DeviceType.File);
+                for (int i = 0; i < cantVolumenes; i++)
+                {
+                    dbBackUp.Devices.AddDevice(txtDirectorio.Text.Trim() + "\\" + txtNombre.Text.Trim() + i + ".bak", DeviceType.File);
+                }
                 dbBackUp.Initialize = true;
                 dbBackUp.PercentComplete += DbPercentComplete;
                 dbBackUp.Complete += DbBackUp_Complete;
@@ -62,6 +65,16 @@ namespace UI
             {
                 lblProgreso.Text = $"{e.Percent}%";
             });
+        }
+
+        private void btnExaminar_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog explorerDialog = new System.Windows.Forms.FolderBrowserDialog();
+            if (explorerDialog.ShowDialog() == DialogResult.OK)
+            {
+                txtDirectorio.Text = explorerDialog.SelectedPath;
+                Environment.SpecialFolder root = explorerDialog.RootFolder;
+            }
         }
     }
 }
