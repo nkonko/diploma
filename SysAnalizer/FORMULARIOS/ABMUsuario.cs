@@ -94,13 +94,13 @@ namespace UI
                 }
             }
 
-            if (string.IsNullOrEmpty(cboFamilia.SelectedText))
+            if (string.IsNullOrEmpty(cboFamilia.SelectedItem.ToString()))
             {
                 MessageBox.Show("Debe seleccionar una familia");
                 returnValue = false;
             }
 
-            if (chkLstPatentes.SelectedIndex == 0)
+            if (chkLstPatentes.Items.Count == 0)
             {
                 MessageBox.Show("Debe seleccionar al menos una patente");
                 returnValue = false;
@@ -139,8 +139,7 @@ namespace UI
             {
                 log.Info("Se ha creado un nuevo usuario");
                 bitacoraBLL.RegistrarEnBitacora(usu);
-                MessageBox.Show("Registro exitoso");
-                dgusuario.Rows.Clear();
+                MessageBox.Show("Borrado exitoso");
                 dgusuario.DataSource = usuarioBLL.Cargar();
                 dgusuario.Refresh();
             }

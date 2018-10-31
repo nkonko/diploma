@@ -25,7 +25,7 @@
             var digitoVH = digitoVerificador.CalcularDVHorizontal(new List<string> { objAlta.Nombre, objAlta.Email, contEncript }, new List<int> { objAlta.IdUsuario });
 
             var queryString = string.Format(
-                         "INSERT INTO Usuario(Nombre, Apellido, Password, Email, Telefono, ContadorIngresosIncorrectos, IdCanalVenta, IdIdioma, PrimerLogin, DVH, Activo)" +
+                         "INSERT INTO Usuario(Nombre, Apellido, Contraseña, Email, Telefono, ContadorIngresosIncorrectos, IdCanalVenta, IdIdioma, PrimerLogin, DVH, Activo)" +
                          "VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', {6}, {7}, {8},{9}, {10})",
                         objAlta.Nombre,
                         objAlta.Apellido,
