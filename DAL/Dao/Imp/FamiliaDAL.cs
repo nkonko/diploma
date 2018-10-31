@@ -3,13 +3,19 @@
     using BE;
     using BE.Entidades;
     using DAL.Utils;
-    using Dapper;
     using System;
     using System.Collections.Generic;
     using System.Data;
 
     public class FamiliaDAL : BaseDao, ICRUD<Familia>, IFamiliaDAL
     {
+        private readonly IDigitoVerificador digitoVerificador;
+
+        public FamiliaDAL(IDigitoVerificador digitoVerificador)
+        {
+            this.digitoVerificador = digitoVerificador;
+        }
+
         public bool Actualizar(Familia objUpd)
         {
             ////Revisar no estoy obteniendo los cambios, cambiar y recibir objOld y objNew
@@ -39,26 +45,16 @@
 
         public bool Borrar(Familia objDel)
         {
-            var returnValue = false;
-
             var familia = ObtenerFamiliaConDescripcion(objDel.Descripcion);
 
             var queryString = $"DELETE FROM Familia WHERE IdFamilia = {familia.IdFamilia}";
 
-            using (IDbConnection connection = SqlUtils.Connection())
+            CatchException(() =>
             {
-                try
-                {
-                    connection.Open();
-                    connection.Execute(queryString);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-            }
+                return Exec<Familia>(queryString);
+            });
 
-            return returnValue;
+            return false;
         }
 
         public List<Familia> Cargar()
@@ -73,31 +69,18 @@
 
         public bool Crear(Familia objAlta)
         {
-            var returnValue = false;
-
             var queryString = $"INSERT INTO Familia(Descripcion) VALUES ({objAlta.Descripcion})";
 
-            using (IDbConnection connection = SqlUtils.Connection())
+            return CatchException(() =>
             {
-                try
-                {
-                    connection.Open();
-                    connection.Execute(queryString);
-
-                    return returnValue = true;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-            }
-
-            return returnValue;
+                return Exec(queryString);
+            });
         }
 
         public void GuardarFamiliaUsuario(int familiaId, int usuarioId)
         {
-            var queryString = $"INSERT INTO FamiliaUsuario(IdFamilia, IdUsuario) VALUE ({familiaId},{usuarioId})";
+            var digitoVH = digitoVerificador.CalcularDVHorizontal(new List<string> { }, new List<int> { familiaId, usuarioId });
+            var queryString = $"INSERT INTO FamiliaUsuario(IdFamilia, IdUsuario, DVH) VALUES({familiaId},{usuarioId},{digitoVH})";
 
             CatchException(() =>
             {
@@ -120,20 +103,10 @@
         {
             var queryString = $"SELECT * from Familia Where Descripcion = {descripcion}";
 
-            using (IDbConnection connection = SqlUtils.Connection())
+            return CatchException(() =>
             {
-                try
-                {
-                    connection.Open();
-                    var familia = (List<Familia>)connection.Query<Familia>(queryString);
-
-                    return familia[0];
-                }
-                catch (Exception)
-                {
-                    throw;
-                }
-            }
+                return Exec<Familia>(queryString)[0];
+            });
         }
 
         public int ObtenerIdFamiliaPorDescripcion(string descripcion)
