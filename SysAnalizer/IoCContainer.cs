@@ -43,6 +43,8 @@
             contBuilder.RegisterType<PatenteDAL>().As<IPatenteDAL>().InstancePerDependency();
             contBuilder.RegisterType<ProductoBLL>().As<IProductoBLL>().SingleInstance();
             contBuilder.RegisterType<ProductoDAL>().As<IProductoDAL>().SingleInstance();
+            contBuilder.RegisterType<Productos>().As<IProductos>().SingleInstance();
+
             return contBuilder.Build();
         }
     }

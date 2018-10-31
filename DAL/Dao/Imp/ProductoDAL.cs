@@ -69,11 +69,11 @@
 
         public Producto ObtenerProductoPorCodigo(string codigo)
         {
-            var queryString = $"SELECT * FROM Producto WHERE CodigoProducto = {codigo}";
+            var queryString = $"SELECT * FROM Producto WHERE IdProducto = @codigo";
 
             return CatchException(() =>
             {
-                return Exec<Producto>(queryString)[0];
+                return Exec<Producto>(queryString, new { @codigo = codigo})[0];
             });
         }
     }

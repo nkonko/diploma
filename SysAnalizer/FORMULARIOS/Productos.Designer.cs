@@ -106,6 +106,7 @@ namespace UI
             this.btnSelVta.TabIndex = 23;
             this.btnSelVta.Text = "Seleccionar para venta";
             this.btnSelVta.UseVisualStyleBackColor = true;
+            this.btnSelVta.Click += new System.EventHandler(this.btnSelVta_Click);
             // 
             // label2
             // 

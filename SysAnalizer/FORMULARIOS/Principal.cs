@@ -77,7 +77,7 @@ namespace UI
 
         public void ComprobarSiEsPrimerLogin(string usuario)
         {
-            var usu = usuarioDAL.ObtenerUsuarioConEmail(usuario);
+            var usu = formControl.ObtenerInfoUsuario();
             if (usu.PrimerLogin)
             {
                 var nuevaContraseña = Interaction.InputBox("Ingrese su nuevo password", "Nuevo Password", "");

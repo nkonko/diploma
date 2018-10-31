@@ -168,6 +168,7 @@
     <Compile Include="IABMUsuario.cs" />
     <Compile Include="IFamilias.cs" />
     <Compile Include="IFormControl.cs" />
+    <Compile Include="IProductos.cs" />
     <Compile Include="IVtaProd.cs" />
     <Compile Include="IoCContainer.cs" />
     <Compile Include="IPrincipal.cs" />

@@ -9,9 +9,12 @@ namespace UI
     {
         private readonly IProductoBLL productoBLL;
 
-        public VtaProd(IProductoBLL productoBLL)
+        private readonly IProductos productos;
+
+        public VtaProd(IProductoBLL productoBLL, IProductos productos)
         {
             this.productoBLL = productoBLL;
+            this.productos = productos;
             InitializeComponent();
         }
 
@@ -49,7 +52,19 @@ namespace UI
 
         private void btnSelProd_Click(object sender, EventArgs e)
         {
-            productoBLL.ObtenerProductoPorCodigo(txtCodProd.Text);
+            if (string.IsNullOrWhiteSpace(txtCodProd.Text))
+            {
+                var resultado = productos.ShowDialog();
+                if (resultado == DialogResult.OK)
+                {
+                    var prod = productos.GetProductoSeleccionado();
+                    MessageBox.Show(prod.Descripcion);
+                }
+            }
+            else
+            {
+                var r = productoBLL.ObtenerProductoPorCodigo(txtCodProd.Text);
+            }
         }
 
         private void lblFecha_Click(object sender, EventArgs e)

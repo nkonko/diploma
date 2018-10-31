@@ -1,10 +1,9 @@
 ﻿namespace DAL.Utils
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Data;
     using Dapper;
     using log4net;
+    using System;
+    using System.Collections.Generic;
 
     public abstract class BaseDao
     {
@@ -12,7 +11,7 @@
 
         public bool Exec(string query)
         {
-            using (IDbConnection connection = SqlUtils.Connection())
+            using (var connection = SqlUtils.Connection())
             {
                 connection.Open();
                 connection.Execute(query);
@@ -20,12 +19,13 @@
             }
         }
 
-        public List<T> Exec<T>(string query)
+        public List<T> Exec<T>(string query, object param = null)
         {
-            using (IDbConnection connection = SqlUtils.Connection())
+            using (var connection = SqlUtils.Connection())
             {
                 connection.Open();
-                var result = (List<T>)connection.Query<T>(query);
+
+                var result = param == null ? (List<T>)connection.Query<T>(query) : (List<T>)connection.Query<T>(query, param);
 
                 return result;
             }

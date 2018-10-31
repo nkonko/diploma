@@ -110,33 +110,21 @@
 
         public bool CambiarPassword(Usuario usuario, string nuevaContraseña, bool primerLogin = false)
         {
-            var returnValue = false;
             var contEncript = MD5.ComputeMD5Hash(nuevaContraseña);
             var queryString = string.Empty;
             if (primerLogin == true)
             {
-                queryString = string.Format("UPDATE Usuario SET Password = '{1}', PrimerLogin = 0 WHERE IdUsuario = {0}", usuario.IdUsuario, contEncript);
+                queryString = string.Format("UPDATE Usuario SET Contraseña = '{1}', PrimerLogin = 0 WHERE IdUsuario = {0}", usuario.IdUsuario, contEncript);
             }
             else
             {
-                queryString = string.Format("UPDATE Usuario SET Password = '{1}' WHERE IdUsuario = {0}", usuario.IdUsuario, contEncript);
+                queryString = string.Format("UPDATE Usuario SET Contraseña = '{1}' WHERE IdUsuario = {0}", usuario.IdUsuario, contEncript);
             }
 
-            using (IDbConnection connection = SqlUtils.Connection())
+            return CatchException(() =>
             {
-                try
-                {
-                    connection.Open();
-                    connection.Execute(queryString);
-                    returnValue = true;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-            }
-
-            return returnValue;
+                return Exec(queryString);
+            });
         }
 
         //// Cambiar a cargar y usar linq para devolver el usuario que coincida con la descripcion para no repetir codigo

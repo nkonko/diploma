@@ -29,6 +29,7 @@ namespace UI
             this.familiasBLL = familiasBLL;
             this.patenteBLL = patenteBLL;
             InitializeComponent();
+            dgusuario.AutoGenerateColumns = false;
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -119,16 +120,9 @@ namespace UI
         private void CargarRefrescarDatagrid()
         {
             dgusuario.DataSource = usuarioBLL.Cargar();
-            dgusuario.Columns.Remove("IdUsuario");
-            dgusuario.Columns.Remove("PrimerLogin");
-            dgusuario.Columns.Remove("IdIdioma");
-            dgusuario.Columns.Remove("IdCanalVenta");
-            dgusuario.Columns.Remove("Activo");
-            dgusuario.Columns.Remove("Contraseña");
-            dgusuario.Columns.Remove("CIngresos");
-            dgusuario.Columns.Remove("DVH");
             dgusuario.Refresh();
         }
+
         private bool verificarDatos()
         {
             var returnValue = true;

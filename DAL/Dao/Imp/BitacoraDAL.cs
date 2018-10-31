@@ -10,7 +10,7 @@
     using System.Data;
     using System.Text;
 
-    public class BitacoraDAL : IBitacoraDAL
+    public class BitacoraDAL : BaseDao, IBitacoraDAL
     {
         private readonly IDigitoVerificador digitoVerificador;
 
@@ -37,66 +37,45 @@
                 queryString.Append(string.Format("AND Criticidad IN ({0})", filtros.Criticidades));
             }
 
-            using (IDbConnection connection = SqlUtils.Connection())
+            CatchException(() =>
             {
-                try
-                {
-                    connection.Open();
-                    connection.Execute(queryString.ToString());
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-            }
+                return Exec(queryString.ToString());
+            });
         }
 
         public Bitacora LeerBitacoraConId(int bitacoraId)
         {
             var queryString = $"SELECT * FROM Bitacora WHERE IdLog = {bitacoraId}";
 
-            using (IDbConnection connection = SqlUtils.Connection())
-            {
-                try
-                {
-                    connection.Open();
-                    var bitacora = (List<Bitacora>)connection.Query<Bitacora>(queryString);
-                    return bitacora[0];
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-
-                return null;
-            }
+            return CatchException(() =>
+             {
+                 return Exec<Bitacora>(queryString.ToString())[0];
+             });
         }
 
         public int ObtenerUltimoIdBitacora()
         {
             var queryString = "SELECT IDENT_CURRENT ('[dbo].[Bitacora]') AS Current_Identity;";
 
-            using (IDbConnection connection = SqlUtils.Connection())
+            return CatchException(() =>
             {
-                try
-                {
-                    connection.Open();
-                    var bitacoraId = connection.Query<int>(queryString).AsList();
-                    return bitacoraId[0];
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-
-                return 0;
-            }
+                return Exec<int>(queryString.ToString())[0];
+            });
         }
 
         public int GenerarDVH(Usuario usu)
         {
+            var bitacora = new Bitacora();
             var bitacoraId = ObtenerUltimoIdBitacora();
-            var bitacora = LeerBitacoraConId(bitacoraId);
+
+            if (bitacoraId == 1)
+            {
+                bitacora.InformacionAsociada = "primer login";
+                bitacora.Actividad = "Login";
+                bitacora.Criticidad = "primer Login";
+            }
+
+            bitacora = LeerBitacoraConId(bitacoraId);
             var digitoVH = digitoVerificador.CalcularDVHorizontal(new List<string> { bitacora.InformacionAsociada, bitacora.Actividad, bitacora.Criticidad }, new List<int> { usu.IdUsuario, bitacoraId });
             return digitoVH;
         }

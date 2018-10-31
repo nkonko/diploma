@@ -6,10 +6,11 @@ namespace UI
     using System;
     using System.Windows.Forms;
 
-    public partial class Productos : Form
+    public partial class Productos : Form, IProductos
     {
-
         private readonly IProductoBLL productoBLL;
+
+        private Producto productoSeleccionado;
 
         public Productos(IProductoBLL productoBLL)
         {
@@ -24,6 +25,7 @@ namespace UI
 
         private void Productos_Load(object sender, EventArgs e)
         {
+            productoSeleccionado = null;
             productoBLL.Cargar();
         }
 
@@ -45,6 +47,26 @@ namespace UI
         private void btnVolver_Click(object sender, EventArgs e)
         {
             this.Hide();
+        }
+
+        private void btnSelVta_Click(object sender, EventArgs e)
+        {
+            productoSeleccionado = new Producto()
+            {
+                CodigoProducto = "11",
+                Descripcion = "Alguno",
+                IdProducto = 1,
+                PVenta = 12,
+                PUnitario = 12,
+                Stock = 10
+            };
+
+            DialogResult = DialogResult.OK;
+        }
+
+        public Producto GetProductoSeleccionado()
+        {
+            return productoSeleccionado;
         }
     }
 }
