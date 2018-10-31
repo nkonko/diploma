@@ -39,16 +39,7 @@ namespace UI
         private void usuarios_Load(object sender, EventArgs e)
         {
             usuarioBLL = IoCContainer.Resolve<IUsuarioBLL>();
-            dgusuario.DataSource = usuarioBLL.Cargar();
-            dgusuario.Columns.Remove("IdUsuario");
-            dgusuario.Columns.Remove("PrimerLogin");
-            dgusuario.Columns.Remove("IdIdioma");
-            dgusuario.Columns.Remove("IdCanalVenta");
-            dgusuario.Columns.Remove("Activo");
-            dgusuario.Columns.Remove("Contraseña");
-            dgusuario.Columns.Remove("CIngresos");
-            dgusuario.Columns.Remove("DVH");
-            dgusuario.Refresh();
+            CargarRefrescarDatagrid();
             chkLstPatentes.DataSource = patenteBLL.Cargar().Select(pat => pat.Descripcion).ToList();
             cboFamilia.DataSource = familiasBLL.Cargar().Select(fam => fam.Descripcion).ToList();
         }
@@ -67,9 +58,7 @@ namespace UI
                     log.Info("Se ha creado un nuevo usuario");
                     bitacoraBLL.RegistrarEnBitacora(usu);
                     MessageBox.Show("Registro exitoso");
-                    dgusuario.Rows.Clear();
-                    dgusuario.DataSource = usuarioBLL.Cargar();
-                    dgusuario.Refresh();
+                    CargarRefrescarDatagrid();
                 }
                 else
                 {
@@ -81,6 +70,65 @@ namespace UI
             }
         }
 
+        private void btn_modificar_Click(object sender, EventArgs e)
+        {
+            var modificado = usuarioBLL.Actualizar(new Usuario() { Nombre = txtNombre.Text, Apellido = txtApellido.Text, Email = txtEmail.Text, Telefono = Int32.Parse(txtTel.Text), PrimerLogin = true, CIngresos = 0, Activo = true });
+            var usu = formControl.ObtenerInfoUsuario();
+            if (modificado)
+            {
+                log.Info("Se ha creado un nuevo usuario");
+                bitacoraBLL.RegistrarEnBitacora(usu);
+                MessageBox.Show("Modificacion exitosa");
+                dgusuario.Rows.Clear();
+                CargarRefrescarDatagrid();
+            }
+            else
+            {
+                log.Info("La modificacion ha fallado");
+                bitacoraBLL.RegistrarEnBitacora(usu);
+                MessageBox.Show("La modificacion ha fallado");
+            }
+        }
+
+        private void btnBorrar_Click(object sender, EventArgs e)
+        {
+            var usuario = new Usuario() { Email = Interaction.InputBox("Ingrese email", "Borrar Usuario") };
+            var borrado = usuarioBLL.Borrar(usuario);
+            var usu = formControl.ObtenerInfoUsuario();
+            if (borrado)
+            {
+                log.Info("Se ha creado un nuevo usuario");
+                bitacoraBLL.RegistrarEnBitacora(usu);
+                MessageBox.Show("Borrado exitoso");
+                CargarRefrescarDatagrid();
+            }
+            else
+            {
+                log.Info("El borrado de usuario ha fallado");
+                bitacoraBLL.RegistrarEnBitacora(usu);
+                MessageBox.Show("El borrado de usuario ha fallado");
+            }
+        }
+
+        private void btnVolver_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            ////principal.Show();
+        }
+
+        private void CargarRefrescarDatagrid()
+        {
+            dgusuario.DataSource = usuarioBLL.Cargar();
+            dgusuario.Columns.Remove("IdUsuario");
+            dgusuario.Columns.Remove("PrimerLogin");
+            dgusuario.Columns.Remove("IdIdioma");
+            dgusuario.Columns.Remove("IdCanalVenta");
+            dgusuario.Columns.Remove("Activo");
+            dgusuario.Columns.Remove("Contraseña");
+            dgusuario.Columns.Remove("CIngresos");
+            dgusuario.Columns.Remove("DVH");
+            dgusuario.Refresh();
+        }
         private bool verificarDatos()
         {
             var returnValue = true;
@@ -107,54 +155,6 @@ namespace UI
             }
 
             return returnValue;
-        }
-
-        private void btn_modificar_Click(object sender, EventArgs e)
-        {
-            var modificado = usuarioBLL.Actualizar(new Usuario() { Nombre = txtNombre.Text, Apellido = txtApellido.Text, Email = txtEmail.Text, Telefono = Int32.Parse(txtTel.Text), PrimerLogin = true, CIngresos = 0, Activo = true });
-            var usu = formControl.ObtenerInfoUsuario();
-            if (modificado)
-            {
-                log.Info("Se ha creado un nuevo usuario");
-                bitacoraBLL.RegistrarEnBitacora(usu);
-                MessageBox.Show("Registro exitoso");
-                dgusuario.Rows.Clear();
-                dgusuario.DataSource = usuarioBLL.Cargar();
-                dgusuario.Refresh();
-            }
-            else
-            {
-                log.Info("El registro de nuevo usuario ha fallado");
-                bitacoraBLL.RegistrarEnBitacora(usu);
-                MessageBox.Show("El registro de nuevo usuario ha fallado");
-            }
-        }
-
-        private void btnBorrar_Click(object sender, EventArgs e)
-        {
-            var usuario = new Usuario() { Email = Interaction.InputBox("Ingrese email", "Borrar Usuario") };
-            var borrado = usuarioBLL.Borrar(usuario);
-            var usu = formControl.ObtenerInfoUsuario();
-            if (borrado)
-            {
-                log.Info("Se ha creado un nuevo usuario");
-                bitacoraBLL.RegistrarEnBitacora(usu);
-                MessageBox.Show("Borrado exitoso");
-                dgusuario.DataSource = usuarioBLL.Cargar();
-                dgusuario.Refresh();
-            }
-            else
-            {
-                log.Info("El registro de nuevo usuario ha fallado");
-                bitacoraBLL.RegistrarEnBitacora(usu);
-                MessageBox.Show("El registro de nuevo usuario ha fallado");
-            }
-        }
-
-        private void btnVolver_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            ////principal.Show();
         }
     }
 }
