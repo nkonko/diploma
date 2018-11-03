@@ -13,6 +13,11 @@
             this.digitoVerificador = digitoVerificador;
         }
 
+        public bool AsignarPatentes(int idFamilia, List<int> patentesId)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public List<Patente> Cargar()
         {
             var queryString = "SELECT * FROM Patente";
@@ -32,6 +37,16 @@
             {
                 return Exec(queryString);
             });
+        }
+
+        public bool NegarPatentes(int idFamilia, List<int> patentesId)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void NegarPatenteUsuario(List<int> patentesId, int usuarioId)
+        {
+            throw new System.NotImplementedException();
         }
 
         public int ObtenerIdPatentePorDescripcion(string descripcion)

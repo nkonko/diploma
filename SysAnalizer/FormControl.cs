@@ -1,7 +1,4 @@
-﻿//// El objetivo de esta clase es el de poder devolver permisos de los formularios en base a las patentes que tenga cargado el usuario, las patentes se deberan cargar luego
-//// de consultarlas mediante la dal patente, se sumaran a las patentes del usuario las patentes obtenidas por la familia, otra funcionalidad sera la de mantener
-//// la informacion del usuario.
-namespace UI
+﻿namespace UI
 {
     using BE.Entidades;
     using BLL;
@@ -15,21 +12,18 @@ namespace UI
 
         private readonly IUsuarioBLL usuarioBLL;
         private readonly IFamiliaBLL familiaBLL;
+        private readonly IFormControlBLL formControlBLL;
 
-        public FormControl(IUsuarioBLL usuarioBLL, IFamiliaBLL familiaBLL)
+        public FormControl(IUsuarioBLL usuarioBLL, IFamiliaBLL familiaBLL, IFormControlBLL formControlBLL)
         {
             this.usuarioBLL = usuarioBLL;
             this.familiaBLL = familiaBLL;
+            this.formControlBLL = formControlBLL;
         }
 
         public List<Patente> ObtenerPermisosFormularios()
         {
-            var query = "SELECT IdPatente FROM FormularioPatente";
-
-            return CatchException(() =>
-            {
-                return Exec<Patente>(query);
-            });
+            return formControlBLL.ObtenerPermisosFormularios();
         }
 
         public Usuario ObtenerPermisosUsuario()

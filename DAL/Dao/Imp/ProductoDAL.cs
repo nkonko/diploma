@@ -19,7 +19,7 @@
 
         public bool Crear(Producto objAlta)
         {
-            var digitoVH = digitoVerificador.CalcularDVHorizontal(new List<string>() { objAlta.Descripcion,  }, new List<int>() { int.Parse(objAlta.CodigoProducto) });
+            var digitoVH = digitoVerificador.CalcularDVHorizontal(new List<string>() { objAlta.Descripcion, }, new List<int>() { int.Parse(objAlta.CodigoProducto) });
 
             var queryString = string.Format(
                                 "INSERT INTO Producto(Descripcion ,PUnitario, PVenta ,Stock ,DVH) " +
@@ -73,7 +73,7 @@
 
             return CatchException(() =>
             {
-                return Exec<Producto>(queryString, new { @codigo = codigo})[0];
+                return Exec<Producto>(queryString, new { @codigo = codigo })[0];
             });
         }
     }

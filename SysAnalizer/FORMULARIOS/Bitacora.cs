@@ -23,8 +23,6 @@ namespace UI
         private void btn_volver_Click(object sender, EventArgs e)
         {
             Hide();
-            //var principal = Principal.GetInstancia();
-            //principal.Show();
         }
 
         private void FillCheckedList()
@@ -35,6 +33,11 @@ namespace UI
             {
                 checkListUsuarios.Items.Add(usu.Nombre);
             }
+        }
+
+        private void btn_filtrar_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

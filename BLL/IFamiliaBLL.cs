@@ -15,5 +15,7 @@
         int ObtenerIdFamiliaPorUsuario(int usuarioId);
 
         string ObtenerDescripcionFamiliaPorId(int familiaId);
+
+        void ComprobarUsoFamilia();
     }
 }

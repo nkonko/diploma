@@ -53,13 +53,13 @@ namespace UI
             // 
             // btn_filtrar
             // 
-            this.btn_filtrar.Location = new System.Drawing.Point(198, 418);
-            this.btn_filtrar.Margin = new System.Windows.Forms.Padding(4);
+            this.btn_filtrar.Location = new System.Drawing.Point(148, 340);
             this.btn_filtrar.Name = "btn_filtrar";
-            this.btn_filtrar.Size = new System.Drawing.Size(133, 28);
+            this.btn_filtrar.Size = new System.Drawing.Size(100, 23);
             this.btn_filtrar.TabIndex = 69;
             this.btn_filtrar.Text = "Filtrar";
             this.btn_filtrar.UseVisualStyleBackColor = true;
+            this.btn_filtrar.Click += new System.EventHandler(this.btn_filtrar_Click);
             // 
             // dataGridView1
             // 
@@ -72,11 +72,10 @@ namespace UI
             this.funcionalidad,
             this.descripcion,
             this.criticidad});
-            this.dataGridView1.Location = new System.Drawing.Point(368, 111);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4);
+            this.dataGridView1.Location = new System.Drawing.Point(276, 90);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 5;
-            this.dataGridView1.Size = new System.Drawing.Size(707, 311);
+            this.dataGridView1.Size = new System.Drawing.Size(530, 253);
             this.dataGridView1.TabIndex = 67;
             // 
             // fecha
@@ -110,11 +109,9 @@ namespace UI
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.checkListCriticidad);
-            this.groupBox2.Location = new System.Drawing.Point(31, 246);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox2.Location = new System.Drawing.Point(23, 200);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox2.Size = new System.Drawing.Size(300, 158);
+            this.groupBox2.Size = new System.Drawing.Size(225, 128);
             this.groupBox2.TabIndex = 66;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "criticidad";
@@ -126,20 +123,17 @@ namespace UI
             "Baja",
             "Media",
             "Alta"});
-            this.checkListCriticidad.Location = new System.Drawing.Point(16, 21);
-            this.checkListCriticidad.Margin = new System.Windows.Forms.Padding(4);
+            this.checkListCriticidad.Location = new System.Drawing.Point(12, 17);
             this.checkListCriticidad.Name = "checkListCriticidad";
-            this.checkListCriticidad.Size = new System.Drawing.Size(265, 106);
+            this.checkListCriticidad.Size = new System.Drawing.Size(200, 79);
             this.checkListCriticidad.TabIndex = 44;
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.checkListUsuarios);
-            this.groupBox1.Location = new System.Drawing.Point(31, 70);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox1.Location = new System.Drawing.Point(23, 57);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(300, 158);
+            this.groupBox1.Size = new System.Drawing.Size(225, 128);
             this.groupBox1.TabIndex = 65;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "usuarios";
@@ -147,59 +141,49 @@ namespace UI
             // checkListUsuarios
             // 
             this.checkListUsuarios.FormattingEnabled = true;
-            this.checkListUsuarios.Items.AddRange(new object[] {
-            "usuario 1",
-            "usuario 2",
-            "usuario 3",
-            "usuario 4",
-            "usuario 5"});
-            this.checkListUsuarios.Location = new System.Drawing.Point(18, 21);
-            this.checkListUsuarios.Margin = new System.Windows.Forms.Padding(4);
+            this.checkListUsuarios.Location = new System.Drawing.Point(14, 17);
             this.checkListUsuarios.Name = "checkListUsuarios";
-            this.checkListUsuarios.Size = new System.Drawing.Size(265, 106);
+            this.checkListUsuarios.Size = new System.Drawing.Size(200, 79);
             this.checkListUsuarios.TabIndex = 43;
             // 
             // dateTimePicker2
             // 
-            this.dateTimePicker2.Location = new System.Drawing.Point(815, 70);
-            this.dateTimePicker2.Margin = new System.Windows.Forms.Padding(4);
+            this.dateTimePicker2.Location = new System.Drawing.Point(611, 57);
             this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(265, 22);
+            this.dateTimePicker2.Size = new System.Drawing.Size(200, 20);
             this.dateTimePicker2.TabIndex = 64;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(744, 75);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(558, 61);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(58, 17);
+            this.label2.Size = new System.Drawing.Size(46, 13);
             this.label2.TabIndex = 63;
             this.label2.Text = "HASTA:";
             // 
             // dateTimePicker1
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(436, 70);
-            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(4);
+            this.dateTimePicker1.Location = new System.Drawing.Point(327, 57);
             this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(265, 22);
+            this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
             this.dateTimePicker1.TabIndex = 62;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(365, 77);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(274, 63);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(59, 17);
+            this.label1.Size = new System.Drawing.Size(47, 13);
             this.label1.TabIndex = 61;
             this.label1.Text = "DESDE:";
             // 
             // btn_volver
             // 
-            this.btn_volver.Location = new System.Drawing.Point(31, 22);
+            this.btn_volver.Location = new System.Drawing.Point(23, 18);
+            this.btn_volver.Margin = new System.Windows.Forms.Padding(2);
             this.btn_volver.Name = "btn_volver";
-            this.btn_volver.Size = new System.Drawing.Size(133, 29);
+            this.btn_volver.Size = new System.Drawing.Size(100, 24);
             this.btn_volver.TabIndex = 70;
             this.btn_volver.Text = "Volver";
             this.btn_volver.UseVisualStyleBackColor = true;
@@ -207,9 +191,9 @@ namespace UI
             // 
             // Bitacora
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1093, 459);
+            this.ClientSize = new System.Drawing.Size(820, 373);
             this.Controls.Add(this.btn_volver);
             this.Controls.Add(this.btn_filtrar);
             this.Controls.Add(this.dataGridView1);
@@ -219,6 +203,7 @@ namespace UI
             this.Controls.Add(this.label2);
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.label1);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Bitacora";
             this.Text = "Bitacora";
             this.Load += new System.EventHandler(this.Bitacora_Load);

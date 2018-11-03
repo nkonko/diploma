@@ -56,7 +56,6 @@ namespace UI
             this.Apellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Telefono = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Familia = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgusuario)).BeginInit();
             this.SuspendLayout();
             // 
@@ -81,14 +80,13 @@ namespace UI
             this.Nombre,
             this.Apellido,
             this.Email,
-            this.Telefono,
-            this.Familia});
-            this.dgusuario.Location = new System.Drawing.Point(11, 210);
+            this.Telefono});
+            this.dgusuario.Location = new System.Drawing.Point(53, 213);
             this.dgusuario.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dgusuario.Name = "dgusuario";
             this.dgusuario.ReadOnly = true;
             this.dgusuario.RowTemplate.Height = 24;
-            this.dgusuario.Size = new System.Drawing.Size(566, 182);
+            this.dgusuario.Size = new System.Drawing.Size(439, 182);
             this.dgusuario.TabIndex = 26;
             this.dgusuario.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -295,27 +293,24 @@ namespace UI
             // 
             // Apellido
             // 
+            this.Apellido.DataPropertyName = "Apellido";
             this.Apellido.HeaderText = "Apellido";
             this.Apellido.Name = "Apellido";
             this.Apellido.ReadOnly = true;
             // 
             // Email
             // 
+            this.Email.DataPropertyName = "Email";
             this.Email.HeaderText = "Email";
             this.Email.Name = "Email";
             this.Email.ReadOnly = true;
             // 
             // Telefono
             // 
+            this.Telefono.DataPropertyName = "Telefono";
             this.Telefono.HeaderText = "Telefono";
             this.Telefono.Name = "Telefono";
             this.Telefono.ReadOnly = true;
-            // 
-            // Familia
-            // 
-            this.Familia.HeaderText = "Familia";
-            this.Familia.Name = "Familia";
-            this.Familia.ReadOnly = true;
             // 
             // ABMusuario
             // 
@@ -383,6 +378,5 @@ namespace UI
         private System.Windows.Forms.DataGridViewTextBoxColumn Apellido;
         private System.Windows.Forms.DataGridViewTextBoxColumn Email;
         private System.Windows.Forms.DataGridViewTextBoxColumn Telefono;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Familia;
     }
 }

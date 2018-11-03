@@ -13,6 +13,11 @@
             this.patenteDAL = patenteDAL;
         }
 
+        public bool AsignarPatentes(int idFamilia, List<int> patentesId)
+        {
+           return patenteDAL.AsignarPatentes(idFamilia, patentesId);
+        }
+
         public List<Patente> Cargar()
         {
             return patenteDAL.Cargar();
@@ -21,6 +26,16 @@
         public void GuardarPatenteUsuario(int patenteId, int usuarioId)
         {
             patenteDAL.GuardarPatenteUsuario(patenteId, usuarioId);
+        }
+
+        public void NegarPatenteUsuario(List<int> patentesId, int usuarioId)
+        {
+            patenteDAL.NegarPatenteUsuario(patentesId, usuarioId);
+        }
+
+        public bool NegarPatentes(int idFamilia, List<int> patentesId)
+        {
+            return patenteDAL.NegarPatentes(idFamilia, patentesId);
         }
 
         public int ObtenerIdPatentePorDescripcion(string descripcion)

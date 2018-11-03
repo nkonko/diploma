@@ -21,6 +21,8 @@
 
         public bool Borrar(Familia objDel)
         {
+            var patenteEnUso = ComprobarUsoFamilia();
+
             return familiaDAL.Borrar(objDel);
         }
 
@@ -57,6 +59,11 @@
         public string ObtenerDescripcionFamiliaPorId(int familiaId)
         {
             return familiaDAL.ObtenerDescripcionFamiliaPorId(familiaId);
+        }
+
+        public bool ComprobarUsoFamilia()
+        {
+            return familiaDAL.ComprobarUsoFamilia();
         }
     }
 }

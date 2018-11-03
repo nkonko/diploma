@@ -67,9 +67,14 @@
             });
         }
 
+        public bool ComprobarUsoFamilia()
+        {
+            throw new NotImplementedException();
+        }
+
         public bool Crear(Familia objAlta)
         {
-            var queryString = $"INSERT INTO Familia(Descripcion) VALUES ({objAlta.Descripcion})";
+            var queryString = $"INSERT INTO Familia(Descripcion) VALUES ('{objAlta.Descripcion}')";
 
             return CatchException(() =>
             {
@@ -80,7 +85,7 @@
         public void GuardarFamiliaUsuario(int familiaId, int usuarioId)
         {
             var digitoVH = digitoVerificador.CalcularDVHorizontal(new List<string> { }, new List<int> { familiaId, usuarioId });
-            var queryString = $"INSERT INTO FamiliaUsuario(IdFamilia, IdUsuario, DVH) VALUES({familiaId},{usuarioId},{digitoVH})";
+            var queryString = $"INSERT INTO FamiliaUsuario(IdFamilia, IdUsuario, DVH) VALUES('{familiaId}','{usuarioId}','{digitoVH}')";
 
             CatchException(() =>
             {
@@ -101,7 +106,7 @@
         //// Cambiar a cargar y usar linq para devolver la familia que coincida con la descripcion para no repetir codigo
         public Familia ObtenerFamiliaConDescripcion(string descripcion)
         {
-            var queryString = $"SELECT * from Familia Where Descripcion = {descripcion}";
+            var queryString = $"SELECT * from Familia Where Descripcion = '{descripcion}'";
 
             return CatchException(() =>
             {

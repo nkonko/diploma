@@ -109,5 +109,15 @@ namespace UI
         {
 
         }
+
+        private void patentesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void familiasToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            familias.Show();
+        }
     }
 }

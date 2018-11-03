@@ -29,26 +29,27 @@ namespace UI
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnAceptar = new System.Windows.Forms.Button();
+            this.btnAsignar = new System.Windows.Forms.Button();
             this.btnVolver = new System.Windows.Forms.Button();
             this.lblFamilia = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lstPatentes = new System.Windows.Forms.CheckedListBox();
+            this.btnNegar = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // btnAceptar
+            // btnAsignar
             // 
-            this.btnAceptar.Location = new System.Drawing.Point(19, 218);
-            this.btnAceptar.Name = "btnAceptar";
-            this.btnAceptar.Size = new System.Drawing.Size(69, 23);
-            this.btnAceptar.TabIndex = 59;
-            this.btnAceptar.Text = "Aceptar";
-            this.btnAceptar.UseVisualStyleBackColor = true;
+            this.btnAsignar.Location = new System.Drawing.Point(216, 112);
+            this.btnAsignar.Name = "btnAsignar";
+            this.btnAsignar.Size = new System.Drawing.Size(69, 23);
+            this.btnAsignar.TabIndex = 59;
+            this.btnAsignar.Text = "Asignar";
+            this.btnAsignar.UseVisualStyleBackColor = true;
             // 
             // btnVolver
             // 
-            this.btnVolver.Location = new System.Drawing.Point(105, 218);
+            this.btnVolver.Location = new System.Drawing.Point(12, 12);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(69, 23);
             this.btnVolver.TabIndex = 58;
@@ -58,7 +59,7 @@ namespace UI
             // lblFamilia
             // 
             this.lblFamilia.AutoSize = true;
-            this.lblFamilia.Location = new System.Drawing.Point(16, 13);
+            this.lblFamilia.Location = new System.Drawing.Point(127, 22);
             this.lblFamilia.Name = "lblFamilia";
             this.lblFamilia.Size = new System.Drawing.Size(42, 13);
             this.lblFamilia.TabIndex = 56;
@@ -67,9 +68,9 @@ namespace UI
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.lstPatentes);
-            this.groupBox1.Location = new System.Drawing.Point(28, 43);
+            this.groupBox1.Location = new System.Drawing.Point(12, 62);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(136, 169);
+            this.groupBox1.Size = new System.Drawing.Size(182, 169);
             this.groupBox1.TabIndex = 55;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "PATENTES";
@@ -89,16 +90,26 @@ namespace UI
             "Patente 9"});
             this.lstPatentes.Location = new System.Drawing.Point(15, 19);
             this.lstPatentes.Name = "lstPatentes";
-            this.lstPatentes.Size = new System.Drawing.Size(106, 139);
+            this.lstPatentes.Size = new System.Drawing.Size(152, 139);
             this.lstPatentes.TabIndex = 55;
             this.lstPatentes.SelectedIndexChanged += new System.EventHandler(this.lstPatentes_SelectedIndexChanged);
+            // 
+            // btnNegar
+            // 
+            this.btnNegar.Location = new System.Drawing.Point(216, 164);
+            this.btnNegar.Name = "btnNegar";
+            this.btnNegar.Size = new System.Drawing.Size(69, 23);
+            this.btnNegar.TabIndex = 60;
+            this.btnNegar.Text = "Negar";
+            this.btnNegar.UseVisualStyleBackColor = true;
             // 
             // AdminPatFamilia
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(194, 254);
-            this.Controls.Add(this.btnAceptar);
+            this.ClientSize = new System.Drawing.Size(312, 254);
+            this.Controls.Add(this.btnNegar);
+            this.Controls.Add(this.btnAsignar);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.lblFamilia);
             this.Controls.Add(this.groupBox1);
@@ -113,10 +124,11 @@ namespace UI
 
         #endregion
 
-        private System.Windows.Forms.Button btnAceptar;
+        private System.Windows.Forms.Button btnAsignar;
         private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.Label lblFamilia;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.CheckedListBox lstPatentes;
+        private System.Windows.Forms.Button btnNegar;
     }
 }

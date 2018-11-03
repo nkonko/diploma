@@ -1,5 +1,6 @@
 ﻿namespace BLL
 {
+    using System;
     using BE.Entidades;
     using DAL.Dao;
     using log4net;
@@ -11,6 +12,11 @@
         public BitacoraBLL(IBitacoraDAL bitacoraDAL)
         {
             this.bitacoraDAL = bitacoraDAL;
+        }
+
+        public Bitacora FiltrarBitacora(DateTime from, DateTime to)
+        {
+            throw new NotImplementedException();
         }
 
         public void RegistrarEnBitacora(Usuario usu)

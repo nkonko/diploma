@@ -51,7 +51,7 @@ namespace UI
             if (crear)
             {
                 var creado = usuarioBLL.Crear(new Usuario() { Nombre = txtNombre.Text, Apellido = txtApellido.Text, Email = txtEmail.Text, Telefono = Int32.Parse(txtTel.Text), PrimerLogin = true, CIngresos = 0, Activo = true });
-                var usu = formControl.ObtenerInfoUsuario();
+                var usu = usuarioBLL.ObtenerUsuarioConEmail(txtEmail.Text);
                 if (creado)
                 {
                     familiasBLL.GuardarFamiliaUsuario(familiasBLL.ObtenerIdFamiliaPorDescripcion(cboFamilia.SelectedText), usu.IdUsuario);
@@ -93,21 +93,25 @@ namespace UI
 
         private void btnBorrar_Click(object sender, EventArgs e)
         {
-            var usuario = new Usuario() { Email = Interaction.InputBox("Ingrese email", "Borrar Usuario") };
-            var borrado = usuarioBLL.Borrar(usuario);
-            var usu = formControl.ObtenerInfoUsuario();
-            if (borrado)
+            var sinPatentes = ComprobarPatentes(Email);
+            if (sinPatentes)
             {
-                log.Info("Se ha creado un nuevo usuario");
-                bitacoraBLL.RegistrarEnBitacora(usu);
-                MessageBox.Show("Borrado exitoso");
-                CargarRefrescarDatagrid();
-            }
-            else
-            {
-                log.Info("El borrado de usuario ha fallado");
-                bitacoraBLL.RegistrarEnBitacora(usu);
-                MessageBox.Show("El borrado de usuario ha fallado");
+                var usuario = new Usuario() { Email = Interaction.InputBox("Ingrese email", "Borrar Usuario") };
+                var borrado = usuarioBLL.Borrar(usuario);
+                var usu = formControl.ObtenerInfoUsuario();
+                if (borrado)
+                {
+                    log.Info("Se ha creado un nuevo usuario");
+                    bitacoraBLL.RegistrarEnBitacora(usu);
+                    MessageBox.Show("Borrado exitoso");
+                    CargarRefrescarDatagrid();
+                }
+                else
+                {
+                    log.Info("El borrado de usuario ha fallado");
+                    bitacoraBLL.RegistrarEnBitacora(usu);
+                    MessageBox.Show("El borrado de usuario ha fallado");
+                }
             }
         }
 
@@ -119,7 +123,15 @@ namespace UI
 
         private void CargarRefrescarDatagrid()
         {
-            dgusuario.DataSource = usuarioBLL.Cargar();
+            var usuarios = usuarioBLL.Cargar();
+            foreach (var usuario in usuarios)
+            {
+                var FamId = familiasBLL.ObtenerIdFamiliaPorUsuario(usuario.IdUsuario);
+                usuario.Familia = new Familia() { Descripcion = familiasBLL.ObtenerDescripcionFamiliaPorId(FamId) };
+            }
+
+            dgusuario.DataSource = usuarios;
+            Usuario obj = (Usuario)dgusuario.CurrentRow.DataBoundItem;
             dgusuario.Refresh();
         }
 

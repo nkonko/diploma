@@ -11,14 +11,22 @@ namespace UI
     public partial class Familias : Form, IFamilias
     {
         private readonly IFamiliaBLL familiaBLL;
+        private readonly IAdminPatFamilia adminPatFamilia;
 
-        public Familias(IFamiliaBLL familiaBLL, IUsuarioBLL usuarioBLL)
+        public Familias(IFamiliaBLL familiaBLL, IUsuarioBLL usuarioBLL, IAdminPatFamilia adminPatFamilia)
         {
             InitializeComponent();
             this.familiaBLL = familiaBLL;
+            this.adminPatFamilia = adminPatFamilia;
         }
 
         private void Familias_Load(object sender, EventArgs e)
+        {
+            CargarFamilias();
+
+        }
+
+        private void CargarFamilias()
         {
             var descripciones = new List<string>();
 
@@ -34,13 +42,36 @@ namespace UI
         {
             var nombreFamilia = Interaction.InputBox("Ingrese el nombre para la nueva familia", "Nueva familia", "");
 
-            familiaBLL.Crear(new Familia() { Descripcion = nombreFamilia });
+            var creada = familiaBLL.Crear(new Familia() { Descripcion = nombreFamilia });
+            if (creada)
+            {
+                var resultado = adminPatFamilia.ShowDialog();
+                if (resultado == DialogResult.OK)
+                {
+                    var patentes = adminPatFamilia.ObtenerPatentesSeleccion();
+                }
+            }
+
+            CargarFamilias();
+            chklstFamilias.Refresh();
         }
 
-        private void btnSelect_Click(object sender, EventArgs e)
+        private void btnBaja_Click(object sender, EventArgs e)
         {
-            ////Guardar en FamiliaUsuario
-           var fam = chklstFamilias.SelectedItem;
+            var desc = chklstFamilias.SelectedItem.ToString();
+
+            familiaBLL.Borrar(new Familia() { Descripcion = desc, IdFamilia = familiaBLL.ObtenerIdFamiliaPorDescripcion(desc) });
+            CargarFamilias();
+            chklstFamilias.Refresh();
+        }
+
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            var desc = chklstFamilias.SelectedItem.ToString();
+
+            familiaBLL.Actualizar(new Familia() { Descripcion = desc, IdFamilia = familiaBLL.ObtenerIdFamiliaPorDescripcion(desc) });
+            CargarFamilias();
+            chklstFamilias.Refresh();
         }
     }
 }
