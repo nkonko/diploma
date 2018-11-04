@@ -93,7 +93,7 @@ namespace UI
 
         private void btnBorrar_Click(object sender, EventArgs e)
         {
-            var sinPatentes = ComprobarPatentes(Email);
+            var sinPatentes = patenteBLL.ComprobarPatentesUsuario(0);//// debe enviarle el id de usuario, habria que obtener el id con el mail de usuario
             if (sinPatentes)
             {
                 var usuario = new Usuario() { Email = Interaction.InputBox("Ingrese email", "Borrar Usuario") };

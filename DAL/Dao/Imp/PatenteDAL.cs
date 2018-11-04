@@ -1,5 +1,6 @@
 ﻿namespace DAL.Dao.Imp
 {
+    using System.Collections;
     using System.Collections.Generic;
     using BE.Entidades;
     using DAL.Utils;
@@ -13,7 +14,20 @@
             this.digitoVerificador = digitoVerificador;
         }
 
-        public bool AsignarPatentes(int idFamilia, List<int> patentesId)
+        public bool AsignarPatentes(int familiaId, List<int> patentesId)
+        {
+            var queryString = "SELECT IdFamilia, IdPatente FROM FamiliaPatente";
+            var patentesFamilias = new List<Hashtable>();
+            CatchException(() =>
+             {
+                 patentesFamilias = Exec<Hashtable>(queryString);
+             });
+
+            ////if (patentesFamilias.Contains(familiaId))
+            return true;
+        }
+
+        public bool NegarPatentes(int familiaId, List<int> patentesId)
         {
             throw new System.NotImplementedException();
         }
@@ -39,11 +53,6 @@
             });
         }
 
-        public bool NegarPatentes(int idFamilia, List<int> patentesId)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public void NegarPatenteUsuario(List<int> patentesId, int usuarioId)
         {
             throw new System.NotImplementedException();
@@ -57,6 +66,11 @@
             {
                 return Exec<int>(queryString)[0];
             });
+        }
+
+        public bool ComprobarPatentesUsuario(int usuarioId)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

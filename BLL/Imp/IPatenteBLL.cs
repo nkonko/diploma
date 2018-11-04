@@ -11,8 +11,10 @@
 
         List<Patente> Cargar();
 
-        bool AsignarPatentes(int idFamilia, List<int> PatentesId);
+        bool AsignarPatentes(int familiaId, List<int> patentesId);
 
-        bool NegarPatentes(int idFamilia, List<int> PatentesId);
+        bool NegarPatentes(int familiaId, List<int> patentesId);
+
+        bool ComprobarPatentesUsuario(int usuarioId);
     }
 }

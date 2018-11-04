@@ -17,11 +17,11 @@ namespace UI
             this.patenteBLL = patenteBLL;
         }
 
-        public void AsignarPatentes(int idFamilia, List<int> patentesId)
+        public void AsignarPatentes(int familiaId, List<int> patentesId)
         {
             if (patentesId != null)
             {
-                var asignadas = patenteBLL.AsignarPatentes(idFamilia, patentesId);
+                var asignadas = patenteBLL.AsignarPatentes(familiaId, patentesId);
                 if (asignadas)
                 {
 
@@ -29,11 +29,11 @@ namespace UI
             }
         }
 
-        public void NegarPatentes(int idFamilia, List<int> patentesId)
+        public void NegarPatentes(int familiaId, List<int> patentesId)
         {
             if (patentesId != null)
             {
-                var negadas = patenteBLL.NegarPatentes(idFamilia, patentesId);
+                var negadas = patenteBLL.NegarPatentes(familiaId, patentesId);
                 if (negadas)
                 {
 

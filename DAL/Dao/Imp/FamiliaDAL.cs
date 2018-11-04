@@ -47,7 +47,7 @@
         {
             var familia = ObtenerFamiliaConDescripcion(objDel.Descripcion);
 
-            var queryString = $"DELETE FROM Familia WHERE IdFamilia = {familia.IdFamilia}";
+            var queryString = $"DELETE FROM Familia WHERE IdFamilia = {familia.FamiliaId}";
 
             CatchException(() =>
             {

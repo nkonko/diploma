@@ -2,7 +2,7 @@
 {
     public class Familia
     {
-        public int IdFamilia { get; set; }
+        public int FamiliaId { get; set; }
 
         public string Descripcion { get; set; }
     }

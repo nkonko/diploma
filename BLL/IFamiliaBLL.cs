@@ -16,6 +16,6 @@
 
         string ObtenerDescripcionFamiliaPorId(int familiaId);
 
-        void ComprobarUsoFamilia();
+        bool ComprobarUsoFamilia();
     }
 }

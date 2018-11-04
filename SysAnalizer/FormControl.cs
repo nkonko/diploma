@@ -32,7 +32,7 @@
 
             patentes.AddRange(usuarioBLL.ObtenerPatentesDeUsuario(UsuarioActivo.IdUsuario));
 
-            patentes.AddRange(familiaBLL.ObtenerPatentesFamilia(UsuarioActivo.Familia.IdFamilia));
+            patentes.AddRange(familiaBLL.ObtenerPatentesFamilia(UsuarioActivo.Familia.FamiliaId));
 
             patentes = patentes.GroupBy(p => p.IdPatente).Select(grp => grp.First()).ToList();
 
@@ -44,8 +44,8 @@
         public void GuardarDatosSesionUsuario(Usuario usuario)
         {
             usuario.Familia = new Familia();
-            usuario.Familia.IdFamilia = familiaBLL.ObtenerIdFamiliaPorUsuario(usuario.IdUsuario);
-            usuario.Familia.Descripcion = familiaBLL.ObtenerDescripcionFamiliaPorId(usuario.Familia.IdFamilia);
+            usuario.Familia.FamiliaId = familiaBLL.ObtenerIdFamiliaPorUsuario(usuario.IdUsuario);
+            usuario.Familia.Descripcion = familiaBLL.ObtenerDescripcionFamiliaPorId(usuario.Familia.FamiliaId);
 
             UsuarioActivo = usuario;
         }

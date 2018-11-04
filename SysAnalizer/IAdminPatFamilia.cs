@@ -6,9 +6,9 @@
 
     public interface IAdminPatFamilia
     {
-        void AsignarPatentes(int idFamilia, List<int> PatentesId);
+        void AsignarPatentes(int familiaId, List<int> patentesId);
 
-        void NegarPatentes(int idFamilia, List<int> PatentesId);
+        void NegarPatentes(int familiaId, List<int> patentesId);
 
         void Show();
 

@@ -60,7 +60,7 @@ namespace UI
         {
             var desc = chklstFamilias.SelectedItem.ToString();
 
-            familiaBLL.Borrar(new Familia() { Descripcion = desc, IdFamilia = familiaBLL.ObtenerIdFamiliaPorDescripcion(desc) });
+            familiaBLL.Borrar(new Familia() { Descripcion = desc, FamiliaId = familiaBLL.ObtenerIdFamiliaPorDescripcion(desc) });
             CargarFamilias();
             chklstFamilias.Refresh();
         }
@@ -69,7 +69,7 @@ namespace UI
         {
             var desc = chklstFamilias.SelectedItem.ToString();
 
-            familiaBLL.Actualizar(new Familia() { Descripcion = desc, IdFamilia = familiaBLL.ObtenerIdFamiliaPorDescripcion(desc) });
+            familiaBLL.Actualizar(new Familia() { Descripcion = desc, FamiliaId = familiaBLL.ObtenerIdFamiliaPorDescripcion(desc) });
             CargarFamilias();
             chklstFamilias.Refresh();
         }
