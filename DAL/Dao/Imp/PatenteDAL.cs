@@ -22,7 +22,7 @@
 
             CatchException(() =>
               {
-                      asignado = Exec($"INSERT INTO FamiliaPatente (IdFamilia, IdPatente) VALUES ({familiaId}, {patenteId})");
+                      asignado = Exec($"INSERT INTO FamiliaPatente (FamiliaId, IdPatente) VALUES ({familiaId}, {patenteId})");
               });
 
             return asignado;
@@ -34,7 +34,7 @@
 
             CatchException(() =>
             {
-                borrada = Exec($"DELETE FROM FamiliaPatente WHERE IdFamilia = {familiaId} AND IdPatente = {patenteId}");
+                borrada = Exec($"DELETE FROM FamiliaPatente WHERE FamiliaId = {familiaId} AND IdPatente = {patenteId}");
             });
 
             return borrada;
@@ -83,7 +83,7 @@
 
         public List<FamiliaPatente> ConsultarPatenteFamilia(int familiaId)
         {
-            var queryString = "SELECT IdFamilia, IdPatente FROM FamiliaPatente WHERE IdFamilia = @idFamilia";
+            var queryString = "SELECT FamiliaId, IdPatente FROM FamiliaPatente WHERE FamiliaId = @idFamilia";
 
             return CatchException(() =>
             {

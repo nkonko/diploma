@@ -65,7 +65,10 @@ namespace UI
                 CargarFamilias();
                 chklstFamilias.Refresh();
             }
-            MessageBox.Show("La familia ya existe");
+            else
+            {
+                MessageBox.Show("La familia ya existe");
+            }
         }
 
         public Familia ObtenerFamiliaSeleccionada()
@@ -77,7 +80,13 @@ namespace UI
         {
             var desc = chklstFamilias.SelectedItem.ToString();
 
-            familiaBLL.Borrar(new Familia() { Descripcion = desc, FamiliaId = familiaBLL.ObtenerIdFamiliaPorDescripcion(desc) });
+            var exitoso = familiaBLL.Borrar(new Familia() { Descripcion = desc, FamiliaId = familiaBLL.ObtenerIdFamiliaPorDescripcion(desc) });
+
+            if (!exitoso)
+            {
+                MessageBox.Show("La familia actualmente esta en uso");
+            }
+
             CargarFamilias();
             chklstFamilias.Refresh();
         }

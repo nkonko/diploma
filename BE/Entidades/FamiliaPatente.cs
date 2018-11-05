@@ -4,6 +4,6 @@
     {
         public int IdPatente { get; set; }
 
-        public int IdFamilia { get; set; }
+        public int FamiliaId { get; set; }
     }
 }

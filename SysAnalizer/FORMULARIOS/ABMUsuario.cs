@@ -67,7 +67,6 @@ namespace UI
                     bitacoraBLL.RegistrarEnBitacora(usu);
                     MessageBox.Show("El registro de nuevo usuario ha fallado");
                 }
-
             }
         }
 

@@ -47,14 +47,12 @@
         {
             var familia = ObtenerFamiliaConDescripcion(objDel.Descripcion);
 
-            var queryString = $"DELETE FROM Familia WHERE IdFamilia = {familia.FamiliaId}";
+            var queryString = $"DELETE FROM Familia WHERE FamiliaId = {familia.FamiliaId}";
 
-            CatchException(() =>
+           return CatchException(() =>
             {
-                return Exec<Familia>(queryString);
+                return Exec(queryString);
             });
-
-            return false;
         }
 
         public List<Familia> Cargar()
@@ -67,9 +65,24 @@
             });
         }
 
-        public bool ComprobarUsoFamilia()
+        public bool ComprobarUsoFamilia(int familiaId)
         {
-            throw new NotImplementedException();
+            var result = new List<int>();
+            var queryString = "SELECT FamiliaId FROM FamiliaUsuario WHERE FamiliaId = @idfamilia";
+
+            CatchException(() =>
+           {
+               result = Exec<int>(queryString, new { @idfamilia = familiaId });
+           });
+
+            if (result.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public bool Crear(Familia objAlta)
@@ -85,7 +98,7 @@
         public void GuardarFamiliaUsuario(int familiaId, int usuarioId)
         {
             var digitoVH = digitoVerificador.CalcularDVHorizontal(new List<string> { }, new List<int> { familiaId, usuarioId });
-            var queryString = $"INSERT INTO FamiliaUsuario(IdFamilia, IdUsuario, DVH) VALUES('{familiaId}','{usuarioId}','{digitoVH}')";
+            var queryString = $"INSERT INTO FamiliaUsuario(FamiliaId, IdUsuario, DVH) VALUES('{familiaId}','{usuarioId}','{digitoVH}')";
 
             CatchException(() =>
             {
@@ -95,7 +108,7 @@
 
         public string ObtenerDescripcionFamiliaPorId(int familiaId)
         {
-            var queryString = $"SELECT Descripcion FROM Familia WHERE IdFamilia = {familiaId}";
+            var queryString = $"SELECT Descripcion FROM Familia WHERE FamiliaId = {familiaId}";
 
             return CatchException(() =>
             {
@@ -116,7 +129,7 @@
 
         public int ObtenerIdFamiliaPorDescripcion(string descripcion)
         {
-            var queryString = "SELECT IdFamilia FROM Familia WHERE Descripcion = @descripcion";
+            var queryString = "SELECT FamiliaId FROM Familia WHERE Descripcion = @descripcion";
 
             return CatchException(() =>
             {
@@ -126,7 +139,7 @@
 
         public int ObtenerIdFamiliaPorUsuario(int usuarioId)
         {
-            var queryString = $"SELECT IdFamilia FROM FamiliaUsuario WHERE IdUsuario = {usuarioId}";
+            var queryString = $"SELECT FamiliaId FROM FamiliaUsuario WHERE IdUsuario = {usuarioId}";
 
             return CatchException(() =>
             {
@@ -136,7 +149,7 @@
 
         public List<Patente> ObtenerPatentesFamilia(int familiaId)
         {
-            var queryString = $"SELECT IdPatente FROM FamiliaPatente WHERE idFamilia = {familiaId}";
+            var queryString = $"SELECT IdPatente FROM FamiliaPatente WHERE FamiliaId = {familiaId}";
 
             return CatchException(() =>
             {

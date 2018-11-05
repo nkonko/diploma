@@ -21,9 +21,14 @@
 
         public bool Borrar(Familia objDel)
         {
-            var patenteEnUso = ComprobarUsoFamilia();
+            var familiaEnUso = ComprobarUsoFamilia(objDel.FamiliaId);
 
-            return familiaDAL.Borrar(objDel);
+            if (!familiaEnUso)
+            {
+                return familiaDAL.Borrar(objDel);
+            }
+
+            return false;
         }
 
         public List<Familia> Cargar()
@@ -61,9 +66,9 @@
             return familiaDAL.ObtenerDescripcionFamiliaPorId(familiaId);
         }
 
-        public bool ComprobarUsoFamilia()
+        public bool ComprobarUsoFamilia(int familiaId)
         {
-            return familiaDAL.ComprobarUsoFamilia();
+            return familiaDAL.ComprobarUsoFamilia(familiaId);
         }
     }
 }

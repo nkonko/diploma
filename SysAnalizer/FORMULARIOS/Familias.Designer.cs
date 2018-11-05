@@ -93,7 +93,7 @@ namespace UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(259, 249);
+            this.ClientSize = new System.Drawing.Size(266, 239);
             this.Controls.Add(this.chklstFamilias);
             this.Controls.Add(this.btnBaja);
             this.Controls.Add(this.btnModificar);
