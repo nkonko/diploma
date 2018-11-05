@@ -116,11 +116,11 @@
 
         public int ObtenerIdFamiliaPorDescripcion(string descripcion)
         {
-            var queryString = "SELECT IdFamilia FROM Familia";
+            var queryString = "SELECT IdFamilia FROM Familia WHERE Descripcion = @descripcion";
 
             return CatchException(() =>
             {
-                return Exec<int>(queryString)[0];
+                return Exec<int>(queryString, new { @descripcion = descripcion })[0];
             });
         }
 

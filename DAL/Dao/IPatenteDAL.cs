@@ -13,10 +13,12 @@
 
         int ObtenerIdPatentePorDescripcion(string descripcion);
 
-        bool NegarPatentes(int familiaId, List<int> patentesId);
+        bool BorrarPatente(int familiaId, int patenteId);
 
-        bool AsignarPatentes(int familiaId, List<int> patentesId);
+        bool AsignarPatente(int familiaId, int patenteId);
 
         bool ComprobarPatentesUsuario(int usuarioId);
+
+        List<FamiliaPatente> ConsultarPatenteFamilia(int familiaId);
     }
 }

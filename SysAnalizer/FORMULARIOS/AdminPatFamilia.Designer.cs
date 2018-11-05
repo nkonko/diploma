@@ -29,23 +29,12 @@ namespace UI
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnAsignar = new System.Windows.Forms.Button();
             this.btnVolver = new System.Windows.Forms.Button();
             this.lblFamilia = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lstPatentes = new System.Windows.Forms.CheckedListBox();
-            this.btnNegar = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // btnAsignar
-            // 
-            this.btnAsignar.Location = new System.Drawing.Point(216, 112);
-            this.btnAsignar.Name = "btnAsignar";
-            this.btnAsignar.Size = new System.Drawing.Size(69, 23);
-            this.btnAsignar.TabIndex = 59;
-            this.btnAsignar.Text = "Asignar";
-            this.btnAsignar.UseVisualStyleBackColor = true;
             // 
             // btnVolver
             // 
@@ -59,7 +48,7 @@ namespace UI
             // lblFamilia
             // 
             this.lblFamilia.AutoSize = true;
-            this.lblFamilia.Location = new System.Drawing.Point(127, 22);
+            this.lblFamilia.Location = new System.Drawing.Point(87, 17);
             this.lblFamilia.Name = "lblFamilia";
             this.lblFamilia.Size = new System.Drawing.Size(42, 13);
             this.lblFamilia.TabIndex = 56;
@@ -92,24 +81,14 @@ namespace UI
             this.lstPatentes.Name = "lstPatentes";
             this.lstPatentes.Size = new System.Drawing.Size(152, 139);
             this.lstPatentes.TabIndex = 55;
+            this.lstPatentes.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.lstPatentes_ItemCheck);
             this.lstPatentes.SelectedIndexChanged += new System.EventHandler(this.lstPatentes_SelectedIndexChanged);
-            // 
-            // btnNegar
-            // 
-            this.btnNegar.Location = new System.Drawing.Point(216, 164);
-            this.btnNegar.Name = "btnNegar";
-            this.btnNegar.Size = new System.Drawing.Size(69, 23);
-            this.btnNegar.TabIndex = 60;
-            this.btnNegar.Text = "Negar";
-            this.btnNegar.UseVisualStyleBackColor = true;
             // 
             // AdminPatFamilia
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(312, 254);
-            this.Controls.Add(this.btnNegar);
-            this.Controls.Add(this.btnAsignar);
+            this.ClientSize = new System.Drawing.Size(221, 254);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.lblFamilia);
             this.Controls.Add(this.groupBox1);
@@ -123,12 +102,9 @@ namespace UI
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btnAsignar;
         private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.Label lblFamilia;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.CheckedListBox lstPatentes;
-        private System.Windows.Forms.Button btnNegar;
     }
 }

@@ -1,5 +1,6 @@
 ﻿namespace BLL.Imp
 {
+    using System;
     using System.Collections.Generic;
     using BE.Entidades;
     using DAL.Dao;
@@ -13,9 +14,9 @@
             this.patenteDAL = patenteDAL;
         }
 
-        public bool AsignarPatentes(int familiaId, List<int> patentesId)
+        public bool AsignarPatente(int familiaId, int patenteId)
         {
-            return patenteDAL.AsignarPatentes(familiaId, patentesId);
+            return patenteDAL.AsignarPatente(familiaId, patenteId);
         }
 
         public List<Patente> Cargar()
@@ -33,9 +34,9 @@
             patenteDAL.NegarPatenteUsuario(patentesId, usuarioId);
         }
 
-        public bool NegarPatentes(int familiaId, List<int> patentesId)
+        public bool BorrarPatente(int familiaId, int patenteId)
         {
-            return patenteDAL.NegarPatentes(familiaId, patentesId);
+            return patenteDAL.BorrarPatente(familiaId, patenteId);
         }
 
         public int ObtenerIdPatentePorDescripcion(string descripcion)
@@ -46,6 +47,11 @@
         public bool ComprobarPatentesUsuario(int usuarioId)
         {
             return patenteDAL.ComprobarPatentesUsuario(usuarioId);
+        }
+
+        public List<FamiliaPatente> ConsultarPatenteFamilia(int familiaId)
+        {
+            return patenteDAL.ConsultarPatenteFamilia(familiaId);
         }
     }
 }

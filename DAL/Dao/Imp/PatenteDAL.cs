@@ -1,5 +1,6 @@
 ﻿namespace DAL.Dao.Imp
 {
+    using System;
     using System.Collections;
     using System.Collections.Generic;
     using BE.Entidades;
@@ -14,22 +15,29 @@
             this.digitoVerificador = digitoVerificador;
         }
 
-        public bool AsignarPatentes(int familiaId, List<int> patentesId)
+        public bool AsignarPatente(int familiaId, int patenteId)
         {
-            var queryString = "SELECT IdFamilia, IdPatente FROM FamiliaPatente";
-            var patentesFamilias = new List<Hashtable>();
-            CatchException(() =>
-             {
-                 patentesFamilias = Exec<Hashtable>(queryString);
-             });
+            ////var queryString = $"INSERT INTO FamiliaPatente (IdFamilia, IdPatente) VALUES (@familiaId, @patentesId)";
+            var asignado = false;
 
-            ////if (patentesFamilias.Contains(familiaId))
-            return true;
+            CatchException(() =>
+              {
+                      asignado = Exec($"INSERT INTO FamiliaPatente (IdFamilia, IdPatente) VALUES ({familiaId}, {patenteId})");
+              });
+
+            return asignado;
         }
 
-        public bool NegarPatentes(int familiaId, List<int> patentesId)
+        public bool BorrarPatente(int familiaId, int patenteId)
         {
-            throw new System.NotImplementedException();
+            var borrada = false;
+
+            CatchException(() =>
+            {
+                borrada = Exec($"DELETE FROM FamiliaPatente WHERE IdFamilia = {familiaId} AND IdPatente = {patenteId}");
+            });
+
+            return borrada;
         }
 
         public List<Patente> Cargar()
@@ -71,6 +79,16 @@
         public bool ComprobarPatentesUsuario(int usuarioId)
         {
             throw new System.NotImplementedException();
+        }
+
+        public List<FamiliaPatente> ConsultarPatenteFamilia(int familiaId)
+        {
+            var queryString = "SELECT IdFamilia, IdPatente FROM FamiliaPatente WHERE IdFamilia = @idFamilia";
+
+            return CatchException(() =>
+            {
+                return Exec<FamiliaPatente>(queryString, new { @idFamilia = familiaId });
+            });
         }
     }
 }

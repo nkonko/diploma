@@ -1,4 +1,4 @@
-﻿namespace BLL.Imp
+﻿namespace BLL
 {
     using BE.Entidades;
     using System.Collections.Generic;
@@ -11,10 +11,12 @@
 
         List<Patente> Cargar();
 
-        bool AsignarPatentes(int familiaId, List<int> patentesId);
+        bool AsignarPatente(int familiaId, int patenteId);
 
-        bool NegarPatentes(int familiaId, List<int> patentesId);
+        bool BorrarPatente(int familiaId, int patenteId);
 
         bool ComprobarPatentesUsuario(int usuarioId);
+
+        List<FamiliaPatente> ConsultarPatenteFamilia(int familiaId);
     }
 }

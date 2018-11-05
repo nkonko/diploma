@@ -50,7 +50,7 @@
     <Compile Include="IBitacoraBLL.cs" />
     <Compile Include="Imp\FormControlBLL.cs" />
     <Compile Include="Imp\Idioma.cs" />
-    <Compile Include="Imp\IPatenteBLL.cs" />
+    <Compile Include="IPatenteBLL.cs" />
     <Compile Include="Imp\IVentaBLL.cs" />
     <Compile Include="Imp\PatenteBLL.cs" />
     <Compile Include="IproductoBLL.cs" />

@@ -29,6 +29,8 @@
             contBuilder.RegisterType<UsuarioBLL>().As<IUsuarioBLL>().SingleInstance();
             contBuilder.RegisterType<VentaBLL>().As<IVentaBLL>().SingleInstance();
             contBuilder.RegisterType<VentaDAL>().As<IVentaDAL>().SingleInstance();
+            contBuilder.RegisterType<FormControlBLL>().As<IFormControlBLL>().SingleInstance();
+            contBuilder.RegisterType<FormControlDAL>().As<IFormControlDAL>().SingleInstance();
             contBuilder.RegisterType<DigitoVerificador>().As<IDigitoVerificador>().InstancePerDependency();
             contBuilder.RegisterType<VtaProd>().As<IVtaProd>().SingleInstance();
             contBuilder.RegisterType<ABMusuario>().As<IABMUsuario>().SingleInstance();
@@ -44,6 +46,7 @@
             contBuilder.RegisterType<ProductoBLL>().As<IProductoBLL>().SingleInstance();
             contBuilder.RegisterType<ProductoDAL>().As<IProductoDAL>().SingleInstance();
             contBuilder.RegisterType<Productos>().As<IProductos>().SingleInstance();
+            contBuilder.RegisterType<AdminPatFamilia>().As<IAdminPatFamilia>().SingleInstance();
 
             return contBuilder.Build();
         }

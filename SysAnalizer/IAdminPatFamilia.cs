@@ -6,14 +6,16 @@
 
     public interface IAdminPatFamilia
     {
-        void AsignarPatentes(int familiaId, List<int> patentesId);
+        bool FamiliaNueva { get; set; }
 
-        void NegarPatentes(int familiaId, List<int> patentesId);
+        void AsignarPatente(int familiaId, int patenteId);
+
+        void BorrarPatente(int familiaId, int patenteId);
 
         void Show();
 
         DialogResult ShowDialog();
 
-        Patente ObtenerPatentesSeleccion();
+        List<Patente> ObtenerPatentesSeleccion();
     }
 }

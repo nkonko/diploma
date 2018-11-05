@@ -6,10 +6,12 @@ namespace UI
     using Microsoft.VisualBasic;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Windows.Forms;
 
     public partial class Familias : Form, IFamilias
     {
+        public Familia familiaSeleccionada = null;
         private readonly IFamiliaBLL familiaBLL;
         private readonly IAdminPatFamilia adminPatFamilia;
 
@@ -41,19 +43,34 @@ namespace UI
         private void btnNueva_Click(object sender, EventArgs e)
         {
             var nombreFamilia = Interaction.InputBox("Ingrese el nombre para la nueva familia", "Nueva familia", "");
+            var familias = familiaBLL.Cargar();
 
-            var creada = familiaBLL.Crear(new Familia() { Descripcion = nombreFamilia });
-            if (creada)
+            if (!familias.Select(x => x.Descripcion).Contains(nombreFamilia))
             {
-                var resultado = adminPatFamilia.ShowDialog();
-                if (resultado == DialogResult.OK)
-                {
-                    var patentes = adminPatFamilia.ObtenerPatentesSeleccion();
-                }
-            }
+                var creada = familiaBLL.Crear(new Familia() { Descripcion = nombreFamilia });
+                var creadaId = familiaBLL.ObtenerIdFamiliaPorDescripcion(nombreFamilia);
 
-            CargarFamilias();
-            chklstFamilias.Refresh();
+                familiaSeleccionada = new Familia() { FamiliaId = creadaId, Descripcion = nombreFamilia };
+
+                if (creada)
+                {
+                    adminPatFamilia.FamiliaNueva = true;
+                    var resultado = adminPatFamilia.ShowDialog();
+                    if (resultado == DialogResult.OK)
+                    {
+                        var patentes = adminPatFamilia.ObtenerPatentesSeleccion();
+                    }
+                }
+
+                CargarFamilias();
+                chklstFamilias.Refresh();
+            }
+            MessageBox.Show("La familia ya existe");
+        }
+
+        public Familia ObtenerFamiliaSeleccionada()
+        {
+            return familiaSeleccionada;
         }
 
         private void btnBaja_Click(object sender, EventArgs e)

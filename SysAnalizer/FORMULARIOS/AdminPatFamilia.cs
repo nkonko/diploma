@@ -2,14 +2,26 @@
 namespace UI
 {
     using BE.Entidades;
-    using BLL.Imp;
+    using BLL;
     using System;
     using System.Collections.Generic;
     using System.Windows.Forms;
 
     public partial class AdminPatFamilia : Form, IAdminPatFamilia
     {
-        public IPatenteBLL patenteBLL;
+        public List<Patente> patentesSeleccionadas = null;
+        private Familia familia = null;
+
+        private readonly IPatenteBLL patenteBLL;
+        private IFamilias familias;
+
+        public bool familiaNueva;
+
+        public bool FamiliaNueva
+        {
+            get { return familiaNueva; }
+            set { familiaNueva = value; }
+        }
 
         public AdminPatFamilia(IPatenteBLL patenteBLL)
         {
@@ -17,43 +29,63 @@ namespace UI
             this.patenteBLL = patenteBLL;
         }
 
-        public void AsignarPatentes(int familiaId, List<int> patentesId)
+        public void AsignarPatente(int familiaId, int patenteId)
         {
-            if (patentesId != null)
+            var asignadas = patenteBLL.AsignarPatente(familiaId, patenteId);
+            if (asignadas)
             {
-                var asignadas = patenteBLL.AsignarPatentes(familiaId, patentesId);
-                if (asignadas)
-                {
-
-                }
+                //// loguear? no me acuerdo que queria hacer
             }
         }
 
-        public void NegarPatentes(int familiaId, List<int> patentesId)
+        public void BorrarPatente(int familiaId, int patenteId)
         {
-            if (patentesId != null)
+            var negadas = patenteBLL.BorrarPatente(familiaId, patenteId);
+            if (negadas)
             {
-                var negadas = patenteBLL.NegarPatentes(familiaId, patentesId);
-                if (negadas)
-                {
 
-                }
             }
-
         }
 
-        public Patente ObtenerPatentesSeleccion()
+        public List<Patente> ObtenerPatentesSeleccion()
         {
-            throw new NotImplementedException();
+            return patentesSeleccionadas;
         }
 
         private void AdminPatFamilia_Load(object sender, EventArgs e)
         {
+            familias = IoCContainer.Resolve<IFamilias>();
+            familia = familias.ObtenerFamiliaSeleccionada();
+            lblFamilia.Text = lblFamilia.Text + " " + familia.Descripcion;
             lstPatentes.DataSource = patenteBLL.Cargar();
         }
 
         private void lstPatentes_SelectedIndexChanged(object sender, EventArgs e)
         {
+        }
+
+        private void lstPatentes_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            var patenteSel = new Patente();
+
+            if (FamiliaNueva)
+            {
+                patenteSel = (Patente)lstPatentes.SelectedItem;
+
+                AsignarPatente(familia.FamiliaId, patenteSel.IdPatente);
+                FamiliaNueva = false;
+            }
+            else
+            {
+                patenteSel = (Patente)lstPatentes.SelectedItem;
+
+                var patentes = patenteBLL.ConsultarPatenteFamilia(familia.FamiliaId);
+
+                if (patentes.Exists(x => x.IdPatente == patenteSel.IdPatente))
+                {
+                    BorrarPatente(familia.FamiliaId, patenteSel.IdPatente);
+                }
+            }
 
         }
     }
