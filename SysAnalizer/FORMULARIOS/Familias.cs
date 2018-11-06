@@ -56,9 +56,10 @@ namespace UI
                 {
                     adminPatFamilia.FamiliaNueva = true;
                     var resultado = adminPatFamilia.ShowDialog();
+
                     if (resultado == DialogResult.OK)
                     {
-                        var patentes = adminPatFamilia.ObtenerPatentesSeleccion();
+                        MessageBox.Show("Familia y Patentes registradas");
                     }
                 }
 
@@ -94,8 +95,34 @@ namespace UI
         private void btnModificar_Click(object sender, EventArgs e)
         {
             var desc = chklstFamilias.SelectedItem.ToString();
+            var nuevoNombre = Interaction.InputBox("Ingrese el nombre:", "Actualizar", "");
 
-            familiaBLL.Actualizar(new Familia() { Descripcion = desc, FamiliaId = familiaBLL.ObtenerIdFamiliaPorDescripcion(desc) });
+            var familias = familiaBLL.Cargar();
+
+            if (!familias.Select(x => x.Descripcion).Contains(nuevoNombre))
+            {
+                var exitoso = familiaBLL.Actualizar(new Familia() { Descripcion = nuevoNombre, FamiliaId = familiaBLL.ObtenerIdFamiliaPorDescripcion(desc) });
+                var creadaId = familiaBLL.ObtenerIdFamiliaPorDescripcion(nuevoNombre);
+
+                familiaSeleccionada = new Familia() { FamiliaId = creadaId, Descripcion = nuevoNombre };
+
+                if (exitoso)
+                {
+                    adminPatFamilia.FamiliaNueva = true;
+                    var resultado = adminPatFamilia.ShowDialog();
+                    if (resultado == DialogResult.OK)
+                    {
+                        MessageBox.Show("Familia y Patentes Actualizadas");
+                    }
+                }
+
+                CargarFamilias();
+                chklstFamilias.Refresh();
+            }
+            else
+            {
+                MessageBox.Show("La familia ya existe");
+            }
             CargarFamilias();
             chklstFamilias.Refresh();
         }

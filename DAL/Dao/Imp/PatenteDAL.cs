@@ -1,10 +1,8 @@
 ﻿namespace DAL.Dao.Imp
 {
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
     using BE.Entidades;
     using DAL.Utils;
+    using System.Collections.Generic;
 
     public class PatenteDAL : BaseDao, IPatenteDAL
     {
@@ -17,12 +15,11 @@
 
         public bool AsignarPatente(int familiaId, int patenteId)
         {
-            ////var queryString = $"INSERT INTO FamiliaPatente (IdFamilia, IdPatente) VALUES (@familiaId, @patentesId)";
             var asignado = false;
-
+            var DVH = digitoVerificador.CalcularDVHorizontal(new List<string>(), new List<int>() { familiaId, patenteId });
             CatchException(() =>
               {
-                      asignado = Exec($"INSERT INTO FamiliaPatente (FamiliaId, IdPatente) VALUES ({familiaId}, {patenteId})");
+                      asignado = Exec($"INSERT INTO FamiliaPatente (FamiliaId, IdPatente, DVH) VALUES ({familiaId}, {patenteId}, {DVH})");
               });
 
             return asignado;

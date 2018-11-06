@@ -74,6 +74,7 @@ namespace UI
         {
             var modificado = usuarioBLL.Actualizar(new Usuario() { Nombre = txtNombre.Text, Apellido = txtApellido.Text, Email = txtEmail.Text, Telefono = Int32.Parse(txtTel.Text), PrimerLogin = true, CIngresos = 0, Activo = true });
             var usu = formControl.ObtenerInfoUsuario();
+
             if (modificado)
             {
                 log.Info("Se ha creado un nuevo usuario");
@@ -98,6 +99,7 @@ namespace UI
                 var usuario = new Usuario() { Email = Interaction.InputBox("Ingrese email", "Borrar Usuario") };
                 var borrado = usuarioBLL.Borrar(usuario);
                 var usu = formControl.ObtenerInfoUsuario();
+
                 if (borrado)
                 {
                     log.Info("Se ha creado un nuevo usuario");
@@ -123,6 +125,7 @@ namespace UI
         private void CargarRefrescarDatagrid()
         {
             var usuarios = usuarioBLL.Cargar();
+
             foreach (var usuario in usuarios)
             {
                 var FamId = familiasBLL.ObtenerIdFamiliaPorUsuario(usuario.IdUsuario);
@@ -137,6 +140,7 @@ namespace UI
         private bool verificarDatos()
         {
             var returnValue = true;
+
             foreach (TextBox tb in Controls.OfType<TextBox>())
             {
                 if (string.IsNullOrEmpty(tb.Text.Trim()))

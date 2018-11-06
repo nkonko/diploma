@@ -71,7 +71,7 @@
         {
             var usu = ObtenerUsuarioConEmail(objUpd.Email);
 
-            var queryString = string.Format("UPDATE Usuario SET Nombre = {1}, Apellido = {2}, Password = {3}, Email = {4}, Telefono = {5} WHERE IdUsuario = {0}", usu.IdUsuario, objUpd.Nombre, objUpd.Apellido, objUpd.Contraseña, objUpd.Email, objUpd.Telefono);
+            var queryString = string.Format("UPDATE Usuario SET Nombre = {1}, Apellido = {2}, Contraseña = {3}, Email = {4}, Telefono = {5} WHERE IdUsuario = {0}", usu.IdUsuario, objUpd.Nombre, objUpd.Apellido, objUpd.Contraseña, objUpd.Email, objUpd.Telefono);
 
             return CatchException(() =>
             {
@@ -160,7 +160,7 @@
 
         private void AumentarIngresos(Usuario usuario, int ingresos)
         {
-            var queryString = string.Format("UPDATE Usuario SET Password = {1} WHERE IdUsuario = {0}", usuario.IdUsuario, ingresos);
+            var queryString = string.Format("UPDATE Usuario SET Contraseña = {1} WHERE IdUsuario = {0}", usuario.IdUsuario, ingresos);
 
             CatchException(() =>
             {
