@@ -85,6 +85,10 @@ namespace UI
                 {
                     BorrarPatente(familia.FamiliaId, patenteSel.IdPatente);
                 }
+                else
+                {
+                    AsignarPatente(familia.FamiliaId, patenteSel.IdPatente);
+                }
             }
 
         }
