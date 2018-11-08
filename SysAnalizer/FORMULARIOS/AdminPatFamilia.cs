@@ -34,7 +34,7 @@ namespace UI
             var asignadas = patenteBLL.AsignarPatente(familiaId, patenteId);
             if (asignadas)
             {
-                //// loguear? no me acuerdo que queria hacer
+                DialogResult = DialogResult.OK;
             }
         }
 
@@ -43,7 +43,7 @@ namespace UI
             var negadas = patenteBLL.BorrarPatente(familiaId, patenteId);
             if (negadas)
             {
-
+                DialogResult = DialogResult.OK;
             }
         }
 
@@ -70,10 +70,11 @@ namespace UI
 
             if (FamiliaNueva)
             {
+                FamiliaNueva = false;
+
                 patenteSel = (Patente)lstPatentes.SelectedItem;
 
                 AsignarPatente(familia.FamiliaId, patenteSel.IdPatente);
-                FamiliaNueva = false;
             }
             else
             {
