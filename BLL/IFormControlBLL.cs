@@ -6,5 +6,7 @@
     public interface IFormControlBLL
     {
         List<Patente> ObtenerPermisosFormularios();
+
+        List<Patente> ObtenerPermisosFormulario(int formId);
     }
 }

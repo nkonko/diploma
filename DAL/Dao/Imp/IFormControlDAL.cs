@@ -6,5 +6,7 @@
     public interface IFormControlDAL
     {
         List<Patente> ObtenerPermisosFormularios();
+
+        List<Patente> ObtenerPermisosFormulario(int formId);
     }
 }

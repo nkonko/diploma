@@ -1,9 +1,8 @@
 ﻿namespace BLL.Imp
 {
-    using System;
-    using System.Collections.Generic;
     using BE.Entidades;
     using DAL.Dao;
+    using System.Collections.Generic;
 
     public class PatenteBLL : IPatenteBLL
     {

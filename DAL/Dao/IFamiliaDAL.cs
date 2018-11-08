@@ -8,6 +8,8 @@
     {
         List<Patente> ObtenerPatentesFamilia(int familiaId);
 
+        List<Patente> ObtenerPatentesFamilia(List<int> familiaId);
+
         void GuardarFamiliaUsuario(int familiaId, int usuarioId);
 
         int ObtenerIdFamiliaPorDescripcion(string descripcion);
@@ -17,5 +19,9 @@
         string ObtenerDescripcionFamiliaPorId(int familiaId);
 
         bool ComprobarUsoFamilia(int familiaId);
+
+        List<int> ObtenerIdsFamiliasPorUsuario(int usuarioId);
+
+        List<string> ObtenerDescripcionFamiliaPorId(List<int> familiaId);
     }
 }

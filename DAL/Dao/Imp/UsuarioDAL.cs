@@ -21,8 +21,8 @@
         public bool Crear(Usuario objAlta)
         {
             var contEncript = MD5.ComputeMD5Hash(new Random().Next().ToString());
-            objAlta.IdUsuario = ObtenerUltimoIdUsuario() + 1;
-            var digitoVH = digitoVerificador.CalcularDVHorizontal(new List<string> { objAlta.Nombre, objAlta.Email, contEncript }, new List<int> { objAlta.IdUsuario });
+            objAlta.UsuarioId = ObtenerUltimoIdUsuario() + 1;
+            var digitoVH = digitoVerificador.CalcularDVHorizontal(new List<string> { objAlta.Nombre, objAlta.Email, contEncript }, new List<int> { objAlta.UsuarioId });
 
             var queryString = string.Format(
                          "INSERT INTO Usuario(Nombre, Apellido, Contraseña, Email, Telefono, ContadorIngresosIncorrectos, IdCanalVenta, IdIdioma, PrimerLogin, DVH, Activo)" +
@@ -59,7 +59,7 @@
         {
             var usu = ObtenerUsuarioConEmail(objDel.Email);
 
-            var queryString = string.Format("DELETE FROM Usuario WHERE IdUsuario = {0}", usu.IdUsuario);
+            var queryString = string.Format("DELETE FROM Usuario WHERE UsuarioId = {0}", usu.UsuarioId);
 
             return CatchException(() =>
             {
@@ -71,7 +71,7 @@
         {
             var usu = ObtenerUsuarioConEmail(objUpd.Email);
 
-            var queryString = string.Format("UPDATE Usuario SET Nombre = {1}, Apellido = {2}, Password = {3}, Email = {4}, Telefono = {5} WHERE IdUsuario = {0}", usu.IdUsuario, objUpd.Nombre, objUpd.Apellido, objUpd.Contraseña, objUpd.Email, objUpd.Telefono);
+            var queryString = string.Format("UPDATE Usuario SET Nombre = {1}, Apellido = {2}, Password = {3}, Email = {4}, Telefono = {5} WHERE UsuarioId = {0}", usu.UsuarioId, objUpd.Nombre, objUpd.Apellido, objUpd.Contraseña, objUpd.Email, objUpd.Telefono);
 
             return CatchException(() =>
             {
@@ -114,11 +114,11 @@
             var queryString = string.Empty;
             if (primerLogin == true)
             {
-                queryString = string.Format("UPDATE Usuario SET Contraseña = '{1}', PrimerLogin = 0 WHERE IdUsuario = {0}", usuario.IdUsuario, contEncript);
+                queryString = string.Format("UPDATE Usuario SET Contraseña = '{1}', PrimerLogin = 0 WHERE UsuarioId = {0}", usuario.UsuarioId, contEncript);
             }
             else
             {
-                queryString = string.Format("UPDATE Usuario SET Contraseña = '{1}' WHERE IdUsuario = {0}", usuario.IdUsuario, contEncript);
+                queryString = string.Format("UPDATE Usuario SET Contraseña = '{1}' WHERE UsuarioId = {0}", usuario.UsuarioId, contEncript);
             }
 
             return CatchException(() =>
@@ -140,7 +140,7 @@
 
         public List<Patente> ObtenerPatentesDeUsuario(int usuarioId)
         {
-            var queryString = $"SELECT IdPatente FROM UsuarioPatente WHERE IdUsuario = {usuarioId}";
+            var queryString = $"SELECT IdPatente FROM UsuarioPatente WHERE UsuarioId = {usuarioId}";
 
             return CatchException(() =>
             {
@@ -160,7 +160,7 @@
 
         private void AumentarIngresos(Usuario usuario, int ingresos)
         {
-            var queryString = string.Format("UPDATE Usuario SET Password = {1} WHERE IdUsuario = {0}", usuario.IdUsuario, ingresos);
+            var queryString = string.Format("UPDATE Usuario SET Password = {1} WHERE UsuarioId = {0}", usuario.UsuarioId, ingresos);
 
             CatchException(() =>
             {

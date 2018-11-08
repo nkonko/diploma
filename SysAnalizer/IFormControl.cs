@@ -5,7 +5,9 @@
 
     public interface IFormControl
     {
-       List<Patente> ObtenerPermisosFormularios();
+        List<Patente> ObtenerPermisosFormularios();
+
+        List<Patente> ObtenerPermisosFormulario(int formId);
 
         void GuardarDatosSesionUsuario(Usuario usuario);
 

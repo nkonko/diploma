@@ -31,6 +31,10 @@ namespace UI
         {
             this.btnVolver = new System.Windows.Forms.Button();
             this.dgusuario = new System.Windows.Forms.DataGridView();
+            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Apellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Telefono = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -48,21 +52,17 @@ namespace UI
             this.label5 = new System.Windows.Forms.Label();
             this.txtTel = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.cboFamilia = new System.Windows.Forms.ComboBox();
             this.chkLstPatentes = new System.Windows.Forms.CheckedListBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Apellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Telefono = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chkLstFamilia = new System.Windows.Forms.CheckedListBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgusuario)).BeginInit();
             this.SuspendLayout();
             // 
             // btnVolver
             // 
             this.btnVolver.Location = new System.Drawing.Point(11, 11);
-            this.btnVolver.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnVolver.Margin = new System.Windows.Forms.Padding(2);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(74, 27);
             this.btnVolver.TabIndex = 27;
@@ -81,14 +81,42 @@ namespace UI
             this.Apellido,
             this.Email,
             this.Telefono});
-            this.dgusuario.Location = new System.Drawing.Point(53, 213);
-            this.dgusuario.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dgusuario.Location = new System.Drawing.Point(11, 213);
+            this.dgusuario.Margin = new System.Windows.Forms.Padding(2);
             this.dgusuario.Name = "dgusuario";
             this.dgusuario.ReadOnly = true;
             this.dgusuario.RowTemplate.Height = 24;
             this.dgusuario.Size = new System.Drawing.Size(439, 182);
             this.dgusuario.TabIndex = 26;
             this.dgusuario.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            // 
+            // Nombre
+            // 
+            this.Nombre.DataPropertyName = "Nombre";
+            this.Nombre.HeaderText = "Nombre";
+            this.Nombre.Name = "Nombre";
+            this.Nombre.ReadOnly = true;
+            // 
+            // Apellido
+            // 
+            this.Apellido.DataPropertyName = "Apellido";
+            this.Apellido.HeaderText = "Apellido";
+            this.Apellido.Name = "Apellido";
+            this.Apellido.ReadOnly = true;
+            // 
+            // Email
+            // 
+            this.Email.DataPropertyName = "Email";
+            this.Email.HeaderText = "Email";
+            this.Email.Name = "Email";
+            this.Email.ReadOnly = true;
+            // 
+            // Telefono
+            // 
+            this.Telefono.DataPropertyName = "Telefono";
+            this.Telefono.HeaderText = "Telefono";
+            this.Telefono.Name = "Telefono";
+            this.Telefono.ReadOnly = true;
             // 
             // label3
             // 
@@ -123,7 +151,7 @@ namespace UI
             // btnBorrar
             // 
             this.btnBorrar.Location = new System.Drawing.Point(11, 162);
-            this.btnBorrar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnBorrar.Margin = new System.Windows.Forms.Padding(2);
             this.btnBorrar.Name = "btnBorrar";
             this.btnBorrar.Size = new System.Drawing.Size(74, 27);
             this.btnBorrar.TabIndex = 10;
@@ -134,7 +162,7 @@ namespace UI
             // btnModificar
             // 
             this.btnModificar.Location = new System.Drawing.Point(11, 112);
-            this.btnModificar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnModificar.Margin = new System.Windows.Forms.Padding(2);
             this.btnModificar.Name = "btnModificar";
             this.btnModificar.Size = new System.Drawing.Size(74, 27);
             this.btnModificar.TabIndex = 9;
@@ -145,7 +173,7 @@ namespace UI
             // txtDomicilio
             // 
             this.txtDomicilio.Location = new System.Drawing.Point(250, 82);
-            this.txtDomicilio.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtDomicilio.Margin = new System.Windows.Forms.Padding(2);
             this.txtDomicilio.Name = "txtDomicilio";
             this.txtDomicilio.Size = new System.Drawing.Size(200, 20);
             this.txtDomicilio.TabIndex = 4;
@@ -153,7 +181,7 @@ namespace UI
             // txtApellido
             // 
             this.txtApellido.Location = new System.Drawing.Point(104, 82);
-            this.txtApellido.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtApellido.Margin = new System.Windows.Forms.Padding(2);
             this.txtApellido.Name = "txtApellido";
             this.txtApellido.Size = new System.Drawing.Size(125, 20);
             this.txtApellido.TabIndex = 3;
@@ -161,7 +189,7 @@ namespace UI
             // txtNombre
             // 
             this.txtNombre.Location = new System.Drawing.Point(104, 41);
-            this.txtNombre.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtNombre.Margin = new System.Windows.Forms.Padding(2);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(125, 20);
             this.txtNombre.TabIndex = 1;
@@ -169,7 +197,7 @@ namespace UI
             // btnNuevo
             // 
             this.btnNuevo.Location = new System.Drawing.Point(11, 59);
-            this.btnNuevo.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnNuevo.Margin = new System.Windows.Forms.Padding(2);
             this.btnNuevo.Name = "btnNuevo";
             this.btnNuevo.Size = new System.Drawing.Size(74, 27);
             this.btnNuevo.TabIndex = 8;
@@ -207,7 +235,7 @@ namespace UI
             // txtDNI
             // 
             this.txtDNI.Location = new System.Drawing.Point(104, 127);
-            this.txtDNI.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtDNI.Margin = new System.Windows.Forms.Padding(2);
             this.txtDNI.Name = "txtDNI";
             this.txtDNI.Size = new System.Drawing.Size(125, 20);
             this.txtDNI.TabIndex = 5;
@@ -246,20 +274,11 @@ namespace UI
             this.label6.Text = "Teléfono:";
             this.label6.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // cboFamilia
-            // 
-            this.cboFamilia.FormattingEnabled = true;
-            this.cboFamilia.Location = new System.Drawing.Point(340, 127);
-            this.cboFamilia.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.cboFamilia.Name = "cboFamilia";
-            this.cboFamilia.Size = new System.Drawing.Size(110, 21);
-            this.cboFamilia.TabIndex = 36;
-            // 
             // chkLstPatentes
             // 
             this.chkLstPatentes.FormattingEnabled = true;
             this.chkLstPatentes.Location = new System.Drawing.Point(464, 41);
-            this.chkLstPatentes.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chkLstPatentes.Margin = new System.Windows.Forms.Padding(2);
             this.chkLstPatentes.Name = "chkLstPatentes";
             this.chkLstPatentes.Size = new System.Drawing.Size(114, 154);
             this.chkLstPatentes.TabIndex = 37;
@@ -267,7 +286,7 @@ namespace UI
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(338, 110);
+            this.label7.Location = new System.Drawing.Point(461, 208);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(42, 13);
@@ -284,43 +303,24 @@ namespace UI
             this.label8.TabIndex = 39;
             this.label8.Text = "Patentes:";
             // 
-            // Nombre
+            // chkLstFamilia
             // 
-            this.Nombre.DataPropertyName = "Nombre";
-            this.Nombre.HeaderText = "Nombre";
-            this.Nombre.Name = "Nombre";
-            this.Nombre.ReadOnly = true;
-            // 
-            // Apellido
-            // 
-            this.Apellido.DataPropertyName = "Apellido";
-            this.Apellido.HeaderText = "Apellido";
-            this.Apellido.Name = "Apellido";
-            this.Apellido.ReadOnly = true;
-            // 
-            // Email
-            // 
-            this.Email.DataPropertyName = "Email";
-            this.Email.HeaderText = "Email";
-            this.Email.Name = "Email";
-            this.Email.ReadOnly = true;
-            // 
-            // Telefono
-            // 
-            this.Telefono.DataPropertyName = "Telefono";
-            this.Telefono.HeaderText = "Telefono";
-            this.Telefono.Name = "Telefono";
-            this.Telefono.ReadOnly = true;
+            this.chkLstFamilia.FormattingEnabled = true;
+            this.chkLstFamilia.Location = new System.Drawing.Point(464, 225);
+            this.chkLstFamilia.Margin = new System.Windows.Forms.Padding(2);
+            this.chkLstFamilia.Name = "chkLstFamilia";
+            this.chkLstFamilia.Size = new System.Drawing.Size(114, 154);
+            this.chkLstFamilia.TabIndex = 40;
             // 
             // ABMusuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(595, 406);
+            this.ClientSize = new System.Drawing.Size(594, 406);
+            this.Controls.Add(this.chkLstFamilia);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.chkLstPatentes);
-            this.Controls.Add(this.cboFamilia);
             this.Controls.Add(this.txtTel);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.txtCP);
@@ -370,7 +370,6 @@ namespace UI
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtTel;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ComboBox cboFamilia;
         private System.Windows.Forms.CheckedListBox chkLstPatentes;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
@@ -378,5 +377,6 @@ namespace UI
         private System.Windows.Forms.DataGridViewTextBoxColumn Apellido;
         private System.Windows.Forms.DataGridViewTextBoxColumn Email;
         private System.Windows.Forms.DataGridViewTextBoxColumn Telefono;
+        private System.Windows.Forms.CheckedListBox chkLstFamilia;
     }
 }

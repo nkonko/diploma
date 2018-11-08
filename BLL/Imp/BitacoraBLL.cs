@@ -21,7 +21,7 @@
 
         public void RegistrarEnBitacora(Usuario usu)
         {
-            MDC.Set("iduser", usu.IdUsuario.ToString());
+            MDC.Set("iduser", usu.UsuarioId.ToString());
 
             var digitoVH = bitacoraDAL.GenerarDVH(usu);
 

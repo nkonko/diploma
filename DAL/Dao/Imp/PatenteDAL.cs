@@ -53,7 +53,7 @@
         public void GuardarPatenteUsuario(int patenteId, int usuarioId)
         {
             var digitoVH = digitoVerificador.CalcularDVHorizontal(new List<string> { }, new List<int> { patenteId, usuarioId });
-            var queryString = $"INSERT INTO UsuarioPatente(IdPatente, IdUsuario, Negada, DVH) VALUES ({patenteId},{usuarioId}, 0, {digitoVH})";
+            var queryString = $"INSERT INTO UsuarioPatente(IdPatente, UsuarioId, Negada, DVH) VALUES ({patenteId},{usuarioId}, 0, {digitoVH})";
 
             CatchException(() =>
             {

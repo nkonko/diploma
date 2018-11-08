@@ -49,10 +49,10 @@
 
             var queryString = $"DELETE FROM Familia WHERE FamiliaId = {familia.FamiliaId}";
 
-           return CatchException(() =>
-            {
-                return Exec(queryString);
-            });
+            return CatchException(() =>
+             {
+                 return Exec(queryString);
+             });
         }
 
         public List<Familia> Cargar()
@@ -98,7 +98,7 @@
         public void GuardarFamiliaUsuario(int familiaId, int usuarioId)
         {
             var digitoVH = digitoVerificador.CalcularDVHorizontal(new List<string> { }, new List<int> { familiaId, usuarioId });
-            var queryString = $"INSERT INTO FamiliaUsuario(FamiliaId, IdUsuario, DVH) VALUES('{familiaId}','{usuarioId}','{digitoVH}')";
+            var queryString = $"INSERT INTO FamiliaUsuario(FamiliaId, UsuarioId, DVH) VALUES('{familiaId}','{usuarioId}','{digitoVH}')";
 
             CatchException(() =>
             {
@@ -114,6 +114,23 @@
             {
                 return Exec<string>(queryString)[0];
             });
+        }
+
+        public List<string> ObtenerDescripcionFamiliaPorId(List<int> familiaId)
+        {
+            var famsdesc = new List<string>();
+
+            foreach (var id in familiaId)
+            {
+                var queryString = $"SELECT Descripcion FROM Familia WHERE FamiliaId = {id}";
+
+                CatchException(() =>
+                {
+                    famsdesc.Add(Exec<string>(queryString)[0]);
+                });
+            }
+
+            return famsdesc;
         }
 
         //// Cambiar a cargar y usar linq para devolver la familia que coincida con la descripcion para no repetir codigo
@@ -139,12 +156,25 @@
 
         public int ObtenerIdFamiliaPorUsuario(int usuarioId)
         {
-            var queryString = $"SELECT FamiliaId FROM FamiliaUsuario WHERE IdUsuario = {usuarioId}";
+            var queryString = $"SELECT FamiliaId FROM FamiliaUsuario WHERE UsuarioId = {usuarioId}";
 
             return CatchException(() =>
             {
                 return Exec<int>(queryString)[0];
             });
+        }
+
+        public List<int> ObtenerIdsFamiliasPorUsuario(int usuarioId)
+        {
+            var famIds = new List<int>();
+
+            var queryString = $"SELECT FamiliaId FROM FamiliaUsuario WHERE UsuarioId = {usuarioId}";
+
+             famIds = CatchException(() =>
+            {
+                return Exec<int>(queryString);
+            });
+            return famIds;
         }
 
         public List<Patente> ObtenerPatentesFamilia(int familiaId)
@@ -155,6 +185,23 @@
             {
                 return Exec<Patente>(queryString);
             });
+        }
+
+        public List<Patente> ObtenerPatentesFamilia(List<int> familiaId)
+        {
+            var patentes = new List<Patente>();
+
+            foreach (var id in familiaId)
+            {
+                var queryString = $"SELECT IdPatente FROM FamiliaPatente WHERE FamiliaId = {id}";
+
+                patentes = CatchException(() =>
+                {
+                    return Exec<Patente>(queryString);
+                });
+            }
+
+            return patentes;
         }
     }
 }

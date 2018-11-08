@@ -4,7 +4,7 @@
 
     public class Usuario
     {
-        public int IdUsuario { get; set; }
+        public int UsuarioId { get; set; }
 
         public string Nombre { get; set; }
 
@@ -15,6 +15,8 @@
         public string Email { get; set; }
 
         public int Telefono { get; set; }
+
+        public string Domicilio { get; set; }
 
         public int CIngresos { get; set; }
 
@@ -28,7 +30,7 @@
 
         public bool PrimerLogin { get; set; }
 
-        public Familia Familia { get; set; }
+        public List<Familia> Familia { get; set; }
 
         public List<Patente> Patentes { get; set; }
     }

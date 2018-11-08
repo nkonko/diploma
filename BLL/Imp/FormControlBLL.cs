@@ -13,6 +13,11 @@
             this.formControlDAL = formControlDAL;
         }
 
+        public List<Patente> ObtenerPermisosFormulario(int formId)
+        {
+            return formControlDAL.ObtenerPermisosFormulario(formId);
+        }
+
         public List<Patente> ObtenerPermisosFormularios()
         {
             return formControlDAL.ObtenerPermisosFormularios();

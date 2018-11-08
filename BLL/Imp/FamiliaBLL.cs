@@ -3,7 +3,9 @@
     using BE;
     using BE.Entidades;
     using DAL.Dao;
+    using System;
     using System.Collections.Generic;
+    using System.Runtime.Serialization;
 
     public class FamiliaBLL : ICRUD<Familia>, IFamiliaBLL
     {
@@ -69,6 +71,21 @@
         public bool ComprobarUsoFamilia(int familiaId)
         {
             return familiaDAL.ComprobarUsoFamilia(familiaId);
+        }
+
+        public List<Patente> ObtenerPatentesFamilia(List<int> familiaId)
+        {
+            return familiaDAL.ObtenerPatentesFamilia(familiaId);
+        }
+
+        public List<int> ObtenerIdsFamiliasPorUsuario(int usuarioId)
+        {
+            return familiaDAL.ObtenerIdsFamiliasPorUsuario(usuarioId);
+        }
+
+        public List<string> ObtenerDescripcionFamiliaPorId(List<int> familiaId)
+        {
+            return familiaDAL.ObtenerDescripcionFamiliaPorId(familiaId);
         }
     }
 }

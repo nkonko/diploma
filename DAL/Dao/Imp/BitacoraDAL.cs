@@ -29,7 +29,7 @@
 
             if (filtros.IdsUsuarios.Count > 0)
             {
-                queryString.Append(string.Format("AND IdUsuario IN ({0})", filtros.IdsUsuarios));
+                queryString.Append(string.Format("AND UsuarioId IN ({0})", filtros.IdsUsuarios));
             }
 
             if (filtros.Criticidades.Count > 0)
@@ -76,7 +76,7 @@
             }
 
             bitacora = LeerBitacoraConId(bitacoraId);
-            var digitoVH = digitoVerificador.CalcularDVHorizontal(new List<string> { bitacora.InformacionAsociada, bitacora.Actividad, bitacora.Criticidad }, new List<int> { usu.IdUsuario, bitacoraId });
+            var digitoVH = digitoVerificador.CalcularDVHorizontal(new List<string> { bitacora.InformacionAsociada, bitacora.Actividad, bitacora.Criticidad }, new List<int> { usu.UsuarioId, bitacoraId });
             return digitoVH;
         }
     }

@@ -3,7 +3,6 @@ namespace UI
 {
     using BE.Entidades;
     using BLL;
-    using BLL.Imp;
     using log4net;
     using Microsoft.VisualBasic;
     using System;
@@ -17,6 +16,7 @@ namespace UI
         private readonly IPatenteBLL patenteBLL;
         private readonly IBitacoraBLL bitacoraBLL;
         private readonly IFormControl formControl;
+        private const int formId = 1;
 
         ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -39,10 +39,30 @@ namespace UI
 
         private void usuarios_Load(object sender, EventArgs e)
         {
+            ControlPatentes();
             usuarioBLL = IoCContainer.Resolve<IUsuarioBLL>();
             CargarRefrescarDatagrid();
             chkLstPatentes.DataSource = patenteBLL.Cargar().Select(pat => pat.Descripcion).ToList();
-            cboFamilia.DataSource = familiasBLL.Cargar().Select(fam => fam.Descripcion).ToList();
+            chkLstFamilia.DataSource = familiasBLL.Cargar().Select(fam => fam.Descripcion).ToList();
+        }
+
+        private void ControlPatentes()
+        {
+            var patForm = formControl.ObtenerPermisosFormulario(formId);
+            var patUsu = formControl.ObtenerPermisosUsuario();
+
+            if (!patForm.Exists(item => patUsu.Patentes.Select(item2 => item2.IdPatente).Contains(item.IdPatente = 1)))
+            {
+                btnNuevo.Enabled = false;
+            }
+            if (!patForm.Exists(item => patUsu.Patentes.Select(item2 => item2.IdPatente).Contains(item.IdPatente = 2)))
+            {
+                btnBorrar.Enabled = false;
+            }
+            if (!patForm.Exists(item => patUsu.Patentes.Select(item2 => item2.IdPatente).Contains(item.IdPatente = 8)))
+            {
+                btnModificar.Enabled = false;
+            }
         }
 
         private void btn_nuevo_Click(object sender, EventArgs e)
@@ -50,12 +70,12 @@ namespace UI
             var crear = verificarDatos();
             if (crear)
             {
-                var creado = usuarioBLL.Crear(new Usuario() { Nombre = txtNombre.Text, Apellido = txtApellido.Text, Email = txtEmail.Text, Telefono = Int32.Parse(txtTel.Text), PrimerLogin = true, CIngresos = 0, Activo = true });
+                var creado = usuarioBLL.Crear(new Usuario() { Nombre = txtNombre.Text, Apellido = txtApellido.Text, Email = txtEmail.Text, Telefono = Int32.Parse(txtTel.Text), Domicilio = txtDomicilio.Text, PrimerLogin = true, CIngresos = 0, Activo = true });
                 var usu = usuarioBLL.ObtenerUsuarioConEmail(txtEmail.Text);
                 if (creado)
                 {
-                    familiasBLL.GuardarFamiliaUsuario(familiasBLL.ObtenerIdFamiliaPorDescripcion(cboFamilia.SelectedText), usu.IdUsuario);
-                    patenteBLL.GuardarPatenteUsuario(patenteBLL.ObtenerIdPatentePorDescripcion(chkLstPatentes.SelectedItem.ToString()), usu.IdUsuario);
+                    familiasBLL.GuardarFamiliaUsuario(familiasBLL.ObtenerIdFamiliaPorDescripcion(chkLstFamilia.SelectedItem.ToString()), usu.UsuarioId);
+                    patenteBLL.GuardarPatenteUsuario(patenteBLL.ObtenerIdPatentePorDescripcion(chkLstPatentes.SelectedItem.ToString()), usu.UsuarioId);
                     log.Info("Se ha creado un nuevo usuario");
                     bitacoraBLL.RegistrarEnBitacora(usu);
                     MessageBox.Show("Registro exitoso");
@@ -72,7 +92,7 @@ namespace UI
 
         private void btn_modificar_Click(object sender, EventArgs e)
         {
-            var modificado = usuarioBLL.Actualizar(new Usuario() { Nombre = txtNombre.Text, Apellido = txtApellido.Text, Email = txtEmail.Text, Telefono = Int32.Parse(txtTel.Text), PrimerLogin = true, CIngresos = 0, Activo = true });
+            var modificado = usuarioBLL.Actualizar(new Usuario() { Nombre = txtNombre.Text, Apellido = txtApellido.Text, Email = txtEmail.Text, Telefono = Int32.Parse(txtTel.Text), Domicilio = txtDomicilio.Text, PrimerLogin = true, CIngresos = 0, Activo = true });
             var usu = formControl.ObtenerInfoUsuario();
             if (modificado)
             {
@@ -123,11 +143,6 @@ namespace UI
         private void CargarRefrescarDatagrid()
         {
             var usuarios = usuarioBLL.Cargar();
-            foreach (var usuario in usuarios)
-            {
-                var FamId = familiasBLL.ObtenerIdFamiliaPorUsuario(usuario.IdUsuario);
-                usuario.Familia = new Familia() { Descripcion = familiasBLL.ObtenerDescripcionFamiliaPorId(FamId) };
-            }
 
             dgusuario.DataSource = usuarios;
             Usuario obj = (Usuario)dgusuario.CurrentRow.DataBoundItem;
@@ -147,7 +162,7 @@ namespace UI
                 }
             }
 
-            if (string.IsNullOrEmpty(cboFamilia.SelectedItem.ToString()))
+            if (string.IsNullOrEmpty(chkLstFamilia.SelectedItem.ToString()))
             {
                 MessageBox.Show("Debe seleccionar una familia");
                 returnValue = false;
