@@ -14,7 +14,5 @@
         Usuario ObtenerInfoUsuario();
 
         Usuario ObtenerPermisosUsuario();
-
-        ////Dictionary<string, bool> AccesosUsuario();
     }
 }
