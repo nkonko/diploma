@@ -39,6 +39,7 @@ namespace UI
 
         private void usuarios_Load(object sender, EventArgs e)
         {
+            btnNegarPat.Enabled = false;
             ControlPatentes();
             usuarioBLL = IoCContainer.Resolve<IUsuarioBLL>();
             CargarRefrescarDatagrid();
@@ -179,22 +180,24 @@ namespace UI
 
             return returnValue;
         }
-
+       
+        ///revisar como bloquear el switch de patentes y cambio de usuario que deja el boton habilitado
         private void btnNegarPat_Click(object sender, EventArgs e)
         {
-            ////hay que enviar el usuario que esta en la grilla, no el actual
+            var usuario = (Usuario)dgusuario.CurrentRow.DataBoundItem;
+
             if (negada)
             {
-               var hecho = patenteBLL.HabilitarPatente(patenteBLL.ObtenerIdPatentePorDescripcion(chkLstPatentes.SelectedItem.ToString()), formControl.ObtenerInfoUsuario().UsuarioId);
-                if(hecho)
+                var hecho = patenteBLL.HabilitarPatente(patenteBLL.ObtenerIdPatentePorDescripcion(chkLstPatentes.SelectedItem.ToString()), usuario.UsuarioId);
+                if (hecho)
                 {
                     btnNegarPat.Text = "Negar Patente";
                     ControlPatentes();
                 }
             }
-            else if(habilitada)
+            else if (habilitada)
             {
-                var hecho = patenteBLL.NegarPatente(patenteBLL.ObtenerIdPatentePorDescripcion(chkLstPatentes.SelectedItem.ToString()), formControl.ObtenerInfoUsuario().UsuarioId);
+                var hecho = patenteBLL.NegarPatente(patenteBLL.ObtenerIdPatentePorDescripcion(chkLstPatentes.SelectedItem.ToString()), usuario.UsuarioId);
                 if (hecho)
                 {
                     btnNegarPat.Text = "Habilitar Patente";
@@ -205,21 +208,44 @@ namespace UI
 
         private void chkLstPatentes_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var patentes = patenteBLL.ConsultarPatenteUsuario(formControl.ObtenerInfoUsuario().UsuarioId);
+            var usuario = (Usuario)dgusuario.CurrentRow.DataBoundItem;
+            var patentes = patenteBLL.ConsultarPatenteUsuario(usuario.UsuarioId);
             var negadas = patentes.Where(pat => (pat.Negada == true)).ToList();
 
-            if(negadas.Exists(x => x.IdPatente == patenteBLL.ObtenerIdPatentePorDescripcion(chkLstPatentes.SelectedItem.ToString())))
+            if (patentes.Count > 0)
             {
-                btnNegarPat.Text = "Habilitar Patente";
-                negada = true;
-                habilitada = false;
+                if (negadas.Exists(x => x.IdPatente == patenteBLL.ObtenerIdPatentePorDescripcion(chkLstPatentes.SelectedItem.ToString())))
+                {
+                    btnNegarPat.Text = "Habilitar Patente";
+                    negada = true;
+                    habilitada = false;
+                }
+                else
+                {
+                    btnNegarPat.Text = "Negar Patente";
+                    habilitada = true;
+                    negada = false;
+                }
             }
             else
             {
-                btnNegarPat.Text = "Negar Patente";
-                habilitada = true;
-                negada = false;
+                btnNegarPat.Enabled = false;
             }
         }
+
+        private void dgusuario_SelectionChanged(object sender, EventArgs e)
+        {
+            var usuario = (Usuario)dgusuario.CurrentRow.DataBoundItem;
+            var patentes = patenteBLL.ConsultarPatenteUsuario(usuario.UsuarioId);
+            if (patentes.Count > 0)
+            {
+                btnNegarPat.Enabled = true;
+            }
+            else
+            {
+                btnNegarPat.Enabled = false;
+            }
+
+            }
     }
 }
