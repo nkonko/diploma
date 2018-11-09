@@ -48,14 +48,19 @@
             return patenteDAL.ConsultarPatenteFamilia(familiaId);
         }
 
-        public void NegarPatente(int patenteId, int usuarioId)
+        public bool NegarPatente(int patenteId, int usuarioId)
         {
-            patenteDAL.NegarPatenteUsuario(patenteId, usuarioId);
+          return patenteDAL.NegarPatenteUsuario(patenteId, usuarioId);
         }
 
-        public void HabilitarPatente(int patenteId, int usuarioId)
+        public bool HabilitarPatente(int patenteId, int usuarioId)
         {
-            patenteDAL.HabilitarPatenteUsuario(patenteId, usuarioId);
+           return patenteDAL.HabilitarPatenteUsuario(patenteId, usuarioId);
+        }
+
+        public List<UsuarioPatente> ConsultarPatenteUsuario(int usuarioId)
+        {
+            return patenteDAL.ConsultarPatenteUsuario(usuarioId);
         }
     }
 }

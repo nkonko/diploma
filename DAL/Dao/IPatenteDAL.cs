@@ -7,9 +7,9 @@
     {
         void GuardarPatenteUsuario(int patenteId, int usuarioId);
 
-        void NegarPatenteUsuario(int patentesId, int usuarioId);
+        bool NegarPatenteUsuario(int patentesId, int usuarioId);
 
-        void HabilitarPatenteUsuario(int patenteId, int usuarioId);
+        bool HabilitarPatenteUsuario(int patenteId, int usuarioId);
 
         List<Patente> Cargar();
 
@@ -22,5 +22,7 @@
         bool ComprobarPatentesUsuario(int usuarioId);
 
         List<FamiliaPatente> ConsultarPatenteFamilia(int familiaId);
+
+        List<UsuarioPatente> ConsultarPatenteUsuario(int usuarioId);
     }
 }

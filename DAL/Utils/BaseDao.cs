@@ -9,12 +9,20 @@
     {
         private readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public bool Exec(string query)
+        public bool Exec(string query, object param = null)
         {
             using (var connection = SqlUtils.Connection())
             {
                 connection.Open();
-                connection.Execute(query);
+                if (param == null)
+                {
+                    connection.Execute(query);
+                }
+                else
+                {
+                    connection.Execute(query, param);
+                }
+
                 return true;
             }
         }

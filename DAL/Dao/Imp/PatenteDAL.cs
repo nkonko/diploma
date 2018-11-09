@@ -59,23 +59,23 @@
             });
         }
 
-        public void NegarPatenteUsuario(int patenteId, int usuarioId)
+        public bool NegarPatenteUsuario(int patenteId, int usuarioId)
         {
-            var queryString = $"INSERT INTO UsuarioPAtente(Negada) VALUES(1) WHERE UsuarioId = @usuarioId AND IdPatente = @patenteId";
+            var queryString = $"UPDATE UsuarioPAtente SET Negada = 1 WHERE UsuarioId = @usuarioId AND IdPatente = @patenteId";
 
-            CatchException(() =>
-            {
-                Exec<UsuarioPatente>(queryString, new { @usuarioId = usuarioId, @patenteId = patenteId });
-            });
+            return CatchException(() =>
+             {
+                 return Exec(queryString, new { @usuarioId = usuarioId, @patenteId = patenteId });
+             });
         }
 
-        public void HabilitarPatenteUsuario(int patenteId, int usuarioId)
+        public bool HabilitarPatenteUsuario(int patenteId, int usuarioId)
         {
-            var queryString = $"INSERT INTO UsuarioPAtente(Negada) VALUES(0) WHERE UsuarioId = @usuarioId AND IdPatente = @patenteId";
+            var queryString = $"UPDATE UsuarioPAtente SET Negada = 0 WHERE UsuarioId = @usuarioId AND IdPatente = @patenteId";
 
-            CatchException(() =>
+            return CatchException(() =>
             {
-                Exec<UsuarioPatente>(queryString, new { @usuarioId = usuarioId, @patenteId = patenteId });
+                return Exec(queryString, new { @usuarioId = usuarioId, @patenteId = patenteId });
             });
         }
 
@@ -101,6 +101,16 @@
             return CatchException(() =>
             {
                 return Exec<FamiliaPatente>(queryString, new { @idFamilia = familiaId });
+            });
+        }
+
+        public List<UsuarioPatente> ConsultarPatenteUsuario(int usuarioId)
+        {
+            var queryString = "SELECT UsuarioId, IdPatente, Negada FROM USuarioPatente WHERE UsuarioId = @usuarioId";
+
+            return CatchException(() =>
+            {
+                return Exec<UsuarioPatente>(queryString, new { @usuarioId = usuarioId });
             });
         }
     }

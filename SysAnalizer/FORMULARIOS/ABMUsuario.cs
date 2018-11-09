@@ -15,6 +15,8 @@ namespace UI
         private readonly IBitacoraBLL bitacoraBLL;
         private readonly IFormControl formControl;
         private const int formId = 1;
+        private bool habilitada = false;
+        private bool negada = false;
 
         ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -168,7 +170,7 @@ namespace UI
                 MessageBox.Show("Debe seleccionar una familia");
                 returnValue = false;
             }
-            
+
             if (chkLstPatentes.CheckedItems.Count == 0)
             {
                 MessageBox.Show("Debe seleccionar al menos una patente");
@@ -180,7 +182,44 @@ namespace UI
 
         private void btnNegarPat_Click(object sender, EventArgs e)
         {
-            patenteBLL.NegarPatente(patenteBLL.ObtenerIdPatentePorDescripcion(chkLstPatentes.SelectedItem.ToString()), formControl.ObtenerInfoUsuario().UsuarioId);
+            ////hay que enviar el usuario que esta en la grilla, no el actual
+            if (negada)
+            {
+               var hecho = patenteBLL.HabilitarPatente(patenteBLL.ObtenerIdPatentePorDescripcion(chkLstPatentes.SelectedItem.ToString()), formControl.ObtenerInfoUsuario().UsuarioId);
+                if(hecho)
+                {
+                    btnNegarPat.Text = "Negar Patente";
+                    ControlPatentes();
+                }
+            }
+            else if(habilitada)
+            {
+                var hecho = patenteBLL.NegarPatente(patenteBLL.ObtenerIdPatentePorDescripcion(chkLstPatentes.SelectedItem.ToString()), formControl.ObtenerInfoUsuario().UsuarioId);
+                if (hecho)
+                {
+                    btnNegarPat.Text = "Habilitar Patente";
+                    ControlPatentes();
+                }
+            }
+        }
+
+        private void chkLstPatentes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var patentes = patenteBLL.ConsultarPatenteUsuario(formControl.ObtenerInfoUsuario().UsuarioId);
+            var negadas = patentes.Where(pat => (pat.Negada == true)).ToList();
+
+            if(negadas.Exists(x => x.IdPatente == patenteBLL.ObtenerIdPatentePorDescripcion(chkLstPatentes.SelectedItem.ToString())))
+            {
+                btnNegarPat.Text = "Habilitar Patente";
+                negada = true;
+                habilitada = false;
+            }
+            else
+            {
+                btnNegarPat.Text = "Negar Patente";
+                habilitada = true;
+                negada = false;
+            }
         }
     }
 }

@@ -19,6 +19,10 @@
 
         List<FamiliaPatente> ConsultarPatenteFamilia(int familiaId);
 
-        void NegarPatente(int patenteId, int usuarioId);
+        bool NegarPatente(int patenteId, int usuarioId);
+
+        bool HabilitarPatente(int patenteId, int usuarioId);
+
+        List<UsuarioPatente> ConsultarPatenteUsuario(int usuarioId);
     }
 }

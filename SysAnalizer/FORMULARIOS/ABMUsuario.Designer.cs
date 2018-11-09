@@ -283,6 +283,7 @@ namespace UI
             this.chkLstPatentes.Name = "chkLstPatentes";
             this.chkLstPatentes.Size = new System.Drawing.Size(114, 154);
             this.chkLstPatentes.TabIndex = 37;
+            this.chkLstPatentes.SelectedIndexChanged += new System.EventHandler(this.chkLstPatentes_SelectedIndexChanged);
             // 
             // label7
             // 
