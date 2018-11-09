@@ -3,6 +3,7 @@
     using BE.Entidades;
     using DAL.Utils;
     using System.Collections.Generic;
+    using System.Linq;
 
     public class PatenteDAL : BaseDao, IPatenteDAL
     {
@@ -19,7 +20,7 @@
             var digitoVerificadorHorizontal = digitoVerificador.CalcularDVHorizontal(new List<string>(), new List<int>() { familiaId, patenteId });
             CatchException(() =>
               {
-                      asignado = Exec($"INSERT INTO FamiliaPatente (FamiliaId, IdPatente, DVH) VALUES ({familiaId}, {patenteId}, {digitoVerificadorHorizontal})");
+                  asignado = Exec($"INSERT INTO FamiliaPatente (FamiliaId, IdPatente, DVH) VALUES ({familiaId}, {patenteId}, {digitoVerificadorHorizontal})");
               });
 
             return asignado;
@@ -58,9 +59,24 @@
             });
         }
 
-        public void NegarPatenteUsuario(List<int> patentesId, int usuarioId)
+        public void NegarPatenteUsuario(int patenteId, int usuarioId)
         {
-            throw new System.NotImplementedException();
+            var queryString = $"INSERT INTO UsuarioPAtente(Negada) VALUES(1) WHERE UsuarioId = @usuarioId AND IdPatente = @patenteId";
+
+            CatchException(() =>
+            {
+                Exec<UsuarioPatente>(queryString, new { @usuarioId = usuarioId, @patenteId = patenteId });
+            });
+        }
+
+        public void HabilitarPatenteUsuario(int patenteId, int usuarioId)
+        {
+            var queryString = $"INSERT INTO UsuarioPAtente(Negada) VALUES(0) WHERE UsuarioId = @usuarioId AND IdPatente = @patenteId";
+
+            CatchException(() =>
+            {
+                Exec<UsuarioPatente>(queryString, new { @usuarioId = usuarioId, @patenteId = patenteId });
+            });
         }
 
         public int ObtenerIdPatentePorDescripcion(string descripcion)

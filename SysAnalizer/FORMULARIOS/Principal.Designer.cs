@@ -30,7 +30,6 @@ namespace UI
         private void InitializeComponent()
         {
             this.ventasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.clientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nuevaVenta = new System.Windows.Forms.ToolStripMenuItem();
             this.productosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.verProductosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -38,7 +37,6 @@ namespace UI
             this.verStock = new System.Windows.Forms.ToolStripMenuItem();
             this.administradorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.usuariosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.patentesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bitacoraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.backUpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.restoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,22 +50,15 @@ namespace UI
             // ventasToolStripMenuItem
             // 
             this.ventasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.clientesToolStripMenuItem,
             this.nuevaVenta});
             this.ventasToolStripMenuItem.Name = "ventasToolStripMenuItem";
             this.ventasToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
             this.ventasToolStripMenuItem.Text = "Ventas";
             // 
-            // clientesToolStripMenuItem
-            // 
-            this.clientesToolStripMenuItem.Name = "clientesToolStripMenuItem";
-            this.clientesToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
-            this.clientesToolStripMenuItem.Text = "Ver Ventas";
-            // 
             // nuevaVenta
             // 
             this.nuevaVenta.Name = "nuevaVenta";
-            this.nuevaVenta.Size = new System.Drawing.Size(140, 22);
+            this.nuevaVenta.Size = new System.Drawing.Size(180, 22);
             this.nuevaVenta.Text = "Nueva Venta";
             this.nuevaVenta.Click += new System.EventHandler(this.nuevaVenta_Click);
             // 
@@ -82,7 +73,7 @@ namespace UI
             // verProductosToolStripMenuItem
             // 
             this.verProductosToolStripMenuItem.Name = "verProductosToolStripMenuItem";
-            this.verProductosToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.verProductosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.verProductosToolStripMenuItem.Text = "Ver Productos";
             this.verProductosToolStripMenuItem.Click += new System.EventHandler(this.verProductosToolStripMenuItem_Click);
             // 
@@ -97,14 +88,13 @@ namespace UI
             // verStock
             // 
             this.verStock.Name = "verStock";
-            this.verStock.Size = new System.Drawing.Size(122, 22);
+            this.verStock.Size = new System.Drawing.Size(180, 22);
             this.verStock.Text = "Ver Stock";
             // 
             // administradorToolStripMenuItem
             // 
             this.administradorToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.usuariosToolStripMenuItem,
-            this.patentesToolStripMenuItem,
             this.bitacoraToolStripMenuItem,
             this.backUpToolStripMenuItem,
             this.restoreToolStripMenuItem,
@@ -119,13 +109,6 @@ namespace UI
             this.usuariosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.usuariosToolStripMenuItem.Text = "Usuarios";
             this.usuariosToolStripMenuItem.Click += new System.EventHandler(this.usuariosToolStripMenuItem_Click_1);
-            // 
-            // patentesToolStripMenuItem
-            // 
-            this.patentesToolStripMenuItem.Name = "patentesToolStripMenuItem";
-            this.patentesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.patentesToolStripMenuItem.Text = "Patentes";
-            this.patentesToolStripMenuItem.Click += new System.EventHandler(this.patentesToolStripMenuItem_Click);
             // 
             // bitacoraToolStripMenuItem
             // 
@@ -206,7 +189,6 @@ namespace UI
         #endregion
 
         private System.Windows.Forms.ToolStripMenuItem ventasToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem clientesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem nuevaVenta;
         private System.Windows.Forms.ToolStripMenuItem productosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem verProductosToolStripMenuItem;
@@ -214,7 +196,6 @@ namespace UI
         private System.Windows.Forms.ToolStripMenuItem verStock;
         private System.Windows.Forms.ToolStripMenuItem administradorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem usuariosToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem patentesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bitacoraToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem backUpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem restoreToolStripMenuItem;

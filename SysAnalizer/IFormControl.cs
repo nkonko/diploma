@@ -5,6 +5,8 @@
 
     public interface IFormControl
     {
+        Idioma LenguajeSeleccionado { get; set; }
+
         List<Patente> ObtenerPermisosFormularios();
 
         List<Patente> ObtenerPermisosFormulario(int formId);
@@ -14,5 +16,11 @@
         Usuario ObtenerInfoUsuario();
 
         Usuario ObtenerPermisosUsuario();
+
+        string ObtenerDirectorio();
+
+        IDictionary<string, string> ObtenerTraducciones();
+
+        Idioma ObtenerIdioma();
     }
 }

@@ -4,14 +4,12 @@ namespace UI
     using BE.Entidades;
     using BLL;
     using log4net;
-    using Microsoft.VisualBasic;
     using System;
     using System.Linq;
     using System.Windows.Forms;
 
     public partial class ABMusuario : Form, IABMUsuario
     {
-        ////private readonly IPrincipal principal;
         private readonly IFamiliaBLL familiasBLL;
         private readonly IPatenteBLL patenteBLL;
         private readonly IBitacoraBLL bitacoraBLL;
@@ -93,12 +91,12 @@ namespace UI
         private void btn_modificar_Click(object sender, EventArgs e)
         {
             var modificado = usuarioBLL.Actualizar(new Usuario() { Nombre = txtNombre.Text, Apellido = txtApellido.Text, Email = txtEmail.Text, Telefono = Int32.Parse(txtTel.Text), Domicilio = txtDomicilio.Text, PrimerLogin = true, CIngresos = 0, Activo = true });
-            var usu = formControl.ObtenerInfoUsuario();
+            var usuActivo = formControl.ObtenerInfoUsuario();
 
             if (modificado)
             {
                 log.Info("Se ha creado un nuevo usuario");
-                bitacoraBLL.RegistrarEnBitacora(usu);
+                bitacoraBLL.RegistrarEnBitacora(usuActivo);
                 MessageBox.Show("Modificacion exitosa");
                 dgusuario.Rows.Clear();
                 CargarRefrescarDatagrid();
@@ -106,31 +104,31 @@ namespace UI
             else
             {
                 log.Info("La modificacion ha fallado");
-                bitacoraBLL.RegistrarEnBitacora(usu);
+                bitacoraBLL.RegistrarEnBitacora(usuActivo);
                 MessageBox.Show("La modificacion ha fallado");
             }
         }
 
         private void btnBorrar_Click(object sender, EventArgs e)
         {
-            var sinPatentes = patenteBLL.ComprobarPatentesUsuario(0);//// debe enviarle el id de usuario, habria que obtener el id con el mail de usuario
+            var usuario = (Usuario)dgusuario.CurrentRow.DataBoundItem;
+            var sinPatentes = patenteBLL.ComprobarPatentesUsuario(usuario.UsuarioId);
             if (sinPatentes)
             {
-                var usuario = new Usuario() { Email = Interaction.InputBox("Ingrese email", "Borrar Usuario") };
                 var borrado = usuarioBLL.Borrar(usuario);
-                var usu = formControl.ObtenerInfoUsuario();
+                var usuActivo = formControl.ObtenerInfoUsuario();
 
                 if (borrado)
                 {
                     log.Info("Se ha creado un nuevo usuario");
-                    bitacoraBLL.RegistrarEnBitacora(usu);
+                    bitacoraBLL.RegistrarEnBitacora(usuActivo);
                     MessageBox.Show("Borrado exitoso");
                     CargarRefrescarDatagrid();
                 }
                 else
                 {
                     log.Info("El borrado de usuario ha fallado");
-                    bitacoraBLL.RegistrarEnBitacora(usu);
+                    bitacoraBLL.RegistrarEnBitacora(usuActivo);
                     MessageBox.Show("El borrado de usuario ha fallado");
                 }
             }
@@ -165,19 +163,24 @@ namespace UI
                 }
             }
 
-            if (string.IsNullOrEmpty(chkLstFamilia.SelectedItem.ToString()))
+            if (chkLstFamilia.CheckedItems.Count == 0)
             {
                 MessageBox.Show("Debe seleccionar una familia");
                 returnValue = false;
             }
-
-            if (chkLstPatentes.Items.Count == 0)
+            
+            if (chkLstPatentes.CheckedItems.Count == 0)
             {
                 MessageBox.Show("Debe seleccionar al menos una patente");
                 returnValue = false;
             }
 
             return returnValue;
+        }
+
+        private void btnNegarPat_Click(object sender, EventArgs e)
+        {
+            patenteBLL.NegarPatente(patenteBLL.ObtenerIdPatentePorDescripcion(chkLstPatentes.SelectedItem.ToString()), formControl.ObtenerInfoUsuario().UsuarioId);
         }
     }
 }

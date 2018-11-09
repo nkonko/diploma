@@ -17,8 +17,9 @@ namespace UI
         private readonly IBitacora bitacora;
         private readonly IFamilias familias;
         private readonly IFamiliaBLL familiaBLL;
+        private readonly IDatosUsuario datosUsuario;
 
-        public Principal(IUsuarioDAL usuarioDAL, IVtaProd venta_De_Productos, IABMUsuario abmUsuario, IBitacora bitacora, IFormControl formControl, IFamilias familias, IFamiliaBLL familiaBLL)
+        public Principal(IUsuarioDAL usuarioDAL, IVtaProd venta_De_Productos, IABMUsuario abmUsuario, IBitacora bitacora, IFormControl formControl, IFamilias familias, IFamiliaBLL familiaBLL, IDatosUsuario datosUsuario)
         {
             InitializeComponent();
             this.formControl = formControl;
@@ -28,6 +29,7 @@ namespace UI
             this.bitacora = bitacora;
             this.familias = familias;
             this.familiaBLL = familiaBLL;
+            this.datosUsuario = datosUsuario;
         }
 
         private void Principal_Load(object sender, EventArgs e)
@@ -107,7 +109,7 @@ namespace UI
 
         private void verUsuariosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            datosUsuario.Show();
         }
 
         private void patentesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -118,6 +120,11 @@ namespace UI
         private void familiasToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             familias.Show();
+        }
+
+        private void clientesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

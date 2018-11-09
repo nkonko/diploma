@@ -8,13 +8,17 @@ namespace UI
     public partial class VtaProd : Form, IVtaProd
     {
         private readonly IProductoBLL productoBLL;
-
         private readonly IProductos productos;
+        private readonly IClienteBLL clienteBLL;
+        private readonly IClientes cliente;
 
-        public VtaProd(IProductoBLL productoBLL, IProductos productos)
+
+        public VtaProd(IProductoBLL productoBLL, IProductos productos, IClienteBLL clienteBLL, IClientes cliente)
         {
             this.productoBLL = productoBLL;
             this.productos = productos;
+            this.cliente = cliente;
+            this.clienteBLL = clienteBLL;
             InitializeComponent();
         }
 
@@ -47,7 +51,19 @@ namespace UI
 
         private void btnSelCliente_Click(object sender, EventArgs e)
         {
-
+            if (string.IsNullOrWhiteSpace(txtCodProd.Text))
+            {
+                var resultado = cliente.ShowDialog();
+                if (resultado == DialogResult.OK)
+                {
+                    var cli = cliente.ObtenerClienteSeleccionado();
+                    MessageBox.Show("");
+                }
+            }
+            else
+            {
+                var r = clienteBLL.ObtenerCliente(txtCodProd.Text);
+            }
         }
 
         private void btnSelProd_Click(object sender, EventArgs e)

@@ -84,12 +84,14 @@
     <Compile Include="Dao\IBitacoraDAL.cs" />
     <Compile Include="Dao\IDigitoVerificador.cs" />
     <Compile Include="Dao\Imp\BitacoraDAL.cs" />
+    <Compile Include="Dao\Imp\ClienteDAL.cs" />
     <Compile Include="Dao\Imp\DigitoVerificador.cs" />
     <Compile Include="Dao\Imp\FamiliaDAL.cs" />
     <Compile Include="Dao\Imp\FormControlDAL.cs" />
     <Compile Include="Dao\Imp\IdiomaDAL.cs" />
     <Compile Include="Dao\IFamiliaDAL.cs" />
     <Compile Include="Dao\Imp\IFormControlDAL.cs" />
+    <Compile Include="Dao\Imp\IIdiomaDAL.cs" />
     <Compile Include="Dao\IVenta.cs" />
     <Compile Include="Dao\IProductoDAL.cs" />
     <Compile Include="Dao\IPatenteDAL.cs" />

@@ -15,7 +15,7 @@ namespace UI
         private readonly IPatenteBLL patenteBLL;
         private IFamilias familias;
 
-        public bool familiaNueva;
+        private bool familiaNueva;
 
         public bool FamiliaNueva
         {

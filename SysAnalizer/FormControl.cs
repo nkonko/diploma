@@ -4,15 +4,16 @@
     using BLL;
     using DAL.Utils;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
 
     public class FormControl : BaseDao, IFormControl
     {
-        private Usuario UsuarioActivo { get; set; }
-
-        private readonly IUsuarioBLL usuarioBLL;
-        private readonly IFamiliaBLL familiaBLL;
-        private readonly IFormControlBLL formControlBLL;
+        public Idioma LenguajeSeleccionado
+        {
+            get { return lenguajeSel; }
+            set { lenguajeSel = value; }
+        }
 
         public FormControl(IUsuarioBLL usuarioBLL, IFamiliaBLL familiaBLL, IFormControlBLL formControlBLL)
         {
@@ -20,6 +21,17 @@
             this.familiaBLL = familiaBLL;
             this.formControlBLL = formControlBLL;
         }
+
+        private Idioma lenguajeSel;
+        private readonly IUsuarioBLL usuarioBLL;
+        private readonly IFamiliaBLL familiaBLL;
+        private readonly IFormControlBLL formControlBLL;
+
+        private Usuario UsuarioActivo { get; set; }
+
+        private readonly IDictionary<string, string> traducciones = new Dictionary<string, string>();
+
+        private readonly string directorioRecursos = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "///Recursos///Español.resx";
 
         public List<Patente> ObtenerPermisosFormularios()
         {
@@ -58,6 +70,21 @@
         public Usuario ObtenerInfoUsuario()
         {
             return UsuarioActivo;
+        }
+
+        public string ObtenerDirectorio()
+        {
+            return directorioRecursos;
+        }
+
+        public Idioma ObtenerIdioma()
+        {
+            return LenguajeSeleccionado;
+        }
+
+        public IDictionary<string, string> ObtenerTraducciones()
+        {
+            return traducciones;
         }
 
         public List<Patente> ObtenerPermisosFormulario(int formId)

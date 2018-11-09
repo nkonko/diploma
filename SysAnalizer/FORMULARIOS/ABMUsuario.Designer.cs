@@ -56,6 +56,7 @@ namespace UI
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.chkLstFamilia = new System.Windows.Forms.CheckedListBox();
+            this.btnNegarPat = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgusuario)).BeginInit();
             this.SuspendLayout();
             // 
@@ -296,7 +297,7 @@ namespace UI
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(464, 24);
+            this.label8.Location = new System.Drawing.Point(461, 24);
             this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(52, 13);
@@ -312,11 +313,22 @@ namespace UI
             this.chkLstFamilia.Size = new System.Drawing.Size(114, 154);
             this.chkLstFamilia.TabIndex = 40;
             // 
+            // btnNegarPat
+            // 
+            this.btnNegarPat.Location = new System.Drawing.Point(593, 41);
+            this.btnNegarPat.Name = "btnNegarPat";
+            this.btnNegarPat.Size = new System.Drawing.Size(75, 38);
+            this.btnNegarPat.TabIndex = 41;
+            this.btnNegarPat.Text = "Negar Patente";
+            this.btnNegarPat.UseVisualStyleBackColor = true;
+            this.btnNegarPat.Click += new System.EventHandler(this.btnNegarPat_Click);
+            // 
             // ABMusuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(594, 406);
+            this.ClientSize = new System.Drawing.Size(683, 406);
+            this.Controls.Add(this.btnNegarPat);
             this.Controls.Add(this.chkLstFamilia);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
@@ -378,5 +390,6 @@ namespace UI
         private System.Windows.Forms.DataGridViewTextBoxColumn Email;
         private System.Windows.Forms.DataGridViewTextBoxColumn Telefono;
         private System.Windows.Forms.CheckedListBox chkLstFamilia;
+        private System.Windows.Forms.Button btnNegarPat;
     }
 }

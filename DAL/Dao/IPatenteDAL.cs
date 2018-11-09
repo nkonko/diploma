@@ -7,7 +7,9 @@
     {
         void GuardarPatenteUsuario(int patenteId, int usuarioId);
 
-        void NegarPatenteUsuario(List<int> patentesId, int usuarioId);
+        void NegarPatenteUsuario(int patentesId, int usuarioId);
+
+        void HabilitarPatenteUsuario(int patenteId, int usuarioId);
 
         List<Patente> Cargar();
 

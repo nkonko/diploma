@@ -158,19 +158,16 @@
       <DependentUpon>Clientes.cs</DependentUpon>
     </Compile>
     <Compile Include="FormExtensions.cs" />
-    <Compile Include="FORMULARIOS\FileExplorer.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FORMULARIOS\FileExplorer.Designer.cs">
-      <DependentUpon>FileExplorer.cs</DependentUpon>
-    </Compile>
     <Compile Include="IAdminPatFamilia.cs" />
+    <Compile Include="IClientes.cs" />
+    <Compile Include="IDatosUsuario.cs" />
     <Compile Include="IPatente.cs" />
     <Compile Include="IBitacora.cs" />
     <Compile Include="IABMUsuario.cs" />
     <Compile Include="IFamilias.cs" />
     <Compile Include="IFormControl.cs" />
     <Compile Include="IProductos.cs" />
+    <Compile Include="IProvIdioma.cs" />
     <Compile Include="IVtaProd.cs" />
     <Compile Include="IoCContainer.cs" />
     <Compile Include="IPrincipal.cs" />
@@ -212,6 +209,15 @@
     <Compile Include="FORMULARIOS\VtaProd.Designer.cs">
       <DependentUpon>VtaProd.cs</DependentUpon>
     </Compile>
+    <Compile Include="ProvIdioma.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Recursos\Español.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Español.resx</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <EmbeddedResource Include="FORMULARIOS\DatosUsuario.resx">
       <DependentUpon>DatosUsuario.cs</DependentUpon>
     </EmbeddedResource>
@@ -232,9 +238,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FORMULARIOS\Clientes.resx">
       <DependentUpon>Clientes.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FORMULARIOS\FileExplorer.resx">
-      <DependentUpon>FileExplorer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FORMULARIOS\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
@@ -263,6 +266,14 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FORMULARIOS\VtaProd.resx">
       <DependentUpon>VtaProd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProvIdioma.resx">
+      <DependentUpon>ProvIdioma.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Recursos\Español.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Español.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="packages.config" />

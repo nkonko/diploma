@@ -47,6 +47,9 @@
             contBuilder.RegisterType<ProductoDAL>().As<IProductoDAL>().SingleInstance();
             contBuilder.RegisterType<Productos>().As<IProductos>().SingleInstance();
             contBuilder.RegisterType<AdminPatFamilia>().As<IAdminPatFamilia>().SingleInstance();
+            contBuilder.RegisterType<DatosUsuario>().As<IDatosUsuario>().SingleInstance();
+            contBuilder.RegisterType<Clientes>().As<IClientes>().SingleInstance();
+            contBuilder.RegisterType<ClienteBLL>().As<IClienteBLL>().SingleInstance();
 
             return contBuilder.Build();
         }

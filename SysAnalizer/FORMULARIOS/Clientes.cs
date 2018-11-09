@@ -4,7 +4,7 @@ namespace UI
     using System;
     using System.Windows.Forms;
 
-    public partial class Clientes : Form
+    public partial class Clientes : Form, IClientes
     {
         public Clientes()
         {
@@ -22,6 +22,11 @@ namespace UI
         private void Clientes_Load(object sender, EventArgs e)
         {
 
+        }
+
+        public object ObtenerClienteSeleccionado()
+        {
+            throw new NotImplementedException();
         }
     }
 }

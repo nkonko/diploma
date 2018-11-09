@@ -18,5 +18,7 @@
         bool ComprobarPatentesUsuario(int usuarioId);
 
         List<FamiliaPatente> ConsultarPatenteFamilia(int familiaId);
+
+        void NegarPatente(int patenteId, int usuarioId);
     }
 }
