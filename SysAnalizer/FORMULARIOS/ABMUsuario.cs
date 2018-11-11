@@ -73,6 +73,7 @@ namespace UI
             {
                 var creado = usuarioBLL.Crear(new Usuario() { Nombre = txtNombre.Text, Apellido = txtApellido.Text, Email = txtEmail.Text, Telefono = Int32.Parse(txtTel.Text), Domicilio = txtDomicilio.Text, PrimerLogin = true, CIngresos = 0, Activo = true });
                 var usu = usuarioBLL.ObtenerUsuarioConEmail(txtEmail.Text);
+
                 if (creado)
                 {
                     familiasBLL.GuardarFamiliaUsuario(familiasBLL.ObtenerIdFamiliaPorDescripcion(chkLstFamilia.SelectedItem.ToString()), usu.UsuarioId);
@@ -95,9 +96,12 @@ namespace UI
         {
             var modificado = usuarioBLL.Actualizar(new Usuario() { Nombre = txtNombre.Text, Apellido = txtApellido.Text, Email = txtEmail.Text, Telefono = Int32.Parse(txtTel.Text), Domicilio = txtDomicilio.Text, PrimerLogin = true, CIngresos = 0, Activo = true });
             var usuActivo = formControl.ObtenerInfoUsuario();
+            var usu = usuarioBLL.ObtenerUsuarioConEmail(txtEmail.Text);
 
             if (modificado)
             {
+                familiasBLL.GuardarFamiliaUsuario(familiasBLL.ObtenerIdFamiliaPorDescripcion(chkLstFamilia.SelectedItem.ToString()), usu.UsuarioId);
+                patenteBLL.GuardarPatenteUsuario(patenteBLL.ObtenerIdPatentePorDescripcion(chkLstPatentes.SelectedItem.ToString()), usu.UsuarioId);
                 log.Info("Se ha creado un nuevo usuario");
                 bitacoraBLL.RegistrarEnBitacora(usuActivo);
                 MessageBox.Show("Modificacion exitosa");

@@ -25,16 +25,25 @@ namespace UI
             var cantVolumenes = Convert.ToInt32(cboCantidad.SelectedItem);
             try
             {
-                var dbServer = new Server(new ServerConnection(SqlUtils.Connection()));
-                var dbBackUp = new Backup() { Action = BackupActionType.Database, Database = "SYSANALIZER2" };
-                for (int i = 0; i < cantVolumenes; i++)
+                if (txtDirectorio.Text.Trim() != String.Empty && txtNombre.Text.Trim() != String.Empty)
                 {
-                    dbBackUp.Devices.AddDevice(txtDirectorio.Text.Trim() + "\\" + txtNombre.Text.Trim() + i + ".bak", DeviceType.File);
+                    var dbServer = new Server(new ServerConnection(SqlUtils.Connection()));
+                    var dbBackUp = new Backup() { Action = BackupActionType.Database, Database = "SYSANALIZER2" };
+
+                    for (int i = 0; i < cantVolumenes; i++)
+                    {
+                        dbBackUp.Devices.AddDevice(txtDirectorio.Text.Trim() + "\\" + txtNombre.Text.Trim() + i + ".bak", DeviceType.File);
+                    }
+
+                    dbBackUp.Initialize = true;
+                    dbBackUp.PercentComplete += DbPercentComplete;
+                    dbBackUp.Complete += DbBackUp_Complete;
+                    dbBackUp.SqlBackupAsync(dbServer);
                 }
-                dbBackUp.Initialize = true;
-                dbBackUp.PercentComplete += DbPercentComplete;
-                dbBackUp.Complete += DbBackUp_Complete;
-                dbBackUp.SqlBackupAsync(dbServer);
+                else
+                {
+                    MessageBox.Show("Debe seleccionar un path para la ubicacion del archivo backup y setear una descripción");
+                }
             }
             catch (Exception ex)
             {
