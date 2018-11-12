@@ -15,6 +15,12 @@
             set { lenguajeSel = value; }
         }
 
+        public IDictionary<string, string> Traducciones
+        {
+            get { return traducciones; }
+            set { traducciones = value; }
+        }
+
         public FormControl(IUsuarioBLL usuarioBLL, IFamiliaBLL familiaBLL, IFormControlBLL formControlBLL)
         {
             this.usuarioBLL = usuarioBLL;
@@ -29,7 +35,7 @@
 
         private Usuario UsuarioActivo { get; set; }
 
-        private readonly IDictionary<string, string> traducciones = new Dictionary<string, string>();
+        private IDictionary<string, string> traducciones = new Dictionary<string, string>();
 
         private readonly string directorioRecursos = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "///Recursos///Español.resx";
 
@@ -84,7 +90,7 @@
 
         public IDictionary<string, string> ObtenerTraducciones()
         {
-            return traducciones;
+            return Traducciones;
         }
 
         public List<Patente> ObtenerPermisosFormulario(int formId)

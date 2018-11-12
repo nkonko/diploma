@@ -27,16 +27,16 @@ namespace UI
             MessageBox.Show(frm, msg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        public static IProvIdioma AplicarTraducciones()
+        public static IIdiomaBLL AplicarTraducciones()
         {
-            var provIdioma = IoCContainer.Resolve<IProvIdioma>();
+            var provIdioma = IoCContainer.Resolve<IIdiomaBLL>();
             var formControl = IoCContainer.Resolve<IFormControl>();
             var idiomaBLL = IoCContainer.Resolve<IIdiomaBLL>();
             var traducciones = formControl.ObtenerTraducciones();
             var idioma = formControl.ObtenerIdioma();
             formControl.ObtenerTraducciones().Clear();
-            traducciones = idiomaBLL.ObtenerTraduccionesFormulario(idioma.Id, Application.OpenForms[0].Name).ToDictionary(k => k.ControlName ?? k.MensajeCodigo, v => v.Traduccion);
-            provIdioma.LlenarRecursos(traducciones, idioma.Id, Application.OpenForms[0].Name);
+            traducciones = idiomaBLL.ObtenerTraduccionesFormulario(idioma.IdIdioma, Application.OpenForms[0].Name).ToDictionary(k => k.ControlName ?? k.MensajeCodigo, v => v.Traduccion);
+            provIdioma.LlenarRecursos(traducciones, idioma.IdIdioma, Application.OpenForms[0].Name);
             return provIdioma;
         }
     }

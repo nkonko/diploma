@@ -34,16 +34,16 @@ namespace UI
             this.lblApellido = new System.Windows.Forms.Label();
             this.lblEmail = new System.Windows.Forms.Label();
             this.lblDireccion = new System.Windows.Forms.Label();
-            this.lblDni = new System.Windows.Forms.Label();
             this.lblTelefono = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnActualizar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnVolver
             // 
-            this.btnVolver.Location = new System.Drawing.Point(13, 13);
+            this.btnVolver.Location = new System.Drawing.Point(17, 16);
+            this.btnVolver.Margin = new System.Windows.Forms.Padding(4);
             this.btnVolver.Name = "btnVolver";
-            this.btnVolver.Size = new System.Drawing.Size(75, 23);
+            this.btnVolver.Size = new System.Drawing.Size(100, 28);
             this.btnVolver.TabIndex = 0;
             this.btnVolver.Text = "Volver";
             this.btnVolver.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -52,79 +52,77 @@ namespace UI
             // lblNombre
             // 
             this.lblNombre.AutoSize = true;
-            this.lblNombre.Location = new System.Drawing.Point(13, 64);
+            this.lblNombre.Location = new System.Drawing.Point(17, 79);
+            this.lblNombre.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblNombre.Name = "lblNombre";
-            this.lblNombre.Size = new System.Drawing.Size(50, 13);
+            this.lblNombre.Size = new System.Drawing.Size(66, 17);
             this.lblNombre.TabIndex = 1;
             this.lblNombre.Text = "Nombre :";
             // 
             // lblApellido
             // 
             this.lblApellido.AutoSize = true;
-            this.lblApellido.Location = new System.Drawing.Point(13, 92);
+            this.lblApellido.Location = new System.Drawing.Point(17, 113);
+            this.lblApellido.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblApellido.Name = "lblApellido";
-            this.lblApellido.Size = new System.Drawing.Size(50, 13);
+            this.lblApellido.Size = new System.Drawing.Size(66, 17);
             this.lblApellido.TabIndex = 2;
             this.lblApellido.Text = "Apellido :";
             // 
             // lblEmail
             // 
             this.lblEmail.AutoSize = true;
-            this.lblEmail.Location = new System.Drawing.Point(13, 120);
+            this.lblEmail.Location = new System.Drawing.Point(17, 148);
+            this.lblEmail.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblEmail.Name = "lblEmail";
-            this.lblEmail.Size = new System.Drawing.Size(35, 13);
+            this.lblEmail.Size = new System.Drawing.Size(46, 17);
             this.lblEmail.TabIndex = 3;
             this.lblEmail.Text = "Email:";
             // 
             // lblDireccion
             // 
             this.lblDireccion.AutoSize = true;
-            this.lblDireccion.Location = new System.Drawing.Point(13, 152);
+            this.lblDireccion.Location = new System.Drawing.Point(17, 187);
+            this.lblDireccion.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblDireccion.Name = "lblDireccion";
-            this.lblDireccion.Size = new System.Drawing.Size(55, 13);
+            this.lblDireccion.Size = new System.Drawing.Size(71, 17);
             this.lblDireccion.TabIndex = 4;
             this.lblDireccion.Text = "Direccion:";
-            // 
-            // lblDni
-            // 
-            this.lblDni.AutoSize = true;
-            this.lblDni.Location = new System.Drawing.Point(13, 183);
-            this.lblDni.Name = "lblDni";
-            this.lblDni.Size = new System.Drawing.Size(29, 13);
-            this.lblDni.TabIndex = 5;
-            this.lblDni.Text = "DNI:";
             // 
             // lblTelefono
             // 
             this.lblTelefono.AutoSize = true;
-            this.lblTelefono.Location = new System.Drawing.Point(13, 212);
+            this.lblTelefono.Location = new System.Drawing.Point(17, 226);
+            this.lblTelefono.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTelefono.Name = "lblTelefono";
-            this.lblTelefono.Size = new System.Drawing.Size(52, 13);
+            this.lblTelefono.Size = new System.Drawing.Size(68, 17);
             this.lblTelefono.TabIndex = 6;
             this.lblTelefono.Text = "Telefono:";
             // 
-            // button1
+            // btnActualizar
             // 
-            this.button1.Location = new System.Drawing.Point(92, 234);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "Actualizar";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnActualizar.Location = new System.Drawing.Point(123, 288);
+            this.btnActualizar.Margin = new System.Windows.Forms.Padding(4);
+            this.btnActualizar.Name = "btnActualizar";
+            this.btnActualizar.Size = new System.Drawing.Size(100, 28);
+            this.btnActualizar.TabIndex = 7;
+            this.btnActualizar.Text = "Actualizar";
+            this.btnActualizar.UseVisualStyleBackColor = true;
+            this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
             // 
             // DatosUsuario
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(263, 269);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(351, 331);
+            this.Controls.Add(this.btnActualizar);
             this.Controls.Add(this.lblTelefono);
-            this.Controls.Add(this.lblDni);
             this.Controls.Add(this.lblDireccion);
             this.Controls.Add(this.lblEmail);
             this.Controls.Add(this.lblApellido);
             this.Controls.Add(this.lblNombre);
             this.Controls.Add(this.btnVolver);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "DatosUsuario";
             this.Text = "DatosUsuario";
             this.Load += new System.EventHandler(this.DatosUsuario_Load);
@@ -140,8 +138,7 @@ namespace UI
         private System.Windows.Forms.Label lblApellido;
         private System.Windows.Forms.Label lblEmail;
         private System.Windows.Forms.Label lblDireccion;
-        private System.Windows.Forms.Label lblDni;
         private System.Windows.Forms.Label lblTelefono;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnActualizar;
     }
 }

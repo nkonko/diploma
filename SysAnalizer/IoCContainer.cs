@@ -50,7 +50,10 @@
             contBuilder.RegisterType<DatosUsuario>().As<IDatosUsuario>().SingleInstance();
             contBuilder.RegisterType<Clientes>().As<IClientes>().SingleInstance();
             contBuilder.RegisterType<ClienteBLL>().As<IClienteBLL>().SingleInstance();
-
+            contBuilder.RegisterType<BackupUI>().As<IBackupUI>().SingleInstance();
+            contBuilder.RegisterType<RestoreUI>().As<IRestoreUI>().SingleInstance();
+            contBuilder.RegisterType<IdiomaBLL>().As<IIdiomaBLL>().SingleInstance();
+            contBuilder.RegisterType<IdiomaDAL>().As<IIdiomaDAL>().SingleInstance();
             return contBuilder.Build();
         }
     }

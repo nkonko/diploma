@@ -51,16 +51,17 @@ namespace UI
         {
             var patForm = formControl.ObtenerPermisosFormulario(formId);
             var patUsu = formControl.ObtenerPermisosUsuario();
+            var patentes = patenteBLL.Cargar();
 
-            if (!patForm.Exists(item => patUsu.Patentes.Select(item2 => item2.IdPatente).Contains(item.IdPatente = 1)))
+            if (!patForm.Exists(item => patUsu.Patentes.Select(item2 => item2.IdPatente).Contains(item.IdPatente = patentes.Where(p => (p.Descripcion == "Alta Usuario")).Select(p => p.IdPatente).FirstOrDefault())))
             {
                 btnNuevo.Enabled = false;
             }
-            if (!patForm.Exists(item => patUsu.Patentes.Select(item2 => item2.IdPatente).Contains(item.IdPatente = 2)))
+            if (!patForm.Exists(item => patUsu.Patentes.Select(item2 => item2.IdPatente).Contains(item.IdPatente = patentes.Where(p => (p.Descripcion == "Baja Usuario")).Select(p => p.IdPatente).FirstOrDefault())))
             {
                 btnBorrar.Enabled = false;
             }
-            if (!patForm.Exists(item => patUsu.Patentes.Select(item2 => item2.IdPatente).Contains(item.IdPatente = 8)))
+            if (!patForm.Exists(item => patUsu.Patentes.Select(item2 => item2.IdPatente).Contains(item.IdPatente = patentes.Where(p => (p.Descripcion == "Mod Usuario")).Select(p => p.IdPatente).FirstOrDefault())))
             {
                 btnModificar.Enabled = false;
             }
@@ -184,7 +185,7 @@ namespace UI
 
             return returnValue;
         }
-       
+
         ///revisar como bloquear el switch de patentes y cambio de usuario que deja el boton habilitado
         private void btnNegarPat_Click(object sender, EventArgs e)
         {
@@ -237,6 +238,8 @@ namespace UI
             }
         }
 
+
+
         private void dgusuario_SelectionChanged(object sender, EventArgs e)
         {
             var usuario = (Usuario)dgusuario.CurrentRow.DataBoundItem;
@@ -250,6 +253,12 @@ namespace UI
                 btnNegarPat.Enabled = false;
             }
 
-            }
+        }
+
+        private void chkLstFamilia_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            var familiaSel = chkLstFamilia.SelectedItem.ToString();
+        }
+
     }
 }

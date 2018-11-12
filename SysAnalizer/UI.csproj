@@ -158,6 +158,8 @@
       <DependentUpon>Clientes.cs</DependentUpon>
     </Compile>
     <Compile Include="FormExtensions.cs" />
+    <Compile Include="IBackupUI.cs" />
+    <Compile Include="IRestoreUI.cs" />
     <Compile Include="IAdminPatFamilia.cs" />
     <Compile Include="IClientes.cs" />
     <Compile Include="IDatosUsuario.cs" />
@@ -167,7 +169,6 @@
     <Compile Include="IFamilias.cs" />
     <Compile Include="IFormControl.cs" />
     <Compile Include="IProductos.cs" />
-    <Compile Include="IProvIdioma.cs" />
     <Compile Include="IVtaProd.cs" />
     <Compile Include="IoCContainer.cs" />
     <Compile Include="IPrincipal.cs" />
@@ -197,20 +198,17 @@
     <Compile Include="FORMULARIOS\ABMusuario.Designer.cs">
       <DependentUpon>ABMusuario.cs</DependentUpon>
     </Compile>
-    <Compile Include="FORMULARIOS\Restore.cs">
+    <Compile Include="FORMULARIOS\RestoreUI.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FORMULARIOS\Restore.Designer.cs">
-      <DependentUpon>Restore.cs</DependentUpon>
+    <Compile Include="FORMULARIOS\RestoreUI.Designer.cs">
+      <DependentUpon>RestoreUI.cs</DependentUpon>
     </Compile>
     <Compile Include="FORMULARIOS\VtaProd.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FORMULARIOS\VtaProd.Designer.cs">
       <DependentUpon>VtaProd.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ProvIdioma.cs">
-      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Recursos\Español.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -261,14 +259,11 @@
     <EmbeddedResource Include="FORMULARIOS\ABMusuario.resx">
       <DependentUpon>ABMusuario.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FORMULARIOS\Restore.resx">
-      <DependentUpon>Restore.cs</DependentUpon>
+    <EmbeddedResource Include="FORMULARIOS\RestoreUI.resx">
+      <DependentUpon>RestoreUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FORMULARIOS\VtaProd.resx">
       <DependentUpon>VtaProd.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ProvIdioma.resx">
-      <DependentUpon>ProvIdioma.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Recursos\Español.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -3,9 +3,9 @@ namespace UI
 {
 using System;
 using System.Windows.Forms;
-    public partial class AdminPatente : Form
+    public partial class ActualizarDatosUsuario : Form
     {
-        public AdminPatente()
+        public ActualizarDatosUsuario()
         {
             InitializeComponent();
         }

@@ -39,7 +39,7 @@ namespace UI
             // btnVolver
             // 
             this.btnVolver.Location = new System.Drawing.Point(16, 15);
-            this.btnVolver.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnVolver.Margin = new System.Windows.Forms.Padding(4);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(92, 28);
             this.btnVolver.TabIndex = 58;
@@ -61,9 +61,9 @@ namespace UI
             // 
             this.groupBox1.Controls.Add(this.lstPatentes);
             this.groupBox1.Location = new System.Drawing.Point(16, 76);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox1.Size = new System.Drawing.Size(243, 208);
             this.groupBox1.TabIndex = 55;
             this.groupBox1.TabStop = false;
@@ -72,18 +72,8 @@ namespace UI
             // lstPatentes
             // 
             this.lstPatentes.FormattingEnabled = true;
-            this.lstPatentes.Items.AddRange(new object[] {
-            "Patente 1",
-            "Patente 2",
-            "Patente 3",
-            "Patente 4",
-            "Patente 5",
-            "Patente 6",
-            "Patente 7",
-            "Patente 8",
-            "Patente 9"});
             this.lstPatentes.Location = new System.Drawing.Point(20, 23);
-            this.lstPatentes.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.lstPatentes.Margin = new System.Windows.Forms.Padding(4);
             this.lstPatentes.Name = "lstPatentes";
             this.lstPatentes.Size = new System.Drawing.Size(201, 157);
             this.lstPatentes.TabIndex = 55;
@@ -98,7 +88,7 @@ namespace UI
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.lblFamilia);
             this.Controls.Add(this.groupBox1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "AdminPatFamilia";
             this.Text = "AdminPatFamilia";
             this.Load += new System.EventHandler(this.AdminPatFamilia_Load);

@@ -7,7 +7,7 @@ namespace UI
     using System;
     using System.Windows.Forms;
 
-    public partial class BackupUI : Form
+    public partial class BackupUI : Form, IBackupUI
     {
         public BackupUI()
         {
@@ -23,6 +23,12 @@ namespace UI
         {
             progressBar1.Value = 0;
             var cantVolumenes = Convert.ToInt32(cboCantidad.SelectedItem);
+
+            if(cantVolumenes == 0)
+            {
+                cantVolumenes = 1;
+            }
+
             try
             {
                 if (txtDirectorio.Text.Trim() != String.Empty && txtNombre.Text.Trim() != String.Empty)
@@ -83,6 +89,18 @@ namespace UI
             {
                 txtDirectorio.Text = explorerDialog.SelectedPath;
                 Environment.SpecialFolder root = explorerDialog.RootFolder;
+            }
+        }
+
+        private void chkDividir_CheckedChanged(object sender, EventArgs e)
+        {
+            if(chkDividir.Checked)
+            {
+                cboCantidad.Enabled = true;
+            }
+            else
+            {
+                cboCantidad.Enabled = false;
             }
         }
     }

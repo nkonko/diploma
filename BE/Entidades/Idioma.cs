@@ -2,7 +2,7 @@
 {
     public class Idioma
     {
-        public int Id { get; set; }
+        public int IdIdioma { get; set; }
 
         public string Descripcion { get; set; }
     }

@@ -18,8 +18,10 @@ namespace UI
         private readonly IFamilias familias;
         private readonly IFamiliaBLL familiaBLL;
         private readonly IDatosUsuario datosUsuario;
+        private readonly IBackupUI backupUI;
+        private readonly IRestoreUI restoreUI;
 
-        public Principal(IUsuarioDAL usuarioDAL, IVtaProd venta_De_Productos, IABMUsuario abmUsuario, IBitacora bitacora, IFormControl formControl, IFamilias familias, IFamiliaBLL familiaBLL, IDatosUsuario datosUsuario)
+        public Principal(IUsuarioDAL usuarioDAL, IVtaProd venta_De_Productos, IABMUsuario abmUsuario, IBitacora bitacora, IFormControl formControl, IFamilias familias, IFamiliaBLL familiaBLL, IDatosUsuario datosUsuario, IBackupUI backupUI, IRestoreUI restoreUI)
         {
             InitializeComponent();
             this.formControl = formControl;
@@ -30,11 +32,13 @@ namespace UI
             this.familias = familias;
             this.familiaBLL = familiaBLL;
             this.datosUsuario = datosUsuario;
+            this.backupUI = backupUI;
+            this.restoreUI = restoreUI;
         }
 
         private void Principal_Load(object sender, EventArgs e)
         {
-            ////Traer id de familia que machee con idusuario de familiaUsuario
+            ////Traer id de familia que machee con idusuario de familiaUsuario //revisar
             //var idFamilia = familiaBLL.Cargar().Find(
 
             var patForm = formControl.ObtenerPermisosFormularios();
@@ -99,7 +103,7 @@ namespace UI
 
         private void backUpToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            backupUI.Show();
         }
 
         private void familiasToolStripMenuItem_Click(object sender, EventArgs e)
@@ -125,6 +129,11 @@ namespace UI
         private void clientesToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void restoreToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            restoreUI.Show();
         }
     }
 }

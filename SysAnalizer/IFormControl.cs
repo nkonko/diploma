@@ -5,6 +5,8 @@
 
     public interface IFormControl
     {
+        IDictionary<string, string> Traducciones { get; set; }
+
         Idioma LenguajeSeleccionado { get; set; }
 
         List<Patente> ObtenerPermisosFormularios();

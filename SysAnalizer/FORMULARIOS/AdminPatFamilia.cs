@@ -5,6 +5,7 @@ namespace UI
     using BLL;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Windows.Forms;
 
     public partial class AdminPatFamilia : Form, IAdminPatFamilia
@@ -56,6 +57,8 @@ namespace UI
             familia = familias.ObtenerFamiliaSeleccionada();
             lblFamilia.Text = lblFamilia.Text + " " + familia.Descripcion;
             lstPatentes.DataSource = patenteBLL.Cargar();
+            lstPatentes.DisplayMember = "Descripcion";
+            lstPatentes.ValueMember = "IdPatente";
         }
 
         private void lstPatentes_SelectedIndexChanged(object sender, EventArgs e)
@@ -93,7 +96,10 @@ namespace UI
 
         private void btnVolver_Click(object sender, EventArgs e)
         {
-            DialogResult = DialogResult.OK;
+            if (lstPatentes.SelectedIndex != 0)
+            {
+                DialogResult = DialogResult.OK;
+            }
         }
     }
 }

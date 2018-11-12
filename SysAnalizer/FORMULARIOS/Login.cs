@@ -4,6 +4,8 @@ namespace UI
     using BE.Entidades;
     using BLL;
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Resources;
     using System.Windows.Forms;
 
@@ -14,9 +16,11 @@ namespace UI
         private IPrincipal PrincipalForm;
         private IUsuarioBLL usuarioBLL;
         private IFormControl formControl;
+        private readonly IIdiomaBLL idiomaBLL;
 
-        public Login()
+        public Login(IIdiomaBLL idiomaBLL)
         {
+            this.idiomaBLL = idiomaBLL;
             InitializeComponent();
         }
 
@@ -27,6 +31,33 @@ namespace UI
             PrincipalForm = IoCContainer.Resolve<IPrincipal>();
             usuarioBLL = IoCContainer.Resolve<IUsuarioBLL>();
             formControl = IoCContainer.Resolve<IFormControl>();
+            CargarCombo();
+            formControl.LenguajeSeleccionado = (Idioma)cbo_idioma.SelectedItem;
+            Traduccir();
+        }
+
+        private void Traduccir()
+        {
+            formControl.Traducciones.Clear();
+            formControl.Traducciones = GetTraducciones();
+            idiomaBLL.LlenarRecursos(formControl.Traducciones, formControl.LenguajeSeleccionado.IdIdioma, Application.OpenForms[0].Name);
+            idiomaBLL.LeerRecursos(this.Controls);
+        }
+
+        private IDictionary<string, string> GetTraducciones()
+        {
+            formControl.Traducciones = idiomaBLL.ObtenerTraduccionesFormulario(formControl.LenguajeSeleccionado.IdIdioma, Application.OpenForms[0].Name).ToDictionary(k => k.ControlName ?? k.MensajeCodigo, v => v.Traduccion);
+
+            return formControl.Traducciones;
+        }
+
+        private void CargarCombo()
+        {
+            var idioma = idiomaBLL.ObtenerTodosLosIdiomas();
+            cbo_idioma.DataSource = idioma;
+            cbo_idioma.ValueMember = "IdIdioma";
+            cbo_idioma.DisplayMember = "Descripcion";
+            cbo_idioma.SelectedIndex = 1;
         }
 
         private void btn_ingresar_Click(object sender, EventArgs e)
