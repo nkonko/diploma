@@ -31,19 +31,23 @@
 
             return CatchException(() =>
               {
-                  return Exec(queryString, new {
-                      @nombre = objAlta.Nombre,
-                      @apellido = objAlta.Apellido,
-                      @contraseña = contEncript,
-                      @email = objAlta.Email,
-                      @telefono = objAlta.Telefono,
-                      @domicilio = objAlta.Domicilio,
-                      @contadorIngresos = objAlta.CIngresos = 0,
-                      @idCanalVenta = objAlta.IdCanalVenta,
-                      @idIdioma = objAlta.IdIdioma,
-                      @primerLogin = Convert.ToByte(objAlta.PrimerLogin = true),
-                      @dvh = digitoVH,
-                      @activo  = 0});
+                  return Exec(
+                      queryString,
+                      new
+                      {
+                          @nombre = objAlta.Nombre,
+                          @apellido = objAlta.Apellido,
+                          @contraseña = contEncript,
+                          @email = objAlta.Email,
+                          @telefono = objAlta.Telefono,
+                          @domicilio = objAlta.Domicilio,
+                          @contadorIngresos = objAlta.CIngresos = 0,
+                          @idCanalVenta = objAlta.IdCanalVenta,
+                          @idIdioma = objAlta.IdIdioma,
+                          @primerLogin = Convert.ToByte(objAlta.PrimerLogin = true),
+                          @dvh = digitoVH,
+                          @activo = 0
+                      });
               });
         }
 
