@@ -55,7 +55,7 @@ namespace UI
 
         private void nuevaVenta_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            venta_De_Productos.MdiParent = this;
             venta_De_Productos.Show();
         }
 
@@ -66,13 +66,13 @@ namespace UI
 
         private void usuariosToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            this.Hide();
+            abmUsuario.MdiParent = this;
             abmUsuario.Show();
         }
 
         private void bitacoraToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            bitacora.MdiParent = this;
             bitacora.Show();
         }
 
@@ -86,33 +86,36 @@ namespace UI
             var usu = formControl.ObtenerInfoUsuario();
             if (usu.PrimerLogin)
             {
-                var nuevaContraseña = Interaction.InputBox("Ingrese su nuevo password", "Nuevo Password", "");
-                var cambioExitoso = usuarioDAL.CambiarPassword(usu, nuevaContraseña, true);
+                var nuevaContraseña = Interaction.InputBox("Ingrese su nueva contraseña", "Nuevo contraseña", "");
+                var cambioExitoso = usuarioDAL.CambiarContraseña(usu, nuevaContraseña, true);
                 if (cambioExitoso)
                 {
                     //Log.Info("Password Actualizado");
-                    MessageBox.Show("Su Password fue actualizado");
+                    MessageBox.Show("Su contraseña fue actualizada");
                 }
                 else
                 {
                     //Log.Info("Fallo la actualizacion del password");
-                    MessageBox.Show("Error Password no actualizado");
+                    MessageBox.Show("Error contraseña no actualizada");
                 }
             }
         }
 
         private void backUpToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            backupUI.MdiParent = this;
             backupUI.Show();
         }
 
         private void familiasToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            familias.MdiParent = this;
             familias.Show();
         }
 
         private void verUsuariosToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            datosUsuario.MdiParent = this;
             datosUsuario.Show();
         }
 
@@ -133,6 +136,7 @@ namespace UI
 
         private void restoreToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            restoreUI.MdiParent = this;
             restoreUI.Show();
         }
     }

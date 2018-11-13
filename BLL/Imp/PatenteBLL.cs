@@ -23,9 +23,9 @@
             return patenteDAL.Cargar();
         }
 
-        public void GuardarPatenteUsuario(int patenteId, int usuarioId)
+        public void GuardarPatentesUsuario(List<int> patenteId, int usuarioId)
         {
-            patenteDAL.GuardarPatenteUsuario(patenteId, usuarioId);
+            patenteDAL.GuardarPatentesUsuario(patenteId, usuarioId);
         }
 
         public bool BorrarPatente(int familiaId, int patenteId)
@@ -61,6 +61,11 @@
         public List<UsuarioPatente> ConsultarPatenteUsuario(int usuarioId)
         {
             return patenteDAL.ConsultarPatenteUsuario(usuarioId);
+        }
+
+        public void BorrarPatentesUsuario(List<int> ids, int usuarioId)
+        {
+            patenteDAL.BorrarPatentesUsuario(ids, usuarioId);
         }
     }
 }

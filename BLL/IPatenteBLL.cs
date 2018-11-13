@@ -5,7 +5,7 @@
 
     public interface IPatenteBLL
     {
-        void GuardarPatenteUsuario(int patenteId, int usuarioId);
+        void GuardarPatentesUsuario(List<int> patenteId, int usuarioId);
 
         int ObtenerIdPatentePorDescripcion(string descripcion);
 
@@ -24,5 +24,7 @@
         bool HabilitarPatente(int patenteId, int usuarioId);
 
         List<UsuarioPatente> ConsultarPatenteUsuario(int usuarioId);
+
+        void BorrarPatentesUsuario(List<int> ids, int usuarioId);
     }
 }

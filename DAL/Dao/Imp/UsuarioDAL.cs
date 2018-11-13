@@ -24,24 +24,26 @@
             objAlta.UsuarioId = ObtenerUltimoIdUsuario() + 1;
             var digitoVH = digitoVerificador.CalcularDVHorizontal(new List<string> { objAlta.Nombre, objAlta.Email, contEncript }, new List<int> { objAlta.UsuarioId });
 
-            var queryString = string.Format(
-                         "INSERT INTO Usuario(Nombre, Apellido, Contraseña, Email, Telefono, ContadorIngresosIncorrectos, IdCanalVenta, IdIdioma, PrimerLogin, DVH, Activo)" +
-                         "VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', {6}, {7}, {8},{9}, {10})",
-                        objAlta.Nombre,
-                        objAlta.Apellido,
-                        contEncript,
-                        objAlta.Email,
-                        objAlta.Telefono,
-                        objAlta.CIngresos = 0,
-                        objAlta.IdCanalVenta,
-                        objAlta.IdIdioma,
-                        Convert.ToByte(objAlta.PrimerLogin = true),
-                        digitoVH,
-                        0);
+            var queryString = "INSERT INTO Usuario(Nombre, Apellido, Contraseña, Email, Telefono, Domicilio, ContadorIngresosIncorrectos, " +
+                "IdCanalVenta, IdIdioma, PrimerLogin, DVH, Activo) " +
+                "VALUES (@nombre, @apellido, @contraseña, @email, @telefono, @domicilio, @contadorIngresos, @idCanalVenta, @idIdioma, " +
+                "@primerLogin, @dvh, @activo)";
 
             return CatchException(() =>
               {
-                  return Exec(queryString);
+                  return Exec(queryString, new {
+                      @nombre = objAlta.Nombre,
+                      @apellido = objAlta.Apellido,
+                      @contraseña = contEncript,
+                      @email = objAlta.Email,
+                      @telefono = objAlta.Telefono,
+                      @domicilio = objAlta.Domicilio,
+                      @contadorIngresos = objAlta.CIngresos = 0,
+                      @idCanalVenta = objAlta.IdCanalVenta,
+                      @idIdioma = objAlta.IdIdioma,
+                      @primerLogin = Convert.ToByte(objAlta.PrimerLogin = true),
+                      @dvh = digitoVH,
+                      @activo  = 0});
               });
         }
 
@@ -71,11 +73,11 @@
         {
             var usu = ObtenerUsuarioConEmail(objUpd.Email);
 
-            var queryString = string.Format("UPDATE Usuario SET Nombre = {1}, Apellido = {2}, Password = {3}, Email = {4}, Telefono = {5} WHERE UsuarioId = {0}", usu.UsuarioId, objUpd.Nombre, objUpd.Apellido, objUpd.Contraseña, objUpd.Email, objUpd.Telefono);
+            var queryString = $"UPDATE Usuario SET Nombre = @nombre, Apellido = @apellido, Email = @email, Telefono = @telefono, Domicilio = @domicilio WHERE UsuarioId = @usuarioId";
 
             return CatchException(() =>
             {
-                return Exec(queryString);
+                return Exec(queryString, new { @usuarioId = usu.UsuarioId, @nombre = objUpd.Nombre, @apellido = objUpd.Apellido, @email = objUpd.Email, @telefono = objUpd.Telefono, @domicilio = objUpd.Domicilio });
             });
         }
 
@@ -108,22 +110,22 @@
             return true;
         }
 
-        public bool CambiarPassword(Usuario usuario, string nuevaContraseña, bool primerLogin = false)
+        public bool CambiarContraseña(Usuario usuario, string nuevaContraseña, bool primerLogin = false)
         {
             var contEncript = MD5.ComputeMD5Hash(nuevaContraseña);
             var queryString = string.Empty;
             if (primerLogin == true)
             {
-                queryString = string.Format("UPDATE Usuario SET Contraseña = '{1}', PrimerLogin = 0 WHERE UsuarioId = {0}", usuario.UsuarioId, contEncript);
+                queryString = "UPDATE Usuario SET Contraseña = @contraseña, PrimerLogin = 0 WHERE UsuarioId = @usuarioId";
             }
             else
             {
-                queryString = string.Format("UPDATE Usuario SET Contraseña = '{1}' WHERE UsuarioId = {0}", usuario.UsuarioId, contEncript);
+                queryString = "UPDATE Usuario SET Contraseña = @contraseña WHERE UsuarioId = @usuarioId";
             }
 
             return CatchException(() =>
             {
-                return Exec(queryString);
+                return Exec(queryString, new { @usuarioId = usuario.UsuarioId, @contraseña = contEncript });
             });
         }
 
@@ -160,7 +162,7 @@
 
         private void AumentarIngresos(Usuario usuario, int ingresos)
         {
-            var queryString = string.Format("UPDATE Usuario SET Password = {1} WHERE UsuarioId = {0}", usuario.UsuarioId, ingresos);
+            var queryString = string.Format("UPDATE Usuario SET Contraseña = {1} WHERE UsuarioId = {0}", usuario.UsuarioId, ingresos);
 
             CatchException(() =>
             {

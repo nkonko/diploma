@@ -1,17 +1,17 @@
 ﻿namespace BLL.Imp
 {
-    using System.Collections.Generic;
     using BE.Entidades;
     using DAL.Dao.Imp;
-    using System.Resources;
-    using System.Linq;
-    using System.Windows.Forms;
     using System.Collections;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Resources;
+    using System.Windows.Forms;
 
     public class IdiomaBLL : IIdiomaBLL
     {
-        private readonly IIdiomaDAL idiomaDAL;
         private static readonly string ResourcesFilePath = "C:\\Users\\nicoa\\Documents\\GitHub\\diploma\\SysAnalizer\\Recursos\\Español.resx";
+        private readonly IIdiomaDAL idiomaDAL;
 
         public IdiomaBLL(IIdiomaDAL idiomaDAL)
         {

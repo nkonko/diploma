@@ -48,9 +48,9 @@
             return familiaDAL.ObtenerPatentesFamilia(familiaId);
         }
 
-        public void GuardarFamiliaUsuario(int familiaId, int usuarioId)
+        public void GuardarFamiliasUsuario(List<int> familiasId, int usuarioId)
         {
-            familiaDAL.GuardarFamiliaUsuario(familiaId, usuarioId);
+            familiaDAL.GuardarFamiliasUsuario(familiasId, usuarioId);
         }
 
         public int ObtenerIdFamiliaPorDescripcion(string descripcion)
@@ -86,6 +86,11 @@
         public List<string> ObtenerDescripcionFamiliaPorId(List<int> familiaId)
         {
             return familiaDAL.ObtenerDescripcionFamiliaPorId(familiaId);
+        }
+
+        public void BorrarFamiliasUsuario(List<int> ids, int usuarioId)
+        {
+            familiaDAL.BorrarFamiliasUsuario(ids, usuarioId);
         }
     }
 }

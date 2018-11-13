@@ -59,7 +59,7 @@
         public bool Actualizar(Producto objUpd)
         {
             ////Cambiar por columnas de producto
-            var queryString = $"UPDATE Producto SET Nombre = , Apellido = , Password = , Email = , Telefono = WHERE IdProducto = ";
+            var queryString = $"UPDATE Producto SET WHERE IdProducto = ";
 
             return CatchException(() =>
             {

@@ -5,7 +5,7 @@
 
     public interface IPatenteDAL
     {
-        void GuardarPatenteUsuario(int patenteId, int usuarioId);
+        void GuardarPatentesUsuario(List<int> patenteId, int usuarioId);
 
         bool NegarPatenteUsuario(int patentesId, int usuarioId);
 
@@ -24,5 +24,7 @@
         List<FamiliaPatente> ConsultarPatenteFamilia(int familiaId);
 
         List<UsuarioPatente> ConsultarPatenteUsuario(int usuarioId);
+
+        void BorrarPatentesUsuario(List<int> ids, int usuarioId);
     }
 }

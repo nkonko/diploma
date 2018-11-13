@@ -4,7 +4,9 @@ namespace UI
     using BE.Entidades;
     using BLL;
     using log4net;
+    using Microsoft.VisualBasic;
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Windows.Forms;
 
@@ -77,8 +79,8 @@ namespace UI
 
                 if (creado)
                 {
-                    familiasBLL.GuardarFamiliaUsuario(familiasBLL.ObtenerIdFamiliaPorDescripcion(chkLstFamilia.SelectedItem.ToString()), usu.UsuarioId);
-                    patenteBLL.GuardarPatenteUsuario(patenteBLL.ObtenerIdPatentePorDescripcion(chkLstPatentes.SelectedItem.ToString()), usu.UsuarioId);
+                    GuardarPatentesFamilias(usu);
+
                     log.Info("Se ha creado un nuevo usuario");
                     bitacoraBLL.RegistrarEnBitacora(usu);
                     MessageBox.Show("Registro exitoso");
@@ -101,12 +103,11 @@ namespace UI
 
             if (modificado)
             {
-                familiasBLL.GuardarFamiliaUsuario(familiasBLL.ObtenerIdFamiliaPorDescripcion(chkLstFamilia.SelectedItem.ToString()), usu.UsuarioId);
-                patenteBLL.GuardarPatenteUsuario(patenteBLL.ObtenerIdPatentePorDescripcion(chkLstPatentes.SelectedItem.ToString()), usu.UsuarioId);
+                GuardarPatentesFamilias(usu);
+
                 log.Info("Se ha creado un nuevo usuario");
                 bitacoraBLL.RegistrarEnBitacora(usuActivo);
                 MessageBox.Show("Modificacion exitosa");
-                dgusuario.Rows.Clear();
                 CargarRefrescarDatagrid();
             }
             else
@@ -145,7 +146,6 @@ namespace UI
         private void btnVolver_Click(object sender, EventArgs e)
         {
             this.Hide();
-            ////principal.Show();
         }
 
         private void CargarRefrescarDatagrid()
@@ -197,6 +197,8 @@ namespace UI
                 if (hecho)
                 {
                     btnNegarPat.Text = "Negar Patente";
+                    habilitada = true;
+                    negada = false;
                     ControlPatentes();
                 }
             }
@@ -206,6 +208,8 @@ namespace UI
                 if (hecho)
                 {
                     btnNegarPat.Text = "Habilitar Patente";
+                    negada = true;
+                    habilitada = false;
                     ControlPatentes();
                 }
             }
@@ -255,10 +259,80 @@ namespace UI
 
         }
 
-        private void chkLstFamilia_ItemCheck(object sender, ItemCheckEventArgs e)
+        public void GuardarPatentesFamilias(Usuario usu)
         {
-            var familiaSel = chkLstFamilia.SelectedItem.ToString();
+            foreach (string descripcion in chkLstFamilia.SelectedItems)
+            {
+                if (chkLstFamilia.GetItemCheckState(chkLstPatentes.SelectedIndex) == CheckState.Checked)
+                {
+                    var ids = new List<int>();
+                    ids.Add(familiasBLL.ObtenerIdFamiliaPorDescripcion(descripcion));
+                    familiasBLL.GuardarFamiliasUsuario(ids, usu.UsuarioId);
+                }
+                else
+                {
+                    var ids = new List<int>();
+                    ids.Add(familiasBLL.ObtenerIdFamiliaPorDescripcion(descripcion));
+                    familiasBLL.BorrarFamiliasUsuario(ids, usu.UsuarioId);
+                }
+            }
+
+            foreach (string descripcion in chkLstPatentes.SelectedItems)
+            {
+                if (chkLstPatentes.GetItemCheckState(chkLstPatentes.SelectedIndex) == CheckState.Checked)
+                {
+                    var ids = new List<int>();
+                    ids.Add(patenteBLL.ObtenerIdPatentePorDescripcion(descripcion));
+                    patenteBLL.GuardarPatentesUsuario(ids, usu.UsuarioId);
+
+                }
+                else
+                {
+                    var ids = new List<int>();
+                    ids.Add(patenteBLL.ObtenerIdPatentePorDescripcion(descripcion));
+                    patenteBLL.BorrarPatentesUsuario(ids, usu.UsuarioId);
+                }
+            }
         }
 
+        private void dgusuario_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var selectedRow = dgusuario.Rows[e.RowIndex];
+
+            txtNombre.Text = selectedRow.Cells[0].Value.ToString();
+            txtApellido.Text = selectedRow.Cells[1].Value.ToString();
+            txtEmail.Text = selectedRow.Cells[2].Value.ToString();
+            txtTel.Text = selectedRow.Cells[3].Value.ToString();
+            txtDomicilio.Text = selectedRow.Cells[4].Value.ToString();
+
+            var usu = usuarioBLL.ObtenerUsuarioConEmail(txtEmail.Text);
+            var patentes = patenteBLL.ConsultarPatenteUsuario(usu.UsuarioId);
+            var familias = familiasBLL.ObtenerIdsFamiliasPorUsuario(usu.UsuarioId);
+
+            BorrarChecks();
+            SetearChecks(patentes, familias);
+        }
+
+        private void BorrarChecks()
+        {
+            while (chkLstFamilia.CheckedIndices.Count > 0)
+                chkLstFamilia.SetItemChecked(chkLstFamilia.CheckedIndices[0], false);
+
+            while (chkLstPatentes.CheckedIndices.Count > 0)
+                chkLstPatentes.SetItemChecked(chkLstPatentes.CheckedIndices[0], false);
+        }
+
+        private void SetearChecks(List<UsuarioPatente> patentes, List<int> familias)
+        {
+            foreach (var id in familias)
+            {
+                chkLstFamilia.SetItemChecked(id - 1, true);
+            }
+
+            foreach (var pat in patentes)
+            {
+                chkLstPatentes.SetItemChecked(pat.IdPatente - 1, true);
+            }
+        }
     }
 }

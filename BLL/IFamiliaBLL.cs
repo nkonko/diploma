@@ -12,7 +12,7 @@
 
         int ObtenerIdFamiliaPorDescripcion(string descripcion);
 
-        void GuardarFamiliaUsuario(int familiaId, int usuarioId);
+        void GuardarFamiliasUsuario(List<int> familiaId, int usuarioId);
 
         int ObtenerIdFamiliaPorUsuario(int usuarioId);
 
@@ -23,5 +23,7 @@
         List<string> ObtenerDescripcionFamiliaPorId(List<int> familiaId);
 
         bool ComprobarUsoFamilia(int familiaId);
+
+        void BorrarFamiliasUsuario(List<int> ids, int usuarioId);
     }
 }

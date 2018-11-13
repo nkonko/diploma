@@ -48,15 +48,18 @@
             });
         }
 
-        public void GuardarPatenteUsuario(int patenteId, int usuarioId)
+        public void GuardarPatentesUsuario(List<int> patentesId, int usuarioId)
         {
-            var digitoVH = digitoVerificador.CalcularDVHorizontal(new List<string> { }, new List<int> { patenteId, usuarioId });
-            var queryString = $"INSERT INTO UsuarioPatente(IdPatente, UsuarioId, Negada, DVH) VALUES ({patenteId},{usuarioId}, 0, {digitoVH})";
-
-            CatchException(() =>
+            foreach (var id in patentesId)
             {
-                return Exec(queryString);
-            });
+                var digitoVH = digitoVerificador.CalcularDVHorizontal(new List<string> { }, new List<int> { id, usuarioId });
+                var queryString = $"INSERT INTO UsuarioPatente(IdPatente, UsuarioId, Negada, DVH) VALUES ({id},{usuarioId}, 0, {digitoVH})";
+
+                CatchException(() =>
+                {
+                    return Exec(queryString);
+                });
+            }
         }
 
         public bool NegarPatenteUsuario(int patenteId, int usuarioId)
@@ -112,6 +115,20 @@
             {
                 return Exec<UsuarioPatente>(queryString, new { @usuarioId = usuarioId });
             });
+        }
+
+        public void BorrarPatentesUsuario(List<int> patentesId, int usuarioId)
+        {
+            foreach (var id in patentesId)
+            {
+                var digitoVH = digitoVerificador.CalcularDVHorizontal(new List<string> { }, new List<int> { id, usuarioId });
+                var queryString = $"DELETE FROM UsuarioPatente WHERE IdPatente = {id} AND UsuarioId = {usuarioId}";
+
+                CatchException(() =>
+                {
+                    return Exec(queryString);
+                });
+            }
         }
     }
 }

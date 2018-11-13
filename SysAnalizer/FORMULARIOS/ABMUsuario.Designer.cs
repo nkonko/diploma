@@ -31,10 +31,6 @@ namespace UI
         {
             this.btnVolver = new System.Windows.Forms.Button();
             this.dgusuario = new System.Windows.Forms.DataGridView();
-            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Apellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Telefono = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -53,6 +49,11 @@ namespace UI
             this.label8 = new System.Windows.Forms.Label();
             this.chkLstFamilia = new System.Windows.Forms.CheckedListBox();
             this.btnNegarPat = new System.Windows.Forms.Button();
+            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Apellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Telefono = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Domicilio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgusuario)).BeginInit();
             this.SuspendLayout();
             // 
@@ -77,44 +78,18 @@ namespace UI
             this.Nombre,
             this.Apellido,
             this.Email,
-            this.Telefono});
+            this.Telefono,
+            this.Domicilio});
             this.dgusuario.Location = new System.Drawing.Point(15, 262);
             this.dgusuario.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgusuario.Name = "dgusuario";
             this.dgusuario.ReadOnly = true;
             this.dgusuario.RowTemplate.Height = 24;
-            this.dgusuario.Size = new System.Drawing.Size(585, 224);
+            this.dgusuario.Size = new System.Drawing.Size(583, 224);
             this.dgusuario.TabIndex = 26;
+            this.dgusuario.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgusuario_CellClick);
             this.dgusuario.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dgusuario.SelectionChanged += new System.EventHandler(this.dgusuario_SelectionChanged);
-            // 
-            // Nombre
-            // 
-            this.Nombre.DataPropertyName = "Nombre";
-            this.Nombre.HeaderText = "Nombre";
-            this.Nombre.Name = "Nombre";
-            this.Nombre.ReadOnly = true;
-            // 
-            // Apellido
-            // 
-            this.Apellido.DataPropertyName = "Apellido";
-            this.Apellido.HeaderText = "Apellido";
-            this.Apellido.Name = "Apellido";
-            this.Apellido.ReadOnly = true;
-            // 
-            // Email
-            // 
-            this.Email.DataPropertyName = "Email";
-            this.Email.HeaderText = "Email";
-            this.Email.Name = "Email";
-            this.Email.ReadOnly = true;
-            // 
-            // Telefono
-            // 
-            this.Telefono.DataPropertyName = "Telefono";
-            this.Telefono.HeaderText = "Telefono";
-            this.Telefono.Name = "Telefono";
-            this.Telefono.ReadOnly = true;
             // 
             // label3
             // 
@@ -274,7 +249,6 @@ namespace UI
             this.chkLstFamilia.Name = "chkLstFamilia";
             this.chkLstFamilia.Size = new System.Drawing.Size(151, 174);
             this.chkLstFamilia.TabIndex = 40;
-            this.chkLstFamilia.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.chkLstFamilia_ItemCheck);
             // 
             // btnNegarPat
             // 
@@ -286,6 +260,41 @@ namespace UI
             this.btnNegarPat.Text = "Negar Patente";
             this.btnNegarPat.UseVisualStyleBackColor = true;
             this.btnNegarPat.Click += new System.EventHandler(this.btnNegarPat_Click);
+            // 
+            // Nombre
+            // 
+            this.Nombre.DataPropertyName = "Nombre";
+            this.Nombre.HeaderText = "Nombre";
+            this.Nombre.Name = "Nombre";
+            this.Nombre.ReadOnly = true;
+            // 
+            // Apellido
+            // 
+            this.Apellido.DataPropertyName = "Apellido";
+            this.Apellido.HeaderText = "Apellido";
+            this.Apellido.Name = "Apellido";
+            this.Apellido.ReadOnly = true;
+            // 
+            // Email
+            // 
+            this.Email.DataPropertyName = "Email";
+            this.Email.HeaderText = "Email";
+            this.Email.Name = "Email";
+            this.Email.ReadOnly = true;
+            // 
+            // Telefono
+            // 
+            this.Telefono.DataPropertyName = "Telefono";
+            this.Telefono.HeaderText = "Telefono";
+            this.Telefono.Name = "Telefono";
+            this.Telefono.ReadOnly = true;
+            // 
+            // Domicilio
+            // 
+            this.Domicilio.DataPropertyName = "Domicilio";
+            this.Domicilio.HeaderText = "Domicilio";
+            this.Domicilio.Name = "Domicilio";
+            this.Domicilio.ReadOnly = true;
             // 
             // ABMusuario
             // 
@@ -342,11 +351,12 @@ namespace UI
         private System.Windows.Forms.CheckedListBox chkLstPatentes;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.CheckedListBox chkLstFamilia;
+        private System.Windows.Forms.Button btnNegarPat;
         private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
         private System.Windows.Forms.DataGridViewTextBoxColumn Apellido;
         private System.Windows.Forms.DataGridViewTextBoxColumn Email;
         private System.Windows.Forms.DataGridViewTextBoxColumn Telefono;
-        private System.Windows.Forms.CheckedListBox chkLstFamilia;
-        private System.Windows.Forms.Button btnNegarPat;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Domicilio;
     }
 }

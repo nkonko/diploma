@@ -10,7 +10,7 @@
 
         List<Patente> ObtenerPatentesFamilia(List<int> familiaId);
 
-        void GuardarFamiliaUsuario(int familiaId, int usuarioId);
+        void GuardarFamiliasUsuario(List<int> familiasId, int usuarioId);
 
         int ObtenerIdFamiliaPorDescripcion(string descripcion);
 
@@ -23,5 +23,7 @@
         List<int> ObtenerIdsFamiliasPorUsuario(int usuarioId);
 
         List<string> ObtenerDescripcionFamiliaPorId(List<int> familiaId);
+
+        void BorrarFamiliasUsuario(List<int> ids, int usuarioId);
     }
 }

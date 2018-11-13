@@ -55,6 +55,19 @@
              });
         }
 
+        public void BorrarFamiliasUsuario(List<int> familiasId, int usuarioId)
+        {
+            foreach (var id in familiasId)
+            {
+                var queryString = $"DELETE FROM FamiliaUsuario WHERE FamiliaId = {id} and UsuarioId = {usuarioId}";
+
+                CatchException(() =>
+                {
+                    return Exec(queryString);
+                });
+            }
+        }
+
         public List<Familia> Cargar()
         {
             var queryString = "SELECT * FROM Familia;";
@@ -95,15 +108,18 @@
             });
         }
 
-        public void GuardarFamiliaUsuario(int familiaId, int usuarioId)
+        public void GuardarFamiliasUsuario(List<int> familiasId, int usuarioId)
         {
-            var digitoVH = digitoVerificador.CalcularDVHorizontal(new List<string> { }, new List<int> { familiaId, usuarioId });
-            var queryString = $"INSERT INTO FamiliaUsuario(FamiliaId, UsuarioId, DVH) VALUES('{familiaId}','{usuarioId}','{digitoVH}')";
-
-            CatchException(() =>
+            foreach (var id in familiasId)
             {
-                return Exec(queryString);
-            });
+                var digitoVH = digitoVerificador.CalcularDVHorizontal(new List<string> { }, new List<int> { id, usuarioId });
+                var queryString = $"INSERT INTO FamiliaUsuario(FamiliaId, UsuarioId, DVH) VALUES('{id}','{usuarioId}','{digitoVH}')";
+
+                CatchException(() =>
+                {
+                    return Exec(queryString);
+                });
+            }
         }
 
         public string ObtenerDescripcionFamiliaPorId(int familiaId)
@@ -170,10 +186,10 @@
 
             var queryString = $"SELECT FamiliaId FROM FamiliaUsuario WHERE UsuarioId = {usuarioId}";
 
-             famIds = CatchException(() =>
-            {
-                return Exec<int>(queryString);
-            });
+            famIds = CatchException(() =>
+           {
+               return Exec<int>(queryString);
+           });
             return famIds;
         }
 
