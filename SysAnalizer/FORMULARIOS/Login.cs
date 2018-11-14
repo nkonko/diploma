@@ -27,6 +27,7 @@ namespace UI
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            this.AcceptButton = btn_ingresar;
             log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
             PrincipalForm = IoCContainer.Resolve<IPrincipal>();
             usuarioBLL = IoCContainer.Resolve<IUsuarioBLL>();

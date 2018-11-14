@@ -4,13 +4,15 @@
     using DAL.Dao.Imp;
     using System.Collections;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Resources;
     using System.Windows.Forms;
 
     public class IdiomaBLL : IIdiomaBLL
     {
-        private static readonly string ResourcesFilePath = "C:\\Users\\nicoa\\Documents\\GitHub\\diploma\\SysAnalizer\\Recursos\\Español.resx";
+        private static readonly string ResourcesFilePath = new FileInfo("Español.resx").FullName;
+
         private readonly IIdiomaDAL idiomaDAL;
 
         public IdiomaBLL(IIdiomaDAL idiomaDAL)

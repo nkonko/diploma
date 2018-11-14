@@ -14,14 +14,14 @@ namespace UI
         private readonly IUsuarioDAL usuarioDAL;
         private readonly IVtaProd venta_De_Productos;
         private readonly IABMUsuario abmUsuario;
-        private readonly IBitacora bitacora;
+        private readonly IBitacoraUI bitacora;
         private readonly IFamilias familias;
         private readonly IFamiliaBLL familiaBLL;
         private readonly IDatosUsuario datosUsuario;
         private readonly IBackupUI backupUI;
         private readonly IRestoreUI restoreUI;
 
-        public Principal(IUsuarioDAL usuarioDAL, IVtaProd venta_De_Productos, IABMUsuario abmUsuario, IBitacora bitacora, IFormControl formControl, IFamilias familias, IFamiliaBLL familiaBLL, IDatosUsuario datosUsuario, IBackupUI backupUI, IRestoreUI restoreUI)
+        public Principal(IUsuarioDAL usuarioDAL, IVtaProd venta_De_Productos, IABMUsuario abmUsuario, IBitacoraUI bitacora, IFormControl formControl, IFamilias familias, IFamiliaBLL familiaBLL, IDatosUsuario datosUsuario, IBackupUI backupUI, IRestoreUI restoreUI)
         {
             InitializeComponent();
             this.formControl = formControl;

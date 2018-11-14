@@ -8,7 +8,7 @@
 
     public class SqlUtils
     {
-        public List<string> Tables { get; set; }
+        public static List<string> Tables { get; set; } = GetTables();
 
         public SqlUtils()
         {
@@ -20,7 +20,7 @@
             return conn;
         }
 
-        private static List<string> GetTables(string connectionString)
+        private static List<string> GetTables()
         {
             using (SqlConnection connection = Connection())
             {

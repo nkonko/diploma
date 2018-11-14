@@ -2,7 +2,7 @@
 {
     using System.Windows.Forms;
 
-    public interface IBitacora
+    public interface IBitacoraUI
     {
         Form MdiParent { get; set; }
 

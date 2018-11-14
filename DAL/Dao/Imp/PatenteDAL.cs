@@ -94,7 +94,23 @@
 
         public bool ComprobarPatentesUsuario(int usuarioId)
         {
-            throw new System.NotImplementedException();
+            var query = string.Format("SELECT UsuarioId FROM UsuarioPatente WHERE UsuarioId = '{0}'", usuarioId);
+            var ids = new List<int>();
+
+
+            CatchException(() =>
+            {
+                ids = Exec<int>(query);
+            });
+
+            if (ids.Count > 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
         public List<FamiliaPatente> ConsultarPatenteFamilia(int familiaId)

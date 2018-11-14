@@ -5,6 +5,7 @@
     using BLL.Imp;
     using DAL.Dao;
     using DAL.Dao.Imp;
+    using UI.Modelo;
 
     public static class IoCContainer
     {
@@ -34,7 +35,7 @@
             contBuilder.RegisterType<DigitoVerificador>().As<IDigitoVerificador>().InstancePerDependency();
             contBuilder.RegisterType<VtaProd>().As<IVtaProd>().SingleInstance();
             contBuilder.RegisterType<ABMusuario>().As<IABMUsuario>().SingleInstance();
-            contBuilder.RegisterType<Bitacora>().As<IBitacora>().SingleInstance();
+            contBuilder.RegisterType<BitacoraUI>().As<IBitacoraUI>().SingleInstance();
             contBuilder.RegisterType<BitacoraBLL>().As<IBitacoraBLL>().InstancePerDependency();
             contBuilder.RegisterType<BitacoraDAL>().As<IBitacoraDAL>().InstancePerDependency();
             contBuilder.RegisterType<FormControl>().As<IFormControl>().SingleInstance();
@@ -54,6 +55,8 @@
             contBuilder.RegisterType<RestoreUI>().As<IRestoreUI>().SingleInstance();
             contBuilder.RegisterType<IdiomaBLL>().As<IIdiomaBLL>().SingleInstance();
             contBuilder.RegisterType<IdiomaDAL>().As<IIdiomaDAL>().SingleInstance();
+            contBuilder.RegisterType<ModeloBitacora>().As<IModeloBitacora>().SingleInstance();
+            contBuilder.RegisterType<DigitoVerificador>().As<IDigitoVerificador>().SingleInstance();
             return contBuilder.Build();
         }
     }

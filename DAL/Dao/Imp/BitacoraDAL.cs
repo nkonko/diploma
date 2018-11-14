@@ -63,6 +63,52 @@
             });
         }
 
+        public List<Bitacora> LeerBitacoraPorUsuarioCriticidadYFecha(List<int> usuariosId, List<string> criticidades, DateTime desde, DateTime hasta)
+        {
+            var queryImpl = "SELECT * from Bitacora WHERE ";
+            var idsUsuParameters = string.Empty;
+            var criticidadesParameters = string.Empty;
+            var coma = string.Empty;
+            var query = string.Empty;
+
+            if (usuariosId.Count != 0)
+            {
+                for (int i = 0; i < usuariosId.Count; i++)
+                {
+                    if (i != 0)
+                    {
+                        coma = ",";
+                    }
+
+                    idsUsuParameters += coma + "'" + usuariosId[i] + "'";
+                }
+
+                queryImpl += string.Format("UsuarioId IN ({0}) AND  ", idsUsuParameters);
+            }
+
+            if (criticidades.Count != 0)
+            {
+                for (int i = 0; i < criticidades.Count; i++)
+                {
+                    if (i != 0)
+                    {
+                        coma = ",";
+                    }
+
+                    criticidadesParameters += coma + "'" + criticidades[i] + "'";
+                }
+
+                queryImpl += string.Format("Criticidad IN ({0}) AND  ", criticidadesParameters);
+            }
+
+            query = string.Format(queryImpl + " Fecha BETWEEN '{0}' AND '{1}'", desde.ToShortDateString(), hasta);
+
+            return CatchException(() =>
+            {
+                return Exec<Bitacora>(query);
+            });
+        }
+
         public int GenerarDVH(Usuario usu)
         {
             var bitacora = new Bitacora();

@@ -21,7 +21,7 @@
             var query = "SELECT Traduccion FROM Traduccion " +
                         "INNER JOIN Formularios ON Formularios.IdFormulario = Traduccion.IdFormulario " +
                         "INNER JOIN Idioma ON Idioma.IdIdioma = Traduccion.IdIdioma " +
-                        "WHERE Idioma.IdIdioma = @idiomaId AND Formularios.Descripcion = '@nombreForm'";
+                        "WHERE Idioma.IdIdioma = @idiomaId AND Formularios.NombreFormulario = '@nombreForm'";
 
             return CatchException(() =>
             {

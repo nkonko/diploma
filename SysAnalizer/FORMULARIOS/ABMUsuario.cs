@@ -3,8 +3,8 @@ namespace UI
 {
     using BE.Entidades;
     using BLL;
+    using DAL.Dao;
     using log4net;
-    using Microsoft.VisualBasic;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -12,6 +12,8 @@ namespace UI
 
     public partial class ABMusuario : Form, IABMUsuario
     {
+
+        private readonly IDigitoVerificador digitoVerificador;
         private readonly IFamiliaBLL familiasBLL;
         private readonly IPatenteBLL patenteBLL;
         private readonly IBitacoraBLL bitacoraBLL;
@@ -19,17 +21,20 @@ namespace UI
         private const int formId = 1;
         private bool habilitada = false;
         private bool negada = false;
+        private bool checkeadafam = false;
+        private bool checkeadapat = false;
 
         ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private IUsuarioBLL usuarioBLL;
 
-        public ABMusuario(IBitacoraBLL bitacoraBLL, IFormControl formControl, IFamiliaBLL familiasBLL, IPatenteBLL patenteBLL)
+        public ABMusuario(IBitacoraBLL bitacoraBLL, IFormControl formControl, IFamiliaBLL familiasBLL, IPatenteBLL patenteBLL, IDigitoVerificador digitoVerificador)
         {
             this.bitacoraBLL = bitacoraBLL;
             this.formControl = formControl;
             this.familiasBLL = familiasBLL;
             this.patenteBLL = patenteBLL;
+            this.digitoVerificador = digitoVerificador;
             InitializeComponent();
             dgusuario.AutoGenerateColumns = false;
         }
@@ -74,7 +79,19 @@ namespace UI
             var crear = verificarDatos();
             if (crear)
             {
-                var creado = usuarioBLL.Crear(new Usuario() { Nombre = txtNombre.Text, Apellido = txtApellido.Text, Email = txtEmail.Text, Telefono = Int32.Parse(txtTel.Text), Domicilio = txtDomicilio.Text, PrimerLogin = true, CIngresos = 0, Activo = true });
+                var creado = usuarioBLL.Crear(
+                    new Usuario()
+                    {
+                        Nombre = txtNombre.Text,
+                        Apellido = txtApellido.Text,
+                        Email = txtEmail.Text,
+                        Telefono = Int32.Parse(txtTel.Text),
+                        Domicilio = txtDomicilio.Text,
+                        PrimerLogin = true,
+                        CIngresos = 0,
+                        Activo = true
+                    });
+
                 var usu = usuarioBLL.ObtenerUsuarioConEmail(txtEmail.Text);
 
                 if (creado)
@@ -186,7 +203,6 @@ namespace UI
             return returnValue;
         }
 
-        ///revisar como bloquear el switch de patentes y cambio de usuario que deja el boton habilitado
         private void btnNegarPat_Click(object sender, EventArgs e)
         {
             var usuario = (Usuario)dgusuario.CurrentRow.DataBoundItem;
@@ -242,8 +258,6 @@ namespace UI
             }
         }
 
-
-
         private void dgusuario_SelectionChanged(object sender, EventArgs e)
         {
             var usuario = (Usuario)dgusuario.CurrentRow.DataBoundItem;
@@ -256,41 +270,49 @@ namespace UI
             {
                 btnNegarPat.Enabled = false;
             }
-
         }
 
         public void GuardarPatentesFamilias(Usuario usu)
         {
-            foreach (string descripcion in chkLstFamilia.SelectedItems)
+            var patentes = patenteBLL.ConsultarPatenteUsuario(usu.UsuarioId);
+            var familias = familiasBLL.ObtenerIdsFamiliasPorUsuario(usu.UsuarioId);
+
+            if (checkeadafam)
             {
-                if (chkLstFamilia.GetItemCheckState(chkLstPatentes.SelectedIndex) == CheckState.Checked)
+                foreach (string descripcion in chkLstFamilia.SelectedItems)
                 {
                     var ids = new List<int>();
                     ids.Add(familiasBLL.ObtenerIdFamiliaPorDescripcion(descripcion));
-                    familiasBLL.GuardarFamiliasUsuario(ids, usu.UsuarioId);
-                }
-                else
-                {
-                    var ids = new List<int>();
-                    ids.Add(familiasBLL.ObtenerIdFamiliaPorDescripcion(descripcion));
-                    familiasBLL.BorrarFamiliasUsuario(ids, usu.UsuarioId);
+
+                    var asignada = familias.Any(idFam => ids.Any(id => id == idFam));
+
+                    if (!asignada)
+                    {
+                        familiasBLL.GuardarFamiliasUsuario(ids, usu.UsuarioId);
+                    }
+                    else
+                    {
+                        familiasBLL.BorrarFamiliasUsuario(ids, usu.UsuarioId);
+                    }
                 }
             }
 
-            foreach (string descripcion in chkLstPatentes.SelectedItems)
+            if (checkeadapat)
             {
-                if (chkLstPatentes.GetItemCheckState(chkLstPatentes.SelectedIndex) == CheckState.Checked)
+                foreach (string descripcion in chkLstPatentes.SelectedItems)
                 {
                     var ids = new List<int>();
                     ids.Add(patenteBLL.ObtenerIdPatentePorDescripcion(descripcion));
-                    patenteBLL.GuardarPatentesUsuario(ids, usu.UsuarioId);
+                    var asignada = patentes.Any(idPat => ids.Any(id => id == idPat.IdPatente));
 
-                }
-                else
-                {
-                    var ids = new List<int>();
-                    ids.Add(patenteBLL.ObtenerIdPatentePorDescripcion(descripcion));
-                    patenteBLL.BorrarPatentesUsuario(ids, usu.UsuarioId);
+                    if (!asignada)
+                    {
+                        patenteBLL.GuardarPatentesUsuario(ids, usu.UsuarioId);
+                    }
+                    else
+                    {
+                        patenteBLL.BorrarPatentesUsuario(ids, usu.UsuarioId);
+                    }
                 }
             }
         }
@@ -311,6 +333,9 @@ namespace UI
 
             BorrarChecks();
             SetearChecks(patentes, familias);
+
+            checkeadafam = false;
+            checkeadapat = false;
         }
 
         private void BorrarChecks()
@@ -333,6 +358,16 @@ namespace UI
             {
                 chkLstPatentes.SetItemChecked(pat.IdPatente - 1, true);
             }
+        }
+
+        private void chkLstPatentes_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            checkeadapat = true;
+        }
+
+        private void chkLstFamilia_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            checkeadafam = true;
         }
     }
 }
