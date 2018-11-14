@@ -76,12 +76,24 @@
         public bool Actualizar(Usuario objUpd)
         {
             var usu = ObtenerUsuarioConEmail(objUpd.Email);
+            var digitoVH = digitoVerificador.CalcularDVHorizontal(new List<string> { objUpd.Nombre, objUpd.Email }, new List<int> { objUpd.UsuarioId });
 
-            var queryString = $"UPDATE Usuario SET Nombre = @nombre, Apellido = @apellido, Email = @email, Telefono = @telefono, Domicilio = @domicilio WHERE UsuarioId = @usuarioId";
+            var queryString = $"UPDATE Usuario SET Nombre = @nombre, Apellido = @apellido, Email = @email, Telefono = @telefono, Domicilio = @domicilio, DVH = @dvh WHERE UsuarioId = @usuarioId";
 
             return CatchException(() =>
             {
-                return Exec(queryString, new { @usuarioId = usu.UsuarioId, @nombre = objUpd.Nombre, @apellido = objUpd.Apellido, @email = objUpd.Email, @telefono = objUpd.Telefono, @domicilio = objUpd.Domicilio });
+                return Exec(
+                    queryString,
+                    new
+                    {
+                        @usuarioId = usu.UsuarioId,
+                        @nombre = objUpd.Nombre,
+                        @apellido = objUpd.Apellido,
+                        @email = objUpd.Email,
+                        @telefono = objUpd.Telefono,
+                        @domicilio = objUpd.Domicilio,
+                        @dvh = digitoVH
+                    });
             });
         }
 

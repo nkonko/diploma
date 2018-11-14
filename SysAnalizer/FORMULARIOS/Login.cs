@@ -37,6 +37,8 @@ namespace UI
             Traduccir();
         }
 
+
+
         private void Traduccir()
         {
             formControl.Traducciones.Clear();
@@ -100,7 +102,10 @@ namespace UI
 
         private void btn_salir_Click(object sender, EventArgs e)
         {
-            this.Close();
+            if (Alert.ConfirmationMessage("MSJ001", "Salir del sistema", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                this.Close();
+            }
         }
 
         public void AplicarTraduccion()

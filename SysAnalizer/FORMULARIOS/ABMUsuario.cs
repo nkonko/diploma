@@ -19,6 +19,7 @@ namespace UI
         private readonly IBitacoraBLL bitacoraBLL;
         private readonly IFormControl formControl;
         private const int formId = 1;
+        private const string entidad = "Usuario";
         private bool habilitada = false;
         private bool negada = false;
         private bool checkeadafam = false;
@@ -98,6 +99,15 @@ namespace UI
                 {
                     GuardarPatentesFamilias(usu);
 
+                    if (digitoVerificador.ComprobarPrimerDigito(digitoVerificador.Entidades.Find(x => x == entidad)))
+                    {
+                        digitoVerificador.InsertarDVVertical(digitoVerificador.Entidades.Find(x => x == entidad));
+                    }
+                    else
+                    {
+                        digitoVerificador.ActualizarDVVertical(digitoVerificador.Entidades.Find(x => x == entidad));
+                    }
+
                     log.Info("Se ha creado un nuevo usuario");
                     bitacoraBLL.RegistrarEnBitacora(usu);
                     MessageBox.Show("Registro exitoso");
@@ -122,6 +132,15 @@ namespace UI
             {
                 GuardarPatentesFamilias(usu);
 
+                if (digitoVerificador.ComprobarPrimerDigito(digitoVerificador.Entidades.Find(x => x == entidad)))
+                {
+                    digitoVerificador.InsertarDVVertical(digitoVerificador.Entidades.Find(x => x == entidad));
+                }
+                else
+                {
+                    digitoVerificador.ActualizarDVVertical(digitoVerificador.Entidades.Find(x => x == entidad));
+                }
+
                 log.Info("Se ha creado un nuevo usuario");
                 bitacoraBLL.RegistrarEnBitacora(usuActivo);
                 MessageBox.Show("Modificacion exitosa");
@@ -137,15 +156,26 @@ namespace UI
 
         private void btnBorrar_Click(object sender, EventArgs e)
         {
+            var usuActivo = formControl.ObtenerInfoUsuario();
             var usuario = (Usuario)dgusuario.CurrentRow.DataBoundItem;
             var sinPatentes = patenteBLL.ComprobarPatentesUsuario(usuario.UsuarioId);
+
             if (sinPatentes)
             {
                 var borrado = usuarioBLL.Borrar(usuario);
-                var usuActivo = formControl.ObtenerInfoUsuario();
 
                 if (borrado)
                 {
+
+                    if (digitoVerificador.ComprobarPrimerDigito(digitoVerificador.Entidades.Find(x => x == entidad)))
+                    {
+                        digitoVerificador.InsertarDVVertical(digitoVerificador.Entidades.Find(x => x == entidad));
+                    }
+                    else
+                    {
+                        digitoVerificador.ActualizarDVVertical(digitoVerificador.Entidades.Find(x => x == entidad));
+                    }
+
                     log.Info("Se ha creado un nuevo usuario");
                     bitacoraBLL.RegistrarEnBitacora(usuActivo);
                     MessageBox.Show("Borrado exitoso");
@@ -158,6 +188,13 @@ namespace UI
                     MessageBox.Show("El borrado de usuario ha fallado");
                 }
             }
+            else
+            {
+                log.Info("Debe quitar las patentes");
+                bitacoraBLL.RegistrarEnBitacora(usuActivo);
+                MessageBox.Show("El usuario posee patentes activas");
+            }
+
         }
 
         private void btnVolver_Click(object sender, EventArgs e)

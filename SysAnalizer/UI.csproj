@@ -133,6 +133,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FormControl.cs" />
+    <Compile Include="FORMULARIOS\Alert.cs" />
     <Compile Include="FORMULARIOS\DatosUsuario.cs">
       <SubType>Form</SubType>
     </Compile>

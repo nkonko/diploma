@@ -28,11 +28,11 @@
 
         public int CalcularDVVertical(string entidad)
         {
-            var queryString = "SELECT SUM(DVH) FROM @entidad";
+            var queryString = string.Format("SELECT SUM(DVH) FROM {0}",entidad);
 
             return CatchException(() =>
             {
-                return Exec<int>(queryString, new { @entidad = entidad })[0];
+                return Exec<int>(queryString)[0];
             });
         }
 
@@ -52,7 +52,7 @@
         {
             var digito = CalcularDVVertical(entidad);
 
-            var queryString = "UPDATE DigitoVerificadorVertical SET ValorDigitoVerificador = @digito WHERE @entidad = entidad";
+            var queryString = "UPDATE DigitoVerificadorVertical SET ValorDigitoVerificador = @digito WHERE Entidad = @entidad";
 
             CatchException(() =>
             {
@@ -60,11 +60,23 @@
             });
         }
 
+        public bool ComprobarPrimerDigito(string entidad)
+        {
+            var queryString = "SELECT ValorDigitoVerificador FROM DigitoVerificadorVertical WHERE Entidad = @entidad";
+            var digito = new List<int>();
+            CatchException(() =>
+            {
+                digito = Exec<int>(queryString, new { @entidad = entidad });
+            });
 
-
-
-
-
-
+            if (digito.Count > 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 }

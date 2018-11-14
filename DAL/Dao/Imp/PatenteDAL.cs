@@ -97,7 +97,6 @@
             var query = string.Format("SELECT UsuarioId FROM UsuarioPatente WHERE UsuarioId = '{0}'", usuarioId);
             var ids = new List<int>();
 
-
             CatchException(() =>
             {
                 ids = Exec<int>(query);
