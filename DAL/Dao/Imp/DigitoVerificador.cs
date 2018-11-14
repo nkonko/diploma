@@ -28,7 +28,7 @@
 
         public int CalcularDVVertical(string entidad)
         {
-            var queryString = string.Format("SELECT SUM(DVH) FROM {0}",entidad);
+            var queryString = string.Format("SELECT SUM(DVH) FROM {0}", entidad);
 
             return CatchException(() =>
             {

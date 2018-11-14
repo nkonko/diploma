@@ -99,5 +99,11 @@ namespace UI
         {
 
         }
+
+        private void RestoreUI_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            Hide();
+        }
     }
 }

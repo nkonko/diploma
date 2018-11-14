@@ -3,7 +3,7 @@
     using System;
     using System.Data;
 
-    public class ModeloBitacora : IModeloBitacora
+    public class ModeloBitacora 
     {
         public string Usuario { get; set; }
 
@@ -15,11 +15,6 @@
 
         public string Descripcion { get; set; }
 
-        public DataSet ListadoBitacora { get; set; } = new DataSet();
-    }
-
-    public interface IModeloBitacora
-    {
-        DataSet ListadoBitacora { get; set; }
+        public static DataSet ListadoBitacora = new DataSet();
     }
 }

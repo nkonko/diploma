@@ -139,5 +139,10 @@ namespace UI
             restoreUI.MdiParent = this;
             restoreUI.Show();
         }
+
+        private void cerrarSesionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

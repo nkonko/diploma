@@ -11,7 +11,7 @@
 
     public class IdiomaBLL : IIdiomaBLL
     {
-        private static readonly string ResourcesFilePath = new FileInfo("Español.resx").FullName;
+        private static readonly string ResourcesFilePath = "C:\\Users\\Nicolas Azzara\\Desktop\\diploma\\diploma\\SysAnalizer\\Recursos\\Español.resx";
 
         private readonly IIdiomaDAL idiomaDAL;
 
@@ -46,11 +46,14 @@
 
         public void LeerRecursos(Control.ControlCollection controls)
         {
-            using (ResXResourceSet resxSet = new ResXResourceSet(ResourcesFilePath))
+            using (ResXResourceSet resxSet = new ResXResourceSet("C:\\Users\\Nicolas Azzara\\Desktop\\diploma\\diploma\\SysAnalizer\\Recursos\\Español.resx"))
             {
                 foreach (DictionaryEntry item in resxSet)
                 {
-                    controls[item.Key.ToString()].Text = item.Value.ToString();
+                    if (controls.ContainsKey(item.Key.ToString()))
+                    {
+                        controls[item.Key.ToString()].Text = item.Value.ToString();
+                    }
                 }
             }
         }

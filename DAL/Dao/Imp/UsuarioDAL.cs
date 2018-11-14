@@ -100,6 +100,7 @@
         public bool LogIn(string email, string contraseña)
         {
             var usu = ObtenerUsuarioConEmail(email);
+
             if (!usu.PrimerLogin)
             {
                 var cingresoInc = usu.CIngresos;

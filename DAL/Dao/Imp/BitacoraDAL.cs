@@ -86,6 +86,7 @@
                 queryImpl += string.Format("UsuarioId IN ({0}) AND  ", idsUsuParameters);
             }
 
+            coma = string.Empty;
             if (criticidades.Count != 0)
             {
                 for (int i = 0; i < criticidades.Count; i++)

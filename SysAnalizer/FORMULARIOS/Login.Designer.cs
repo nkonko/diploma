@@ -111,9 +111,6 @@ namespace UI
             // cbo_idioma
             // 
             this.cbo_idioma.FormattingEnabled = true;
-            this.cbo_idioma.Items.AddRange(new object[] {
-            "Español",
-            "English"});
             this.cbo_idioma.Location = new System.Drawing.Point(175, 179);
             this.cbo_idioma.Margin = new System.Windows.Forms.Padding(2);
             this.cbo_idioma.Name = "cbo_idioma";

@@ -87,5 +87,11 @@ namespace UI
         {
 
         }
+
+        private void VtaProd_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Hide();
+            e.Cancel = true;
+        }
     }
 }

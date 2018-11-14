@@ -4,12 +4,14 @@
     {
         public int IdTraduccion { get; set; }
 
-        public string Traduccion { get; set; }
+        public int IdIdioma { get; set; }
 
-        public Idioma Idioma { get; set; }
+        public int IdFormulario { get; set; }
 
         public string ControlName { get; set; }
 
         public string MensajeCodigo { get; set; }
+
+        public string Traduccion { get; set; }
     }
 }

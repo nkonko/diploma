@@ -406,5 +406,11 @@ namespace UI
         {
             checkeadafam = true;
         }
+
+        private void ABMusuario_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Hide();
+            e.Cancel = true;
+        }
     }
 }

@@ -51,7 +51,7 @@ namespace UI
             // 
             // btn_filtrar
             // 
-            this.btn_filtrar.Location = new System.Drawing.Point(148, 340);
+            this.btn_filtrar.Location = new System.Drawing.Point(148, 345);
             this.btn_filtrar.Name = "btn_filtrar";
             this.btn_filtrar.Size = new System.Drawing.Size(100, 23);
             this.btn_filtrar.TabIndex = 69;
@@ -101,7 +101,7 @@ namespace UI
             // 
             // dateTimePicker2
             // 
-            this.dateTimePicker2.Location = new System.Drawing.Point(611, 57);
+            this.dateTimePicker2.Location = new System.Drawing.Point(687, 53);
             this.dateTimePicker2.Name = "dateTimePicker2";
             this.dateTimePicker2.Size = new System.Drawing.Size(200, 20);
             this.dateTimePicker2.TabIndex = 64;
@@ -109,7 +109,7 @@ namespace UI
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(558, 61);
+            this.label2.Location = new System.Drawing.Point(634, 57);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(46, 13);
             this.label2.TabIndex = 63;
@@ -144,25 +144,25 @@ namespace UI
             // 
             // rpv1
             // 
-            reportDataSource1.Name = "DataSet1";
+            reportDataSource1.Name = "DS_Bitacora";
             reportDataSource1.Value = this.ModeloBitacoraBindingSource;
             this.rpv1.LocalReport.DataSources.Add(reportDataSource1);
             this.rpv1.LocalReport.ReportEmbeddedResource = "UI.Reporte.Bitacora.rdlc";
             this.rpv1.Location = new System.Drawing.Point(277, 94);
             this.rpv1.Name = "rpv1";
             this.rpv1.ServerReport.BearerToken = null;
-            this.rpv1.Size = new System.Drawing.Size(531, 246);
+            this.rpv1.Size = new System.Drawing.Size(612, 234);
             this.rpv1.TabIndex = 71;
             // 
             // ModeloBitacoraBindingSource
             // 
             this.ModeloBitacoraBindingSource.DataSource = typeof(UI.Modelo.ModeloBitacora);
             // 
-            // Bitacora
+            // BitacoraUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(820, 373);
+            this.ClientSize = new System.Drawing.Size(925, 402);
             this.Controls.Add(this.rpv1);
             this.Controls.Add(this.btn_volver);
             this.Controls.Add(this.btn_filtrar);
@@ -173,8 +173,9 @@ namespace UI
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.label1);
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.Name = "Bitacora";
+            this.Name = "BitacoraUI";
             this.Text = "Bitacora";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BitacoraUI_FormClosing);
             this.Load += new System.EventHandler(this.Bitacora_Load);
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);

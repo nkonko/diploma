@@ -127,5 +127,11 @@ namespace UI
             CargarFamilias();
             chklstFamilias.Refresh();
         }
+
+        private void Familias_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Hide();
+            e.Cancel = true;
+        }
     }
 }

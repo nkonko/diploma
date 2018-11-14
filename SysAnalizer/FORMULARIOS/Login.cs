@@ -27,6 +27,7 @@ namespace UI
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            LimpiarRecursos();
             this.AcceptButton = btn_ingresar;
             log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
             PrincipalForm = IoCContainer.Resolve<IPrincipal>();
@@ -60,7 +61,7 @@ namespace UI
             cbo_idioma.DataSource = idioma;
             cbo_idioma.ValueMember = "IdIdioma";
             cbo_idioma.DisplayMember = "Descripcion";
-            cbo_idioma.SelectedIndex = 1;
+            cbo_idioma.SelectedIndex = 0;
         }
 
         private void btn_ingresar_Click(object sender, EventArgs e)
@@ -112,6 +113,14 @@ namespace UI
         {
             var provIdioma = FormExtensions.AplicarTraducciones();
             provIdioma.LeerRecursos(this.Controls);
+        }
+
+        private void LimpiarRecursos()
+        {
+            using (ResXResourceWriter resxWriter = new ResXResourceWriter("C:\\Users\\Nicolas Azzara\\Desktop\\diploma\\diploma\\SysAnalizer\\Recursos\\Español.resx"))
+            {
+                resxWriter.Dispose();
+            }
         }
     }
 }

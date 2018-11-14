@@ -101,6 +101,7 @@ namespace UI
             this.Controls.Add(this.btnVolver);
             this.Name = "Familias";
             this.Text = "Familias";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Familias_FormClosing);
             this.Load += new System.EventHandler(this.Familias_Load);
             this.ResumeLayout(false);
 

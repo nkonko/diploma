@@ -18,7 +18,7 @@
               <Width>1in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1in</Width>
+              <Width>2.5in</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -353,9 +353,9 @@
             </TablixMember>
           </TablixMembers>
         </TablixRowHierarchy>
-        <DataSetName>DataSet1</DataSetName>
+        <DataSetName>DS_Bitacora</DataSetName>
         <Height>0.5in</Height>
-        <Width>5in</Width>
+        <Width>6.5in</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -385,7 +385,7 @@
     </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="DataSet1">
+    <DataSet Name="DS_Bitacora">
       <Query>
         <DataSourceName>UIModelo</DataSourceName>
         <CommandText>/* Local Query */</CommandText>

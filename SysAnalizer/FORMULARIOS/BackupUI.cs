@@ -103,5 +103,11 @@ namespace UI
                 cboCantidad.Enabled = false;
             }
         }
+
+        private void BackupUI_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            Hide();
+        }
     }
 }

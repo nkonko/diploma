@@ -101,5 +101,11 @@ namespace UI
                 DialogResult = DialogResult.OK;
             }
         }
+
+        private void AdminPatFamilia_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Hide();
+            e.Cancel = true;
+        }
     }
 }

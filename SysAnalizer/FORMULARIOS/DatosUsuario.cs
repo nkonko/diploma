@@ -27,5 +27,11 @@ namespace UI
         private void btnActualizar_Click(object sender, System.EventArgs e)
         {
         }
+
+        private void DatosUsuario_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Hide();
+            e.Cancel = true;
+        }
     }
 }

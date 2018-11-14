@@ -68,5 +68,11 @@ namespace UI
         {
             return productoSeleccionado;
         }
+
+        private void Productos_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Hide();
+            e.Cancel = true;
+        }
     }
 }

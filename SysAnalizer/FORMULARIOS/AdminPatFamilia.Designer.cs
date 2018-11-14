@@ -38,10 +38,9 @@ namespace UI
             // 
             // btnVolver
             // 
-            this.btnVolver.Location = new System.Drawing.Point(16, 15);
-            this.btnVolver.Margin = new System.Windows.Forms.Padding(4);
+            this.btnVolver.Location = new System.Drawing.Point(12, 12);
             this.btnVolver.Name = "btnVolver";
-            this.btnVolver.Size = new System.Drawing.Size(92, 28);
+            this.btnVolver.Size = new System.Drawing.Size(69, 23);
             this.btnVolver.TabIndex = 58;
             this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = true;
@@ -50,21 +49,18 @@ namespace UI
             // lblFamilia
             // 
             this.lblFamilia.AutoSize = true;
-            this.lblFamilia.Location = new System.Drawing.Point(116, 21);
-            this.lblFamilia.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblFamilia.Location = new System.Drawing.Point(87, 17);
             this.lblFamilia.Name = "lblFamilia";
-            this.lblFamilia.Size = new System.Drawing.Size(56, 17);
+            this.lblFamilia.Size = new System.Drawing.Size(42, 13);
             this.lblFamilia.TabIndex = 56;
             this.lblFamilia.Text = "Familia:";
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.lstPatentes);
-            this.groupBox1.Location = new System.Drawing.Point(16, 76);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox1.Location = new System.Drawing.Point(12, 62);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(243, 208);
+            this.groupBox1.Size = new System.Drawing.Size(182, 169);
             this.groupBox1.TabIndex = 55;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "PATENTES";
@@ -72,25 +68,24 @@ namespace UI
             // lstPatentes
             // 
             this.lstPatentes.FormattingEnabled = true;
-            this.lstPatentes.Location = new System.Drawing.Point(20, 23);
-            this.lstPatentes.Margin = new System.Windows.Forms.Padding(4);
+            this.lstPatentes.Location = new System.Drawing.Point(15, 19);
             this.lstPatentes.Name = "lstPatentes";
-            this.lstPatentes.Size = new System.Drawing.Size(201, 157);
+            this.lstPatentes.Size = new System.Drawing.Size(152, 124);
             this.lstPatentes.TabIndex = 55;
             this.lstPatentes.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.lstPatentes_ItemCheck);
             this.lstPatentes.SelectedIndexChanged += new System.EventHandler(this.lstPatentes_SelectedIndexChanged);
             // 
             // AdminPatFamilia
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(295, 313);
+            this.ClientSize = new System.Drawing.Size(221, 254);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.lblFamilia);
             this.Controls.Add(this.groupBox1);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "AdminPatFamilia";
             this.Text = "AdminPatFamilia";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AdminPatFamilia_FormClosing);
             this.Load += new System.EventHandler(this.AdminPatFamilia_Load);
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);

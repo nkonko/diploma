@@ -15,15 +15,13 @@ namespace UI
     {
         private readonly IUsuarioBLL usuarionBll;
         private readonly IBitacoraBLL bitacoraBLL;
-        private readonly IModeloBitacora modeloBitacora;
 
         private IList<Usuario> usuarios { get; set; }
 
-        public BitacoraUI(IModeloBitacora modeloBitacora, IBitacoraBLL bitacoraBLL)
+        public BitacoraUI(IBitacoraBLL bitacoraBLL)
         {
             InitializeComponent();
             usuarionBll = IoCContainer.Resolve<IUsuarioBLL>();
-            this.modeloBitacora = modeloBitacora;
             this.bitacoraBLL = bitacoraBLL;
         }
 
@@ -70,13 +68,14 @@ namespace UI
             var idUsuarios = usuariosSeleccionados.Select(u => u.UsuarioId).ToList();
 
             var listaBitacora = ListarBitacora(idUsuarios, criticidadesSeleccionadas, fechaDesde, fechaHasta);
-
-            if (listaBitacora.Any())
+            
+            if (listaBitacora != null)
             {
-                modeloBitacora.ListadoBitacora = CrearDataTable(listaBitacora);
+                
+                ModeloBitacora.ListadoBitacora = CrearDataTable(listaBitacora);
                 //Cargamos info en el reporte
                 rpv1.LocalReport.DataSources.Clear();
-                rpv1.LocalReport.DataSources.Add(new ReportDataSource("DS_Bitacora", modeloBitacora.ListadoBitacora.Tables[0]));
+                rpv1.LocalReport.DataSources.Add(new ReportDataSource("DS_Bitacora", ModeloBitacora.ListadoBitacora.Tables[0]));
                 rpv1.LocalReport.Refresh();
                 rpv1.RefreshReport();
             }
@@ -84,9 +83,9 @@ namespace UI
             {
                 //VER PORQUE NO LO LIMPIA CUANDO NO HAY DATOS
                 //lo de abajo es temporal hasta encontrar una mejor solucion
-                modeloBitacora.ListadoBitacora.Clear();
+                ModeloBitacora.ListadoBitacora.Clear();
                 rpv1.LocalReport.DataSources.Clear();
-                rpv1.LocalReport.DataSources.Add(new ReportDataSource("Dataset1", modeloBitacora.ListadoBitacora.Tables[0]));
+                rpv1.LocalReport.DataSources.Add(new ReportDataSource("DS_Bitacora", ModeloBitacora.ListadoBitacora.Tables[0]));
                 rpv1.LocalReport.Refresh();
                 rpv1.RefreshReport();
                 //Alert.ShowAlterWithButtonAndIcon("MSJ004", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -103,7 +102,7 @@ namespace UI
             table.Columns.Add("Descripcion");
             table.Columns.Add("Criticidad");
 
-            if (listaBitacora.Any())
+            if (listaBitacora != null)
             {
                 foreach (var item in listaBitacora)
                 {
@@ -127,6 +126,12 @@ namespace UI
             var listaBitacora = bitacoraBLL.LeerBitacoraPorUsuarioCriticidadYFecha(idUsuarios, prueba, fechaDesde, fechaHasta);
 
             return listaBitacora;
+        }
+
+        private void BitacoraUI_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            Hide();
         }
     }
 }

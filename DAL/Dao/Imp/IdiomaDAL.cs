@@ -18,15 +18,18 @@
 
         public List<TraduccionFormulario> ObtenerTraduccionesFormulario(int idiomaId, string nombreForm)
         {
-            var query = "SELECT Traduccion FROM Traduccion " +
-                        "INNER JOIN Formularios ON Formularios.IdFormulario = Traduccion.IdFormulario " +
-                        "INNER JOIN Idioma ON Idioma.IdIdioma = Traduccion.IdIdioma " +
-                        "WHERE Idioma.IdIdioma = @idiomaId AND Formularios.NombreFormulario = '@nombreForm'";
+            var query = string.Format(
+                "SELECT trad.* FROM Traduccion trad " +
+                 "INNER JOIN Formularios ON Formularios.IdFormulario = trad.IdFormulario " +
+                 "INNER JOIN Idioma ON Idioma.IdIdioma = trad.IdIdioma " +
+                 "WHERE Idioma.IdIdioma = {0} AND Formularios.NombreFormulario = '{1}'",
+                idiomaId,
+                nombreForm);
 
             return CatchException(() =>
-            {
-                return Exec<TraduccionFormulario>(query, new { @idiomaId = idiomaId, @nombreForm = nombreForm });
-            });
+           {
+               return Exec<TraduccionFormulario>(query);
+           });
         }
     }
 }

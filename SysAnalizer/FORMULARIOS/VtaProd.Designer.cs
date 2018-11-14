@@ -240,6 +240,7 @@ namespace UI
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "VtaProd";
             this.Text = "Venta_de_productos";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.VtaProd_FormClosing);
             this.Load += new System.EventHandler(this.VtaProd_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgVenta)).EndInit();
             this.ResumeLayout(false);

@@ -44,56 +44,51 @@ namespace UI
             // lblStatus
             // 
             this.lblStatus.AutoSize = true;
-            this.lblStatus.Location = new System.Drawing.Point(10, 265);
-            this.lblStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblStatus.Location = new System.Drawing.Point(8, 215);
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(52, 17);
+            this.lblStatus.Size = new System.Drawing.Size(40, 13);
             this.lblStatus.TabIndex = 57;
             this.lblStatus.Text = "Status:";
             // 
             // lblProgreso
             // 
             this.lblProgreso.AutoSize = true;
-            this.lblProgreso.Location = new System.Drawing.Point(131, 337);
-            this.lblProgreso.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblProgreso.Location = new System.Drawing.Point(98, 274);
             this.lblProgreso.Name = "lblProgreso";
-            this.lblProgreso.Size = new System.Drawing.Size(28, 17);
+            this.lblProgreso.Size = new System.Drawing.Size(21, 13);
             this.lblProgreso.TabIndex = 56;
             this.lblProgreso.Text = "0%";
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(12, 303);
-            this.progressBar1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.progressBar1.Location = new System.Drawing.Point(9, 246);
+            this.progressBar1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(287, 32);
+            this.progressBar1.Size = new System.Drawing.Size(215, 26);
             this.progressBar1.TabIndex = 55;
             // 
             // txtBackFiles
             // 
-            this.txtBackFiles.Location = new System.Drawing.Point(12, 87);
-            this.txtBackFiles.Margin = new System.Windows.Forms.Padding(4);
+            this.txtBackFiles.Location = new System.Drawing.Point(9, 71);
             this.txtBackFiles.Multiline = true;
             this.txtBackFiles.Name = "txtBackFiles";
-            this.txtBackFiles.Size = new System.Drawing.Size(287, 116);
+            this.txtBackFiles.Size = new System.Drawing.Size(216, 95);
             this.txtBackFiles.TabIndex = 54;
             // 
             // btnExaminar
             // 
-            this.btnExaminar.Location = new System.Drawing.Point(196, 211);
-            this.btnExaminar.Margin = new System.Windows.Forms.Padding(4);
+            this.btnExaminar.Location = new System.Drawing.Point(147, 171);
             this.btnExaminar.Name = "btnExaminar";
-            this.btnExaminar.Size = new System.Drawing.Size(103, 34);
+            this.btnExaminar.Size = new System.Drawing.Size(77, 28);
             this.btnExaminar.TabIndex = 53;
             this.btnExaminar.Text = "Examinar";
             this.btnExaminar.UseVisualStyleBackColor = true;
             // 
             // btnRestaurar
             // 
-            this.btnRestaurar.Location = new System.Drawing.Point(13, 375);
-            this.btnRestaurar.Margin = new System.Windows.Forms.Padding(4);
+            this.btnRestaurar.Location = new System.Drawing.Point(10, 305);
             this.btnRestaurar.Name = "btnRestaurar";
-            this.btnRestaurar.Size = new System.Drawing.Size(103, 32);
+            this.btnRestaurar.Size = new System.Drawing.Size(77, 26);
             this.btnRestaurar.TabIndex = 52;
             this.btnRestaurar.Text = "Restaurar";
             this.btnRestaurar.UseVisualStyleBackColor = true;
@@ -101,10 +96,9 @@ namespace UI
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(196, 375);
-            this.btnCancelar.Margin = new System.Windows.Forms.Padding(4);
+            this.btnCancelar.Location = new System.Drawing.Point(147, 305);
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(103, 34);
+            this.btnCancelar.Size = new System.Drawing.Size(77, 28);
             this.btnCancelar.TabIndex = 51;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
@@ -112,19 +106,17 @@ namespace UI
             // Label1
             // 
             this.Label1.AutoSize = true;
-            this.Label1.Location = new System.Drawing.Point(8, 55);
-            this.Label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Label1.Location = new System.Drawing.Point(6, 45);
             this.Label1.Name = "Label1";
-            this.Label1.Size = new System.Drawing.Size(202, 17);
+            this.Label1.Size = new System.Drawing.Size(153, 13);
             this.Label1.TabIndex = 50;
             this.Label1.Text = "Seleccione copia de seguridad";
             // 
             // btnVolver
             // 
-            this.btnVolver.Location = new System.Drawing.Point(11, 13);
-            this.btnVolver.Margin = new System.Windows.Forms.Padding(4);
+            this.btnVolver.Location = new System.Drawing.Point(8, 11);
             this.btnVolver.Name = "btnVolver";
-            this.btnVolver.Size = new System.Drawing.Size(103, 32);
+            this.btnVolver.Size = new System.Drawing.Size(77, 26);
             this.btnVolver.TabIndex = 58;
             this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = true;
@@ -135,9 +127,9 @@ namespace UI
             // 
             // RestoreUI
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(321, 434);
+            this.ClientSize = new System.Drawing.Size(241, 353);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.lblProgreso);
@@ -147,9 +139,9 @@ namespace UI
             this.Controls.Add(this.btnRestaurar);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.Label1);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "RestoreUI";
             this.Text = "Restore";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.RestoreUI_FormClosing);
             this.Load += new System.EventHandler(this.RestoreUI_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -6,6 +6,7 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Windows.Forms;
 
     public class FormControl : BaseDao, IFormControl
     {
@@ -21,14 +22,16 @@
             set { traducciones = value; }
         }
 
-        public FormControl(IUsuarioBLL usuarioBLL, IFamiliaBLL familiaBLL, IFormControlBLL formControlBLL)
+        public FormControl(IUsuarioBLL usuarioBLL, IFamiliaBLL familiaBLL, IFormControlBLL formControlBLL, IIdiomaBLL idiomaBLL)
         {
             this.usuarioBLL = usuarioBLL;
             this.familiaBLL = familiaBLL;
             this.formControlBLL = formControlBLL;
+            this.idiomaBLL = idiomaBLL;
         }
 
         private Idioma lenguajeSel;
+        private readonly IIdiomaBLL idiomaBLL;
         private readonly IUsuarioBLL usuarioBLL;
         private readonly IFamiliaBLL familiaBLL;
         private readonly IFormControlBLL formControlBLL;
@@ -37,7 +40,7 @@
 
         private IDictionary<string, string> traducciones = new Dictionary<string, string>();
 
-        private readonly string directorioRecursos = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "///Recursos///Español.resx";
+        private readonly string directorioRecursos = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\Recursos\\Español.resx";
 
         public List<Patente> ObtenerPermisosFormularios()
         {
@@ -90,6 +93,7 @@
 
         public IDictionary<string, string> ObtenerTraducciones()
         {
+            Traducciones = idiomaBLL.ObtenerTraduccionesFormulario(LenguajeSeleccionado.IdIdioma, Application.OpenForms[0].Name).ToDictionary(k => k.ControlName ?? k.MensajeCodigo, v => v.Traduccion);
             return Traducciones;
         }
 

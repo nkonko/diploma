@@ -59,7 +59,7 @@
 
             try
             {
-                using (ResXResourceSet resxSet = new ResXResourceSet(formControl.ObtenerDirectorio()))
+                using (ResXResourceSet resxSet = new ResXResourceSet("C:\\Users\\Nicolas Azzara\\Desktop\\diploma\\diploma\\SysAnalizer\\Recursos\\Español.resx"))
                 {
                     foreach (DictionaryEntry item in resxSet)
                     {
