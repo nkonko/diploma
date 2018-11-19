@@ -1,10 +1,9 @@
 ﻿namespace BLL.Imp
 {
     using BE.Entidades;
-    using DAL.Dao.Imp;
+    using DAL.Dao;
     using System.Collections;
     using System.Collections.Generic;
-    using System.IO;
     using System.Linq;
     using System.Resources;
     using System.Windows.Forms;

@@ -13,5 +13,7 @@
         void ActualizarDVVertical(string entidad);
 
         bool ComprobarPrimerDigito(string entidad);
+
+        bool ComprobarIntegridad();
     }
 }

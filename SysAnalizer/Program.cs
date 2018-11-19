@@ -2,6 +2,7 @@
 namespace UI
 {
     using BLL;
+    using DAL.Dao;
     using System;
     using System.Windows.Forms;
 
@@ -16,7 +17,7 @@ namespace UI
             log4net.Config.XmlConfigurator.Configure();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Login(IoCContainer.Resolve<IIdiomaBLL>()));
+            Application.Run(new Login(IoCContainer.Resolve<IIdiomaBLL>(), IoCContainer.Resolve<IDigitoVerificador>()));
         }
     }
 }

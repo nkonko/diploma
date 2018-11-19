@@ -1,4 +1,4 @@
-﻿namespace DAL.Dao.Imp
+﻿namespace DAL.Dao
 {
     using System.Collections.Generic;
     using BE.Entidades;

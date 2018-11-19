@@ -78,5 +78,37 @@
                 return true;
             }
         }
+
+        public Dictionary<string, int> ConsultarDVVertical(string entidades)
+        {
+            var entidadesdic = new Dictionary<string, int>();
+
+            //foreach (var entidad in entidades)
+            //{
+                var queryString = string.Format("SELECT ValorDigitoVerificador FROM DigitoVerificadorVertical WHERE Entidad = '{0}'", entidades);
+
+                CatchException(() =>
+                {
+                    entidadesdic.Add(entidades, Exec<int>(queryString)[0]);
+                });
+            //}
+            return entidadesdic;
+        }
+
+        public bool ComprobarIntegridad()
+        {
+            var returnValue = true;
+
+            var ResultadoUsuario = CalcularDVVertical(Entidades.Find(x => x == "Usuario"));
+
+            var dVVerticalUsuario = ConsultarDVVertical(Entidades.Find(x => x == "Usuario"));
+
+            if (ResultadoUsuario != dVVerticalUsuario["Usuario"])
+            {
+                returnValue = false;
+            }
+
+            return returnValue;
+        }
     }
 }

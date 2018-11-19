@@ -62,7 +62,7 @@ namespace UI
             // progressBar1
             // 
             this.progressBar1.Location = new System.Drawing.Point(9, 246);
-            this.progressBar1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.progressBar1.Margin = new System.Windows.Forms.Padding(2);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(215, 26);
             this.progressBar1.TabIndex = 55;
@@ -83,6 +83,7 @@ namespace UI
             this.btnExaminar.TabIndex = 53;
             this.btnExaminar.Text = "Examinar";
             this.btnExaminar.UseVisualStyleBackColor = true;
+            this.btnExaminar.Click += new System.EventHandler(this.btnExaminar_Click);
             // 
             // btnRestaurar
             // 

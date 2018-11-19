@@ -1,7 +1,7 @@
 ﻿namespace BLL.Imp
 {
     using BE.Entidades;
-    using DAL.Dao.Imp;
+    using DAL.Dao;
     using System.Collections.Generic;
 
     public class FormControlBLL : IFormControlBLL

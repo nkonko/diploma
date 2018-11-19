@@ -90,8 +90,8 @@
     <Compile Include="Dao\Imp\FormControlDAL.cs" />
     <Compile Include="Dao\Imp\IdiomaDAL.cs" />
     <Compile Include="Dao\IFamiliaDAL.cs" />
-    <Compile Include="Dao\Imp\IFormControlDAL.cs" />
-    <Compile Include="Dao\Imp\IIdiomaDAL.cs" />
+    <Compile Include="Dao\IFormControlDAL.cs" />
+    <Compile Include="Dao\IIdiomaDAL.cs" />
     <Compile Include="Dao\IVenta.cs" />
     <Compile Include="Dao\IProductoDAL.cs" />
     <Compile Include="Dao\IPatenteDAL.cs" />

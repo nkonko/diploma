@@ -18,12 +18,18 @@ namespace UI
         private readonly IPatenteBLL patenteBLL;
         private readonly IBitacoraBLL bitacoraBLL;
         private readonly IFormControl formControl;
-        private const int formId = 1;
+
+        private const int formId = 3;
         private const string entidad = "Usuario";
+
         private bool habilitada = false;
         private bool negada = false;
         private bool checkeadafam = false;
         private bool checkeadapat = false;
+
+        public Usuario UsuarioActivo { get; set; }
+
+        public List<Usuario> usuariosBD { get; set; } = new List<Usuario>() { new Usuario() };
 
         ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -50,6 +56,8 @@ namespace UI
             btnNegarPat.Enabled = false;
             ControlPatentes();
             usuarioBLL = IoCContainer.Resolve<IUsuarioBLL>();
+            usuariosBD = usuarioBLL.Cargar();
+            UsuarioActivo = formControl.ObtenerInfoUsuario();
             CargarRefrescarDatagrid();
             chkLstPatentes.DataSource = patenteBLL.Cargar().Select(pat => pat.Descripcion).ToList();
             chkLstFamilia.DataSource = familiasBLL.Cargar().Select(fam => fam.Descripcion).ToList();
@@ -77,25 +85,68 @@ namespace UI
 
         private void btn_nuevo_Click(object sender, EventArgs e)
         {
-            var crear = verificarDatos();
-            if (crear)
+            if (!usuariosBD.Exists(usu => usu.Email == txtEmail.Text))
             {
-                var creado = usuarioBLL.Crear(
-                    new Usuario()
-                    {
-                        Nombre = txtNombre.Text,
-                        Apellido = txtApellido.Text,
-                        Email = txtEmail.Text,
-                        Telefono = Int32.Parse(txtTel.Text),
-                        Domicilio = txtDomicilio.Text,
-                        PrimerLogin = true,
-                        CIngresos = 0,
-                        Activo = true
-                    });
+                var permitir = verificarDatos();
+                if (permitir)
+                {
+                    var creado = usuarioBLL.Crear(
+                        new Usuario()
+                        {
+                            Nombre = txtNombre.Text,
+                            Apellido = txtApellido.Text,
+                            Email = txtEmail.Text,
+                            Telefono = Int32.Parse(txtTel.Text),
+                            Domicilio = txtDomicilio.Text,
+                            PrimerLogin = true,
+                            CIngresos = 0,
+                            Activo = true
+                        });
 
+                    var usu = usuarioBLL.ObtenerUsuarioConEmail(txtEmail.Text);
+
+                    if (creado)
+                    {
+                        GuardarPatentesFamilias(usu);
+
+                        if (digitoVerificador.ComprobarPrimerDigito(digitoVerificador.Entidades.Find(x => x == entidad)))
+                        {
+                            digitoVerificador.InsertarDVVertical(digitoVerificador.Entidades.Find(x => x == entidad));
+                        }
+                        else
+                        {
+                            digitoVerificador.ActualizarDVVertical(digitoVerificador.Entidades.Find(x => x == entidad));
+                        }
+
+                        log.Info("Se ha creado un nuevo usuario");
+                        bitacoraBLL.RegistrarEnBitacora(usu);
+                        MessageBox.Show("Registro exitoso");
+                        CargarRefrescarDatagrid();
+                    }
+                    else
+                    {
+                        log.Info("El registro de nuevo usuario ha fallado");
+                        bitacoraBLL.RegistrarEnBitacora(usu);
+                        MessageBox.Show("El registro de nuevo usuario ha fallado");
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("No pueden haber 2 usuarios con el mismo email");
+                log.Info("Se intento guardar o modificar un usuario con el mismo email");
+            }
+        }
+
+        private void btn_modificar_Click(object sender, EventArgs e)
+        {
+            var permitir = verificarDatos();
+            if (permitir)
+            {
+                var modificado = usuarioBLL.Actualizar(new Usuario() { Nombre = txtNombre.Text, Apellido = txtApellido.Text, Email = txtEmail.Text, Telefono = Int32.Parse(txtTel.Text), Domicilio = txtDomicilio.Text, PrimerLogin = true, CIngresos = 0, Activo = true });
                 var usu = usuarioBLL.ObtenerUsuarioConEmail(txtEmail.Text);
 
-                if (creado)
+                if (modificado)
                 {
                     GuardarPatentesFamilias(usu);
 
@@ -109,92 +160,62 @@ namespace UI
                     }
 
                     log.Info("Se ha creado un nuevo usuario");
-                    bitacoraBLL.RegistrarEnBitacora(usu);
-                    MessageBox.Show("Registro exitoso");
+                    bitacoraBLL.RegistrarEnBitacora(UsuarioActivo);
+                    MessageBox.Show("Modificacion exitosa");
                     CargarRefrescarDatagrid();
                 }
                 else
                 {
-                    log.Info("El registro de nuevo usuario ha fallado");
-                    bitacoraBLL.RegistrarEnBitacora(usu);
-                    MessageBox.Show("El registro de nuevo usuario ha fallado");
+                    log.Info("La modificacion ha fallado");
+                    bitacoraBLL.RegistrarEnBitacora(UsuarioActivo);
+                    MessageBox.Show("La modificacion ha fallado");
                 }
-            }
-        }
-
-        private void btn_modificar_Click(object sender, EventArgs e)
-        {
-            var modificado = usuarioBLL.Actualizar(new Usuario() { Nombre = txtNombre.Text, Apellido = txtApellido.Text, Email = txtEmail.Text, Telefono = Int32.Parse(txtTel.Text), Domicilio = txtDomicilio.Text, PrimerLogin = true, CIngresos = 0, Activo = true });
-            var usuActivo = formControl.ObtenerInfoUsuario();
-            var usu = usuarioBLL.ObtenerUsuarioConEmail(txtEmail.Text);
-
-            if (modificado)
-            {
-                GuardarPatentesFamilias(usu);
-
-                if (digitoVerificador.ComprobarPrimerDigito(digitoVerificador.Entidades.Find(x => x == entidad)))
-                {
-                    digitoVerificador.InsertarDVVertical(digitoVerificador.Entidades.Find(x => x == entidad));
-                }
-                else
-                {
-                    digitoVerificador.ActualizarDVVertical(digitoVerificador.Entidades.Find(x => x == entidad));
-                }
-
-                log.Info("Se ha creado un nuevo usuario");
-                bitacoraBLL.RegistrarEnBitacora(usuActivo);
-                MessageBox.Show("Modificacion exitosa");
-                CargarRefrescarDatagrid();
-            }
-            else
-            {
-                log.Info("La modificacion ha fallado");
-                bitacoraBLL.RegistrarEnBitacora(usuActivo);
-                MessageBox.Show("La modificacion ha fallado");
             }
         }
 
         private void btnBorrar_Click(object sender, EventArgs e)
         {
-            var usuActivo = formControl.ObtenerInfoUsuario();
-            var usuario = (Usuario)dgusuario.CurrentRow.DataBoundItem;
-            var sinPatentes = patenteBLL.ComprobarPatentesUsuario(usuario.UsuarioId);
-
-            if (sinPatentes)
+            var permitir = verificarDatos();
+            if (permitir)
             {
-                var borrado = usuarioBLL.Borrar(usuario);
+                var usuario = (Usuario)dgusuario.CurrentRow.DataBoundItem;
+                var sinPatentes = patenteBLL.ComprobarPatentesUsuario(usuario.UsuarioId);
 
-                if (borrado)
+                if (sinPatentes)
                 {
+                    var borrado = usuarioBLL.Borrar(usuario);
 
-                    if (digitoVerificador.ComprobarPrimerDigito(digitoVerificador.Entidades.Find(x => x == entidad)))
+                    if (borrado)
                     {
-                        digitoVerificador.InsertarDVVertical(digitoVerificador.Entidades.Find(x => x == entidad));
+
+                        if (digitoVerificador.ComprobarPrimerDigito(digitoVerificador.Entidades.Find(x => x == entidad)))
+                        {
+                            digitoVerificador.InsertarDVVertical(digitoVerificador.Entidades.Find(x => x == entidad));
+                        }
+                        else
+                        {
+                            digitoVerificador.ActualizarDVVertical(digitoVerificador.Entidades.Find(x => x == entidad));
+                        }
+
+                        log.Info("Se ha creado un nuevo usuario");
+                        bitacoraBLL.RegistrarEnBitacora(UsuarioActivo);
+                        MessageBox.Show("Borrado exitoso");
+                        CargarRefrescarDatagrid();
                     }
                     else
                     {
-                        digitoVerificador.ActualizarDVVertical(digitoVerificador.Entidades.Find(x => x == entidad));
+                        log.Info("El borrado de usuario ha fallado");
+                        bitacoraBLL.RegistrarEnBitacora(UsuarioActivo);
+                        MessageBox.Show("El borrado de usuario ha fallado");
                     }
-
-                    log.Info("Se ha creado un nuevo usuario");
-                    bitacoraBLL.RegistrarEnBitacora(usuActivo);
-                    MessageBox.Show("Borrado exitoso");
-                    CargarRefrescarDatagrid();
                 }
                 else
                 {
-                    log.Info("El borrado de usuario ha fallado");
-                    bitacoraBLL.RegistrarEnBitacora(usuActivo);
-                    MessageBox.Show("El borrado de usuario ha fallado");
+                    log.Info("Debe quitar las patentes");
+                    bitacoraBLL.RegistrarEnBitacora(UsuarioActivo);
+                    MessageBox.Show("El usuario posee patentes activas");
                 }
             }
-            else
-            {
-                log.Info("Debe quitar las patentes");
-                bitacoraBLL.RegistrarEnBitacora(usuActivo);
-                MessageBox.Show("El usuario posee patentes activas");
-            }
-
         }
 
         private void btnVolver_Click(object sender, EventArgs e)
@@ -204,9 +225,8 @@ namespace UI
 
         private void CargarRefrescarDatagrid()
         {
-            var usuarios = usuarioBLL.Cargar();
-
-            dgusuario.DataSource = usuarios;
+            usuariosBD = usuarioBLL.Cargar();
+            dgusuario.DataSource = usuariosBD;
             Usuario obj = (Usuario)dgusuario.CurrentRow.DataBoundItem;
             dgusuario.Refresh();
         }
@@ -214,6 +234,13 @@ namespace UI
         private bool verificarDatos()
         {
             var returnValue = true;
+
+            if (txtEmail.Text == UsuarioActivo.Email)
+            {
+                MessageBox.Show("No puede realizar acciones sobre el usuario activo");
+                log.Info("Se intento eliminar o modificar al usuario activo");
+                returnValue = false;
+            }
 
             foreach (TextBox tb in Controls.OfType<TextBox>())
             {
@@ -336,7 +363,8 @@ namespace UI
 
             if (checkeadapat)
             {
-                foreach (string descripcion in chkLstPatentes.SelectedItems)
+                ////no manda los que no fueron checkeados cambiar, deberia actualizar por cada check
+                foreach (string descripcion in chkLstPatentes.CheckedItems)
                 {
                     var ids = new List<int>();
                     ids.Add(patenteBLL.ObtenerIdPatentePorDescripcion(descripcion));
@@ -346,7 +374,7 @@ namespace UI
                     {
                         patenteBLL.GuardarPatentesUsuario(ids, usu.UsuarioId);
                     }
-                    else
+                    else if(asignada && !chkLstPatentes.CheckedItems.Contains(descripcion))
                     {
                         patenteBLL.BorrarPatentesUsuario(ids, usu.UsuarioId);
                     }
@@ -388,12 +416,14 @@ namespace UI
         {
             foreach (var id in familias)
             {
-                chkLstFamilia.SetItemChecked(id - 1, true);
+                var descFamilia = familiasBLL.Cargar().Where(x => x.FamiliaId == id).Select(x => x.Descripcion).ToList()[0];
+                chkLstFamilia.SetItemChecked(chkLstFamilia.FindString(descFamilia), true);
             }
 
             foreach (var pat in patentes)
             {
-                chkLstPatentes.SetItemChecked(pat.IdPatente - 1, true);
+                var descPatente = patenteBLL.Cargar().Where(x => x.IdPatente == pat.IdPatente).Select(x => x.Descripcion).ToList()[0];
+                chkLstPatentes.SetItemChecked(chkLstPatentes.FindString(descPatente), true);
             }
         }
 

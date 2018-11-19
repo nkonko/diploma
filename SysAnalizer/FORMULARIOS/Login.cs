@@ -3,6 +3,7 @@ namespace UI
 {
     using BE.Entidades;
     using BLL;
+    using DAL.Dao;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -17,9 +18,11 @@ namespace UI
         private IUsuarioBLL usuarioBLL;
         private IFormControl formControl;
         private readonly IIdiomaBLL idiomaBLL;
+        private readonly IDigitoVerificador digitoVerificador;
 
-        public Login(IIdiomaBLL idiomaBLL)
+        public Login(IIdiomaBLL idiomaBLL, IDigitoVerificador digitoVerificador)
         {
+            this.digitoVerificador = digitoVerificador;
             this.idiomaBLL = idiomaBLL;
             InitializeComponent();
         }
@@ -36,9 +39,20 @@ namespace UI
             CargarCombo();
             formControl.LenguajeSeleccionado = (Idioma)cbo_idioma.SelectedItem;
             Traduccir();
+            ////ComprobarBaseDeDatos();
         }
 
+        private void ComprobarBaseDeDatos()
+        {
+            if (!digitoVerificador.ComprobarIntegridad())
+            {
+                ////traducir
+                Alert.ShowSimpleAlert("Problema integridad base de datos, contacte al administrador", "MSJ000");
 
+                this.Close();
+
+            }
+        }
 
         private void Traduccir()
         {
