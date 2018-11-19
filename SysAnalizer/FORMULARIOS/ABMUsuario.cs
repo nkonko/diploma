@@ -53,12 +53,18 @@ namespace UI
 
         private void usuarios_Load(object sender, EventArgs e)
         {
+            chkLstPatentes.Enabled = false;
+            chkLstFamilia.Enabled = false;
             btnNegarPat.Enabled = false;
+
             ControlPatentes();
+
             usuarioBLL = IoCContainer.Resolve<IUsuarioBLL>();
             usuariosBD = usuarioBLL.Cargar();
             UsuarioActivo = formControl.ObtenerInfoUsuario();
+
             CargarRefrescarDatagrid();
+
             chkLstPatentes.DataSource = patenteBLL.Cargar().Select(pat => pat.Descripcion).ToList();
             chkLstFamilia.DataSource = familiasBLL.Cargar().Select(fam => fam.Descripcion).ToList();
         }
@@ -107,8 +113,6 @@ namespace UI
 
                     if (creado)
                     {
-                        GuardarPatentesFamilias(usu);
-
                         if (digitoVerificador.ComprobarPrimerDigito(digitoVerificador.Entidades.Find(x => x == entidad)))
                         {
                             digitoVerificador.InsertarDVVertical(digitoVerificador.Entidades.Find(x => x == entidad));
@@ -148,8 +152,6 @@ namespace UI
 
                 if (modificado)
                 {
-                    GuardarPatentesFamilias(usu);
-
                     if (digitoVerificador.ComprobarPrimerDigito(digitoVerificador.Entidades.Find(x => x == entidad)))
                     {
                         digitoVerificador.InsertarDVVertical(digitoVerificador.Entidades.Find(x => x == entidad));
@@ -336,54 +338,60 @@ namespace UI
             }
         }
 
-        public void GuardarPatentesFamilias(Usuario usu)
-        {
-            var patentes = patenteBLL.ConsultarPatenteUsuario(usu.UsuarioId);
-            var familias = familiasBLL.ObtenerIdsFamiliasPorUsuario(usu.UsuarioId);
+        //public void GuardarPatentesFamilias(Usuario usu)
+        //{
+        //    var patentes = patenteBLL.ConsultarPatenteUsuario(usu.UsuarioId);
+        //    var familias = familiasBLL.ObtenerIdsFamiliasPorUsuario(usu.UsuarioId);
 
-            if (checkeadafam)
-            {
-                foreach (string descripcion in chkLstFamilia.SelectedItems)
-                {
-                    var ids = new List<int>();
-                    ids.Add(familiasBLL.ObtenerIdFamiliaPorDescripcion(descripcion));
+        //    if (checkeadafam)
+        //    {
+        //        foreach (string descripcion in chkLstFamilia.SelectedItems)
+        //        {
+        //            var ids = new List<int>();
+        //            ids.Add(familiasBLL.ObtenerIdFamiliaPorDescripcion(descripcion));
 
-                    var asignada = familias.Any(idFam => ids.Any(id => id == idFam));
+        //            var asignada = familias.Any(idFam => ids.Any(id => id == idFam));
 
-                    if (!asignada)
-                    {
-                        familiasBLL.GuardarFamiliasUsuario(ids, usu.UsuarioId);
-                    }
-                    else
-                    {
-                        familiasBLL.BorrarFamiliasUsuario(ids, usu.UsuarioId);
-                    }
-                }
-            }
+        //            if (!asignada)
+        //            {
+        //                familiasBLL.GuardarFamiliasUsuario(ids, usu.UsuarioId);
+        //            }
+        //            else
+        //            {
+        //                familiasBLL.BorrarFamiliasUsuario(ids, usu.UsuarioId);
+        //            }
+        //        }
+        //    }
 
-            if (checkeadapat)
-            {
-                ////no manda los que no fueron checkeados cambiar, deberia actualizar por cada check
-                foreach (string descripcion in chkLstPatentes.CheckedItems)
-                {
-                    var ids = new List<int>();
-                    ids.Add(patenteBLL.ObtenerIdPatentePorDescripcion(descripcion));
-                    var asignada = patentes.Any(idPat => ids.Any(id => id == idPat.IdPatente));
+        //    if (checkeadapat)
+        //    {
+        //        ////no manda los que no fueron checkeados cambiar, deberia actualizar por cada check
+        //        foreach (string descripcion in chkLstPatentes.CheckedItems)
+        //        {
+        //            var ids = new List<int>();
+        //            ids.Add(patenteBLL.ObtenerIdPatentePorDescripcion(descripcion));
+        //            var asignada = patentes.Any(idPat => ids.Any(id => id == idPat.IdPatente));
 
-                    if (!asignada)
-                    {
-                        patenteBLL.GuardarPatentesUsuario(ids, usu.UsuarioId);
-                    }
-                    else if(asignada && !chkLstPatentes.CheckedItems.Contains(descripcion))
-                    {
-                        patenteBLL.BorrarPatentesUsuario(ids, usu.UsuarioId);
-                    }
-                }
-            }
-        }
+        //            if (!asignada)
+        //            {
+        //                patenteBLL.GuardarPatentesUsuario(ids, usu.UsuarioId);
+        //            }
+        //            else if (asignada && !chkLstPatentes.CheckedItems.Contains(descripcion))
+        //            {
+        //                patenteBLL.BorrarPatentesUsuario(ids, usu.UsuarioId);
+        //            }
+        //        }
+        //    }
+        //}
 
         private void dgusuario_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            chkLstPatentes.Enabled = true;
+            chkLstFamilia.Enabled = true;
+
+            checkeadapat = true;
+            checkeadafam = true;
+
             var selectedRow = dgusuario.Rows[e.RowIndex];
 
             txtNombre.Text = selectedRow.Cells[0].Value.ToString();
@@ -398,6 +406,13 @@ namespace UI
 
             BorrarChecks();
             SetearChecks(patentes, familias);
+
+            if(txtEmail.Text == UsuarioActivo.Email)
+            {
+                btnNegarPat.Enabled = false;
+                chkLstFamilia.Enabled = false;
+                chkLstPatentes.Enabled = false;
+            }
 
             checkeadafam = false;
             checkeadapat = false;
@@ -418,23 +433,56 @@ namespace UI
             {
                 var descFamilia = familiasBLL.Cargar().Where(x => x.FamiliaId == id).Select(x => x.Descripcion).ToList()[0];
                 chkLstFamilia.SetItemChecked(chkLstFamilia.FindString(descFamilia), true);
+                checkeadafam = true;
             }
 
             foreach (var pat in patentes)
             {
                 var descPatente = patenteBLL.Cargar().Where(x => x.IdPatente == pat.IdPatente).Select(x => x.Descripcion).ToList()[0];
                 chkLstPatentes.SetItemChecked(chkLstPatentes.FindString(descPatente), true);
+                checkeadapat = true;
             }
         }
 
         private void chkLstPatentes_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            checkeadapat = true;
+            if (!checkeadapat)
+            {
+                var ids = new List<int>();
+                var usuario = (Usuario)dgusuario.CurrentRow.DataBoundItem;
+
+                if (!chkLstPatentes.GetItemChecked(chkLstPatentes.SelectedIndex))
+                {
+                    ids.Add(patenteBLL.ObtenerIdPatentePorDescripcion(chkLstPatentes.SelectedItem.ToString()));
+                    patenteBLL.GuardarPatentesUsuario(ids, usuario.UsuarioId);
+
+                }
+                else
+                {
+                    ids.Add(patenteBLL.ObtenerIdPatentePorDescripcion(chkLstPatentes.SelectedItem.ToString()));
+                    patenteBLL.BorrarPatentesUsuario(ids, usuario.UsuarioId);
+                }
+            }
         }
 
         private void chkLstFamilia_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            checkeadafam = true;
+            if (!checkeadafam)
+            {
+                var ids = new List<int>();
+                var usuario = (Usuario)dgusuario.CurrentRow.DataBoundItem;
+
+                if (!chkLstFamilia.GetItemChecked(chkLstFamilia.SelectedIndex))
+                {
+                    ids.Add(familiasBLL.ObtenerIdFamiliaPorDescripcion(chkLstFamilia.SelectedItem.ToString()));
+                    familiasBLL.GuardarFamiliasUsuario(ids, usuario.UsuarioId);
+                }
+                else
+                {
+                    ids.Add(familiasBLL.ObtenerIdFamiliaPorDescripcion(chkLstFamilia.SelectedItem.ToString()));
+                    familiasBLL.BorrarFamiliasUsuario(ids, usuario.UsuarioId);
+                }
+            }
         }
 
         private void ABMusuario_FormClosing(object sender, FormClosingEventArgs e)

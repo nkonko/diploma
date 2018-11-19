@@ -35,6 +35,7 @@ namespace UI
                     restore.Devices.AddDevice(backupFiles[i], DeviceType.File);
                 }
 
+                restore.ReplaceDatabase = true;
                 restore.PercentComplete += DbPercentComplete;
                 restore.Complete += DbRestore_Complete;
                 restore.SqlRestore(dbServer);
