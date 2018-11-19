@@ -36,6 +36,11 @@ namespace UI
             this.lblDireccion = new System.Windows.Forms.Label();
             this.lblTelefono = new System.Windows.Forms.Label();
             this.btnActualizar = new System.Windows.Forms.Button();
+            this.txtNombre = new System.Windows.Forms.TextBox();
+            this.btnCambiarDatos = new System.Windows.Forms.Button();
+            this.txtApellido = new System.Windows.Forms.TextBox();
+            this.txtDireccion = new System.Windows.Forms.TextBox();
+            this.txtTel = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // btnVolver
@@ -51,7 +56,7 @@ namespace UI
             // lblNombre
             // 
             this.lblNombre.AutoSize = true;
-            this.lblNombre.Location = new System.Drawing.Point(13, 64);
+            this.lblNombre.Location = new System.Drawing.Point(13, 92);
             this.lblNombre.Name = "lblNombre";
             this.lblNombre.Size = new System.Drawing.Size(50, 13);
             this.lblNombre.TabIndex = 1;
@@ -60,7 +65,7 @@ namespace UI
             // lblApellido
             // 
             this.lblApellido.AutoSize = true;
-            this.lblApellido.Location = new System.Drawing.Point(13, 92);
+            this.lblApellido.Location = new System.Drawing.Point(13, 120);
             this.lblApellido.Name = "lblApellido";
             this.lblApellido.Size = new System.Drawing.Size(50, 13);
             this.lblApellido.TabIndex = 2;
@@ -69,7 +74,7 @@ namespace UI
             // lblEmail
             // 
             this.lblEmail.AutoSize = true;
-            this.lblEmail.Location = new System.Drawing.Point(13, 120);
+            this.lblEmail.Location = new System.Drawing.Point(13, 48);
             this.lblEmail.Name = "lblEmail";
             this.lblEmail.Size = new System.Drawing.Size(35, 13);
             this.lblEmail.TabIndex = 3;
@@ -95,7 +100,7 @@ namespace UI
             // 
             // btnActualizar
             // 
-            this.btnActualizar.Location = new System.Drawing.Point(92, 234);
+            this.btnActualizar.Location = new System.Drawing.Point(176, 234);
             this.btnActualizar.Name = "btnActualizar";
             this.btnActualizar.Size = new System.Drawing.Size(75, 23);
             this.btnActualizar.TabIndex = 7;
@@ -103,11 +108,58 @@ namespace UI
             this.btnActualizar.UseVisualStyleBackColor = true;
             this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
             // 
+            // txtNombre
+            // 
+            this.txtNombre.Location = new System.Drawing.Point(69, 85);
+            this.txtNombre.Name = "txtNombre";
+            this.txtNombre.Size = new System.Drawing.Size(124, 20);
+            this.txtNombre.TabIndex = 8;
+            this.txtNombre.Visible = false;
+            // 
+            // btnCambiarDatos
+            // 
+            this.btnCambiarDatos.Location = new System.Drawing.Point(12, 234);
+            this.btnCambiarDatos.Name = "btnCambiarDatos";
+            this.btnCambiarDatos.Size = new System.Drawing.Size(94, 23);
+            this.btnCambiarDatos.TabIndex = 9;
+            this.btnCambiarDatos.Text = "Cambiar Datos";
+            this.btnCambiarDatos.UseVisualStyleBackColor = true;
+            this.btnCambiarDatos.Click += new System.EventHandler(this.btnCambiarDatos_Click);
+            // 
+            // txtApellido
+            // 
+            this.txtApellido.Location = new System.Drawing.Point(69, 117);
+            this.txtApellido.Name = "txtApellido";
+            this.txtApellido.Size = new System.Drawing.Size(124, 20);
+            this.txtApellido.TabIndex = 10;
+            this.txtApellido.Visible = false;
+            // 
+            // txtDireccion
+            // 
+            this.txtDireccion.Location = new System.Drawing.Point(69, 149);
+            this.txtDireccion.Name = "txtDireccion";
+            this.txtDireccion.Size = new System.Drawing.Size(124, 20);
+            this.txtDireccion.TabIndex = 12;
+            this.txtDireccion.Visible = false;
+            // 
+            // txtTel
+            // 
+            this.txtTel.Location = new System.Drawing.Point(69, 181);
+            this.txtTel.Name = "txtTel";
+            this.txtTel.Size = new System.Drawing.Size(124, 20);
+            this.txtTel.TabIndex = 13;
+            this.txtTel.Visible = false;
+            // 
             // DatosUsuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(263, 269);
+            this.Controls.Add(this.txtTel);
+            this.Controls.Add(this.txtDireccion);
+            this.Controls.Add(this.txtApellido);
+            this.Controls.Add(this.btnCambiarDatos);
+            this.Controls.Add(this.txtNombre);
             this.Controls.Add(this.btnActualizar);
             this.Controls.Add(this.lblTelefono);
             this.Controls.Add(this.lblDireccion);
@@ -133,5 +185,10 @@ namespace UI
         private System.Windows.Forms.Label lblDireccion;
         private System.Windows.Forms.Label lblTelefono;
         private System.Windows.Forms.Button btnActualizar;
+        private System.Windows.Forms.Button btnCambiarDatos;
+        private System.Windows.Forms.TextBox txtApellido;
+        private System.Windows.Forms.TextBox txtDireccion;
+        private System.Windows.Forms.TextBox txtTel;
+        private System.Windows.Forms.TextBox txtNombre;
     }
 }

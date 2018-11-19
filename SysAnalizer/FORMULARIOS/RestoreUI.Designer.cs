@@ -35,7 +35,6 @@ namespace UI
             this.txtBackFiles = new System.Windows.Forms.TextBox();
             this.btnExaminar = new System.Windows.Forms.Button();
             this.btnRestaurar = new System.Windows.Forms.Button();
-            this.btnCancelar = new System.Windows.Forms.Button();
             this.Label1 = new System.Windows.Forms.Label();
             this.btnVolver = new System.Windows.Forms.Button();
             this.opFile = new System.Windows.Forms.OpenFileDialog();
@@ -53,7 +52,7 @@ namespace UI
             // lblProgreso
             // 
             this.lblProgreso.AutoSize = true;
-            this.lblProgreso.Location = new System.Drawing.Point(98, 274);
+            this.lblProgreso.Location = new System.Drawing.Point(106, 274);
             this.lblProgreso.Name = "lblProgreso";
             this.lblProgreso.Size = new System.Drawing.Size(21, 13);
             this.lblProgreso.TabIndex = 56;
@@ -87,22 +86,13 @@ namespace UI
             // 
             // btnRestaurar
             // 
-            this.btnRestaurar.Location = new System.Drawing.Point(10, 305);
+            this.btnRestaurar.Location = new System.Drawing.Point(73, 305);
             this.btnRestaurar.Name = "btnRestaurar";
             this.btnRestaurar.Size = new System.Drawing.Size(77, 26);
             this.btnRestaurar.TabIndex = 52;
             this.btnRestaurar.Text = "Restaurar";
             this.btnRestaurar.UseVisualStyleBackColor = true;
             this.btnRestaurar.Click += new System.EventHandler(this.btnRestaurar_Click);
-            // 
-            // btnCancelar
-            // 
-            this.btnCancelar.Location = new System.Drawing.Point(147, 305);
-            this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(77, 28);
-            this.btnCancelar.TabIndex = 51;
-            this.btnCancelar.Text = "Cancelar";
-            this.btnCancelar.UseVisualStyleBackColor = true;
             // 
             // Label1
             // 
@@ -138,7 +128,6 @@ namespace UI
             this.Controls.Add(this.txtBackFiles);
             this.Controls.Add(this.btnExaminar);
             this.Controls.Add(this.btnRestaurar);
-            this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.Label1);
             this.Name = "RestoreUI";
             this.Text = "Restore";
@@ -157,7 +146,6 @@ namespace UI
         private System.Windows.Forms.TextBox txtBackFiles;
         internal System.Windows.Forms.Button btnExaminar;
         internal System.Windows.Forms.Button btnRestaurar;
-        internal System.Windows.Forms.Button btnCancelar;
         internal System.Windows.Forms.Label Label1;
         internal System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.OpenFileDialog opFile;

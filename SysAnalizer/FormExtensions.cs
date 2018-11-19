@@ -17,7 +17,6 @@ namespace UI
             }
             catch (Exception ex)
             {
-                ///
                 onError?.Invoke(ex);
             }
         }

@@ -9,6 +9,7 @@ namespace UI
     using System.Collections.Generic;
     using System.Linq;
     using System.Windows.Forms;
+    using EasyEncryption;
 
     public partial class ABMusuario : Form, IABMUsuario
     {
@@ -21,6 +22,8 @@ namespace UI
 
         private const int formId = 3;
         private const string entidad = "Usuario";
+        public const string key = "bZr2URKx";
+        public const string iv = "HNtgQw0w";
 
         private bool habilitada = false;
         private bool negada = false;
@@ -60,7 +63,6 @@ namespace UI
             ControlPatentes();
 
             usuarioBLL = IoCContainer.Resolve<IUsuarioBLL>();
-            usuariosBD = usuarioBLL.Cargar();
             UsuarioActivo = formControl.ObtenerInfoUsuario();
 
             CargarRefrescarDatagrid();
@@ -102,7 +104,7 @@ namespace UI
                             Nombre = txtNombre.Text,
                             Apellido = txtApellido.Text,
                             Email = txtEmail.Text,
-                            Telefono = Int32.Parse(txtTel.Text),
+                            Telefono = int.Parse(txtTel.Text),
                             Domicilio = txtDomicilio.Text,
                             PrimerLogin = true,
                             CIngresos = 0,
@@ -147,7 +149,7 @@ namespace UI
             var permitir = verificarDatos();
             if (permitir)
             {
-                var modificado = usuarioBLL.Actualizar(new Usuario() { Nombre = txtNombre.Text, Apellido = txtApellido.Text, Email = txtEmail.Text, Telefono = Int32.Parse(txtTel.Text), Domicilio = txtDomicilio.Text, PrimerLogin = true, CIngresos = 0, Activo = true });
+                var modificado = usuarioBLL.Actualizar(new Usuario() { Nombre = txtNombre.Text, Apellido = txtApellido.Text, Email = txtEmail.Text, Telefono = int.Parse(txtTel.Text), Domicilio = txtDomicilio.Text, PrimerLogin = true, CIngresos = 0, Activo = true });
                 var usu = usuarioBLL.ObtenerUsuarioConEmail(txtEmail.Text);
 
                 if (modificado)
@@ -228,6 +230,12 @@ namespace UI
         private void CargarRefrescarDatagrid()
         {
             usuariosBD = usuarioBLL.Cargar();
+
+            foreach(var usuario in usuariosBD)
+            {
+                usuario.Email = DES.Decrypt(usuario.Email, key, iv);
+            }
+
             dgusuario.DataSource = usuariosBD;
             Usuario obj = (Usuario)dgusuario.CurrentRow.DataBoundItem;
             dgusuario.Refresh();
@@ -237,7 +245,7 @@ namespace UI
         {
             var returnValue = true;
 
-            if (txtEmail.Text == UsuarioActivo.Email)
+            if (txtEmail.Text == DES.Decrypt(UsuarioActivo.Email,key,iv))
             {
                 MessageBox.Show("No puede realizar acciones sobre el usuario activo");
                 log.Info("Se intento eliminar o modificar al usuario activo");
@@ -252,18 +260,6 @@ namespace UI
                     returnValue = false;
                     break;
                 }
-            }
-
-            if (chkLstFamilia.CheckedItems.Count == 0)
-            {
-                MessageBox.Show("Debe seleccionar una familia");
-                returnValue = false;
-            }
-
-            if (chkLstPatentes.CheckedItems.Count == 0)
-            {
-                MessageBox.Show("Debe seleccionar al menos una patente");
-                returnValue = false;
             }
 
             return returnValue;
@@ -338,52 +334,6 @@ namespace UI
             }
         }
 
-        //public void GuardarPatentesFamilias(Usuario usu)
-        //{
-        //    var patentes = patenteBLL.ConsultarPatenteUsuario(usu.UsuarioId);
-        //    var familias = familiasBLL.ObtenerIdsFamiliasPorUsuario(usu.UsuarioId);
-
-        //    if (checkeadafam)
-        //    {
-        //        foreach (string descripcion in chkLstFamilia.SelectedItems)
-        //        {
-        //            var ids = new List<int>();
-        //            ids.Add(familiasBLL.ObtenerIdFamiliaPorDescripcion(descripcion));
-
-        //            var asignada = familias.Any(idFam => ids.Any(id => id == idFam));
-
-        //            if (!asignada)
-        //            {
-        //                familiasBLL.GuardarFamiliasUsuario(ids, usu.UsuarioId);
-        //            }
-        //            else
-        //            {
-        //                familiasBLL.BorrarFamiliasUsuario(ids, usu.UsuarioId);
-        //            }
-        //        }
-        //    }
-
-        //    if (checkeadapat)
-        //    {
-        //        ////no manda los que no fueron checkeados cambiar, deberia actualizar por cada check
-        //        foreach (string descripcion in chkLstPatentes.CheckedItems)
-        //        {
-        //            var ids = new List<int>();
-        //            ids.Add(patenteBLL.ObtenerIdPatentePorDescripcion(descripcion));
-        //            var asignada = patentes.Any(idPat => ids.Any(id => id == idPat.IdPatente));
-
-        //            if (!asignada)
-        //            {
-        //                patenteBLL.GuardarPatentesUsuario(ids, usu.UsuarioId);
-        //            }
-        //            else if (asignada && !chkLstPatentes.CheckedItems.Contains(descripcion))
-        //            {
-        //                patenteBLL.BorrarPatentesUsuario(ids, usu.UsuarioId);
-        //            }
-        //        }
-        //    }
-        //}
-
         private void dgusuario_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             chkLstPatentes.Enabled = true;
@@ -392,30 +342,33 @@ namespace UI
             checkeadapat = true;
             checkeadafam = true;
 
-            var selectedRow = dgusuario.Rows[e.RowIndex];
-
-            txtNombre.Text = selectedRow.Cells[0].Value.ToString();
-            txtApellido.Text = selectedRow.Cells[1].Value.ToString();
-            txtEmail.Text = selectedRow.Cells[2].Value.ToString();
-            txtTel.Text = selectedRow.Cells[3].Value.ToString();
-            txtDomicilio.Text = selectedRow.Cells[4].Value.ToString();
-
-            var usu = usuarioBLL.ObtenerUsuarioConEmail(txtEmail.Text);
-            var patentes = patenteBLL.ConsultarPatenteUsuario(usu.UsuarioId);
-            var familias = familiasBLL.ObtenerIdsFamiliasPorUsuario(usu.UsuarioId);
-
-            BorrarChecks();
-            SetearChecks(patentes, familias);
-
-            if(txtEmail.Text == UsuarioActivo.Email)
+            if (e.RowIndex >= 0)
             {
-                btnNegarPat.Enabled = false;
-                chkLstFamilia.Enabled = false;
-                chkLstPatentes.Enabled = false;
-            }
+                var selectedRow = dgusuario.Rows[e.RowIndex];
 
-            checkeadafam = false;
-            checkeadapat = false;
+                txtNombre.Text = selectedRow.Cells[0].Value.ToString();
+                txtApellido.Text = selectedRow.Cells[1].Value.ToString();
+                txtEmail.Text = selectedRow.Cells[2].Value.ToString();
+                txtTel.Text = selectedRow.Cells[3].Value.ToString();
+                txtDomicilio.Text = selectedRow.Cells[4].Value.ToString();
+
+                var usu = usuarioBLL.ObtenerUsuarioConEmail(txtEmail.Text);
+                var patentes = patenteBLL.ConsultarPatenteUsuario(usu.UsuarioId);
+                var familias = familiasBLL.ObtenerIdsFamiliasPorUsuario(usu.UsuarioId);
+
+                BorrarChecks();
+                SetearChecks(patentes, familias);
+
+                if (txtEmail.Text == DES.Decrypt(UsuarioActivo.Email, key,iv))
+                {
+                    btnNegarPat.Enabled = false;
+                    chkLstFamilia.Enabled = false;
+                    chkLstPatentes.Enabled = false;
+                }
+
+                checkeadafam = false;
+                checkeadapat = false;
+            }
         }
 
         private void BorrarChecks()

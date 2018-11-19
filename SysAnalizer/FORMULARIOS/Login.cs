@@ -25,6 +25,7 @@ namespace UI
             this.digitoVerificador = digitoVerificador;
             this.idiomaBLL = idiomaBLL;
             InitializeComponent();
+            txt_contraseña.PasswordChar = '*';
         }
 
 
@@ -99,7 +100,7 @@ namespace UI
                     MessageBox.Show("Login Incorrecto");
                 }
             },
-            (ex) => MessageBox.Show($"Exploto por lo siguiente {ex.Message}"));
+            (ex) => MessageBox.Show($"Ocurrio un error por lo siguiente {ex.Message}"));
         }
 
         private void cbo_idioma_SelectedIndexChanged(object sender, EventArgs e)

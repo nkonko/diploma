@@ -86,7 +86,7 @@ namespace UI
             var usu = formControl.ObtenerInfoUsuario();
             if (usu.PrimerLogin)
             {
-                var nuevaContraseña = Interaction.InputBox("Ingrese su nueva contraseña", "Nuevo contraseña", "");
+                var nuevaContraseña = Interaction.InputBox("Ingrese su nueva contraseña", "Nueva contraseña", "");
                 var cambioExitoso = usuarioDAL.CambiarContraseña(usu, nuevaContraseña, true);
                 if (cambioExitoso)
                 {
@@ -141,6 +141,11 @@ namespace UI
         }
 
         private void cerrarSesionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void Principal_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
         }

@@ -2,13 +2,21 @@
 namespace UI
 {
     using System.Windows.Forms;
+    using BE.Entidades;
+    using BLL;
+    using EasyEncryption;
 
     public partial class DatosUsuario : Form, IDatosUsuario
     {
         private readonly IFormControl formControl;
+        private readonly IUsuarioBLL usuarioBLL;
 
-        public DatosUsuario(IFormControl formControl)
+        public const string key = "bZr2URKx";
+        public const string iv = "HNtgQw0w";
+
+        public DatosUsuario(IFormControl formControl, IUsuarioBLL usuarioBLL)
         {
+            this.usuarioBLL = usuarioBLL;
             this.formControl = formControl;
             InitializeComponent();
         }
@@ -20,18 +28,28 @@ namespace UI
             lblNombre.Text = lblNombre.Text + usu.Nombre;
             lblApellido.Text = lblApellido.Text + usu.Apellido;
             lblDireccion.Text = lblDireccion.Text + usu.Domicilio;
-            lblEmail.Text = lblEmail.Text + usu.Email;
+            lblEmail.Text = lblEmail.Text + DES.Decrypt(usu.Email, key, iv);
             lblTelefono.Text = lblTelefono.Text + usu.Telefono;
         }
 
         private void btnActualizar_Click(object sender, System.EventArgs e)
         {
+            usuarioBLL.Actualizar(new Usuario() { Nombre = txtNombre.Text, Telefono = int.Parse(txtTel.Text), Apellido = txtApellido.Text, Domicilio = txtDireccion.Text });
         }
 
         private void DatosUsuario_FormClosing(object sender, FormClosingEventArgs e)
         {
             Hide();
             e.Cancel = true;
+        }
+
+        private void btnCambiarDatos_Click(object sender, System.EventArgs e)
+        {
+            txtNombre.Visible = true;
+            txtApellido.Visible = true;
+            txtDireccion.Visible = true;
+            txtTel.Visible = true;
+
         }
     }
 }

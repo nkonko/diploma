@@ -3,14 +3,15 @@
     using BE;
     using BE.Entidades;
     using DAL.Utils;
-    using Dapper;
     using EasyEncryption;
     using System;
     using System.Collections.Generic;
-    using System.Data;
 
     public class UsuarioDAL : BaseDao, ICRUD<Usuario>, IUsuarioDAL
     {
+        public const string key = "bZr2URKx";
+        public const string iv = "HNtgQw0w";
+
         private readonly IDigitoVerificador digitoVerificador;
 
         public UsuarioDAL(IDigitoVerificador digitoVerificador)
@@ -21,8 +22,9 @@
         public bool Crear(Usuario objAlta)
         {
             var contEncript = MD5.ComputeMD5Hash(new Random().Next().ToString());
+            var emailEncript = DES.Encrypt(objAlta.Email, key,iv);
             objAlta.UsuarioId = ObtenerUltimoIdUsuario() + 1;
-            var digitoVH = digitoVerificador.CalcularDVHorizontal(new List<string> { objAlta.Nombre, objAlta.Email, contEncript }, new List<int> { objAlta.UsuarioId });
+            var digitoVH = digitoVerificador.CalcularDVHorizontal(new List<string> { objAlta.Nombre, emailEncript, contEncript }, new List<int> { objAlta.UsuarioId });
 
             var queryString = "INSERT INTO Usuario(Nombre, Apellido, Contraseña, Email, Telefono, Domicilio, ContadorIngresosIncorrectos, " +
                 "IdCanalVenta, IdIdioma, PrimerLogin, DVH, Activo) " +
@@ -38,7 +40,7 @@
                           @nombre = objAlta.Nombre,
                           @apellido = objAlta.Apellido,
                           @contraseña = contEncript,
-                          @email = objAlta.Email,
+                          @email = emailEncript,
                           @telefono = objAlta.Telefono,
                           @domicilio = objAlta.Domicilio,
                           @contadorIngresos = objAlta.CIngresos = 0,
@@ -76,7 +78,8 @@
         public bool Actualizar(Usuario objUpd)
         {
             var usu = ObtenerUsuarioConEmail(objUpd.Email);
-            var digitoVH = digitoVerificador.CalcularDVHorizontal(new List<string> { objUpd.Nombre, objUpd.Email }, new List<int> { objUpd.UsuarioId });
+            var emailEncript = DES.Encrypt(objUpd.Email, key, iv);
+            var digitoVH = digitoVerificador.CalcularDVHorizontal(new List<string> { objUpd.Nombre, emailEncript }, new List<int> { objUpd.UsuarioId });
 
             var queryString = $"UPDATE Usuario SET Nombre = @nombre, Apellido = @apellido, Email = @email, Telefono = @telefono, Domicilio = @domicilio, DVH = @dvh WHERE UsuarioId = @usuarioId";
 
@@ -89,7 +92,7 @@
                         @usuarioId = usu.UsuarioId,
                         @nombre = objUpd.Nombre,
                         @apellido = objUpd.Apellido,
-                        @email = objUpd.Email,
+                        @email = emailEncript,
                         @telefono = objUpd.Telefono,
                         @domicilio = objUpd.Domicilio,
                         @dvh = digitoVH
@@ -99,32 +102,40 @@
 
         public bool LogIn(string email, string contraseña)
         {
+            var ingresa = false;
+
             var usu = ObtenerUsuarioConEmail(email);
 
-            if (!usu.PrimerLogin)
+            if (usu.Email != null)
             {
-                var cingresoInc = usu.CIngresos;
-
-                if (cingresoInc < 3)
+                if (!usu.PrimerLogin)
                 {
-                    var contEncriptada = MD5.ComputeMD5Hash(contraseña);
-                    var ingresa = ValidarContraseña(usu.Contraseña, contEncriptada);
-                    if (!ingresa)
+                    var cingresoInc = usu.CIngresos;
+
+                    if (cingresoInc < 3)
                     {
-                        cingresoInc++;
+                        var contEncriptada = MD5.ComputeMD5Hash(contraseña);
 
-                        AumentarIngresos(usu, cingresoInc);
+                        ingresa = ValidarContraseña(usu.Contraseña, contEncriptada);
+                        if (!ingresa)
+                        {
+                            cingresoInc++;
 
-                        return false;
+                            AumentarIngresos(usu, cingresoInc);
+
+                            return false;
+                        }
+
+                        return true;
                     }
 
-                    return true;
+                    return false;
                 }
 
-                return false;
+            return true;
             }
 
-            return true;
+            return false;
         }
 
         public bool CambiarContraseña(Usuario usuario, string nuevaContraseña, bool primerLogin = false)
@@ -148,12 +159,20 @@
 
         public Usuario ObtenerUsuarioConEmail(string email)
         {
-            var queryString = string.Format("SELECT * FROM dbo.Usuario WHERE Email = '{0}'", email);
+            var usuario = new List<Usuario>();
+            var queryString = string.Format("SELECT * FROM dbo.Usuario WHERE Email = '{0}'", DES.Encrypt(email, key, iv));
 
-            return CatchException(() =>
+            CatchException(() =>
             {
-                return Exec<Usuario>(queryString)[0];
+                usuario = Exec<Usuario>(queryString);
             });
+            if (usuario.Count > 0)
+            {
+                return usuario[0];
+
+            }
+            else
+                return new Usuario();
         }
 
         public List<Patente> ObtenerPatentesDeUsuario(int usuarioId)

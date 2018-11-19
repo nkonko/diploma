@@ -18,6 +18,7 @@ namespace UI
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Login(IoCContainer.Resolve<IIdiomaBLL>(), IoCContainer.Resolve<IDigitoVerificador>()));
+          ////Application.Run(new ABMusuario(IoCContainer.Resolve<IBitacoraBLL>(), IoCContainer.Resolve<IFormControl>(), IoCContainer.Resolve<IFamiliaBLL>(), IoCContainer.Resolve<IPatenteBLL>(), IoCContainer.Resolve<IDigitoVerificador>()));
         }
     }
 }
