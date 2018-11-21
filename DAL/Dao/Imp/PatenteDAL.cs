@@ -145,5 +145,26 @@
                 });
             }
         }
+
+        public bool esPatenteEnUso(int idPatente)
+        {
+            var query = string.Format("SELECT UsuarioId FROM UsuarioPatente WHERE IdPatente = {0}", idPatente);
+            var usuarios = new List<int>();
+
+            CatchException(() =>
+            {
+               usuarios = Exec<int>(query);
+            });
+
+            if(usuarios.Count >= 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
     }
 }

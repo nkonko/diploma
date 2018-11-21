@@ -183,42 +183,42 @@ namespace UI
             if (permitir)
             {
                 var usuario = (Usuario)dgusuario.CurrentRow.DataBoundItem;
-                var sinPatentes = patenteBLL.ComprobarPatentesUsuario(usuario.UsuarioId);
+                //var sinPatentes = patenteBLL.ComprobarPatentesUsuario(usuario.UsuarioId);
 
-                if (sinPatentes)
+                //if (sinPatentes)
+                //{
+                var borrado = usuarioBLL.Borrar(usuario);
+
+                if (borrado)
                 {
-                    var borrado = usuarioBLL.Borrar(usuario);
 
-                    if (borrado)
+                    if (digitoVerificador.ComprobarPrimerDigito(digitoVerificador.Entidades.Find(x => x == entidad)))
                     {
-
-                        if (digitoVerificador.ComprobarPrimerDigito(digitoVerificador.Entidades.Find(x => x == entidad)))
-                        {
-                            digitoVerificador.InsertarDVVertical(digitoVerificador.Entidades.Find(x => x == entidad));
-                        }
-                        else
-                        {
-                            digitoVerificador.ActualizarDVVertical(digitoVerificador.Entidades.Find(x => x == entidad));
-                        }
-
-                        log.Info("Se ha creado un nuevo usuario");
-                        bitacoraBLL.RegistrarEnBitacora(UsuarioActivo);
-                        MessageBox.Show("Borrado exitoso");
-                        CargarRefrescarDatagrid();
+                        digitoVerificador.InsertarDVVertical(digitoVerificador.Entidades.Find(x => x == entidad));
                     }
                     else
                     {
-                        log.Info("El borrado de usuario ha fallado");
-                        bitacoraBLL.RegistrarEnBitacora(UsuarioActivo);
-                        MessageBox.Show("El borrado de usuario ha fallado");
+                        digitoVerificador.ActualizarDVVertical(digitoVerificador.Entidades.Find(x => x == entidad));
                     }
+
+                    log.Info("Se ha creado un nuevo usuario");
+                    bitacoraBLL.RegistrarEnBitacora(UsuarioActivo);
+                    MessageBox.Show("Borrado exitoso");
+                    CargarRefrescarDatagrid();
                 }
                 else
                 {
-                    log.Info("Debe quitar las patentes");
+                    log.Info("El borrado de usuario ha fallado");
                     bitacoraBLL.RegistrarEnBitacora(UsuarioActivo);
-                    MessageBox.Show("El usuario posee patentes activas");
+                    MessageBox.Show("El borrado de usuario ha fallado");
                 }
+                //}
+                //else
+                //{
+                log.Info("Debe quitar las patentes");
+                bitacoraBLL.RegistrarEnBitacora(UsuarioActivo);
+                MessageBox.Show("El usuario posee patentes activas");
+                //}
             }
         }
 
@@ -231,7 +231,7 @@ namespace UI
         {
             usuariosBD = usuarioBLL.Cargar();
 
-            foreach(var usuario in usuariosBD)
+            foreach (var usuario in usuariosBD)
             {
                 usuario.Email = DES.Decrypt(usuario.Email, key, iv);
             }
@@ -245,7 +245,7 @@ namespace UI
         {
             var returnValue = true;
 
-            if (txtEmail.Text == DES.Decrypt(UsuarioActivo.Email,key,iv))
+            if (txtEmail.Text == DES.Decrypt(UsuarioActivo.Email, key, iv))
             {
                 MessageBox.Show("No puede realizar acciones sobre el usuario activo");
                 log.Info("Se intento eliminar o modificar al usuario activo");
@@ -261,6 +261,8 @@ namespace UI
                     break;
                 }
             }
+
+
 
             return returnValue;
         }
@@ -359,7 +361,7 @@ namespace UI
                 BorrarChecks();
                 SetearChecks(patentes, familias);
 
-                if (txtEmail.Text == DES.Decrypt(UsuarioActivo.Email, key,iv))
+                if (txtEmail.Text == DES.Decrypt(UsuarioActivo.Email, key, iv))
                 {
                     btnNegarPat.Enabled = false;
                     chkLstFamilia.Enabled = false;
@@ -407,13 +409,19 @@ namespace UI
                 if (!chkLstPatentes.GetItemChecked(chkLstPatentes.SelectedIndex))
                 {
                     ids.Add(patenteBLL.ObtenerIdPatentePorDescripcion(chkLstPatentes.SelectedItem.ToString()));
+
                     patenteBLL.GuardarPatentesUsuario(ids, usuario.UsuarioId);
 
                 }
                 else
                 {
                     ids.Add(patenteBLL.ObtenerIdPatentePorDescripcion(chkLstPatentes.SelectedItem.ToString()));
-                    patenteBLL.BorrarPatentesUsuario(ids, usuario.UsuarioId);
+
+                    if (patenteBLL.esPatenteEnUso(ids[0]))
+                    {
+                        patenteBLL.BorrarPatentesUsuario(ids, usuario.UsuarioId);
+                    }
+
                 }
             }
         }

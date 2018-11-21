@@ -67,5 +67,10 @@
         {
             patenteDAL.BorrarPatentesUsuario(ids, usuarioId);
         }
+
+        public bool esPatenteEnUso(int idPatente)
+        {
+            return patenteDAL.esPatenteEnUso(idPatente);
+        }
     }
 }
