@@ -95,9 +95,13 @@ namespace UI
                     PrincipalForm.ComprobarSiEsPrimerLogin(usuario);
                     PrincipalForm.Show();
                 }
-                else
+                else if(usuarioBLL.ObtenerUsuarioConEmail(usuario).ContadorIngresosIncorrectos < 3)
                 {
                     MessageBox.Show("Login Incorrecto");
+                }
+                else
+                {
+                    MessageBox.Show("Cuenta bloqueada contacte a su administrador");
                 }
             },
             (ex) => MessageBox.Show($"Ocurrio un error por lo siguiente {ex.Message}"));

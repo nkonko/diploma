@@ -107,7 +107,7 @@ namespace UI
                             Telefono = int.Parse(txtTel.Text),
                             Domicilio = txtDomicilio.Text,
                             PrimerLogin = true,
-                            CIngresos = 0,
+                            ContadorIngresosIncorrectos = 0,
                             Activo = true
                         });
 
@@ -149,7 +149,7 @@ namespace UI
             var permitir = true; // verificarDatos();
             if (permitir)
             {
-                var modificado = usuarioBLL.Actualizar(new Usuario() { Nombre = txtNombre.Text, Apellido = txtApellido.Text, Email = txtEmail.Text, Telefono = int.Parse(txtTel.Text), Domicilio = txtDomicilio.Text, PrimerLogin = true, CIngresos = 0, Activo = true });
+                var modificado = usuarioBLL.Actualizar(new Usuario() { Nombre = txtNombre.Text, Apellido = txtApellido.Text, Email = txtEmail.Text, Telefono = int.Parse(txtTel.Text), Domicilio = txtDomicilio.Text, PrimerLogin = true, ContadorIngresosIncorrectos = 0, Activo = true });
                 var usu = usuarioBLL.ObtenerUsuarioConEmail(txtEmail.Text);
 
                 if (modificado)
@@ -180,19 +180,21 @@ namespace UI
         private void btnBorrar_Click(object sender, EventArgs e)
         {
             var usuario = (Usuario)dgusuario.CurrentRow.DataBoundItem;
+
+            usuario.Familia = new List<Familia>();
+            usuario.Familia = familiasBLL.ObtenerFamiliasUsuario(usuario.UsuarioId);
+
             var permitir = verificarDatos(usuario);
-            permitir = patenteBLL.CheckeoDePatentesParaBorrar(usuario);
+
             if (permitir)
             {
-                //var sinPatentes = patenteBLL.ComprobarPatentesUsuario(usuario.UsuarioId);
-
-                //if (sinPatentes)
-                //{
+               
                 var borrado = usuarioBLL.Borrar(usuario);
 
                 if (borrado)
                 {
-
+                    familiasBLL.BorrarFamiliasUsuario(usuario.Familia, usuario.UsuarioId);
+                    
                     if (digitoVerificador.ComprobarPrimerDigito(digitoVerificador.Entidades.Find(x => x == entidad)))
                     {
                         digitoVerificador.InsertarDVVertical(digitoVerificador.Entidades.Find(x => x == entidad));
@@ -213,14 +215,13 @@ namespace UI
                     bitacoraBLL.RegistrarEnBitacora(UsuarioActivo);
                     MessageBox.Show("El borrado de usuario ha fallado");
                 }
-                //}
-                //else
-                //{
-                //}
             }
+            else
+            {
                 Log4netExtensions.Media(log, "Una patente se encuentra en uso y no puede borrarse");
                 bitacoraBLL.RegistrarEnBitacora(UsuarioActivo);
                 Alert.ShowSimpleAlert("Una patente se encuentra en uso y no puede borrarse");
+            }
         }
 
         private void btnVolver_Click(object sender, EventArgs e)
@@ -288,7 +289,7 @@ namespace UI
             {
                 var id = patenteBLL.ObtenerIdPatentePorDescripcion(chkLstPatentes.SelectedItem.ToString());
 
-                if (patenteBLL.esPatenteEnUso(id))
+                if (patenteBLL.esPatenteEnUso(id, usuario.UsuarioId))
                 {
                     var hecho = patenteBLL.NegarPatente(patenteBLL.ObtenerIdPatentePorDescripcion(chkLstPatentes.SelectedItem.ToString()), usuario.UsuarioId);
                     if (hecho)
@@ -428,7 +429,7 @@ namespace UI
                 {
                     ids.Add(patenteBLL.ObtenerIdPatentePorDescripcion(chkLstPatentes.SelectedItem.ToString()));
 
-                    if (patenteBLL.esPatenteEnUso(ids[0]))
+                    if (patenteBLL.esPatenteEnUso(ids[0], usuario.UsuarioId))
                     {
                         patenteBLL.BorrarPatentesUsuario(ids, usuario.UsuarioId);
                     }
@@ -447,6 +448,8 @@ namespace UI
             {
                 var ids = new List<int>();
                 var usuario = (Usuario)dgusuario.CurrentRow.DataBoundItem;
+                usuario.Familia = new List<Familia>();
+                usuario.Familia = familiasBLL.ObtenerFamiliasUsuario(usuario.UsuarioId);
 
                 if (!chkLstFamilia.GetItemChecked(chkLstFamilia.SelectedIndex))
                 {
@@ -456,7 +459,7 @@ namespace UI
                 else
                 {
                     ids.Add(familiasBLL.ObtenerIdFamiliaPorDescripcion(chkLstFamilia.SelectedItem.ToString()));
-                    familiasBLL.BorrarFamiliasUsuario(ids, usuario.UsuarioId);
+                    familiasBLL.BorrarFamiliasUsuario(usuario.Familia, usuario.UsuarioId);
                 }
             }
         }

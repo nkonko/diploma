@@ -133,5 +133,21 @@ namespace UI
             e.Cancel = true;
             Hide();
         }
+
+        private void chkTodos_CheckedChanged(object sender, EventArgs e)
+        {
+            for (int i = 0; i < checkListUsuarios.Items.Count; i++)
+            {
+                checkListUsuarios.SetItemChecked(i, chkTodos.Checked);
+            }
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            for (int i = 0; i < checkListCriticidad.Items.Count; i++)
+            {
+                checkListCriticidad.SetItemChecked(i, chkTodas.Checked);
+            }
+        }
     }
 }

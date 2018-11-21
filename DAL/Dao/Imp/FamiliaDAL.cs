@@ -6,6 +6,7 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
 
     public class FamiliaDAL : BaseDao, ICRUD<Familia>, IFamiliaDAL
     {
@@ -55,11 +56,11 @@
              });
         }
 
-        public void BorrarFamiliasUsuario(List<int> familiasId, int usuarioId)
+        public void BorrarFamiliasUsuario(List<Familia> familias, int usuarioId)
         {
-            foreach (var id in familiasId)
+            foreach (var familia in familias)
             {
-                var queryString = $"DELETE FROM FamiliaUsuario WHERE FamiliaId = {id} and UsuarioId = {usuarioId}";
+                var queryString = $"DELETE FROM FamiliaUsuario WHERE FamiliaId = {familia.FamiliaId} and UsuarioId = {usuarioId}";
 
                 CatchException(() =>
                 {
@@ -180,6 +181,15 @@
             });
         }
 
+        public List<Familia> ObtenerFamiliasUsuario(int usuarioId)
+        {
+            var familiasDb = Cargar();
+            var familiaUsuario = ObtenerIdsFamiliasPorUsuario(usuarioId);
+
+            return familiasDb.FindAll(x => familiaUsuario.Any(y => y == x.FamiliaId));
+        
+         }
+
         public List<int> ObtenerIdsFamiliasPorUsuario(int usuarioId)
         {
             var famIds = new List<int>();
@@ -218,6 +228,16 @@
             }
 
             return patentes;
+        }
+
+        public void BorrarFamiliaDeFamiliaPatente(int familiaId)
+        {
+            var queryString = string.Format("DELETE FROM FamiliaPatente WHERE FamiliaId = {0}", familiaId);
+
+            CatchException(() =>
+            {
+                Exec(queryString);
+            });
         }
     }
 }

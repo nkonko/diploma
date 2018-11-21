@@ -29,6 +29,6 @@
 
         bool CheckeoDePatentesParaBorrar(Usuario usuario);
 
-        bool esPatenteEnUso(int idPatente);
+        bool esPatenteEnUso(int idPatente, int UsuarioId);
     }
 }

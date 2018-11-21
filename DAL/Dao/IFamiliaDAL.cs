@@ -24,6 +24,10 @@
 
         List<string> ObtenerDescripcionFamiliaPorId(List<int> familiaId);
 
-        void BorrarFamiliasUsuario(List<int> ids, int usuarioId);
+        void BorrarFamiliaDeFamiliaPatente(int familiaId);
+
+        void BorrarFamiliasUsuario(List<Familia> familias, int usuarioId);
+
+        List<Familia> ObtenerFamiliasUsuario(int usuarioId);
     }
 }

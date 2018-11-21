@@ -27,7 +27,7 @@
 
         void BorrarPatentesUsuario(List<int> ids, int usuarioId);
 
-        bool esPatenteEnUso(int idPatente);
+        bool esPatenteEnUso(int idPatente, int UsuarioId);
 
         bool CheckeoDePatentesParaBorrar(Usuario usuario);
     }

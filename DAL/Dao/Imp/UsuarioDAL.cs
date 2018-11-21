@@ -44,7 +44,7 @@
                           @email = emailEncript,
                           @telefono = objAlta.Telefono,
                           @domicilio = objAlta.Domicilio,
-                          @contadorIngresos = objAlta.CIngresos = 0,
+                          @contadorIngresos = objAlta.ContadorIngresosIncorrectos = 0,
                           @idCanalVenta = objAlta.IdCanalVenta,
                           @idIdioma = objAlta.IdIdioma,
                           @primerLogin = Convert.ToByte(objAlta.PrimerLogin = true),
@@ -110,7 +110,7 @@
             {
                 if (!usu.PrimerLogin)
                 {
-                    var cingresoInc = usu.CIngresos;
+                    var cingresoInc = usu.ContadorIngresosIncorrectos;
 
                     if (cingresoInc < 3)
                     {
@@ -119,10 +119,7 @@
                         ingresa = ValidarContraseña(usu.Contraseña, contEncriptada);
                         if (!ingresa)
                         {
-                            cingresoInc++;
-
-                            AumentarIngresos(usu, cingresoInc);
-
+                            AumentarIngresos(usu, usu.ContadorIngresosIncorrectos);
                             return false;
                         }
 
@@ -199,7 +196,15 @@
 
         private void AumentarIngresos(Usuario usuario, int ingresos)
         {
-            var queryString = string.Format("UPDATE Usuario SET ContadorIngresosIncorrectos = {1} WHERE UsuarioId = {0}", usuario.UsuarioId, ingresos);
+            var ingresosSel = ingresos;
+            var querySelect = string.Format("SELECT ContadorIngresosIncorrectos FROM Usuario WHERE UsuarioId = {0}", usuario.UsuarioId);
+
+            CatchException(() =>
+            {
+                ingresosSel = 1 + Exec<int>(querySelect)[0];
+            });
+
+            var queryString = string.Format("UPDATE Usuario SET ContadorIngresosIncorrectos = {1} WHERE UsuarioId = {0}", usuario.UsuarioId, ingresosSel);
 
             CatchException(() =>
             {

@@ -31,7 +31,7 @@
                 return ingresa;
             }
 
-            if (usu.CIngresos < 3)
+            if (usu.ContadorIngresosIncorrectos < 3)
             {
                 Log4netExtensions.Baja(log, "Login Incorrecto");
             }

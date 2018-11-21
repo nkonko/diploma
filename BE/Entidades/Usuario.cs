@@ -18,7 +18,7 @@
 
         public string Domicilio { get; set; }
 
-        public int CIngresos { get; set; }
+        public int ContadorIngresosIncorrectos { get; set; }
 
         public bool Activo { get; set; }
 

@@ -27,6 +27,8 @@
 
             if (!familiaEnUso)
             {
+                familiaDAL.BorrarFamiliaDeFamiliaPatente(objDel.FamiliaId);
+
                 return familiaDAL.Borrar(objDel);
             }
 
@@ -88,9 +90,14 @@
             return familiaDAL.ObtenerDescripcionFamiliaPorId(familiaId);
         }
 
-        public void BorrarFamiliasUsuario(List<int> ids, int usuarioId)
+        public void BorrarFamiliasUsuario(List<Familia> familias, int usuarioId)
         {
-            familiaDAL.BorrarFamiliasUsuario(ids, usuarioId);
+            familiaDAL.BorrarFamiliasUsuario(familias, usuarioId);
+        }
+
+        public List<Familia> ObtenerFamiliasUsuario(int usuarioId)
+        {
+            return familiaDAL.ObtenerFamiliasUsuario(usuarioId);
         }
     }
 }

@@ -24,6 +24,8 @@
 
         bool ComprobarUsoFamilia(int familiaId);
 
-        void BorrarFamiliasUsuario(List<int> ids, int usuarioId);
+        void BorrarFamiliasUsuario(List<Familia> familias, int usuarioId);
+
+        List<Familia> ObtenerFamiliasUsuario(int usuarioId);
     }
 }

@@ -2,8 +2,10 @@
 {
     using BE.Entidades;
     using DAL.Utils;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Text;
 
     public class PatenteDAL : BaseDao, IPatenteDAL
     {
@@ -180,13 +182,19 @@
 
             var usuariopatente = ConsultarPatenteUsuario(usuario.UsuarioId).Select(x => x.IdPatente).ToList();
 
+            var familiasUsuario = usuario.Familia.Select(x => x.FamiliaId).ToList();
+
             foreach (var pat in usuariopatente)
             {
-                returnValue = esPatenteEnUso(pat);
+                returnValue = esPatenteEnUso(pat, usuario.UsuarioId);
                 if (!returnValue)
                 {
                     break;
                 }
+            }
+            foreach (var idFam in familiasUsuario)
+            {
+                returnValue = esPatenteFamiliaEnUso(idFam, usuario.UsuarioId);
             }
 
             return returnValue;
@@ -256,55 +264,95 @@
             #endregion
         }
 
-        public bool esPatenteEnUso(int idPatente)
+        private bool esPatenteFamiliaEnUso(int idFam, int usuarioId)
+        {
+            var returnValue = false;
+            var queryPatFamilia = string.Format("SELECT IdPatente FROM FamiliaPatente WHERE FamiliaId = {0}", idFam);
+
+            var patentesFamilia = new List<int>();
+
+            CatchException(() =>
+            {
+                patentesFamilia = Exec<int>(queryPatFamilia);
+            });
+
+            var idsPat = string.Join(",", patentesFamilia);
+
+            ///Buscar como checkear que esa familia pertenezca a ese usuario SI otro usuario tiene la misma familia pero 
+            ///no tiene asignada la patente si la recibe por la familia puedo eliminar al usuario
+            var queryFamilias = string.Format("SELECT DISTINCT FamiliaId FROM FamiliaPatente WHERE IdPatente IN ({0})", idsPat);
+            var idDeFamilias = new List<int>();
+            var usuariosConFamilia = new List<int>();
+
+
+            CatchException(() =>
+            {
+                idDeFamilias = Exec<int>(queryFamilias);
+
+                var idsFam = string.Join(",", idDeFamilias);
+
+                var queryFamiliaUsuario = string.Format("SELECT DISTINCT UsuarioId FROM FamiliaUsuario WHERE FamiliaId IN ({0})", idsFam);
+
+                usuariosConFamilia = Exec<int>(queryFamiliaUsuario);
+            });
+
+            ///si hay mas de un usuario con la familia que tiene la patente entonces si me la puedo sacar sin importar si yo soy el que tiene esa familia
+            if (usuariosConFamilia.Count > 1)
+            {
+                returnValue = true;
+            }
+            ////si otro tiene esa familia entonces yo me la puedo sacar
+            else if (usuariosConFamilia[0] != usuarioId)
+            {
+                returnValue = true;
+            }
+
+
+            return returnValue;
+        }
+
+        public bool esPatenteEnUso(int idPatente, int UsuarioId)
         {
             var queryUsuarios = string.Format("SELECT UsuarioId FROM UsuarioPatente WHERE IdPatente = {0}", idPatente);
-            var queryFamilias = string.Format("SELECT FamiliaId FROM FamiliaPatente WHERE IdPatente = {0}", idPatente);
-
             var usuarios = new List<int>();
-            var familias = new List<int>();
-            var familiasUsuario = new List<int>();
+            var returnValue = false;
 
             CatchException(() =>
             {
                 usuarios = Exec<int>(queryUsuarios);
-                familias = Exec<int>(queryFamilias);
             });
-
-            foreach (var familiaId in familias)
-            {
-                var usuFamId = 0;
-                var queryFamiliaUsuario = string.Format("SELECT UsuarioId FROM FamiliaUsuario WHERE FamiliaId = {0}", familiaId);
-
-                CatchException(() =>
-                {
-                    usuFamId = Exec<int>(queryFamiliaUsuario)[0];
-                });
-
-                if (usuarios.Exists(x => x == usuFamId))
-                {
-                    familiasUsuario.Add(familiaId);
-                }
-            }
 
             if (usuarios.Count > 1)
             {
-                return true;
+                returnValue = true;
             }
             else
-            {///Buscar como checkear que esa familia pertenezca a ese usuario SI otro usuario tiene la misma familia pero 
-                ///no tiene asignada la patente si la recibe por la familia puedo eliminar al usuario
-                if (familiasUsuario.Count > 1)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
+            {
 
-                }
+                returnValue = false;
             }
-        }
 
+            #region MyRegion
+            //foreach (var familiaId in familias)
+            //{
+            //    var usuFamId = 0;
+            //    var queryFamiliaUsuario = string.Format("SELECT UsuarioId FROM FamiliaUsuario WHERE FamiliaId = {0}", familiaId);
+
+            //    CatchException(() =>
+            //    {
+            //        usuFamId = Exec<int>(queryFamiliaUsuario)[0];
+            //    });
+
+            //    if (usuarios.Exists(x => x == usuFamId))
+            //    {
+            //        familiasUsuario.Add(familiaId);
+            //    }
+            //}
+            #endregion
+
+            return returnValue;
+        }
     }
+
 }
+

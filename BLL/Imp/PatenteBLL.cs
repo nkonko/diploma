@@ -68,9 +68,9 @@
             patenteDAL.BorrarPatentesUsuario(ids, usuarioId);
         }
 
-        public bool esPatenteEnUso(int idPatente)
+        public bool esPatenteEnUso(int idPatente, int UsuarioId)
         {
-            return patenteDAL.esPatenteEnUso(idPatente);
+            return patenteDAL.esPatenteEnUso(idPatente, UsuarioId);
         }
 
         public bool CheckeoDePatentesParaBorrar(Usuario usuario)
