@@ -72,5 +72,10 @@
         {
             return patenteDAL.esPatenteEnUso(idPatente);
         }
+
+        public bool CheckeoDePatentesParaBorrar(Usuario usuario)
+        {
+           return patenteDAL.CheckeoDePatentesParaBorrar(usuario);
+        }
     }
 }

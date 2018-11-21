@@ -99,6 +99,7 @@
     <Compile Include="Dao\Imp\PatenteDAL.cs" />
     <Compile Include="Dao\Imp\ProductoDAL.cs" />
     <Compile Include="Dao\Imp\UsuarioDAL.cs" />
+    <Compile Include="Log4netExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Dao\Imp\VentaDAL.cs" />
     <Compile Include="Utils\BaseDao.cs" />

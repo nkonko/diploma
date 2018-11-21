@@ -83,15 +83,13 @@
         {
             var entidadesdic = new Dictionary<string, int>();
 
-            //foreach (var entidad in entidades)
-            //{
                 var queryString = string.Format("SELECT ValorDigitoVerificador FROM DigitoVerificadorVertical WHERE Entidad = '{0}'", entidades);
 
                 CatchException(() =>
                 {
                     entidadesdic.Add(entidades, Exec<int>(queryString)[0]);
                 });
-            //}
+
             return entidadesdic;
         }
 
@@ -99,11 +97,11 @@
         {
             var returnValue = true;
 
-            var ResultadoUsuario = CalcularDVVertical(Entidades.Find(x => x == "Usuario"));
+            var resultadoUsuario = CalcularDVVertical(Entidades.Find(x => x == "Usuario"));
 
-            var dVVerticalUsuario = ConsultarDVVertical(Entidades.Find(x => x == "Usuario"));
+            var dvverticalUsuario = ConsultarDVVertical(Entidades.Find(x => x == "Usuario"));
 
-            if (ResultadoUsuario != dVVerticalUsuario["Usuario"])
+            if (resultadoUsuario != dvverticalUsuario["Usuario"])
             {
                 returnValue = false;
             }

@@ -31,7 +31,6 @@ namespace UI
         {
             this.label3 = new System.Windows.Forms.Label();
             this.txtNombre = new System.Windows.Forms.TextBox();
-            this.btnCancelar = new System.Windows.Forms.Button();
             this.btnExaminar = new System.Windows.Forms.Button();
             this.cboCantidad = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -59,15 +58,6 @@ namespace UI
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(175, 20);
             this.txtNombre.TabIndex = 38;
-            // 
-            // btnCancelar
-            // 
-            this.btnCancelar.Location = new System.Drawing.Point(158, 286);
-            this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(130, 25);
-            this.btnCancelar.TabIndex = 37;
-            this.btnCancelar.Text = "CANCELAR";
-            this.btnCancelar.UseVisualStyleBackColor = true;
             // 
             // btnExaminar
             // 
@@ -119,6 +109,7 @@ namespace UI
             // 
             // txtDirectorio
             // 
+            this.txtDirectorio.Enabled = false;
             this.txtDirectorio.Location = new System.Drawing.Point(108, 106);
             this.txtDirectorio.Name = "txtDirectorio";
             this.txtDirectorio.Size = new System.Drawing.Size(175, 20);
@@ -126,7 +117,7 @@ namespace UI
             // 
             // btnAceptar
             // 
-            this.btnAceptar.Location = new System.Drawing.Point(7, 286);
+            this.btnAceptar.Location = new System.Drawing.Point(91, 290);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(130, 25);
             this.btnAceptar.TabIndex = 31;
@@ -150,7 +141,7 @@ namespace UI
             // progressBar1
             // 
             this.progressBar1.Location = new System.Drawing.Point(14, 212);
-            this.progressBar1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.progressBar1.Margin = new System.Windows.Forms.Padding(2);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(286, 26);
             this.progressBar1.TabIndex = 41;
@@ -184,7 +175,6 @@ namespace UI
             this.Controls.Add(this.chkDividir);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtNombre);
-            this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnExaminar);
             this.Controls.Add(this.cboCantidad);
             this.Controls.Add(this.label2);
@@ -204,7 +194,6 @@ namespace UI
 
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtNombre;
-        private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button btnExaminar;
         private System.Windows.Forms.ComboBox cboCantidad;
         private System.Windows.Forms.Label label2;

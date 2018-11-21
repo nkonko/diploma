@@ -2,6 +2,7 @@
 {
     using BE;
     using BE.Entidades;
+    using DAL;
     using DAL.Dao;
     using log4net;
     using System.Collections.Generic;
@@ -26,17 +27,17 @@
 
             if (ingresa)
             {
-                log.Info("Usuario logueado correctamente");
+                Log4netExtensions.Baja(log,"Usuario logueado correctamente");
                 return ingresa;
             }
 
             if (usu.CIngresos < 3)
             {
-                log.Info("Login Incorrecto");
+                Log4netExtensions.Baja(log, "Login Incorrecto");
             }
             else
             {
-                log.Info("Login Incorrecto, Cuenta bloqueada");
+                Log4netExtensions.Media(log, "Login Incorrecto, Cuenta bloqueada");
             }
 
             return ingresa;

@@ -16,7 +16,7 @@ namespace UI
         private readonly IUsuarioBLL usuarionBll;
         private readonly IBitacoraBLL bitacoraBLL;
 
-        private IList<Usuario> usuarios { get; set; }
+        private List<string> usuarios { get; set; }
 
         public BitacoraUI(IBitacoraBLL bitacoraBLL)
         {
@@ -39,11 +39,11 @@ namespace UI
 
         private void FillCheckedList()
         {
-            usuarios = usuarionBll.Cargar();
+            usuarios = bitacoraBLL.CargarUsuarios();
 
             foreach (var usu in usuarios)
             {
-                checkListUsuarios.Items.Add(usu.Email);
+                checkListUsuarios.Items.Add(usu);
             }
         }
 
@@ -51,12 +51,12 @@ namespace UI
         {
             var fechaDesde = dateTimePicker1.Value;
             var fechaHasta = dateTimePicker2.Value;
-            var usuariosSeleccionados = new List<Usuario>();
+            var usuariosSeleccionados = new List<string>();
             var criticidadesSeleccionadas = new List<string>();
 
             for (int i = 0; i < checkListUsuarios.CheckedItems.Count; i++)
             {
-                var usuarioToAdd = usuarionBll.Cargar().FirstOrDefault(u => u.Email == (string)checkListUsuarios.CheckedItems[i]);
+                var usuarioToAdd = bitacoraBLL.CargarUsuarios().FirstOrDefault(u => u == (string)checkListUsuarios.CheckedItems[i]);
                 usuariosSeleccionados.Add(usuarioToAdd);
             }
 
@@ -65,7 +65,7 @@ namespace UI
                 criticidadesSeleccionadas.Add((string)checkListCriticidad.CheckedItems[i]);
             }
 
-            var idUsuarios = usuariosSeleccionados.Select(u => u.UsuarioId).ToList();
+            var idUsuarios = usuariosSeleccionados.Select(u => u).ToList();
 
             var listaBitacora = ListarBitacora(idUsuarios, criticidadesSeleccionadas, fechaDesde, fechaHasta);
             
@@ -106,10 +106,10 @@ namespace UI
             {
                 foreach (var item in listaBitacora)
                 {
-                    var email = usuarios.FirstOrDefault(_ => _.UsuarioId == item.UsuarioId)?.Email;
+                    //var email = usuarios.FirstOrDefault(_ => _.UsuarioId == item.UsuarioId)?.Email;
                     DataRow row = table.NewRow();
                     row["Fecha"] = item.Fecha.Value.ToShortDateString();
-                    row["Usuario"] = email;
+                    row["Usuario"] = item.Usuario;
                     row["Funcionalidad"] = item.Actividad;
                     row["Descripcion"] = item.InformacionAsociada;
                     row["Criticidad"] = item.Criticidad;
@@ -121,9 +121,9 @@ namespace UI
             return dsBitacora;
         }
 
-        public List<Bitacora> ListarBitacora(List<int> idUsuarios, List<string> prueba, DateTime fechaDesde, DateTime fechaHasta)
+        public List<Bitacora> ListarBitacora(List<string> usuarios, List<string> prueba, DateTime fechaDesde, DateTime fechaHasta)
         {
-            var listaBitacora = bitacoraBLL.LeerBitacoraPorUsuarioCriticidadYFecha(idUsuarios, prueba, fechaDesde, fechaHasta);
+            var listaBitacora = bitacoraBLL.LeerBitacoraPorUsuarioCriticidadYFecha(usuarios, prueba, fechaDesde, fechaHasta);
 
             return listaBitacora;
         }

@@ -10,6 +10,8 @@
 
         Bitacora FiltrarBitacora(DateTime from, DateTime to);
 
-        List<Bitacora> LeerBitacoraPorUsuarioCriticidadYFecha(List<int> usuariosId, List<string> criticidades, DateTime desde, DateTime hasta);
+        List<Bitacora> LeerBitacoraPorUsuarioCriticidadYFecha(List<string> usuarios, List<string> criticidades, DateTime desde, DateTime hasta);
+
+        List<string> CargarUsuarios();
     }
 }

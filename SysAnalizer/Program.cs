@@ -15,10 +15,18 @@ namespace UI
         static void Main()
         {
             log4net.Config.XmlConfigurator.Configure();
+            log4net.Core.Level nivelAlto = new log4net.Core.Level(50000, "ALTA");
+            log4net.LogManager.GetRepository().LevelMap.Add(nivelAlto);
+            log4net.Core.Level nivelMedio = new log4net.Core.Level(40000, "MEDIA");
+            log4net.LogManager.GetRepository().LevelMap.Add(nivelAlto);
+            log4net.Core.Level nivelBajo = new log4net.Core.Level(30000, "BAJA");
+            log4net.LogManager.GetRepository().LevelMap.Add(nivelBajo);
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Login(IoCContainer.Resolve<IIdiomaBLL>(), IoCContainer.Resolve<IDigitoVerificador>()));
-          ////Application.Run(new ABMusuario(IoCContainer.Resolve<IBitacoraBLL>(), IoCContainer.Resolve<IFormControl>(), IoCContainer.Resolve<IFamiliaBLL>(), IoCContainer.Resolve<IPatenteBLL>(), IoCContainer.Resolve<IDigitoVerificador>()));
+            ////Application.Run(new RestoreUI());
+            //Application.Run(new ABMusuario(IoCContainer.Resolve<IBitacoraBLL>(), IoCContainer.Resolve<IFormControl>(), IoCContainer.Resolve<IFamiliaBLL>(), IoCContainer.Resolve<IPatenteBLL>(), IoCContainer.Resolve<IDigitoVerificador>()));
         }
     }
 }

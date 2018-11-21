@@ -290,6 +290,7 @@ namespace UI
             // 
             // btnNegarPat
             // 
+            this.btnNegarPat.Enabled = false;
             this.btnNegarPat.Location = new System.Drawing.Point(593, 41);
             this.btnNegarPat.Name = "btnNegarPat";
             this.btnNegarPat.Size = new System.Drawing.Size(75, 38);

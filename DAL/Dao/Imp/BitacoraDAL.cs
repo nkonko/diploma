@@ -63,7 +63,7 @@
             });
         }
 
-        public List<Bitacora> LeerBitacoraPorUsuarioCriticidadYFecha(List<int> usuariosId, List<string> criticidades, DateTime desde, DateTime hasta)
+        public List<Bitacora> LeerBitacoraPorUsuarioCriticidadYFecha(List<string> usuarios, List<string> criticidades, DateTime desde, DateTime hasta)
         {
             var queryImpl = "SELECT * from Bitacora WHERE ";
             var idsUsuParameters = string.Empty;
@@ -71,19 +71,19 @@
             var coma = string.Empty;
             var query = string.Empty;
 
-            if (usuariosId.Count != 0)
+            if (usuarios.Count != 0)
             {
-                for (int i = 0; i < usuariosId.Count; i++)
+                for (int i = 0; i < usuarios.Count; i++)
                 {
                     if (i != 0)
                     {
                         coma = ",";
                     }
 
-                    idsUsuParameters += coma + "'" + usuariosId[i] + "'";
+                    idsUsuParameters += coma + "'" + usuarios[i] + "'";
                 }
 
-                queryImpl += string.Format("UsuarioId IN ({0}) AND  ", idsUsuParameters);
+                queryImpl += string.Format("Usuario IN ({0}) AND  ", idsUsuParameters);
             }
 
             coma = string.Empty;
@@ -125,6 +125,16 @@
             bitacora = LeerBitacoraConId(bitacoraId);
             var digitoVH = digitoVerificador.CalcularDVHorizontal(new List<string> { bitacora.InformacionAsociada, bitacora.Actividad, bitacora.Criticidad }, new List<int> { usu.UsuarioId, bitacoraId });
             return digitoVH;
+        }
+
+        public List<string> CargarUsuarios()
+        {
+            var queryString = "SELECT Usuario FROM Bitacora GROUP BY Usuario";
+
+            return CatchException(() =>
+            {
+                return Exec<string>(queryString);
+            });
         }
     }
 }
