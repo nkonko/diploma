@@ -264,7 +264,7 @@ namespace UI
                 }
             }
 
-            patenteBLL.CheckeoDePatentesParaBorrar(usuario);
+            returnValue = patenteBLL.CheckeoDePatentesParaBorrar(usuario);
 
             return returnValue;
         }

@@ -183,7 +183,7 @@
             foreach (var pat in usuariopatente)
             {
                 returnValue = esPatenteEnUso(pat);
-                if(!returnValue)
+                if (!returnValue)
                 {
                     break;
                 }
@@ -258,21 +258,50 @@
 
         public bool esPatenteEnUso(int idPatente)
         {
-            var query = string.Format("SELECT UsuarioId FROM UsuarioPatente WHERE IdPatente = {0}", idPatente);
+            var queryUsuarios = string.Format("SELECT UsuarioId FROM UsuarioPatente WHERE IdPatente = {0}", idPatente);
+            var queryFamilias = string.Format("SELECT FamiliaId FROM FamiliaPatente WHERE IdPatente = {0}", idPatente);
+
             var usuarios = new List<int>();
+            var familias = new List<int>();
+            var familiasUsuario = new List<int>();
 
             CatchException(() =>
             {
-                usuarios = Exec<int>(query);
+                usuarios = Exec<int>(queryUsuarios);
+                familias = Exec<int>(queryFamilias);
             });
+
+            foreach (var familiaId in familias)
+            {
+                var usuFamId = 0;
+                var queryFamiliaUsuario = string.Format("SELECT UsuarioId FROM FamiliaUsuario WHERE FamiliaId = {0}", familiaId);
+
+                CatchException(() =>
+                {
+                    usuFamId = Exec<int>(queryFamiliaUsuario)[0];
+                });
+
+                if (usuarios.Exists(x => x == usuFamId))
+                {
+                    familiasUsuario.Add(familiaId);
+                }
+            }
 
             if (usuarios.Count > 1)
             {
                 return true;
             }
             else
-            {
-                return false;
+            {///Buscar como checkear que esa familia pertenezca a ese usuario
+                if (familiasUsuario.Count > 1)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+
+                }
             }
         }
 
