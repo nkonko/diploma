@@ -183,6 +183,10 @@
             foreach (var pat in usuariopatente)
             {
                 returnValue = esPatenteEnUso(pat);
+                if(!returnValue)
+                {
+                    break;
+                }
             }
 
             return returnValue;
