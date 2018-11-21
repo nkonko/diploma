@@ -292,7 +292,8 @@
                 return true;
             }
             else
-            {///Buscar como checkear que esa familia pertenezca a ese usuario
+            {///Buscar como checkear que esa familia pertenezca a ese usuario SI otro usuario tiene la misma familia pero 
+                ///no tiene asignada la patente si la recibe por la familia puedo eliminar al usuario
                 if (familiasUsuario.Count > 1)
                 {
                     return true;

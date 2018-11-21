@@ -199,7 +199,7 @@
 
         private void AumentarIngresos(Usuario usuario, int ingresos)
         {
-            var queryString = string.Format("UPDATE Usuario SET Contraseña = {1} WHERE UsuarioId = {0}", usuario.UsuarioId, ingresos);
+            var queryString = string.Format("UPDATE Usuario SET ContadorIngresosIncorrectos = {1} WHERE UsuarioId = {0}", usuario.UsuarioId, ingresos);
 
             CatchException(() =>
             {
