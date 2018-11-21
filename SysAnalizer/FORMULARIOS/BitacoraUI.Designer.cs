@@ -32,6 +32,7 @@ namespace UI
         {
             this.components = new System.ComponentModel.Container();
             Microsoft.Reporting.WinForms.ReportDataSource reportDataSource1 = new Microsoft.Reporting.WinForms.ReportDataSource();
+            this.ModeloBitacoraBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btn_filtrar = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.checkListCriticidad = new System.Windows.Forms.CheckedListBox();
@@ -43,15 +44,20 @@ namespace UI
             this.label1 = new System.Windows.Forms.Label();
             this.btn_volver = new System.Windows.Forms.Button();
             this.rpv1 = new Microsoft.Reporting.WinForms.ReportViewer();
-            this.ModeloBitacoraBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.chkTodos = new System.Windows.Forms.CheckBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            ((System.ComponentModel.ISupportInitialize)(this.ModeloBitacoraBindingSource)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ModeloBitacoraBindingSource)).BeginInit();
             this.SuspendLayout();
+            // 
+            // ModeloBitacoraBindingSource
+            // 
+            this.ModeloBitacoraBindingSource.DataSource = typeof(UI.Modelo.ModeloBitacora);
             // 
             // btn_filtrar
             // 
-            this.btn_filtrar.Location = new System.Drawing.Point(148, 345);
+            this.btn_filtrar.Location = new System.Drawing.Point(148, 389);
             this.btn_filtrar.Name = "btn_filtrar";
             this.btn_filtrar.Size = new System.Drawing.Size(100, 23);
             this.btn_filtrar.TabIndex = 69;
@@ -62,7 +68,7 @@ namespace UI
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.checkListCriticidad);
-            this.groupBox2.Location = new System.Drawing.Point(23, 200);
+            this.groupBox2.Location = new System.Drawing.Point(23, 243);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(225, 128);
             this.groupBox2.TabIndex = 66;
@@ -84,7 +90,7 @@ namespace UI
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.checkListUsuarios);
-            this.groupBox1.Location = new System.Drawing.Point(23, 57);
+            this.groupBox1.Location = new System.Drawing.Point(23, 80);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(225, 128);
             this.groupBox1.TabIndex = 65;
@@ -101,6 +107,7 @@ namespace UI
             // 
             // dateTimePicker2
             // 
+            this.dateTimePicker2.CustomFormat = "dd-MM-yyyy";
             this.dateTimePicker2.Location = new System.Drawing.Point(687, 53);
             this.dateTimePicker2.Name = "dateTimePicker2";
             this.dateTimePicker2.Size = new System.Drawing.Size(200, 20);
@@ -117,6 +124,7 @@ namespace UI
             // 
             // dateTimePicker1
             // 
+            this.dateTimePicker1.CustomFormat = "dd-MM-yyyy";
             this.dateTimePicker1.Location = new System.Drawing.Point(327, 57);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
@@ -154,15 +162,33 @@ namespace UI
             this.rpv1.Size = new System.Drawing.Size(612, 234);
             this.rpv1.TabIndex = 71;
             // 
-            // ModeloBitacoraBindingSource
+            // chkTodos
             // 
-            this.ModeloBitacoraBindingSource.DataSource = typeof(UI.Modelo.ModeloBitacora);
+            this.chkTodos.AutoSize = true;
+            this.chkTodos.Location = new System.Drawing.Point(35, 57);
+            this.chkTodos.Name = "chkTodos";
+            this.chkTodos.Size = new System.Drawing.Size(56, 17);
+            this.chkTodos.TabIndex = 72;
+            this.chkTodos.Text = "Todos";
+            this.chkTodos.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(37, 222);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(56, 17);
+            this.checkBox1.TabIndex = 73;
+            this.checkBox1.Text = "Todas";
+            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // BitacoraUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(925, 402);
+            this.ClientSize = new System.Drawing.Size(925, 424);
+            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.chkTodos);
             this.Controls.Add(this.rpv1);
             this.Controls.Add(this.btn_volver);
             this.Controls.Add(this.btn_filtrar);
@@ -177,9 +203,9 @@ namespace UI
             this.Text = "Bitacora";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BitacoraUI_FormClosing);
             this.Load += new System.EventHandler(this.Bitacora_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.ModeloBitacoraBindingSource)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.ModeloBitacoraBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -199,5 +225,7 @@ namespace UI
         private System.Windows.Forms.Button btn_volver;
         private Microsoft.Reporting.WinForms.ReportViewer rpv1;
         private System.Windows.Forms.BindingSource ModeloBitacoraBindingSource;
+        private System.Windows.Forms.CheckBox chkTodos;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }

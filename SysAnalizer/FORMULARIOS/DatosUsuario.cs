@@ -14,6 +14,8 @@ namespace UI
         public const string key = "bZr2URKx";
         public const string iv = "HNtgQw0w";
 
+        public Usuario UsuarioActivo { get; set; }
+
         public DatosUsuario(IFormControl formControl, IUsuarioBLL usuarioBLL)
         {
             this.usuarioBLL = usuarioBLL;
@@ -23,18 +25,18 @@ namespace UI
 
         private void DatosUsuario_Load(object sender, System.EventArgs e)
         {
-            var usu = formControl.ObtenerInfoUsuario();
+            UsuarioActivo = formControl.ObtenerInfoUsuario();
 
-            lblNombre.Text = lblNombre.Text + usu.Nombre;
-            lblApellido.Text = lblApellido.Text + usu.Apellido;
-            lblDireccion.Text = lblDireccion.Text + usu.Domicilio;
-            lblEmail.Text = lblEmail.Text + DES.Decrypt(usu.Email, key, iv);
-            lblTelefono.Text = lblTelefono.Text + usu.Telefono;
+            lblNombre.Text = lblNombre.Text + UsuarioActivo.Nombre;
+            lblApellido.Text = lblApellido.Text + UsuarioActivo.Apellido;
+            lblDireccion.Text = lblDireccion.Text + UsuarioActivo.Domicilio;
+            lblEmail.Text = lblEmail.Text + DES.Decrypt(UsuarioActivo.Email, key, iv);
+            lblTelefono.Text = lblTelefono.Text + UsuarioActivo.Telefono;
         }
 
         private void btnActualizar_Click(object sender, System.EventArgs e)
         {
-            usuarioBLL.Actualizar(new Usuario() { Nombre = txtNombre.Text, Telefono = int.Parse(txtTel.Text), Apellido = txtApellido.Text, Domicilio = txtDireccion.Text });
+            usuarioBLL.Actualizar(new Usuario() { Nombre = txtNombre.Text, Telefono = int.Parse(txtTel.Text), Apellido = txtApellido.Text, Domicilio = txtDireccion.Text, Email = DES.Decrypt(UsuarioActivo.Email, key, iv) });
         }
 
         private void DatosUsuario_FormClosing(object sender, FormClosingEventArgs e)

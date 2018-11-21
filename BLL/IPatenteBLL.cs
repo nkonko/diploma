@@ -26,5 +26,7 @@
         List<UsuarioPatente> ConsultarPatenteUsuario(int usuarioId);
 
         void BorrarPatentesUsuario(List<int> ids, int usuarioId);
+
+        void CheckeoDePatentesParaBorrar(Usuario usuario);
     }
 }

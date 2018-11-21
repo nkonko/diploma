@@ -48,7 +48,7 @@ namespace UI
             this.btnVolver.Location = new System.Drawing.Point(13, 13);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(75, 23);
-            this.btnVolver.TabIndex = 0;
+            this.btnVolver.TabIndex = 2;
             this.btnVolver.Text = "Volver";
             this.btnVolver.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnVolver.UseVisualStyleBackColor = true;
@@ -110,10 +110,10 @@ namespace UI
             // 
             // txtNombre
             // 
-            this.txtNombre.Location = new System.Drawing.Point(69, 85);
+            this.txtNombre.Location = new System.Drawing.Point(127, 85);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(124, 20);
-            this.txtNombre.TabIndex = 8;
+            this.txtNombre.TabIndex = 3;
             this.txtNombre.Visible = false;
             // 
             // btnCambiarDatos
@@ -121,33 +121,33 @@ namespace UI
             this.btnCambiarDatos.Location = new System.Drawing.Point(12, 234);
             this.btnCambiarDatos.Name = "btnCambiarDatos";
             this.btnCambiarDatos.Size = new System.Drawing.Size(94, 23);
-            this.btnCambiarDatos.TabIndex = 9;
+            this.btnCambiarDatos.TabIndex = 1;
             this.btnCambiarDatos.Text = "Cambiar Datos";
             this.btnCambiarDatos.UseVisualStyleBackColor = true;
             this.btnCambiarDatos.Click += new System.EventHandler(this.btnCambiarDatos_Click);
             // 
             // txtApellido
             // 
-            this.txtApellido.Location = new System.Drawing.Point(69, 117);
+            this.txtApellido.Location = new System.Drawing.Point(127, 117);
             this.txtApellido.Name = "txtApellido";
             this.txtApellido.Size = new System.Drawing.Size(124, 20);
-            this.txtApellido.TabIndex = 10;
+            this.txtApellido.TabIndex = 4;
             this.txtApellido.Visible = false;
             // 
             // txtDireccion
             // 
-            this.txtDireccion.Location = new System.Drawing.Point(69, 149);
+            this.txtDireccion.Location = new System.Drawing.Point(127, 149);
             this.txtDireccion.Name = "txtDireccion";
             this.txtDireccion.Size = new System.Drawing.Size(124, 20);
-            this.txtDireccion.TabIndex = 12;
+            this.txtDireccion.TabIndex = 5;
             this.txtDireccion.Visible = false;
             // 
             // txtTel
             // 
-            this.txtTel.Location = new System.Drawing.Point(69, 181);
+            this.txtTel.Location = new System.Drawing.Point(127, 181);
             this.txtTel.Name = "txtTel";
             this.txtTel.Size = new System.Drawing.Size(124, 20);
-            this.txtTel.TabIndex = 13;
+            this.txtTel.TabIndex = 6;
             this.txtTel.Visible = false;
             // 
             // DatosUsuario

@@ -9,8 +9,8 @@
 
     public class UsuarioDAL : BaseDao, ICRUD<Usuario>, IUsuarioDAL
     {
-        public const string key = "bZr2URKx";
-        public const string iv = "HNtgQw0w";
+        public const string Key = "bZr2URKx";
+        public const string Iv = "HNtgQw0w";
 
         private readonly IDigitoVerificador digitoVerificador;
 
@@ -22,7 +22,8 @@
         public bool Crear(Usuario objAlta)
         {
             var contEncript = MD5.ComputeMD5Hash(new Random().Next().ToString());
-            var emailEncript = DES.Encrypt(objAlta.Email, key,iv);
+            var emailEncript = DES.Encrypt(objAlta.Email, Key, Iv);
+
             objAlta.UsuarioId = ObtenerUltimoIdUsuario() + 1;
             var digitoVH = digitoVerificador.CalcularDVHorizontal(new List<string> { objAlta.Nombre, emailEncript, contEncript }, new List<int> { objAlta.UsuarioId });
 
@@ -78,8 +79,7 @@
         public bool Actualizar(Usuario objUpd)
         {
             var usu = ObtenerUsuarioConEmail(objUpd.Email);
-            var emailEncript = DES.Encrypt(objUpd.Email, key, iv);
-            var digitoVH = digitoVerificador.CalcularDVHorizontal(new List<string> { objUpd.Nombre, emailEncript }, new List<int> { objUpd.UsuarioId });
+            var digitoVH = digitoVerificador.CalcularDVHorizontal(new List<string> { objUpd.Nombre, usu.Email }, new List<int> { usu.UsuarioId });
 
             var queryString = $"UPDATE Usuario SET Nombre = @nombre, Apellido = @apellido, Email = @email, Telefono = @telefono, Domicilio = @domicilio, DVH = @dvh WHERE UsuarioId = @usuarioId";
 
@@ -92,7 +92,7 @@
                         @usuarioId = usu.UsuarioId,
                         @nombre = objUpd.Nombre,
                         @apellido = objUpd.Apellido,
-                        @email = emailEncript,
+                        @email = usu.Email,
                         @telefono = objUpd.Telefono,
                         @domicilio = objUpd.Domicilio,
                         @dvh = digitoVH
@@ -132,7 +132,7 @@
                     return false;
                 }
 
-            return true;
+                return true;
             }
 
             return false;
@@ -160,19 +160,21 @@
         public Usuario ObtenerUsuarioConEmail(string email)
         {
             var usuario = new List<Usuario>();
-            var queryString = string.Format("SELECT * FROM dbo.Usuario WHERE Email = '{0}'", DES.Encrypt(email, key, iv));
+            var queryString = string.Format("SELECT * FROM dbo.Usuario WHERE Email = '{0}'", DES.Encrypt(email, Key, Iv));
 
             CatchException(() =>
             {
                 usuario = Exec<Usuario>(queryString);
             });
+
             if (usuario.Count > 0)
             {
                 return usuario[0];
-
             }
             else
+            {
                 return new Usuario();
+            }
         }
 
         public List<Patente> ObtenerPatentesDeUsuario(int usuarioId)

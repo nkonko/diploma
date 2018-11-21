@@ -56,7 +56,7 @@
             }
             catch (Exception ex)
             {
-                log.Error(ex);
+                Log4netExtensions.Alta(log, ex.Message);
                 throw;
             }
         }

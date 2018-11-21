@@ -68,6 +68,7 @@ namespace UI
             // 
             // txtBackFiles
             // 
+            this.txtBackFiles.Enabled = false;
             this.txtBackFiles.Location = new System.Drawing.Point(9, 71);
             this.txtBackFiles.Multiline = true;
             this.txtBackFiles.Name = "txtBackFiles";
@@ -115,6 +116,7 @@ namespace UI
             // opFile
             // 
             this.opFile.FileName = "openFileDialog1";
+            this.opFile.Multiselect = true;
             // 
             // RestoreUI
             // 

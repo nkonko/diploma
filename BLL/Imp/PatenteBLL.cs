@@ -67,5 +67,10 @@
         {
             patenteDAL.BorrarPatentesUsuario(ids, usuarioId);
         }
+
+        public void CheckeoDePatentesParaBorrar(Usuario usuario)
+        {
+            patenteDAL.CheckeoDePatentesParaBorrar(usuario);
+        }
     }
 }
