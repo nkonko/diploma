@@ -192,6 +192,7 @@
                     break;
                 }
             }
+
             foreach (var idFam in familiasUsuario)
             {
                 returnValue = esPatenteFamiliaEnUso(idFam, usuario.UsuarioId);
@@ -306,7 +307,8 @@
             {
                 returnValue = true;
             }
-
+            ///falta validacion 29 pasos hay un usuario con todas las patentes pero no me deja eliminar uno que tiene una familia y hereda las 
+            ///patentes
 
             return returnValue;
         }
@@ -326,10 +328,9 @@
             {
                 returnValue = true;
             }
-            else
+            else if(!usuarios.Any(x => x == UsuarioId))
             {
-
-                returnValue = false;
+                returnValue = true;
             }
 
             #region MyRegion

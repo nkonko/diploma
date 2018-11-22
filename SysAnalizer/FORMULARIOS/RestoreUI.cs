@@ -116,5 +116,10 @@ namespace UI
             e.Cancel = true;
             Hide();
         }
+
+        private void btnVolver_Click(object sender, EventArgs e)
+        {
+            Hide();
+        }
     }
 }

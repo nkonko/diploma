@@ -188,13 +188,13 @@ namespace UI
 
             if (permitir)
             {
-               
+
                 var borrado = usuarioBLL.Borrar(usuario);
 
                 if (borrado)
                 {
                     familiasBLL.BorrarFamiliasUsuario(usuario.Familia, usuario.UsuarioId);
-                    
+
                     if (digitoVerificador.ComprobarPrimerDigito(digitoVerificador.Entidades.Find(x => x == entidad)))
                     {
                         digitoVerificador.InsertarDVVertical(digitoVerificador.Entidades.Find(x => x == entidad));
@@ -220,7 +220,7 @@ namespace UI
             {
                 Log4netExtensions.Media(log, "Una patente se encuentra en uso y no puede borrarse");
                 bitacoraBLL.RegistrarEnBitacora(UsuarioActivo);
-                Alert.ShowSimpleAlert("Una patente se encuentra en uso y no puede borrarse");
+                Alert.ShowSimpleAlert("MSJ", "Una patente se encuentra en uso y no puede borrarse");
             }
         }
 
@@ -289,7 +289,10 @@ namespace UI
             {
                 var id = patenteBLL.ObtenerIdPatentePorDescripcion(chkLstPatentes.SelectedItem.ToString());
 
-                if (patenteBLL.esPatenteEnUso(id, usuario.UsuarioId))
+                usuario.Familia = new List<Familia>();
+                usuario.Familia = familiasBLL.ObtenerFamiliasUsuario(usuario.UsuarioId);
+
+                if (patenteBLL.CheckeoDePatentesParaBorrar(usuario))
                 {
                     var hecho = patenteBLL.NegarPatente(patenteBLL.ObtenerIdPatentePorDescripcion(chkLstPatentes.SelectedItem.ToString()), usuario.UsuarioId);
                     if (hecho)
@@ -466,8 +469,9 @@ namespace UI
 
         private void ABMusuario_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Hide();
-            e.Cancel = true;
+            Dispose();
+            //Hide();
+            //e.Cancel = true;
         }
     }
 }

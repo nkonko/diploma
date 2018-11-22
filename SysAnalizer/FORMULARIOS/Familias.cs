@@ -42,7 +42,20 @@ namespace UI
 
         private void btnNueva_Click(object sender, EventArgs e)
         {
-            var nombreFamilia = Interaction.InputBox("Ingrese el nombre para la nueva familia", "Nueva familia", "");
+            var nombreFamilia = "";
+
+            InputBoxItem[] items = new InputBoxItem[]
+            {
+                    new InputBoxItem("NombreFamilia", nombreFamilia)
+            };
+
+            InputBox input = InputBox.Show("Ingrese el nombre para la nueva familia", items, InputBoxButtons.OKCancel);
+
+            if (input.Result == InputBoxResult.OK)
+            {
+                nombreFamilia = input.Items["NombreFamilia"];
+            }
+
             var familias = familiaBLL.Cargar();
 
             if (!familias.Select(x => x.Descripcion).Contains(nombreFamilia))

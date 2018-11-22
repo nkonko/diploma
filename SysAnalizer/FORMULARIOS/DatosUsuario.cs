@@ -41,8 +41,7 @@ namespace UI
 
         private void DatosUsuario_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Hide();
-            e.Cancel = true;
+            Dispose();
         }
 
         private void btnCambiarDatos_Click(object sender, System.EventArgs e)

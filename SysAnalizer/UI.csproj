@@ -181,6 +181,7 @@
       <DependentUpon>BitacoraUI.cs</DependentUpon>
     </Compile>
     <Compile Include="IBackupUI.cs" />
+    <Compile Include="InputBox.cs" />
     <Compile Include="IRestoreUI.cs" />
     <Compile Include="IAdminPatFamilia.cs" />
     <Compile Include="IClientes.cs" />

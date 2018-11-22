@@ -86,7 +86,20 @@ namespace UI
             var usu = formControl.ObtenerInfoUsuario();
             if (usu.PrimerLogin)
             {
-                var nuevaContraseña = Interaction.InputBox("Ingrese su nueva contraseña", "Nueva contraseña", "");
+                var nuevaContraseña = "";
+
+                InputBoxItem[] items = new InputBoxItem[]
+                {
+                    new InputBoxItem("Contraseña", nuevaContraseña)
+                };
+
+                InputBox input = InputBox.Show("Ingrese nueva contraseña", items, InputBoxButtons.OKCancel);
+
+                if (input.Result == InputBoxResult.OK)
+                {
+                    nuevaContraseña = input.Items["Contraseña"];
+                }
+
                 var cambioExitoso = usuarioDAL.CambiarContraseña(usu, nuevaContraseña, true);
                 if (cambioExitoso)
                 {
@@ -126,6 +139,7 @@ namespace UI
 
         private void familiasToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
+            familias.MdiParent = this;
             familias.Show();
         }
 
