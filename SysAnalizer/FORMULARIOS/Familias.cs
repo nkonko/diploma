@@ -43,11 +43,8 @@ namespace UI
         private void btnNueva_Click(object sender, EventArgs e)
         {
             var nombreFamilia = "";
-
-            InputBoxItem[] items = new InputBoxItem[]
-            {
-                    new InputBoxItem("NombreFamilia", nombreFamilia)
-            };
+            
+            var items = InputBox.fillItems("NombreFamilia", nombreFamilia);
 
             InputBox input = InputBox.Show("Ingrese el nombre para la nueva familia", items, InputBoxButtons.OKCancel);
 
@@ -109,7 +106,19 @@ namespace UI
         private void btnModificar_Click(object sender, EventArgs e)
         {
             var desc = chklstFamilias.SelectedItem.ToString();
-            var nuevoNombre = Interaction.InputBox("Ingrese el nombre:", "Actualizar", "");
+            var nuevoNombre = "";
+
+            InputBoxItem[] items = new InputBoxItem[]
+            {
+                    new InputBoxItem("Contraseña", nuevoNombre)
+            };
+
+            InputBox input = InputBox.Show("Ingrese nueva contraseña", items, InputBoxButtons.OKCancel);
+
+            if (input.Result == InputBoxResult.OK)
+            {
+                nuevoNombre = input.Items["Contraseña"];
+            }
 
             var familias = familiaBLL.Cargar();
 

@@ -86,22 +86,31 @@ namespace UI
                 var usuario = txt_user.Text;
                 var contraseña = txt_contraseña.Text;
                 ////admin123
-                var ingresa = usuarioBLL.LogIn(usuario, contraseña);
 
-                if (ingresa)
+                if (usuarioBLL.ObtenerUsuarioConEmail(usuario).Activo)
                 {
-                    this.Hide();
-                    formControl.GuardarDatosSesionUsuario(usuarioBLL.ObtenerUsuarioConEmail(usuario));
-                    PrincipalForm.ComprobarSiEsPrimerLogin(usuario);
-                    PrincipalForm.Show();
-                }
-                else if(usuarioBLL.ObtenerUsuarioConEmail(usuario).ContadorIngresosIncorrectos < 3)
-                {
-                    MessageBox.Show("Login Incorrecto");
+                    var ingresa = usuarioBLL.LogIn(usuario, contraseña);
+
+                    if (ingresa)
+                    {
+                        this.Hide();
+                        formControl.GuardarDatosSesionUsuario(usuarioBLL.ObtenerUsuarioConEmail(usuario));
+                        PrincipalForm.ComprobarSiEsPrimerLogin(usuario);
+                        PrincipalForm.Show();
+                    }
+
+                    else if (usuarioBLL.ObtenerUsuarioConEmail(usuario).ContadorIngresosIncorrectos < 3)
+                    {
+                        MessageBox.Show("Login Incorrecto");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Cuenta bloqueada contacte a su administrador");
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Cuenta bloqueada contacte a su administrador");
+                    MessageBox.Show("Su usuario no se encuentra activo");
                 }
             },
             (ex) => MessageBox.Show($"Ocurrio un error por lo siguiente {ex.Message}"));

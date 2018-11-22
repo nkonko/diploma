@@ -40,7 +40,6 @@ namespace UI
         {
             ////Traer id de familia que machee con idusuario de familiaUsuario //revisar
             //var idFamilia = familiaBLL.Cargar().Find(
-
             var patForm = formControl.ObtenerPermisosFormularios();
 
             var patUsu = formControl.ObtenerPermisosUsuario();
@@ -88,32 +87,28 @@ namespace UI
             {
                 var nuevaContraseña = "";
 
-                InputBoxItem[] items = new InputBoxItem[]
-                {
-                    new InputBoxItem("Contraseña", nuevaContraseña)
-                };
+                var items = InputBox.fillItems("Contraseña", nuevaContraseña);
 
-                InputBox input = InputBox.Show("Ingrese nueva contraseña", items, InputBoxButtons.OKCancel);
+                InputBox input = InputBox.Show("Ingrese nueva contraseña", items, InputBoxButtons.OK);
 
                 if (input.Result == InputBoxResult.OK)
                 {
                     nuevaContraseña = input.Items["Contraseña"];
-                }
-
-                var cambioExitoso = usuarioDAL.CambiarContraseña(usu, nuevaContraseña, true);
-                if (cambioExitoso)
-                {
-                    //Log.Info("Password Actualizado");
-                    MessageBox.Show("Su contraseña fue actualizada");
-                }
-                else
-                {
-                    //Log.Info("Fallo la actualizacion del password");
-                    MessageBox.Show("Error contraseña no actualizada");
+                    var cambioExitoso = usuarioDAL.CambiarContraseña(usu, nuevaContraseña, true);
+                    if (cambioExitoso)
+                    {
+                        //Log.Info("Password Actualizado");
+                        MessageBox.Show("Su contraseña fue actualizada");
+                    }
+                    else
+                    {
+                        //Log.Info("Fallo la actualizacion del password");
+                        MessageBox.Show("Error contraseña no actualizada");
+                    }
                 }
             }
         }
-
+       
         private void backUpToolStripMenuItem_Click(object sender, EventArgs e)
         {
             backupUI.MdiParent = this;

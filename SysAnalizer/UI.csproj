@@ -136,6 +136,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FormControl.cs" />
+    <Compile Include="FORMULARIOS\AdminPatente - Copy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMULARIOS\AdminPatente - Copy.Designer.cs">
+      <DependentUpon>AdminPatente - Copy.cs</DependentUpon>
+    </Compile>
     <Compile Include="FORMULARIOS\Alert.cs" />
     <Compile Include="FORMULARIOS\DatosUsuario.cs">
       <SubType>Form</SubType>
@@ -240,6 +246,9 @@
       <DependentUpon>Español.resx</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <EmbeddedResource Include="FORMULARIOS\AdminPatente - Copy.resx">
+      <DependentUpon>AdminPatente - Copy.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reporte\Bitacora.rdlc" />
     <EmbeddedResource Include="FORMULARIOS\BitacoraUI.resx">
       <DependentUpon>BitacoraUI.cs</DependentUpon>

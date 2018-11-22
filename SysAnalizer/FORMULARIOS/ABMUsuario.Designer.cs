@@ -54,6 +54,7 @@ namespace UI
             this.label8 = new System.Windows.Forms.Label();
             this.chkLstFamilia = new System.Windows.Forms.CheckedListBox();
             this.btnNegarPat = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgusuario)).BeginInit();
             this.SuspendLayout();
             // 
@@ -299,11 +300,21 @@ namespace UI
             this.btnNegarPat.UseVisualStyleBackColor = true;
             this.btnNegarPat.Click += new System.EventHandler(this.btnNegarPat_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(593, 341);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 53);
+            this.button1.TabIndex = 42;
+            this.button1.Text = "Usuarios Inactivos";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // ABMusuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(683, 406);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnNegarPat);
             this.Controls.Add(this.chkLstFamilia);
             this.Controls.Add(this.label8);
@@ -361,5 +372,6 @@ namespace UI
         private System.Windows.Forms.DataGridViewTextBoxColumn Email;
         private System.Windows.Forms.DataGridViewTextBoxColumn Telefono;
         private System.Windows.Forms.DataGridViewTextBoxColumn Domicilio;
+        private System.Windows.Forms.Button button1;
     }
 }

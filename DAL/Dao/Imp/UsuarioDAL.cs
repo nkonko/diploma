@@ -49,14 +49,14 @@
                           @idIdioma = objAlta.IdIdioma,
                           @primerLogin = Convert.ToByte(objAlta.PrimerLogin = true),
                           @dvh = digitoVH,
-                          @activo = 0
+                          @activo = 1
                       });
               });
         }
 
         public List<Usuario> Cargar()
         {
-            var queryString = "SELECT * FROM Usuario;";
+            var queryString = "SELECT * FROM Usuario WHERE Activo = 1;";
 
             return CatchException(() =>
             {
@@ -68,7 +68,7 @@
         {
             var usu = ObtenerUsuarioConEmail(objDel.Email);
 
-            var queryString = string.Format("DELETE FROM Usuario WHERE UsuarioId = {0}", usu.UsuarioId);
+            var queryString = string.Format("UPDATE Usuario SET Activo = 0 WHERE UsuarioId = {0}", usu.UsuarioId);
 
             return CatchException(() =>
             {
@@ -108,28 +108,32 @@
 
             if (usu.Email != null)
             {
-                if (!usu.PrimerLogin)
+                if (usu.Activo)
                 {
-                    var cingresoInc = usu.ContadorIngresosIncorrectos;
-
-                    if (cingresoInc < 3)
+                    if (!usu.PrimerLogin)
                     {
-                        var contEncriptada = MD5.ComputeMD5Hash(contraseña);
+                        var cingresoInc = usu.ContadorIngresosIncorrectos;
 
-                        ingresa = ValidarContraseña(usu.Contraseña, contEncriptada);
-                        if (!ingresa)
+                        if (cingresoInc < 3)
                         {
-                            AumentarIngresos(usu, usu.ContadorIngresosIncorrectos);
-                            return false;
+                            var contEncriptada = MD5.ComputeMD5Hash(contraseña);
+
+                            ingresa = ValidarContraseña(usu.Contraseña, contEncriptada);
+
+                            if (!ingresa)
+                            {
+                                AumentarIngresos(usu, usu.ContadorIngresosIncorrectos);
+                                return false;
+                            }
+
+                            return true;
                         }
 
-                        return true;
+                        return false;
                     }
 
-                    return false;
+                    return true;
                 }
-
-                return true;
             }
 
             return false;

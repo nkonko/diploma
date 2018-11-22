@@ -76,6 +76,16 @@
             }
         }
 
+        public static InputBoxItem[] fillItems(string label, string text)
+        {
+            InputBoxItem[] items = new InputBoxItem[]
+            {
+                new InputBoxItem(label, text)
+            };
+
+            return items;
+        }
+
         public static InputBox Show(string title, string label)
         {
             dialogForm dialog = new dialogForm(title, new InputBoxItem[] { new InputBoxItem(label) }, InputBoxButtons.OK);
