@@ -19,6 +19,7 @@ namespace UI
         private readonly IPatenteBLL patenteBLL;
         private readonly IBitacoraBLL bitacoraBLL;
         private readonly IFormControl formControl;
+        private readonly IBloqueoUsuario bloqueoUsuario;
 
         private const int formId = 3;
         private const string entidad = "Usuario";
@@ -38,13 +39,14 @@ namespace UI
 
         private IUsuarioBLL usuarioBLL;
 
-        public ABMusuario(IBitacoraBLL bitacoraBLL, IFormControl formControl, IFamiliaBLL familiasBLL, IPatenteBLL patenteBLL, IDigitoVerificador digitoVerificador)
+        public ABMusuario(IBitacoraBLL bitacoraBLL, IFormControl formControl, IFamiliaBLL familiasBLL, IPatenteBLL patenteBLL, IDigitoVerificador digitoVerificador, IBloqueoUsuario bloqueoUsuario)
         {
             this.bitacoraBLL = bitacoraBLL;
             this.formControl = formControl;
             this.familiasBLL = familiasBLL;
             this.patenteBLL = patenteBLL;
             this.digitoVerificador = digitoVerificador;
+            this.bloqueoUsuario = bloqueoUsuario;
             InitializeComponent();
             dgusuario.AutoGenerateColumns = false;
         }
@@ -475,6 +477,10 @@ namespace UI
 
         private void btnUsuariosInactivos_Click(object sender, EventArgs e)
         {
+            var resultado = bloqueoUsuario.ShowDialog();
+            if (resultado == DialogResult.OK)
+            {
+            }
 
         }
     }

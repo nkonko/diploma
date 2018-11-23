@@ -15,5 +15,9 @@
         List<Patente> ObtenerPatentesDeUsuario(int usuarioId);
 
         List<Usuario> CargarInactivos();
+
+        bool ActivarUsuario(string email);
+
+        bool DesactivarUsuario(string email);
     }
 }

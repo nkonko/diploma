@@ -203,6 +203,23 @@
             });
         }
 
+        public bool ActivarUsuario(string email)
+        {
+            var usu = ObtenerUsuarioConEmail(email);
+
+            var queryString = string.Format("UPDATE Usuario SET Activo = 1 WHERE UsuarioId = {0}", usu.UsuarioId);
+
+            return CatchException(() =>
+            {
+                return Exec(queryString);
+            });
+        }
+
+        public bool DesactivarUsuario(string email)
+        {
+            return Borrar(new Usuario() { Email = email });
+        }
+
         private bool ValidarContraseña(string contraseña, string contEncriptada)
         {
             if (contraseña == contEncriptada)

@@ -77,5 +77,15 @@
         {
             return usuarioDAL.CargarInactivos();
         }
+
+        public bool ActivarUsuario(string email)
+        {
+            return usuarioDAL.ActivarUsuario(email);
+        }
+
+        public bool DesactivarUsuario(string email)
+        {
+            return usuarioDAL.DesactivarUsuario(email);
+        }
     }
 }
