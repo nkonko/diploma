@@ -11,5 +11,7 @@
         Usuario ObtenerUsuarioConEmail(string email);
 
         List<Patente> ObtenerPatentesDeUsuario(int usuarioId);
+
+        List<Usuario> CargarInactivos();
     }
 }

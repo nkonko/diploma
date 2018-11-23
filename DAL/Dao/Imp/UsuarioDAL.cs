@@ -64,6 +64,21 @@
             });
         }
 
+        public List<Usuario> CargarInactivos()
+        {
+            var queryString = "SELECT Email FROM Usuario WHERE Activo = 0;";
+            var usuarios = new List<Usuario>();
+
+            CatchException(() =>
+            {
+                usuarios = Exec<Usuario>(queryString);
+            });
+
+            usuarios.ForEach(x => DES.Decrypt(x.Email, Key, Iv));
+
+            return usuarios;
+        }
+
         public bool Borrar(Usuario objDel)
         {
             var usu = ObtenerUsuarioConEmail(objDel.Email);

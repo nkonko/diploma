@@ -432,7 +432,7 @@ namespace UI
                 {
                     ids.Add(patenteBLL.ObtenerIdPatentePorDescripcion(chkLstPatentes.SelectedItem.ToString()));
 
-                    if (patenteBLL.esPatenteEnUso(ids[0], usuario.UsuarioId))
+                    if (patenteBLL.EsPatenteEnUso(ids[0], usuario.UsuarioId))
                     {
                         patenteBLL.BorrarPatentesUsuario(ids, usuario.UsuarioId);
                     }
@@ -469,9 +469,13 @@ namespace UI
 
         private void ABMusuario_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Dispose();
-            //Hide();
-            //e.Cancel = true;
+            Hide();
+            e.Cancel = true;
+        }
+
+        private void btnUsuariosInactivos_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

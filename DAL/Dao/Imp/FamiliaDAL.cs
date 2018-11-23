@@ -187,7 +187,6 @@
             var familiaUsuario = ObtenerIdsFamiliasPorUsuario(usuarioId);
 
             return familiasDb.FindAll(x => familiaUsuario.Any(y => y == x.FamiliaId));
-        
          }
 
         public List<int> ObtenerIdsFamiliasPorUsuario(int usuarioId)

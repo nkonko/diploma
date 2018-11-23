@@ -27,7 +27,7 @@
 
             if (ingresa)
             {
-                Log4netExtensions.Baja(log,"Usuario logueado correctamente");
+                Log4netExtensions.Baja(log, "Usuario logueado correctamente");
                 return ingresa;
             }
 
@@ -71,6 +71,11 @@
         public List<Patente> ObtenerPatentesDeUsuario(int usuarioId)
         {
             return usuarioDAL.ObtenerPatentesDeUsuario(usuarioId);
+        }
+
+        public List<Usuario> CargarInactivos()
+        {
+            return usuarioDAL.CargarInactivos();
         }
     }
 }
