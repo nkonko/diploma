@@ -20,26 +20,24 @@
         public bool Crear(Venta objAlta)
         {
             var digitoVH = digitoVerificador.CalcularDVHorizontal(new List<string>() { }, new List<int>() { });
-            ////Cambiar por los datos de venta
-            var queryString = string.Format(
-                        "INSERT INTO Venta() VALUES ()",
-                       ////objAlta.Nombre,
-                       ////objAlta.Apellido,
-                       ////contEncript,
-                       ////objAlta.Email,
-                       ////objAlta.Telefono,
-                       ////objAlta.CIngresos = 0,
-                       ////objAlta.IdCanalVenta,
-                       ////objAlta.IdIdioma,
-                       ////Convert.ToByte(objAlta.PrimerLogin = true),
-                       digitoVH,
-                       0);
+
+            var queryString = "INSERT INTO Venta(Fecha, EstadoId,TipoVentaId,ClienteId,Monto,DVH) VALUES (@fecha, @estado, @tipoVenta, @cliente, @monto, @dvh)";
             using (IDbConnection connection = SqlUtils.Connection())
             {
                 try
                 {
                     connection.Open();
-                    connection.Execute(queryString);
+                    connection.Execute(
+                        queryString,
+                        new
+                        {
+                            @fecha = objAlta.Fecha,
+                            @estado = objAlta.EstadoId,
+                            @tipoVenta = objAlta.TipoVentaId,
+                            @cliente = objAlta.ClienteId,
+                            @monto = objAlta.Monto,
+                            @dvh = digitoVH
+                        });
 
                     return true;
                 }
@@ -54,7 +52,7 @@
 
         public bool Borrar(Venta objDel)
         {
-            var queryString = $"DELETE FROM Venta WHERE IdVenta = {objDel.Id}";
+            var queryString = $"DELETE FROM Venta WHERE VentaId = {objDel.VentaId}";
 
             using (IDbConnection connection = SqlUtils.Connection())
             {
@@ -98,7 +96,7 @@
         public bool Actualizar(Venta objUpd)
         {
             ////terminar query
-            var queryString = string.Format("UPDATE Venta SET Descripcion = {1} WHERE IdVenta = {0}", objUpd.Id, objUpd.Descripcion);
+            var queryString = string.Format("UPDATE  WHERE IdVenta = {0}", objUpd.VentaId);
 
             using (IDbConnection connection = SqlUtils.Connection())
             {

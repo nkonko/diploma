@@ -4,15 +4,18 @@
     using BE.Entidades;
     using DAL.Dao;
     using DAL.Utils;
-    using Dapper;
+    using EasyEncryption;
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
     using System.Text;
 
     public class BitacoraDAL : BaseDao, IBitacoraDAL
     {
         private readonly IDigitoVerificador digitoVerificador;
+        public const string key = "bZr2URKx";
+        public const string iv = "HNtgQw0w";
 
         public BitacoraDAL(IDigitoVerificador digitoVerificador)
         {
@@ -70,6 +73,7 @@
             var criticidadesParameters = string.Empty;
             var coma = string.Empty;
             var query = string.Empty;
+            var bitacoras = new List<Bitacora>();
 
             if (usuarios.Count != 0)
             {
@@ -104,10 +108,14 @@
 
             query = string.Format(queryImpl + " Fecha BETWEEN '{0}' AND '{1}'", desde.ToShortDateString(), hasta);
 
-            return CatchException(() =>
+            CatchException(() =>
             {
-                return Exec<Bitacora>(query);
+                bitacoras = Exec<Bitacora>(query);
             });
+
+            bitacoras.ForEach(x => x.InformacionAsociada = DES.Decrypt(x.InformacionAsociada, key, iv));
+
+            return bitacoras;
         }
 
         public int GenerarDVH(Usuario usu)

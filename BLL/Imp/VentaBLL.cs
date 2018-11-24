@@ -1,10 +1,9 @@
 ﻿namespace BLL
 {
-    using System.Collections.Generic;
     using BE;
     using BE.Entidades;
-    using DAL;
     using DAL.Dao;
+    using System.Collections.Generic;
 
     public class VentaBLL : ICRUD<Venta>, IVentaBLL
     {

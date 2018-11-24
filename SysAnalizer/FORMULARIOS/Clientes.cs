@@ -2,13 +2,17 @@
 namespace UI
 {
     using BE.Entidades;
+    using BLL;
     using System;
     using System.Windows.Forms;
 
     public partial class Clientes : Form, IClientes
     {
-        public Clientes()
+        private readonly IClienteBLL clienteBLL;
+
+        public Clientes(IClienteBLL clienteBLL)
         {
+            this.clienteBLL = clienteBLL;
             InitializeComponent();
         }
 
@@ -22,12 +26,28 @@ namespace UI
 
         private void Clientes_Load(object sender, EventArgs e)
         {
-
+            dgClientes.DataSource = clienteBLL.Cargar();
         }
 
         public Cliente ObtenerClienteSeleccionado()
         {
             return new Cliente();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Hide();
+        }
+
+        private void Clientes_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            Hide();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            clienteBLL.Crear(new Cliente() { NombreCompleto = textBox1.Text });
         }
     }
 }

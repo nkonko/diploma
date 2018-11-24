@@ -136,6 +136,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FormControl.cs" />
+    <Compile Include="FORMULARIOS\BloqueoProductos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMULARIOS\BloqueoUsuarios - Copy.Designer.cs">
+      <DependentUpon>BloqueoProductos.cs</DependentUpon>
+    </Compile>
     <Compile Include="FORMULARIOS\BloqueoUsuarios.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -186,6 +192,7 @@
     <Compile Include="FORMULARIOS\BitacoraUI.Designer.cs">
       <DependentUpon>BitacoraUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="IBloqueoProductos.cs" />
     <Compile Include="IBloqueoUsuario.cs" />
     <Compile Include="IBackupUI.cs" />
     <Compile Include="InputBox.cs" />
@@ -247,6 +254,9 @@
       <DependentUpon>Español.resx</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <EmbeddedResource Include="FORMULARIOS\BloqueoProductos.resx">
+      <DependentUpon>BloqueoProductos.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FORMULARIOS\BloqueoUsuarios.resx">
       <DependentUpon>BloqueoUsuarios.cs</DependentUpon>
     </EmbeddedResource>

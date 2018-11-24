@@ -3,46 +3,46 @@
     using BE;
     using BE.Entidades;
     using DAL.Utils;
-    using System;
     using System.Collections.Generic;
 
     public class ProductoDAL : BaseDao, ICRUD<Producto>, IProductoDAL
     {
-        private readonly IDigitoVerificador digitoVerificador;
-
-        private readonly string queryString = string.Empty;
-
-        public ProductoDAL(IDigitoVerificador digitoVerificador)
+        public ProductoDAL()
         {
-            this.digitoVerificador = digitoVerificador;
         }
 
         public bool Crear(Producto objAlta)
         {
-            var digitoVH = digitoVerificador.CalcularDVHorizontal(new List<string>() { objAlta.Descripcion, }, new List<int>() { int.Parse(objAlta.CodigoProducto) });
-
-            var queryString = string.Format(
-                                "INSERT INTO Producto(Descripcion ,PUnitario, PVenta ,Stock ,DVH) " +
-                                "VALUES({0}, {1}, {2}, {3}, {4})",
-                                objAlta.Descripcion,
-                                objAlta.PUnitario,
-                                objAlta.PVenta,
-                                objAlta.Stock,
-                                digitoVH);
+            var queryString = "INSERT INTO Producto(Descripcion ,PUnitario, PVenta ,Stock ,MinStock) VALUES( @descripcion, @pUnitario,  @pVenta,  @stock, @minStock, @activo)";
 
             return CatchException(() =>
             {
-                return Exec(queryString);
+                return Exec(
+                    queryString,
+                    new
+                    {
+                        @descripcion = objAlta.Descripcion,
+                        @pUnitario = objAlta.PUnitario,
+                        @pVenta = objAlta.PVenta,
+                        @stock = objAlta.Stock,
+                        @minStock = objAlta.MinStock,
+                        @activo = 1
+                    });
             });
         }
 
         public bool Borrar(Producto objDel)
         {
-            var queryString = $"DELETE FROM Producto WHERE IdProducto = {objDel.IdProducto}";
+            var queryString = $"UPDATE Producto SET Activo = 0 WHERE ProductoId = @codigo {objDel.ProductoId}";
 
             return CatchException(() =>
             {
-                return Exec(queryString);
+                return Exec(
+                    queryString,
+                    new
+                    {
+                        @codigo = objDel.ProductoId
+                    });
             });
         }
 
@@ -58,18 +58,27 @@
 
         public bool Actualizar(Producto objUpd)
         {
-            ////Cambiar por columnas de producto
-            var queryString = $"UPDATE Producto SET WHERE IdProducto = ";
+            var queryString = $"UPDATE Producto SET Descripcion = @descripcion, PUnitario = @pUnitario, PVenta = @pVenta, Stock = @stock, MinStock = @minStock WHERE ProductoId = @codigo";
 
             return CatchException(() =>
             {
-                return Exec(queryString);
+                return Exec(
+                    queryString,
+                    new
+                    {
+                        @descripcion = objUpd.Descripcion,
+                        @pUnitario = objUpd.PUnitario,
+                        @pVenta = objUpd.PVenta,
+                        @stock = objUpd.Stock,
+                        @minStock = objUpd.MinStock,
+                        @codigo = objUpd.ProductoId
+                    });
             });
         }
 
         public Producto ObtenerProductoPorCodigo(string codigo)
         {
-            var queryString = $"SELECT * FROM Producto WHERE IdProducto = @codigo";
+            var queryString = $"SELECT * FROM Producto WHERE ProductoId = @codigo";
 
             return CatchException(() =>
             {

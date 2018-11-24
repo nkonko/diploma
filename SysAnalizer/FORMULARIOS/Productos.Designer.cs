@@ -53,6 +53,7 @@ namespace UI
             this.P_Costo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MinStock = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgProd)).BeginInit();
             this.SuspendLayout();
@@ -71,7 +72,7 @@ namespace UI
             // txtNroProd
             // 
             this.txtNroProd.Enabled = false;
-            this.txtNroProd.Location = new System.Drawing.Point(438, 206);
+            this.txtNroProd.Location = new System.Drawing.Point(415, 206);
             this.txtNroProd.Margin = new System.Windows.Forms.Padding(2);
             this.txtNroProd.Name = "txtNroProd";
             this.txtNroProd.Size = new System.Drawing.Size(109, 20);
@@ -80,7 +81,7 @@ namespace UI
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(436, 181);
+            this.label4.Location = new System.Drawing.Point(413, 181);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(70, 13);
@@ -90,12 +91,12 @@ namespace UI
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(135, 128);
+            this.label3.Location = new System.Drawing.Point(172, 128);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(49, 13);
+            this.label3.Size = new System.Drawing.Size(50, 13);
             this.label3.TabIndex = 24;
-            this.label3.Text = "P. costo:";
+            this.label3.Text = "P. venta:";
             // 
             // btnSelVta
             // 
@@ -111,7 +112,7 @@ namespace UI
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(135, 92);
+            this.label2.Location = new System.Drawing.Point(172, 92);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(57, 13);
@@ -121,7 +122,7 @@ namespace UI
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(135, 59);
+            this.label1.Location = new System.Drawing.Point(172, 59);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(66, 13);
@@ -130,7 +131,7 @@ namespace UI
             // 
             // btnBorrar
             // 
-            this.btnBorrar.Location = new System.Drawing.Point(9, 121);
+            this.btnBorrar.Location = new System.Drawing.Point(9, 199);
             this.btnBorrar.Margin = new System.Windows.Forms.Padding(2);
             this.btnBorrar.Name = "btnBorrar";
             this.btnBorrar.Size = new System.Drawing.Size(74, 27);
@@ -141,7 +142,7 @@ namespace UI
             // 
             // btnModificar
             // 
-            this.btnModificar.Location = new System.Drawing.Point(10, 89);
+            this.btnModificar.Location = new System.Drawing.Point(9, 142);
             this.btnModificar.Margin = new System.Windows.Forms.Padding(2);
             this.btnModificar.Name = "btnModificar";
             this.btnModificar.Size = new System.Drawing.Size(74, 27);
@@ -152,7 +153,7 @@ namespace UI
             // 
             // txtPcosto
             // 
-            this.txtPcosto.Location = new System.Drawing.Point(201, 126);
+            this.txtPcosto.Location = new System.Drawing.Point(238, 126);
             this.txtPcosto.Margin = new System.Windows.Forms.Padding(2);
             this.txtPcosto.Name = "txtPcosto";
             this.txtPcosto.Size = new System.Drawing.Size(125, 20);
@@ -160,7 +161,7 @@ namespace UI
             // 
             // txtPunitario
             // 
-            this.txtPunitario.Location = new System.Drawing.Point(201, 92);
+            this.txtPunitario.Location = new System.Drawing.Point(238, 92);
             this.txtPunitario.Margin = new System.Windows.Forms.Padding(2);
             this.txtPunitario.Name = "txtPunitario";
             this.txtPunitario.Size = new System.Drawing.Size(125, 20);
@@ -168,7 +169,7 @@ namespace UI
             // 
             // txtDescripcion
             // 
-            this.txtDescripcion.Location = new System.Drawing.Point(201, 59);
+            this.txtDescripcion.Location = new System.Drawing.Point(238, 59);
             this.txtDescripcion.Margin = new System.Windows.Forms.Padding(2);
             this.txtDescripcion.Name = "txtDescripcion";
             this.txtDescripcion.Size = new System.Drawing.Size(125, 20);
@@ -176,7 +177,7 @@ namespace UI
             // 
             // btnNuevo
             // 
-            this.btnNuevo.Location = new System.Drawing.Point(10, 56);
+            this.btnNuevo.Location = new System.Drawing.Point(10, 85);
             this.btnNuevo.Margin = new System.Windows.Forms.Padding(2);
             this.btnNuevo.Name = "btnNuevo";
             this.btnNuevo.Size = new System.Drawing.Size(74, 27);
@@ -227,7 +228,7 @@ namespace UI
             this.groupBox1.Controls.Add(this.txtMinStock);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.txtCantidad);
-            this.groupBox1.Location = new System.Drawing.Point(87, 156);
+            this.groupBox1.Location = new System.Drawing.Point(124, 156);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
@@ -275,11 +276,21 @@ namespace UI
             this.MinStock.HeaderText = "MinStock";
             this.MinStock.Name = "MinStock";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(426, 55);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(109, 50);
+            this.button1.TabIndex = 35;
+            this.button1.Text = "Productos Inactivos";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // Productos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(557, 496);
+            this.ClientSize = new System.Drawing.Size(563, 496);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.dgProd);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnVolver);
@@ -334,5 +345,6 @@ namespace UI
         private System.Windows.Forms.DataGridViewTextBoxColumn P_Costo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Cantidad;
         private System.Windows.Forms.DataGridViewTextBoxColumn MinStock;
+        private System.Windows.Forms.Button button1;
     }
 }

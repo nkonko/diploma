@@ -56,6 +56,8 @@
             contBuilder.RegisterType<IdiomaBLL>().As<IIdiomaBLL>().SingleInstance();
             contBuilder.RegisterType<IdiomaDAL>().As<IIdiomaDAL>().SingleInstance();
             contBuilder.RegisterType<DigitoVerificador>().As<IDigitoVerificador>().SingleInstance();
+            contBuilder.RegisterType<BloqueoProductos>().As<IBloqueoProductos>().SingleInstance();
+            contBuilder.RegisterType<BloqueoUsuario>().As<IBloqueoUsuario>().SingleInstance();
             return contBuilder.Build();
         }
     }

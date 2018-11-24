@@ -31,34 +31,36 @@ namespace UI
 
         private void btnNuevo_Click(object sender, EventArgs e)
         {
-            productoBLL.Crear(new Producto() { Descripcion = txtDescripcion.Text, PVenta = float.Parse(txtPcosto.Text), PUnitario = float.Parse(txtPunitario.Text), Stock = int.Parse(txtCantidad.Text) });
+            productoBLL.Crear(new Producto() { Descripcion = txtDescripcion.Text, PVenta = float.Parse(txtPcosto.Text), PUnitario = float.Parse(txtPunitario.Text), Stock = int.Parse(txtCantidad.Text), MinStock = int.Parse(txtMinStock.Text) });
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            productoBLL.Actualizar(new Producto() { Descripcion = txtDescripcion.Text, PVenta = float.Parse(txtPcosto.Text), PUnitario = float.Parse(txtPunitario.Text), Stock = int.Parse(txtCantidad.Text) });
+            productoBLL.Actualizar(new Producto() { Descripcion = txtDescripcion.Text, PVenta = float.Parse(txtPcosto.Text), PUnitario = float.Parse(txtPunitario.Text), Stock = int.Parse(txtCantidad.Text), MinStock = int.Parse(txtMinStock.Text) });
         }
 
         private void btnBorrar_Click(object sender, EventArgs e)
         {
-            productoBLL.Borrar(new Producto() { CodigoProducto = txtNroProd.Text });
+            productoBLL.Borrar(new Producto() { ProductoId = int.Parse(txtNroProd.Text) });
         }
 
         private void btnVolver_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            Hide();
         }
 
         private void btnSelVta_Click(object sender, EventArgs e)
         {
+            var producto = (Producto)dgProd.CurrentRow.DataBoundItem;
+
             productoSeleccionado = new Producto()
             {
-                CodigoProducto = "11",
-                Descripcion = "Alguno",
-                IdProducto = 1,
-                PVenta = 12,
-                PUnitario = 12,
-                Stock = 10
+                Descripcion = producto.Descripcion,
+                ProductoId = producto.ProductoId,
+                PVenta = producto.PVenta,
+                PUnitario = producto.PUnitario,
+                Stock = producto.Stock,
+               MinStock = producto.MinStock
             };
 
             DialogResult = DialogResult.OK;
