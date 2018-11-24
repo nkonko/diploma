@@ -40,7 +40,7 @@ namespace UI
             CargarCombo();
             formControl.LenguajeSeleccionado = (Idioma)cbo_idioma.SelectedItem;
             Traduccir();
-            ////ComprobarBaseDeDatos();
+           // ComprobarBaseDeDatos();
         }
 
         private void ComprobarBaseDeDatos()
