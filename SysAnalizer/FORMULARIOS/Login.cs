@@ -145,8 +145,8 @@ namespace UI
 
         private void LimpiarRecursos()
         {
-            using (ResXResourceWriter resxWriter = new ResXResourceWriter("C:\\Users\\Nicolas Azzara\\Desktop\\diploma\\diploma\\SysAnalizer\\Recursos\\Español.resx"))
-            {
+            using (ResXResourceWriter resxWriter = new ResXResourceWriter("C: \\Users\\nicoa\\Documents\\GitHub\\diploma\\SysAnalizer\\Recursos\\Español.resx"))
+            {                                                              
                 resxWriter.Dispose();
             }
         }
