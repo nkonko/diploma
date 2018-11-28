@@ -479,7 +479,6 @@ namespace UI
             if (resultado == DialogResult.OK)
             {
             }
-
         }
     }
 }
