@@ -87,5 +87,10 @@
         {
             return usuarioDAL.DesactivarUsuario(email);
         }
+
+        public Usuario ObtenerUsuarioConId(int UsuarioId)
+        {
+            return usuarioDAL.ObtenerUsuarioConId(UsuarioId);
+        }
     }
 }

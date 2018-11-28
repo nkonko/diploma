@@ -267,9 +267,19 @@ namespace UI
                 }
             }
 
+            returnValue = CheckeoPatentes(usuario);
+
+            return returnValue;
+        }
+
+        public bool CheckeoPatentes(Usuario usuario)
+        {
+            var returnValue = true;
+
             returnValue = patenteBLL.CheckeoDePatentesParaBorrar(usuario);
 
             return returnValue;
+
         }
 
         private void btnNegarPat_Click(object sender, EventArgs e)
@@ -294,7 +304,7 @@ namespace UI
                 usuario.Familia = new List<Familia>();
                 usuario.Familia = familiasBLL.ObtenerFamiliasUsuario(usuario.UsuarioId);
 
-                if (patenteBLL.CheckeoDePatentesParaBorrar(usuario))
+                if (CheckeoPatentes(usuario))
                 {
                     var hecho = patenteBLL.NegarPatente(patenteBLL.ObtenerIdPatentePorDescripcion(chkLstPatentes.SelectedItem.ToString()), usuario.UsuarioId);
                     if (hecho)
@@ -432,7 +442,7 @@ namespace UI
                 {
                     ids.Add(patenteBLL.ObtenerIdPatentePorDescripcion(chkLstPatentes.SelectedItem.ToString()));
 
-                    if (patenteBLL.EsPatenteEnUso(ids[0], usuario.UsuarioId))
+                    if (CheckeoPatentes(usuario))
                     {
                         patenteBLL.BorrarPatentesUsuario(ids, usuario.UsuarioId);
                     }
@@ -462,7 +472,14 @@ namespace UI
                 else
                 {
                     ids.Add(familiasBLL.ObtenerIdFamiliaPorDescripcion(chkLstFamilia.SelectedItem.ToString()));
-                    familiasBLL.BorrarFamiliasUsuario(usuario.Familia, usuario.UsuarioId);
+                    if (CheckeoPatentes(usuario))
+                    {
+                        familiasBLL.BorrarFamiliasUsuario(usuario.Familia, usuario.UsuarioId);
+                    }
+                    else
+                    {
+                        MessageBox.Show("No puede quitar esta familia");
+                    }
                 }
             }
         }
@@ -479,6 +496,13 @@ namespace UI
             if (resultado == DialogResult.OK)
             {
             }
+        }
+
+        private void ABMusuario_Enter(object sender, EventArgs e)
+        {
+            CargarRefrescarDatagrid();
+            chkLstPatentes.DataSource = patenteBLL.Cargar().Select(pat => pat.Descripcion).ToList();
+            chkLstFamilia.DataSource = familiasBLL.Cargar().Select(fam => fam.Descripcion).ToList();
         }
     }
 }

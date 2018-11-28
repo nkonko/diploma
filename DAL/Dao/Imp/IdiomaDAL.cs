@@ -22,7 +22,7 @@
                 "SELECT trad.* FROM Traduccion trad " +
                  "INNER JOIN Formularios ON Formularios.IdFormulario = trad.IdFormulario " +
                  "INNER JOIN Idioma ON Idioma.IdIdioma = trad.IdIdioma " +
-                 "WHERE Idioma.IdIdioma = {0} AND Formularios.Descripcion = '{1}'",
+                 "WHERE Idioma.IdIdioma = {0} AND Formularios.NombreFormulario = '{1}'",
                 idiomaId,
                 nombreForm);
 

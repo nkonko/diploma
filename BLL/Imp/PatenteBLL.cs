@@ -73,9 +73,9 @@
             return patenteDAL.EsPatenteEnUso(patenteId, usuarioId);
         }
 
-        public bool CheckeoDePatentesParaBorrar(Usuario usuario)
+        public bool CheckeoDePatentesParaBorrar(Usuario usuario, bool requestFamilia = false)
         {
-           return patenteDAL.CheckeoDePatentesParaBorrar(usuario);
+           return patenteDAL.CheckeoDePatentesParaBorrar(usuario, requestFamilia);
         }
     }
 }

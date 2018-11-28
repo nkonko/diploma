@@ -117,7 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="MSJ002" xml:space="preserve">
-    <value>Por favor verifique los datos ingresados.</value>
+  <data name="MSJ000" xml:space="preserve">
+    <value>Problema Base de datos</value>
+  </data>
+  <data name="MSJ010" xml:space="preserve">
+    <value>Something was wrong with BD</value>
   </data>
 </root>

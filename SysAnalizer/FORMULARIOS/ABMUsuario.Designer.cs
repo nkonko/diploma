@@ -60,10 +60,10 @@ namespace UI
             // 
             // btnVolver
             // 
-            this.btnVolver.Location = new System.Drawing.Point(15, 14);
-            this.btnVolver.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnVolver.Location = new System.Drawing.Point(11, 11);
+            this.btnVolver.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnVolver.Name = "btnVolver";
-            this.btnVolver.Size = new System.Drawing.Size(99, 33);
+            this.btnVolver.Size = new System.Drawing.Size(74, 27);
             this.btnVolver.TabIndex = 27;
             this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = true;
@@ -81,12 +81,12 @@ namespace UI
             this.Email,
             this.Telefono,
             this.Domicilio});
-            this.dgusuario.Location = new System.Drawing.Point(15, 262);
-            this.dgusuario.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dgusuario.Location = new System.Drawing.Point(11, 213);
+            this.dgusuario.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dgusuario.Name = "dgusuario";
             this.dgusuario.ReadOnly = true;
             this.dgusuario.RowTemplate.Height = 24;
-            this.dgusuario.Size = new System.Drawing.Size(583, 224);
+            this.dgusuario.Size = new System.Drawing.Size(437, 182);
             this.dgusuario.TabIndex = 26;
             this.dgusuario.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgusuario_CellClick);
             this.dgusuario.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
@@ -130,36 +130,39 @@ namespace UI
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(331, 81);
+            this.label3.Location = new System.Drawing.Point(248, 66);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(68, 17);
+            this.label3.Size = new System.Drawing.Size(52, 13);
             this.label3.TabIndex = 23;
             this.label3.Text = "Domicilio:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(135, 81);
+            this.label2.Location = new System.Drawing.Point(101, 66);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(62, 17);
+            this.label2.Size = new System.Drawing.Size(47, 13);
             this.label2.TabIndex = 22;
             this.label2.Text = "Apellido:";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(135, 30);
+            this.label1.Location = new System.Drawing.Point(101, 24);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(62, 17);
+            this.label1.Size = new System.Drawing.Size(47, 13);
             this.label1.TabIndex = 21;
             this.label1.Text = "Nombre:";
             // 
             // btnBorrar
             // 
-            this.btnBorrar.Location = new System.Drawing.Point(15, 199);
-            this.btnBorrar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnBorrar.Location = new System.Drawing.Point(11, 162);
+            this.btnBorrar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnBorrar.Name = "btnBorrar";
-            this.btnBorrar.Size = new System.Drawing.Size(99, 33);
+            this.btnBorrar.Size = new System.Drawing.Size(74, 27);
             this.btnBorrar.TabIndex = 10;
             this.btnBorrar.Text = "Borrar";
             this.btnBorrar.UseVisualStyleBackColor = true;
@@ -167,10 +170,10 @@ namespace UI
             // 
             // btnModificar
             // 
-            this.btnModificar.Location = new System.Drawing.Point(15, 138);
-            this.btnModificar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnModificar.Location = new System.Drawing.Point(11, 112);
+            this.btnModificar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnModificar.Name = "btnModificar";
-            this.btnModificar.Size = new System.Drawing.Size(99, 33);
+            this.btnModificar.Size = new System.Drawing.Size(74, 27);
             this.btnModificar.TabIndex = 9;
             this.btnModificar.Text = "Modificar";
             this.btnModificar.UseVisualStyleBackColor = true;
@@ -178,34 +181,34 @@ namespace UI
             // 
             // txtDomicilio
             // 
-            this.txtDomicilio.Location = new System.Drawing.Point(333, 101);
-            this.txtDomicilio.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtDomicilio.Location = new System.Drawing.Point(250, 82);
+            this.txtDomicilio.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtDomicilio.Name = "txtDomicilio";
-            this.txtDomicilio.Size = new System.Drawing.Size(265, 22);
+            this.txtDomicilio.Size = new System.Drawing.Size(200, 20);
             this.txtDomicilio.TabIndex = 4;
             // 
             // txtApellido
             // 
-            this.txtApellido.Location = new System.Drawing.Point(139, 101);
-            this.txtApellido.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtApellido.Location = new System.Drawing.Point(104, 82);
+            this.txtApellido.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtApellido.Name = "txtApellido";
-            this.txtApellido.Size = new System.Drawing.Size(165, 22);
+            this.txtApellido.Size = new System.Drawing.Size(125, 20);
             this.txtApellido.TabIndex = 3;
             // 
             // txtNombre
             // 
-            this.txtNombre.Location = new System.Drawing.Point(139, 50);
-            this.txtNombre.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtNombre.Location = new System.Drawing.Point(104, 41);
+            this.txtNombre.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtNombre.Name = "txtNombre";
-            this.txtNombre.Size = new System.Drawing.Size(165, 22);
+            this.txtNombre.Size = new System.Drawing.Size(125, 20);
             this.txtNombre.TabIndex = 1;
             // 
             // btnNuevo
             // 
-            this.btnNuevo.Location = new System.Drawing.Point(15, 73);
-            this.btnNuevo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnNuevo.Location = new System.Drawing.Point(11, 59);
+            this.btnNuevo.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnNuevo.Name = "btnNuevo";
-            this.btnNuevo.Size = new System.Drawing.Size(99, 33);
+            this.btnNuevo.Size = new System.Drawing.Size(74, 27);
             this.btnNuevo.TabIndex = 8;
             this.btnNuevo.Text = "Nuevo";
             this.btnNuevo.UseVisualStyleBackColor = true;
@@ -213,38 +216,34 @@ namespace UI
             // 
             // txtEmail
             // 
-            this.txtEmail.Location = new System.Drawing.Point(333, 50);
-            this.txtEmail.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtEmail.Location = new System.Drawing.Point(250, 41);
             this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(265, 22);
+            this.txtEmail.Size = new System.Drawing.Size(200, 20);
             this.txtEmail.TabIndex = 2;
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(331, 30);
-            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label12.Location = new System.Drawing.Point(248, 24);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(51, 17);
+            this.label12.Size = new System.Drawing.Size(38, 13);
             this.label12.TabIndex = 29;
             this.label12.Text = "E-mail:";
             this.label12.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // txtTel
             // 
-            this.txtTel.Location = new System.Drawing.Point(139, 158);
-            this.txtTel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtTel.Location = new System.Drawing.Point(104, 128);
             this.txtTel.Name = "txtTel";
-            this.txtTel.Size = new System.Drawing.Size(165, 22);
+            this.txtTel.Size = new System.Drawing.Size(125, 20);
             this.txtTel.TabIndex = 7;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(135, 138);
-            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Location = new System.Drawing.Point(101, 112);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(68, 17);
+            this.label6.Size = new System.Drawing.Size(52, 13);
             this.label6.TabIndex = 35;
             this.label6.Text = "Teléfono:";
             this.label6.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -252,10 +251,10 @@ namespace UI
             // chkLstPatentes
             // 
             this.chkLstPatentes.FormattingEnabled = true;
-            this.chkLstPatentes.Location = new System.Drawing.Point(619, 50);
-            this.chkLstPatentes.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.chkLstPatentes.Location = new System.Drawing.Point(464, 41);
+            this.chkLstPatentes.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.chkLstPatentes.Name = "chkLstPatentes";
-            this.chkLstPatentes.Size = new System.Drawing.Size(151, 157);
+            this.chkLstPatentes.Size = new System.Drawing.Size(114, 124);
             this.chkLstPatentes.TabIndex = 37;
             this.chkLstPatentes.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.chkLstPatentes_ItemCheck);
             this.chkLstPatentes.SelectedIndexChanged += new System.EventHandler(this.chkLstPatentes_SelectedIndexChanged);
@@ -263,38 +262,39 @@ namespace UI
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(615, 256);
+            this.label7.Location = new System.Drawing.Point(461, 208);
+            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(56, 17);
+            this.label7.Size = new System.Drawing.Size(42, 13);
             this.label7.TabIndex = 38;
             this.label7.Text = "Familia:";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(615, 30);
+            this.label8.Location = new System.Drawing.Point(461, 24);
+            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(68, 17);
+            this.label8.Size = new System.Drawing.Size(52, 13);
             this.label8.TabIndex = 39;
             this.label8.Text = "Patentes:";
             // 
             // chkLstFamilia
             // 
             this.chkLstFamilia.FormattingEnabled = true;
-            this.chkLstFamilia.Location = new System.Drawing.Point(619, 277);
-            this.chkLstFamilia.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.chkLstFamilia.Location = new System.Drawing.Point(464, 225);
+            this.chkLstFamilia.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.chkLstFamilia.Name = "chkLstFamilia";
-            this.chkLstFamilia.Size = new System.Drawing.Size(151, 157);
+            this.chkLstFamilia.Size = new System.Drawing.Size(114, 124);
             this.chkLstFamilia.TabIndex = 40;
             this.chkLstFamilia.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.chkLstFamilia_ItemCheck);
             // 
             // btnNegarPat
             // 
             this.btnNegarPat.Enabled = false;
-            this.btnNegarPat.Location = new System.Drawing.Point(791, 50);
-            this.btnNegarPat.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnNegarPat.Location = new System.Drawing.Point(593, 41);
             this.btnNegarPat.Name = "btnNegarPat";
-            this.btnNegarPat.Size = new System.Drawing.Size(100, 47);
+            this.btnNegarPat.Size = new System.Drawing.Size(75, 38);
             this.btnNegarPat.TabIndex = 41;
             this.btnNegarPat.Text = "Negar Patente";
             this.btnNegarPat.UseVisualStyleBackColor = true;
@@ -302,10 +302,9 @@ namespace UI
             // 
             // btnUsuariosInactivos
             // 
-            this.btnUsuariosInactivos.Location = new System.Drawing.Point(791, 420);
-            this.btnUsuariosInactivos.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnUsuariosInactivos.Location = new System.Drawing.Point(593, 341);
             this.btnUsuariosInactivos.Name = "btnUsuariosInactivos";
-            this.btnUsuariosInactivos.Size = new System.Drawing.Size(100, 65);
+            this.btnUsuariosInactivos.Size = new System.Drawing.Size(75, 53);
             this.btnUsuariosInactivos.TabIndex = 42;
             this.btnUsuariosInactivos.Text = "Usuarios Inactivos";
             this.btnUsuariosInactivos.UseVisualStyleBackColor = true;
@@ -313,9 +312,9 @@ namespace UI
             // 
             // ABMusuario
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(911, 500);
+            this.ClientSize = new System.Drawing.Size(683, 406);
             this.Controls.Add(this.btnUsuariosInactivos);
             this.Controls.Add(this.btnNegarPat);
             this.Controls.Add(this.chkLstFamilia);
@@ -337,11 +336,11 @@ namespace UI
             this.Controls.Add(this.txtApellido);
             this.Controls.Add(this.txtNombre);
             this.Controls.Add(this.btnNuevo);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "ABMusuario";
             this.Text = "ABM usuarios";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ABMusuario_FormClosing);
             this.Load += new System.EventHandler(this.usuarios_Load);
+            this.Enter += new System.EventHandler(this.ABMusuario_Enter);
             ((System.ComponentModel.ISupportInitialize)(this.dgusuario)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

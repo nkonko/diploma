@@ -27,5 +27,7 @@
         void BorrarFamiliasUsuario(List<Familia> familias, int usuarioId);
 
         List<Familia> ObtenerFamiliasUsuario(int usuarioId);
+
+        List<Usuario> ObtenerUsuariosPorFamilia(int familiaId);
     }
 }

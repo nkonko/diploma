@@ -11,41 +11,22 @@
     public class FamiliaDAL : BaseDao, ICRUD<Familia>, IFamiliaDAL
     {
         private readonly IDigitoVerificador digitoVerificador;
+        private readonly IUsuarioDAL usuarioDAL;
 
-        public FamiliaDAL(IDigitoVerificador digitoVerificador)
+        public FamiliaDAL(IDigitoVerificador digitoVerificador, IUsuarioDAL usuarioDAL)
         {
             this.digitoVerificador = digitoVerificador;
+            this.usuarioDAL = usuarioDAL;
         }
-        /// <summary>
-        /// ////TERMINARRR HDP!!!
-        /// </summary>
-        /// <param name="objUpd"></param>
-        /// <returns></returns>
+
         public bool Actualizar(Familia objUpd)
         {
-            ////Revisar no estoy obteniendo los cambios, cambiar y recibir objOld y objNew
-            var returnValue = false;
+            var queryString = $"UPDATE Familia SET Descripcion = '{objUpd.Descripcion}' WHERE FamiliaId = {objUpd.FamiliaId}";
 
-            var familia = ObtenerFamiliaConDescripcion(objUpd.Descripcion);
-
-            ////var queryString = $"UPDATE Familia SET Descripcion = '{nuevaDescripcion}' WHERE IdFamilia = {objUpd.IdFamilia}";
-
-            using (IDbConnection connection = SqlUtils.Connection())
+            return CatchException(() =>
             {
-                try
-                {
-                    connection.Open();
-                    ////connection.Execute(queryString);
-
-                    return returnValue = true;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-            }
-
-            return returnValue;
+                return Exec(queryString);
+            });
         }
 
         public bool Borrar(Familia objDel)
@@ -191,7 +172,7 @@
             var familiaUsuario = ObtenerIdsFamiliasPorUsuario(usuarioId);
 
             return familiasDb.FindAll(x => familiaUsuario.Any(y => y == x.FamiliaId));
-         }
+        }
 
         public List<int> ObtenerIdsFamiliasPorUsuario(int usuarioId)
         {
@@ -208,7 +189,7 @@
 
         public List<Patente> ObtenerPatentesFamilia(int familiaId)
         {
-            var queryString = $"SELECT IdPatente FROM FamiliaPatente WHERE FamiliaId = {familiaId}";
+            var queryString = $"SELECT distinct IdPatente FROM FamiliaPatente WHERE FamiliaId = {familiaId}";
 
             return CatchException(() =>
             {
@@ -242,5 +223,21 @@
                 Exec(queryString);
             });
         }
+
+        public List<Usuario> ObtenerUsuariosPorFamilia(int familiaId)
+        {
+            var queryString = string.Format("SELECT DISTINCT UsuarioId FROM FamiliaUsuario WHERE FamiliaId = {0}", familiaId);
+            var listaUsuarios = new List<Usuario>();
+
+            var usuarios = Exec<int>(queryString);
+
+            foreach (var usuario in usuarios)
+            {
+                listaUsuarios.Add(usuarioDAL.ObtenerUsuarioConId(usuario));
+            }
+
+            return listaUsuarios;
+        }
+
     }
 }

@@ -99,5 +99,10 @@
         {
             return familiaDAL.ObtenerFamiliasUsuario(usuarioId);
         }
+
+        public List<Usuario> ObtenerUsuariosPorFamilia(int familiaId)
+        {
+            return familiaDAL.ObtenerUsuariosPorFamilia(familiaId);
+        }
     }
 }

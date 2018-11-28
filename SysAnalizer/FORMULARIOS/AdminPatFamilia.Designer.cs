@@ -33,6 +33,7 @@ namespace UI
             this.lblFamilia = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lstPatentes = new System.Windows.Forms.CheckedListBox();
+            this.btnModificar = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -58,7 +59,7 @@ namespace UI
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.lstPatentes);
-            this.groupBox1.Location = new System.Drawing.Point(12, 62);
+            this.groupBox1.Location = new System.Drawing.Point(12, 45);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(182, 169);
             this.groupBox1.TabIndex = 55;
@@ -75,11 +76,22 @@ namespace UI
             this.lstPatentes.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.lstPatentes_ItemCheck);
             this.lstPatentes.SelectedIndexChanged += new System.EventHandler(this.lstPatentes_SelectedIndexChanged);
             // 
+            // btnModificar
+            // 
+            this.btnModificar.Location = new System.Drawing.Point(12, 220);
+            this.btnModificar.Name = "btnModificar";
+            this.btnModificar.Size = new System.Drawing.Size(73, 25);
+            this.btnModificar.TabIndex = 59;
+            this.btnModificar.Text = "Modificar";
+            this.btnModificar.UseVisualStyleBackColor = true;
+            this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
+            // 
             // AdminPatFamilia
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(221, 254);
+            this.ClientSize = new System.Drawing.Size(231, 254);
+            this.Controls.Add(this.btnModificar);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.lblFamilia);
             this.Controls.Add(this.groupBox1);
@@ -98,5 +110,6 @@ namespace UI
         private System.Windows.Forms.Label lblFamilia;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.CheckedListBox lstPatentes;
+        private System.Windows.Forms.Button btnModificar;
     }
 }

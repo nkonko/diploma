@@ -127,12 +127,8 @@ namespace UI
 
                 if (exitoso)
                 {
-                    adminPatFamilia.FamiliaNueva = true;
-                    var resultado = adminPatFamilia.ShowDialog();
-                    if (resultado == DialogResult.OK)
-                    {
-                        MessageBox.Show("Familia y Patentes Actualizadas");
-                    }
+                    adminPatFamilia.ShowDialog();
+                    MessageBox.Show("Familia y Patentes Actualizadas");
                 }
 
                 CargarFamilias();

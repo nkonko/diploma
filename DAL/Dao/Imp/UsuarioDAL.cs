@@ -193,6 +193,26 @@
             }
         }
 
+        public Usuario ObtenerUsuarioConId(int UsuarioId)
+        {
+            var usuario = new List<Usuario>();
+            var queryString = "SELECT * FROM dbo.Usuario WHERE UsuarioId = @UsuarioId";
+
+            CatchException(() =>
+            {
+                usuario = Exec<Usuario>(queryString, new { UsuarioId = UsuarioId });
+            });
+
+            if (usuario.Count > 0)
+            {
+                return usuario[0];
+            }
+            else
+            {
+                return new Usuario();
+            }
+        }
+
         public List<Patente> ObtenerPatentesDeUsuario(int usuarioId)
         {
             var queryString = $"SELECT IdPatente FROM UsuarioPatente WHERE UsuarioId = {usuarioId}";

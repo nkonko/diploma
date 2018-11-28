@@ -180,7 +180,7 @@
             }
         }
 
-        public bool CheckeoDePatentesParaBorrar(Usuario usuario)
+        public bool CheckeoDePatentesParaBorrar(Usuario usuario, bool requestFamilia = false)
         {
             var patUsuDictionary = new Dictionary<int, int>();
             var returnValue = false;
@@ -210,7 +210,23 @@
                 foreach (var idfam in familiasId)
                 {
                     usu.Familia.Add(new Familia() { FamiliaId = idfam });
-                    usu.Patentes.AddRange(familiaDAL.ObtenerPatentesFamilia(idfam));
+
+                    if (requestFamilia)
+                    {
+                        if (usu.Familia.Exists(a => usuario.Familia.All(x => a.FamiliaId == x.FamiliaId)))
+                        {
+                            usu.Familia.RemoveAll(x => x.FamiliaId == idfam);
+                        }
+                        else
+                        {
+                            usu.Patentes.AddRange(familiaDAL.ObtenerPatentesFamilia(idfam));
+                        }
+                    }
+                    else
+                    {
+                        usu.Patentes.AddRange(familiaDAL.ObtenerPatentesFamilia(idfam));
+                    }
+
                 }
                 usu.Patentes.AddRange(usuarioDAL.ObtenerPatentesDeUsuario(usu.UsuarioId));
 
