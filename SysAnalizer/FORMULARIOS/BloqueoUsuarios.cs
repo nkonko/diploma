@@ -67,5 +67,10 @@ namespace UI
             lstActivos.DataSource = usuarioBll.Cargar().Select(x => DES.Decrypt(x.Email, Key, Iv)).ToList();
             lstInactivos.DataSource = usuarioBll.CargarInactivos().Select(x => DES.Decrypt(x.Email, Key, Iv)).ToList();
         }
+
+        private void BloqueoUsuario_Enter(object sender, EventArgs e)
+        {
+            CargarUsuarios();
+        }
     }
 }

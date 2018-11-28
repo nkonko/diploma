@@ -152,5 +152,10 @@ namespace UI
                 checkListCriticidad.SetItemChecked(i, chkTodas.Checked);
             }
         }
+
+        private void BitacoraUI_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }

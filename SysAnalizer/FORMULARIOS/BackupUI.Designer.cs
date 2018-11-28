@@ -185,6 +185,7 @@ namespace UI
             this.Text = "Backup";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BackupUI_FormClosing);
             this.Load += new System.EventHandler(this.Backup_Load);
+            this.Enter += new System.EventHandler(this.BackupUI_Enter);
             this.ResumeLayout(false);
             this.PerformLayout();
 

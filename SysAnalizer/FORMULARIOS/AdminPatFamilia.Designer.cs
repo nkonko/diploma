@@ -99,6 +99,7 @@ namespace UI
             this.Text = "AdminPatFamilia";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AdminPatFamilia_FormClosing);
             this.Load += new System.EventHandler(this.AdminPatFamilia_Load);
+            this.Enter += new System.EventHandler(this.AdminPatFamilia_Enter);
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

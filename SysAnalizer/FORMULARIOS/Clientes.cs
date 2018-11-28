@@ -49,5 +49,10 @@ namespace UI
         {
             clienteBLL.Crear(new Cliente() { NombreCompleto = textBox1.Text });
         }
+
+        private void Clientes_Enter(object sender, EventArgs e)
+        {
+            dgClientes.DataSource = clienteBLL.Cargar();
+        }
     }
 }

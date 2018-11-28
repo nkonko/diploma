@@ -190,7 +190,6 @@ namespace UI
 
             if (permitir)
             {
-
                 var borrado = usuarioBLL.Borrar(usuario);
 
                 if (borrado)
@@ -274,12 +273,25 @@ namespace UI
 
         public bool CheckeoPatentes(Usuario usuario, bool requestFamilia = false, bool requestFamiliaUsuario = false, int idFamiliaAQuitar = 0)
         {
+            CargarPatentesFamilia(usuario);
             var returnValue = true;
-
-            returnValue = patenteBLL.CheckeoDePatentesParaBorrar(usuario, requestFamilia, requestFamiliaUsuario, idFamiliaAQuitar);
+            if (usuario.Patentes.Count > 0 || usuario.Familia.Count > 0)
+            {
+                returnValue = patenteBLL.CheckeoDePatentesParaBorrar(usuario, requestFamilia, requestFamiliaUsuario, idFamiliaAQuitar);
+            }
 
             return returnValue;
 
+        }
+
+        public void CargarPatentesFamilia(Usuario usuario)
+        {
+            usuario.Patentes = new List<Patente>();
+            usuario.Familia = new List<Familia>();
+
+            usuario.Familia = familiasBLL.ObtenerFamiliasUsuario(usuario.UsuarioId);
+
+            usuario.Patentes.AddRange(usuarioBLL.ObtenerPatentesDeUsuario(usuario.UsuarioId));
         }
 
         private void btnNegarPat_Click(object sender, EventArgs e)

@@ -145,5 +145,10 @@ namespace UI
             checkeadapat = false;
             lstPatentes.Enabled = true;
         }
+
+        private void AdminPatFamilia_Enter(object sender, EventArgs e)
+        {
+            CargarChecks();
+        }
     }
 }

@@ -205,6 +205,7 @@ namespace UI
             this.Text = "Bitacora";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BitacoraUI_FormClosing);
             this.Load += new System.EventHandler(this.Bitacora_Load);
+            this.Enter += new System.EventHandler(this.BitacoraUI_Enter);
             ((System.ComponentModel.ISupportInitialize)(this.ModeloBitacoraBindingSource)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);

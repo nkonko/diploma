@@ -42,10 +42,9 @@ namespace UI
             // lstActivos
             // 
             this.lstActivos.FormattingEnabled = true;
-            this.lstActivos.ItemHeight = 16;
             this.lstActivos.Location = new System.Drawing.Point(12, 100);
             this.lstActivos.Name = "lstActivos";
-            this.lstActivos.Size = new System.Drawing.Size(218, 292);
+            this.lstActivos.Size = new System.Drawing.Size(218, 290);
             this.lstActivos.TabIndex = 0;
             // 
             // btnVolver
@@ -83,17 +82,16 @@ namespace UI
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 66);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(113, 17);
+            this.label1.Size = new System.Drawing.Size(86, 13);
             this.label1.TabIndex = 4;
             this.label1.Text = "Usuarios Activos";
             // 
             // lstInactivos
             // 
             this.lstInactivos.FormattingEnabled = true;
-            this.lstInactivos.ItemHeight = 16;
             this.lstInactivos.Location = new System.Drawing.Point(369, 100);
             this.lstInactivos.Name = "lstInactivos";
-            this.lstInactivos.Size = new System.Drawing.Size(218, 292);
+            this.lstInactivos.Size = new System.Drawing.Size(218, 290);
             this.lstInactivos.TabIndex = 5;
             // 
             // label2
@@ -101,7 +99,7 @@ namespace UI
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(366, 66);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(123, 17);
+            this.label2.Size = new System.Drawing.Size(94, 13);
             this.label2.TabIndex = 6;
             this.label2.Text = "Usuarios Inactivos";
             // 
@@ -118,6 +116,7 @@ namespace UI
             this.Name = "BloqueoUsuario";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BloqueUsuario_FormClosing);
             this.Load += new System.EventHandler(this.BloqueUsuario_Load);
+            this.Enter += new System.EventHandler(this.BloqueoUsuario_Enter);
             this.ResumeLayout(false);
             this.PerformLayout();
 

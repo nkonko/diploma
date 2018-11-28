@@ -264,6 +264,7 @@ namespace UI
             this.Text = "Clientes";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Clientes_FormClosing);
             this.Load += new System.EventHandler(this.Clientes_Load);
+            this.Enter += new System.EventHandler(this.Clientes_Enter);
             ((System.ComponentModel.ISupportInitialize)(this.dgClientes)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
