@@ -176,11 +176,11 @@
         public Usuario ObtenerUsuarioConEmail(string email)
         {
             var usuario = new List<Usuario>();
-            var queryString = string.Format("SELECT * FROM dbo.Usuario WHERE Email = '{0}'", DES.Encrypt(email, Key, Iv));
+            var queryString = "SELECT * FROM dbo.Usuario WHERE Email = @email";
 
             CatchException(() =>
             {
-                usuario = Exec<Usuario>(queryString);
+                usuario = Exec<Usuario>(queryString, new { @email = DES.Encrypt(email, Key, Iv) });
             });
 
             if (usuario.Count > 0)

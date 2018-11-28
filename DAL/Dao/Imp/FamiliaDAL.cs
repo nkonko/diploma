@@ -16,7 +16,11 @@
         {
             this.digitoVerificador = digitoVerificador;
         }
-
+        /// <summary>
+        /// ////TERMINARRR HDP!!!
+        /// </summary>
+        /// <param name="objUpd"></param>
+        /// <returns></returns>
         public bool Actualizar(Familia objUpd)
         {
             ////Revisar no estoy obteniendo los cambios, cambiar y recibir objOld y objNew

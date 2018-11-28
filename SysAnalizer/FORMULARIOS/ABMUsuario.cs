@@ -381,8 +381,6 @@ namespace UI
                 if (txtEmail.Text == DES.Decrypt(UsuarioActivo.Email, key, iv))
                 {
                     btnNegarPat.Enabled = false;
-                    chkLstFamilia.Enabled = false;
-                    chkLstPatentes.Enabled = false;
                 }
 
                 checkeadafam = false;
