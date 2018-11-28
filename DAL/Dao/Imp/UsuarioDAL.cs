@@ -215,7 +215,7 @@
 
         public List<Patente> ObtenerPatentesDeUsuario(int usuarioId)
         {
-            var queryString = $"SELECT IdPatente FROM UsuarioPatente WHERE UsuarioId = {usuarioId}";
+            var queryString = $"SELECT IdPatente FROM UsuarioPatente WHERE UsuarioId = {usuarioId} AND Negada = 0";
 
             return CatchException(() =>
             {

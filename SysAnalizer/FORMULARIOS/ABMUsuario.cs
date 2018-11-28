@@ -60,7 +60,7 @@ namespace UI
         {
             chkLstPatentes.Enabled = false;
             chkLstFamilia.Enabled = false;
-            btnNegarPat.Enabled = false;
+            btnNegarPat.Enabled = true;
 
             ControlPatentes();
 
@@ -272,11 +272,11 @@ namespace UI
             return returnValue;
         }
 
-        public bool CheckeoPatentes(Usuario usuario)
+        public bool CheckeoPatentes(Usuario usuario, bool requestFamilia = false, bool requestFamiliaUsuario = false, int idFamiliaAQuitar = 0)
         {
             var returnValue = true;
 
-            returnValue = patenteBLL.CheckeoDePatentesParaBorrar(usuario);
+            returnValue = patenteBLL.CheckeoDePatentesParaBorrar(usuario, requestFamilia, requestFamiliaUsuario, idFamiliaAQuitar);
 
             return returnValue;
 
@@ -329,38 +329,38 @@ namespace UI
             var patentes = patenteBLL.ConsultarPatenteUsuario(usuario.UsuarioId);
             var negadas = patentes.Where(pat => (pat.Negada == true)).ToList();
 
-            if (patentes.Count > 0)
+            //if (patentes.Count > 0)
+            //{
+            if (negadas.Exists(x => x.IdPatente == patenteBLL.ObtenerIdPatentePorDescripcion(chkLstPatentes.SelectedItem.ToString())))
             {
-                if (negadas.Exists(x => x.IdPatente == patenteBLL.ObtenerIdPatentePorDescripcion(chkLstPatentes.SelectedItem.ToString())))
-                {
-                    btnNegarPat.Text = "Habilitar Patente";
-                    negada = true;
-                    habilitada = false;
-                }
-                else
-                {
-                    btnNegarPat.Text = "Negar Patente";
-                    habilitada = true;
-                    negada = false;
-                }
+                btnNegarPat.Text = "Habilitar Patente";
+                negada = true;
+                habilitada = false;
             }
+            else
+            {
+                btnNegarPat.Text = "Negar Patente";
+                habilitada = true;
+                negada = false;
+            }
+            //}
         }
 
         private void dgusuario_SelectionChanged(object sender, EventArgs e)
         {
             var usuario = (Usuario)dgusuario.CurrentRow.DataBoundItem;
             var patentes = patenteBLL.ConsultarPatenteUsuario(usuario.UsuarioId);
-            if (usuario.UsuarioId != UsuarioActivo.UsuarioId)
-            {
-                if (patentes.Count > 0)
-                {
-                    btnNegarPat.Enabled = true;
-                }
-                else
-                {
-                    btnNegarPat.Enabled = false;
-                }
-            }
+            //if (usuario.UsuarioId != UsuarioActivo.UsuarioId)
+            //{
+            //    //if (patentes.Count > 0)
+            //    //{
+            //        btnNegarPat.Enabled = true;
+            //    //}
+            //    //else
+            //    //{
+            //        btnNegarPat.Enabled = false;
+            //    }
+            //}
         }
 
         private void dgusuario_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -471,8 +471,7 @@ namespace UI
                 }
                 else
                 {
-                    ids.Add(familiasBLL.ObtenerIdFamiliaPorDescripcion(chkLstFamilia.SelectedItem.ToString()));
-                    if (CheckeoPatentes(usuario))
+                    if (CheckeoPatentes(usuario, false, true, familiasBLL.ObtenerIdFamiliaPorDescripcion(chkLstFamilia.SelectedItem.ToString())))
                     {
                         familiasBLL.BorrarFamiliasUsuario(usuario.Familia, usuario.UsuarioId);
                     }

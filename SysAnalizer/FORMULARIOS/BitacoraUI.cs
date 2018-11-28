@@ -43,7 +43,10 @@ namespace UI
 
             foreach (var usu in usuarios)
             {
-                checkListUsuarios.Items.Add(usu);
+                if (usu != null)
+                {
+                    checkListUsuarios.Items.Add(usu);
+                }
             }
         }
 
@@ -68,10 +71,10 @@ namespace UI
             var idUsuarios = usuariosSeleccionados.Select(u => u).ToList();
 
             var listaBitacora = ListarBitacora(idUsuarios, criticidadesSeleccionadas, fechaDesde, fechaHasta);
-            
+
             if (listaBitacora != null)
             {
-                
+
                 ModeloBitacora.ListadoBitacora = CrearDataTable(listaBitacora);
                 //Cargamos info en el reporte
                 rpv1.LocalReport.DataSources.Clear();
@@ -108,7 +111,7 @@ namespace UI
                 {
                     //var email = usuarios.FirstOrDefault(_ => _.UsuarioId == item.UsuarioId)?.Email;
                     DataRow row = table.NewRow();
-                    row["Fecha"] = item.Fecha.Value.ToShortDateString();
+                    row["Fecha"] = item.Fecha.Value.ToString("dd/MM/yyyy hh:mm:ss.fffffff tt");
                     row["Usuario"] = item.Usuario;
                     row["Funcionalidad"] = item.Actividad;
                     row["Descripcion"] = item.InformacionAsociada;
