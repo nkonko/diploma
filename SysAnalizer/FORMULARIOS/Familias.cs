@@ -14,12 +14,14 @@ namespace UI
         public Familia familiaSeleccionada = null;
         private readonly IFamiliaBLL familiaBLL;
         private readonly IAdminPatFamilia adminPatFamilia;
+        private readonly IPatenteBLL patenteBLL;
 
-        public Familias(IFamiliaBLL familiaBLL, IUsuarioBLL usuarioBLL, IAdminPatFamilia adminPatFamilia)
+        public Familias(IFamiliaBLL familiaBLL, IUsuarioBLL usuarioBLL, IAdminPatFamilia adminPatFamilia, IPatenteBLL patenteBLL)
         {
             InitializeComponent();
             this.familiaBLL = familiaBLL;
             this.adminPatFamilia = adminPatFamilia;
+            this.patenteBLL = patenteBLL;
         }
 
         private void Familias_Load(object sender, EventArgs e)
@@ -91,12 +93,24 @@ namespace UI
         private void btnBaja_Click(object sender, EventArgs e)
         {
             var desc = chklstFamilias.SelectedItem.ToString();
+            var returnValue = false;
+            var usuarios = familiaBLL.ObtenerUsuariosPorFamilia(familiaBLL.ObtenerIdFamiliaPorDescripcion(desc));
 
-            var exitoso = familiaBLL.Borrar(new Familia() { Descripcion = desc, FamiliaId = familiaBLL.ObtenerIdFamiliaPorDescripcion(desc) });
-
-            if (!exitoso)
+            foreach (var usuario in usuarios)
             {
-                MessageBox.Show("La familia actualmente esta en uso");
+                if (patenteBLL.CheckeoDePatentesParaBorrar(usuario, true))
+                {
+                    returnValue = true;
+                }
+                else
+                {
+                    MessageBox.Show("La familia actualmente esta en uso");
+                }
+            }
+
+            if (returnValue)
+            {
+                var exitoso = familiaBLL.Borrar(new Familia() { Descripcion = desc, FamiliaId = familiaBLL.ObtenerIdFamiliaPorDescripcion(desc) });
             }
 
             CargarFamilias();
