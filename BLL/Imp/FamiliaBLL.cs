@@ -77,7 +77,7 @@
 
         public List<Patente> ObtenerPatentesFamilia(List<int> familiaId)
         {
-            return familiaDAL.ObtenerPatentesFamilia(familiaId);
+            return familiaDAL.ObtenerPatentesDeFamilias(familiaId);
         }
 
         public List<int> ObtenerIdsFamiliasPorUsuario(int usuarioId)

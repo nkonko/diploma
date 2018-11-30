@@ -8,7 +8,7 @@
     {
         List<Patente> ObtenerPatentesFamilia(int familiaId);
 
-        List<Patente> ObtenerPatentesFamilia(List<int> familiaId);
+        List<Patente> ObtenerPatentesDeFamilias(List<int> familiaId);
 
         void GuardarFamiliasUsuario(List<int> familiasId, int usuarioId);
 

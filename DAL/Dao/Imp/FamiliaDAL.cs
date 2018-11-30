@@ -197,7 +197,7 @@
             });
         }
 
-        public List<Patente> ObtenerPatentesFamilia(List<int> familiaId)
+        public List<Patente> ObtenerPatentesDeFamilias(List<int> familiaId)
         {
             var patentes = new List<Patente>();
 

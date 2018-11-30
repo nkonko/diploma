@@ -181,12 +181,13 @@ namespace UI
 
         private void btnBorrar_Click(object sender, EventArgs e)
         {
+            var esBorrado = true;
             var usuario = (Usuario)dgusuario.CurrentRow.DataBoundItem;
 
             usuario.Familia = new List<Familia>();
             usuario.Familia = familiasBLL.ObtenerFamiliasUsuario(usuario.UsuarioId);
 
-            var permitir = verificarDatos(usuario);
+            var permitir = verificarDatos(usuario, esBorrado);
 
             if (permitir)
             {
@@ -244,7 +245,7 @@ namespace UI
             dgusuario.Refresh();
         }
 
-        private bool verificarDatos(Usuario usuario)
+        private bool verificarDatos(Usuario usuario, bool esBorrado)
         {
             var returnValue = true;
 
@@ -266,18 +267,18 @@ namespace UI
                 }
             }
 
-            returnValue = CheckeoPatentes(usuario);
+            returnValue = CheckeoPatentes(usuario,false,false,esBorrado);
 
             return returnValue;
         }
 
-        public bool CheckeoPatentes(Usuario usuario, bool requestFamilia = false, bool requestFamiliaUsuario = false, int idFamiliaAQuitar = 0)
+        public bool CheckeoPatentes(Usuario usuario, bool requestFamilia = false, bool requestFamiliaUsuario = false, bool esBorrado = false, int idFamiliaAQuitar = 0)
         {
             CargarPatentesFamilia(usuario);
             var returnValue = true;
             if (usuario.Patentes.Count > 0 || usuario.Familia.Count > 0)
             {
-                returnValue = patenteBLL.CheckeoDePatentesParaBorrar(usuario, requestFamilia, requestFamiliaUsuario, idFamiliaAQuitar);
+                returnValue = patenteBLL.CheckeoDePatentesParaBorrar(usuario, requestFamilia, requestFamiliaUsuario, esBorrado, idFamiliaAQuitar);
             }
 
             return returnValue;
@@ -483,7 +484,7 @@ namespace UI
                 }
                 else
                 {
-                    if (CheckeoPatentes(usuario, false, true, familiasBLL.ObtenerIdFamiliaPorDescripcion(chkLstFamilia.SelectedItem.ToString())))
+                    if (CheckeoPatentes(usuario, false, true, false, familiasBLL.ObtenerIdFamiliaPorDescripcion(chkLstFamilia.SelectedItem.ToString())))
                     {
                         familiasBLL.BorrarFamiliasUsuario(usuario.Familia, usuario.UsuarioId);
                     }

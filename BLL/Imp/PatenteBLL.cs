@@ -50,12 +50,12 @@
 
         public bool NegarPatente(int patenteId, int usuarioId)
         {
-          return patenteDAL.NegarPatenteUsuario(patenteId, usuarioId);
+            return patenteDAL.NegarPatenteUsuario(patenteId, usuarioId);
         }
 
         public bool HabilitarPatente(int patenteId, int usuarioId)
         {
-           return patenteDAL.HabilitarPatenteUsuario(patenteId, usuarioId);
+            return patenteDAL.HabilitarPatenteUsuario(patenteId, usuarioId);
         }
 
         public List<UsuarioPatente> ConsultarPatenteUsuario(int usuarioId)
@@ -68,14 +68,9 @@
             patenteDAL.BorrarPatentesUsuario(ids, usuarioId);
         }
 
-        public bool EsPatenteEnUso(int patenteId, int usuarioId)
+        public bool CheckeoDePatentesParaBorrar(Usuario usuario, bool requestFamilia = false, bool requestFamiliaUsuario = false, bool esBorrado = false, int idFamiliaAQuitar = 0)
         {
-            return patenteDAL.EsPatenteEnUso(patenteId, usuarioId);
-        }
-
-        public bool CheckeoDePatentesParaBorrar(Usuario usuario, bool requestFamilia = false, bool requestFamiliaUsuario = false, int idFamiliaAQuitar = 0)
-        {
-           return patenteDAL.CheckeoDePatentesParaBorrar(usuario, requestFamilia, requestFamiliaUsuario, idFamiliaAQuitar);
+            return patenteDAL.CheckeoDePatentesParaBorrar(usuario, requestFamilia, requestFamiliaUsuario, esBorrado, idFamiliaAQuitar);
         }
     }
 }

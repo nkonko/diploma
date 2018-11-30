@@ -180,200 +180,139 @@
             }
         }
 
-        public bool CheckeoDePatentesParaBorrar(Usuario usuario, bool requestFamilia = false, bool requestFamiliaUsuario = false, int idAQuitar = 0)
+        public bool CheckeoDePatentesParaBorrar(Usuario usuario, bool requestFamilia = false, bool requestFamiliaUsuario = false, bool esBorrado = false, int idAQuitar = 0)
         {
-            var patUsuDictionary = new Dictionary<int, int>();
-            var returnValue = false;
-            var usuariosGlobal = usuarioDAL.Cargar();
-            usuariosGlobal.RemoveAll(x => x.UsuarioId == usuario.UsuarioId);
+            var diccionarioPatentes = new Dictionary<int, int>();
+            List<Usuario> usuariosGlobal;
+            List<int> familiasIds;
 
+            CargaUsuario(usuario, requestFamiliaUsuario, idAQuitar, out usuariosGlobal, out familiasIds);
+            //Revisar metodo que obtiene las patentes de las familias, que trae???? las patentes de una familia sola o de todas
+            if (!esBorrado)
+            {
+                if (usuarioDAL.ObtenerPatentesDeUsuario(usuario.UsuarioId).Count == familiaDAL.ObtenerPatentesDeFamilias(familiasIds).Count)
+                {
+                    if (usuario.Patentes.Count == familiaDAL.ObtenerPatentesDeFamilias(familiasIds).Count)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            CargarUsuariosGlobales(usuario, requestFamilia, usuariosGlobal);
+
+            CargarDiccionario(usuario, diccionarioPatentes, usuariosGlobal);
+            // Uno de los problemas esta en este metodo no checkea una a una las patentes sino todo el diccionario y encima tiene un and habria que
+            // Separar las condiciones para hacer dos comprobaciones 
+            if (diccionarioPatentes.Count > 0 && diccionarioPatentes.All(x => x.Value > 0))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private void CargaUsuario(Usuario usuario, bool requestFamiliaUsuario, int idAQuitar, out List<Usuario> usuariosGlobal, out List<int> familiasIds)
+        {
             usuario.Patentes = new List<Patente>();
             usuario.Familia = new List<Familia>();
 
-            var familiaId = familiaDAL.ObtenerIdsFamiliasPorUsuario(usuario.UsuarioId);
+            usuariosGlobal = usuarioDAL.Cargar();
+            usuariosGlobal.RemoveAll(x => x.UsuarioId == usuario.UsuarioId);
 
-            if(requestFamiliaUsuario)
+            familiasIds = familiaDAL.ObtenerIdsFamiliasPorUsuario(usuario.UsuarioId);
+            RemoverIdsFamilias(requestFamiliaUsuario, idAQuitar, familiasIds);
+
+            CargarFamilias(usuario, familiasIds);
+
+            SetearPatentesUsuario(usuario, familiasIds);
+        }
+
+        private static void CargarDiccionario(Usuario usuario, Dictionary<int, int> diccionarioPatentes, List<Usuario> usuariosGlobal)
+        {
+            foreach (var patenteUsuario in usuario.Patentes)
             {
-                familiaId.RemoveAll(x => x != idAQuitar);
+                diccionarioPatentes.Add(patenteUsuario.IdPatente, 0);
+                var contador = 0;
+
+                foreach (var usuarioAComparar in usuariosGlobal)
+                {
+                    foreach (var patenteAComparar in usuarioAComparar.Patentes)
+                    {
+                        if (patenteUsuario.IdPatente == patenteAComparar.IdPatente)
+                        {
+                            contador++;
+                            diccionarioPatentes[patenteUsuario.IdPatente] = contador;
+                        }
+                    }
+                }
             }
+        }
 
-            foreach (var idfam in familiaId)
+        private void CargarUsuariosGlobales(Usuario usuario, bool requestFamilia, List<Usuario> usuariosGlobal)
+        {
+            foreach (var usuarioAComparar in usuariosGlobal)
             {
-                usuario.Familia.Add(new Familia() { FamiliaId = idfam });
-            }
+                var familiasId = familiaDAL.ObtenerIdsFamiliasPorUsuario(usuarioAComparar.UsuarioId);
 
-            usuario.Patentes.AddRange(usuarioDAL.ObtenerPatentesDeUsuario(usuario.UsuarioId));
-
-            usuario.Patentes.AddRange(familiaDAL.ObtenerPatentesFamilia(familiaId));
-
-            usuario.Patentes = usuario.Patentes.GroupBy(p => p.IdPatente).Select(grp => grp.First()).ToList();
-
-            foreach (var usu in usuariosGlobal)
-            {
-                var familiasId = familiaDAL.ObtenerIdsFamiliasPorUsuario(usu.UsuarioId);
-                usu.Familia = new List<Familia>();
-                usu.Patentes = new List<Patente>();
+                usuarioAComparar.Familia = new List<Familia>();
+                usuarioAComparar.Patentes = new List<Patente>();
 
                 foreach (var idfam in familiasId)
                 {
-                    usu.Familia.Add(new Familia() { FamiliaId = idfam });
+                    usuarioAComparar.Familia.Add(new Familia() { FamiliaId = idfam });
 
                     if (requestFamilia)
                     {
-                        if (usu.Familia.Exists(a => usuario.Familia.All(x => a.FamiliaId == x.FamiliaId)))
+                        if (usuarioAComparar.Familia.Exists(a => usuario.Familia.All(x => a.FamiliaId == x.FamiliaId)))
                         {
-                            usu.Familia.RemoveAll(x => x.FamiliaId == idfam);
+                            usuarioAComparar.Familia.RemoveAll(x => x.FamiliaId == idfam);
                         }
                         else
                         {
-                            usu.Patentes.AddRange(familiaDAL.ObtenerPatentesFamilia(idfam));
+                            usuarioAComparar.Patentes.AddRange(familiaDAL.ObtenerPatentesFamilia(idfam));
                         }
                     }
                     else
                     {
-                        usu.Patentes.AddRange(familiaDAL.ObtenerPatentesFamilia(idfam));
-                    }
-
-                }
-                usu.Patentes.AddRange(usuarioDAL.ObtenerPatentesDeUsuario(usu.UsuarioId));
-
-                usu.Patentes = usu.Patentes.GroupBy(p => p.IdPatente).Select(grp => grp.First()).ToList();
-            }
-
-            foreach (var patpepe in usuario.Patentes)
-            {
-                patUsuDictionary.Add(patpepe.IdPatente, 0);
-                var contador = 0;
-
-                foreach (var usu2 in usuariosGlobal)
-                {
-                    //returnValue = usuario.Patentes.Exists(u => usu2.Patentes.All(x => x.IdPatente == u.IdPatente));
-                    foreach (var patusu in usu2.Patentes)
-                    {
-                        if (patpepe.IdPatente == patusu.IdPatente)
-                        {
-                            contador++;
-                            patUsuDictionary[patpepe.IdPatente] = contador;
-                        }
+                        usuarioAComparar.Patentes.AddRange(familiaDAL.ObtenerPatentesFamilia(idfam));
                     }
                 }
+
+                CargarPatentesUsuariosGloables(usuarioAComparar);
             }
-
-            if (patUsuDictionary.Count > 0 && patUsuDictionary.All(x => x.Value > 0))
-            {
-                returnValue = true;
-            }
-
-            return returnValue;
-            //var returnValue = false;
-            //var returnValueUsuario = false;
-            //var returnValueFamilia = false;
-
-            //var usuariopatente = ConsultarPatenteUsuario(usuario.UsuarioId).Select(x => x.IdPatente).ToList();
-
-            //foreach (var pat in usuariopatente)
-            //{
-            //    returnValueUsuario = EsPatenteEnUso(pat, usuario.UsuarioId);
-            //    if (!returnValueUsuario)
-            //    {
-            //        break;
-            //    }
-            //}
-
-            //if (usuario.Familia.Count > 0)
-            //{
-            //    var familiasUsuarioIds = usuario.Familia.Select(x => x.FamiliaId).ToList();
-
-            //    foreach (var familiaId in familiasUsuarioIds)
-            //    {
-            //        returnValueFamilia = EsPatenteFamiliaEnUso(familiaId, usuario.UsuarioId);
-            //        if (!returnValueFamilia)
-            //        {
-            //            break;
-            //        }
-            //    }
-            //}
-
-            //if (!returnValueUsuario && !returnValueFamilia)
-            //{
-            //    returnValue = false;
-            //}
-
-            //return returnValue;
         }
 
-        public bool EsPatenteEnUso(int patenteId, int usuarioId)
+        private void CargarPatentesUsuariosGloables(Usuario usuarioAComparar)
         {
+            usuarioAComparar.Patentes.AddRange(usuarioDAL.ObtenerPatentesDeUsuario(usuarioAComparar.UsuarioId));
 
-            var queryUsuarios = string.Format("SELECT UsuarioId FROM UsuarioPatente WHERE IdPatente = {0}", patenteId);
-            var usuarios = new List<int>();
-            var returnValue = false;
-
-            CatchException(() =>
-            {
-                usuarios = Exec<int>(queryUsuarios);
-            });
-
-            if (usuarios.Count > 1)
-            {
-                returnValue = true;
-            }
-            else if (!usuarios.Any(x => x == usuarioId))
-            {
-                returnValue = true;
-            }
-
-            return returnValue;
+            usuarioAComparar.Patentes = usuarioAComparar.Patentes.GroupBy(p => p.IdPatente).Select(grp => grp.First()).ToList();
         }
 
-        private bool EsPatenteFamiliaEnUso(int familiaId, int usuarioId)
+        private static void RemoverIdsFamilias(bool requestFamiliaUsuario, int idAQuitar, List<int> familiasIds)
         {
-            var returnValue = false;
-            var queryPatFamilia = string.Format("SELECT IdPatente FROM FamiliaPatente WHERE FamiliaId = {0}", familiaId);
-
-            var patentesFamilia = new List<int>();
-
-            CatchException(() =>
+            if (requestFamiliaUsuario)
             {
-                patentesFamilia = Exec<int>(queryPatFamilia);
-            });
-
-            var idsPat = string.Join(",", patentesFamilia);
-
-            ///Buscar como checkear que esa familia pertenezca a ese usuario SI otro usuario tiene la misma familia pero 
-            ///no tiene asignada la patente si la recibe por la familia puedo eliminar al usuario
-            var familiasIds = new List<int>();
-            var queryFamilias = string.Format("SELECT DISTINCT FamiliaId FROM FamiliaPatente WHERE IdPatente IN ({0})", idsPat);
-            var usuariosConFamilia = new List<int>();
-
-            CatchException(() =>
-            {
-                familiasIds = Exec<int>(queryFamilias);
-
-                var idsFam = string.Join(",", familiasIds);
-
-                var queryFamiliaUsuario = string.Format("SELECT DISTINCT UsuarioId FROM FamiliaUsuario WHERE FamiliaId IN ({0})", idsFam);
-
-                usuariosConFamilia = Exec<int>(queryFamiliaUsuario);
-            });
-
-            ///si hay mas de un usuario con la familia que tiene la patente entonces si me la puedo sacar sin importar si yo soy el que tiene esa familia
-            if (usuariosConFamilia.Count > 1)
-            {
-                returnValue = true;
+                familiasIds.RemoveAll(x => x != idAQuitar);
             }
+        }
 
-            ////si otro tiene esa familia entonces yo me la puedo sacar
-
-            else if (usuariosConFamilia[0] != usuarioId)
+        private static void CargarFamilias(Usuario usuario, List<int> familiaId)
+        {
+            foreach (var idfam in familiaId)
             {
-                returnValue = true;
+                usuario.Familia.Add(new Familia() { FamiliaId = idfam });
             }
+        }
 
-            ///falta validacion 29 pasos hay un usuario con todas las patentes pero no me deja eliminar uno que tiene una familia y hereda las 
-            ///patentes
+        private void SetearPatentesUsuario(Usuario usuario, List<int> familiaId)
+        {
+            usuario.Patentes.AddRange(usuarioDAL.ObtenerPatentesDeUsuario(usuario.UsuarioId));
 
-            return returnValue;
+            usuario.Patentes.AddRange(familiaDAL.ObtenerPatentesDeFamilias(familiaId));
+
+            usuario.Patentes = usuario.Patentes.GroupBy(p => p.IdPatente).Select(grp => grp.First()).ToList();
         }
     }
 }
