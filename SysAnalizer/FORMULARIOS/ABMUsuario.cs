@@ -33,6 +33,8 @@ namespace UI
 
         public Usuario UsuarioActivo { get; set; }
 
+        public Usuario UsuarioSeleccionado { get; set; } = new Usuario();
+
         public List<Usuario> usuariosBD { get; set; } = new List<Usuario>() { new Usuario() };
 
         ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -95,9 +97,9 @@ namespace UI
 
         private void btn_nuevo_Click(object sender, EventArgs e)
         {
-            if (!usuariosBD.Exists(usu => usu.Email == txtEmail.Text))
+            if (!usuariosBD.Exists(usuario => usuario.Email == txtEmail.Text))
             {
-                var permitir = true; //verificarDatos();
+                var permitir = verificarDatos();
                 if (permitir)
                 {
                     var creado = usuarioBLL.Crear(
@@ -148,11 +150,10 @@ namespace UI
 
         private void btn_modificar_Click(object sender, EventArgs e)
         {
-            var permitir = true; // verificarDatos();
+            var permitir = verificarDatos();
             if (permitir)
             {
                 var modificado = usuarioBLL.Actualizar(new Usuario() { Nombre = txtNombre.Text, Apellido = txtApellido.Text, Email = txtEmail.Text, Telefono = int.Parse(txtTel.Text), Domicilio = txtDomicilio.Text, PrimerLogin = true, ContadorIngresosIncorrectos = 0, Activo = true });
-                var usu = usuarioBLL.ObtenerUsuarioConEmail(txtEmail.Text);
 
                 if (modificado)
                 {
@@ -165,7 +166,7 @@ namespace UI
                         digitoVerificador.ActualizarDVVertical(digitoVerificador.Entidades.Find(x => x == entidad));
                     }
 
-                    Log4netExtensions.Baja(log, string.Format("Se ha modificado al usuario {0}", DES.Decrypt(usu.Email, key, iv)));
+                    Log4netExtensions.Baja(log, string.Format("Se ha modificado al usuario {0}", DES.Decrypt(UsuarioSeleccionado.Email, key, iv)));
                     bitacoraBLL.RegistrarEnBitacora(UsuarioActivo);
                     MessageBox.Show("Modificacion exitosa");
                     CargarRefrescarDatagrid();
@@ -182,20 +183,17 @@ namespace UI
         private void btnBorrar_Click(object sender, EventArgs e)
         {
             var esBorrado = true;
-            var usuario = (Usuario)dgusuario.CurrentRow.DataBoundItem;
 
-            usuario.Familia = new List<Familia>();
-            usuario.Familia = familiasBLL.ObtenerFamiliasUsuario(usuario.UsuarioId);
-
-            var permitir = verificarDatos(usuario, esBorrado);
+            var permitir = verificarDatos();
+            permitir = CheckeoPatentes(UsuarioSeleccionado, esBorrado);
 
             if (permitir)
             {
-                var borrado = usuarioBLL.Borrar(usuario);
+                var borrado = usuarioBLL.Borrar(UsuarioSeleccionado);
 
                 if (borrado)
                 {
-                    familiasBLL.BorrarFamiliasUsuario(usuario.Familia, usuario.UsuarioId);
+                    familiasBLL.BorrarFamiliasUsuario(UsuarioSeleccionado.Familia, UsuarioSeleccionado.UsuarioId);
 
                     if (digitoVerificador.ComprobarPrimerDigito(digitoVerificador.Entidades.Find(x => x == entidad)))
                     {
@@ -206,7 +204,7 @@ namespace UI
                         digitoVerificador.ActualizarDVVertical(digitoVerificador.Entidades.Find(x => x == entidad));
                     }
 
-                    Log4netExtensions.Alta(log, string.Format("Se borrado al usuario {0}", usuario.Email));
+                    Log4netExtensions.Alta(log, string.Format("Se borrado al usuario {0}", UsuarioSeleccionado.Email));
                     bitacoraBLL.RegistrarEnBitacora(UsuarioActivo);
                     MessageBox.Show("Borrado exitoso");
                     CargarRefrescarDatagrid();
@@ -241,11 +239,10 @@ namespace UI
             }
 
             dgusuario.DataSource = usuariosBD;
-            Usuario obj = (Usuario)dgusuario.CurrentRow.DataBoundItem;
             dgusuario.Refresh();
         }
 
-        private bool verificarDatos(Usuario usuario, bool esBorrado)
+        private bool verificarDatos()
         {
             var returnValue = true;
 
@@ -267,14 +264,11 @@ namespace UI
                 }
             }
 
-            returnValue = CheckeoPatentes(usuario,false,false,esBorrado);
-
             return returnValue;
         }
 
         public bool CheckeoPatentes(Usuario usuario, bool requestFamilia = false, bool requestFamiliaUsuario = false, bool esBorrado = false, int idFamiliaAQuitar = 0)
         {
-            CargarPatentesFamilia(usuario);
             var returnValue = true;
             if (usuario.Patentes.Count > 0 || usuario.Familia.Count > 0)
             {
@@ -283,16 +277,6 @@ namespace UI
 
             return returnValue;
 
-        }
-
-        public void CargarPatentesFamilia(Usuario usuario)
-        {
-            usuario.Patentes = new List<Patente>();
-            usuario.Familia = new List<Familia>();
-
-            usuario.Familia = familiasBLL.ObtenerFamiliasUsuario(usuario.UsuarioId);
-
-            usuario.Patentes.AddRange(usuarioBLL.ObtenerPatentesDeUsuario(usuario.UsuarioId));
         }
 
         private void btnNegarPat_Click(object sender, EventArgs e)
@@ -361,80 +345,98 @@ namespace UI
 
         private void dgusuario_SelectionChanged(object sender, EventArgs e)
         {
-            var usuario = (Usuario)dgusuario.CurrentRow.DataBoundItem;
-            var patentes = patenteBLL.ConsultarPatenteUsuario(usuario.UsuarioId);
-            //if (usuario.UsuarioId != UsuarioActivo.UsuarioId)
-            //{
-            //    //if (patentes.Count > 0)
-            //    //{
-            //        btnNegarPat.Enabled = true;
-            //    //}
-            //    //else
-            //    //{
-            //        btnNegarPat.Enabled = false;
-            //    }
-            //}
+            try
+            {
+                UsuarioSeleccionado = (Usuario)dgusuario.CurrentRow.DataBoundItem;
+                var patentes = patenteBLL.ConsultarPatenteUsuario(UsuarioSeleccionado.UsuarioId);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void dgusuario_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            UsuarioSeleccionado = (Usuario)dgusuario.CurrentRow.DataBoundItem;
+
             chkLstPatentes.Enabled = true;
             chkLstFamilia.Enabled = true;
 
             checkeadapat = true;
             checkeadafam = true;
 
-            if (e.RowIndex >= 0)
+            if (e.RowIndex < 0)
             {
-                var selectedRow = dgusuario.Rows[e.RowIndex];
-
-                txtNombre.Text = selectedRow.Cells[0].Value.ToString();
-                txtApellido.Text = selectedRow.Cells[1].Value.ToString();
-                txtEmail.Text = selectedRow.Cells[2].Value.ToString();
-                txtTel.Text = selectedRow.Cells[3].Value.ToString();
-                txtDomicilio.Text = selectedRow.Cells[4].Value.ToString();
-
-                var usu = usuarioBLL.ObtenerUsuarioConEmail(txtEmail.Text);
-                var patentes = patenteBLL.ConsultarPatenteUsuario(usu.UsuarioId);
-                var familias = familiasBLL.ObtenerIdsFamiliasPorUsuario(usu.UsuarioId);
-
-                BorrarChecks();
-                SetearChecks(patentes, familias);
-
-                if (txtEmail.Text == DES.Decrypt(UsuarioActivo.Email, key, iv))
-                {
-                    btnNegarPat.Enabled = false;
-                }
-
-                checkeadafam = false;
-                checkeadapat = false;
+                return;
             }
+
+            CargaControles();
+
+            CargarPatentesFamiliaUsuarioSeleccionado();
+
+            BorrarChecks();
+            SetearChecks(UsuarioSeleccionado.Patentes, UsuarioSeleccionado.Familia);
+
+            checkeadafam = false;
+            checkeadapat = false;
+        }
+
+        private void CargarPatentesFamiliaUsuarioSeleccionado()
+        {
+            FormExtensions.CatchException(this, () =>
+            {
+                UsuarioSeleccionado.Patentes = new List<Patente>();
+                UsuarioSeleccionado.Familia = new List<Familia>();
+                UsuarioSeleccionado.Patentes.AddRange(usuarioBLL.ObtenerPatentesDeUsuario(UsuarioSeleccionado.UsuarioId));
+
+                var familiasIds = familiasBLL.ObtenerIdsFamiliasPorUsuario(UsuarioSeleccionado.UsuarioId);
+                familiasIds.ForEach(id => UsuarioSeleccionado.Familia.Add(new Familia() { FamiliaId = id }));
+            });
+        }
+
+        private void CargaControles()
+        {
+            FormExtensions.CatchException(this, () =>
+            {
+                txtNombre.Text = UsuarioSeleccionado.Nombre;
+                txtApellido.Text = UsuarioSeleccionado.Apellido;
+                txtEmail.Text = UsuarioSeleccionado.Email;
+                txtTel.Text = UsuarioSeleccionado.Telefono.ToString();
+                txtDomicilio.Text = UsuarioSeleccionado.Domicilio;
+            });
         }
 
         private void BorrarChecks()
         {
-            while (chkLstFamilia.CheckedIndices.Count > 0)
-                chkLstFamilia.SetItemChecked(chkLstFamilia.CheckedIndices[0], false);
+            FormExtensions.CatchException(this, () =>
+            {
+                while (chkLstFamilia.CheckedIndices.Count > 0)
+                    chkLstFamilia.SetItemChecked(chkLstFamilia.CheckedIndices[0], false);
 
-            while (chkLstPatentes.CheckedIndices.Count > 0)
-                chkLstPatentes.SetItemChecked(chkLstPatentes.CheckedIndices[0], false);
+                while (chkLstPatentes.CheckedIndices.Count > 0)
+                    chkLstPatentes.SetItemChecked(chkLstPatentes.CheckedIndices[0], false);
+            });
         }
 
-        private void SetearChecks(List<UsuarioPatente> patentes, List<int> familias)
+        private void SetearChecks(List<Patente> patentes, List<Familia> familias)
         {
-            foreach (var id in familias)
+            FormExtensions.CatchException(this, () =>
             {
-                var descFamilia = familiasBLL.Cargar().Where(x => x.FamiliaId == id).Select(x => x.Descripcion).ToList()[0];
-                chkLstFamilia.SetItemChecked(chkLstFamilia.FindString(descFamilia), true);
-                checkeadafam = true;
-            }
+                foreach (var familia in familias)
+                {
+                    var descFamilia = familiasBLL.Cargar().Where(x => x.FamiliaId == familia.FamiliaId).Select(x => x.Descripcion).ToList()[0];
+                    chkLstFamilia.SetItemChecked(chkLstFamilia.FindString(descFamilia), true);
+                    checkeadafam = true;
+                }
 
-            foreach (var pat in patentes)
-            {
-                var descPatente = patenteBLL.Cargar().Where(x => x.IdPatente == pat.IdPatente).Select(x => x.Descripcion).ToList()[0];
-                chkLstPatentes.SetItemChecked(chkLstPatentes.FindString(descPatente), true);
-                checkeadapat = true;
-            }
+                foreach (var pat in patentes)
+                {
+                    var descPatente = patenteBLL.Cargar().Where(x => x.IdPatente == pat.IdPatente).Select(x => x.Descripcion).ToList()[0];
+                    chkLstPatentes.SetItemChecked(chkLstPatentes.FindString(descPatente), true);
+                    checkeadapat = true;
+                }
+            });
         }
 
         private void chkLstPatentes_ItemCheck(object sender, ItemCheckEventArgs e)

@@ -56,13 +56,7 @@
 
         public void GuardarPatentesUsuario(List<int> patentesId, int usuarioId)
         {
-            var optQuery = "SELECT * FROM UsuarioPatente";
-            var patentesUsuarios = new List<UsuarioPatente>();
-
-            CatchException(() =>
-            {
-                patentesUsuarios = Exec<UsuarioPatente>(optQuery);
-            });
+            List<UsuarioPatente> patentesUsuarios = ObtenerTodasLasPatentesYUsuarios();
 
             if (!patentesUsuarios.Exists(x => x.IdPatente == patentesId[0] && x.UsuarioId == usuarioId))
             {
@@ -77,6 +71,18 @@
                     });
                 }
             }
+        }
+
+        private List<UsuarioPatente> ObtenerTodasLasPatentesYUsuarios()
+        {
+            var optQuery = "SELECT * FROM UsuarioPatente";
+            var patentesUsuarios = new List<UsuarioPatente>();
+
+            CatchException(() =>
+            {
+                patentesUsuarios = Exec<UsuarioPatente>(optQuery);
+            });
+            return patentesUsuarios;
         }
 
         public bool NegarPatenteUsuario(int patenteId, int usuarioId)
@@ -182,11 +188,18 @@
 
         public bool CheckeoDePatentesParaBorrar(Usuario usuario, bool requestFamilia = false, bool requestFamiliaUsuario = false, bool esBorrado = false, int idAQuitar = 0)
         {
+            ///Si ningun usuario tiene patentes no se puede borrar ningun usuario
+            if(!ComprobarTablaUsuarioPatente())
+            {
+                return false;
+            }
+
             var diccionarioPatentes = new Dictionary<int, int>();
             List<Usuario> usuariosGlobal;
-            List<int> familiasIds;
+            List<int> familiasIds = usuario.Familia.Select(familia => familia.FamiliaId).ToList();
 
-            CargaUsuario(usuario, requestFamiliaUsuario, idAQuitar, out usuariosGlobal, out familiasIds);
+            CargaUsuario(usuario, requestFamiliaUsuario, idAQuitar, out usuariosGlobal);
+
             //Revisar metodo que obtiene las patentes de las familias, que trae???? las patentes de una familia sola o de todas
             if (!esBorrado)
             {
@@ -212,24 +225,26 @@
             return false;
         }
 
-        private void CargaUsuario(Usuario usuario, bool requestFamiliaUsuario, int idAQuitar, out List<Usuario> usuariosGlobal, out List<int> familiasIds)
+        private bool ComprobarTablaUsuarioPatente()
         {
-            usuario.Patentes = new List<Patente>();
-            usuario.Familia = new List<Familia>();
+            List<UsuarioPatente> patentesUsuarios = ObtenerTodasLasPatentesYUsuarios();
 
+            return patentesUsuarios.Count > 0;
+        }
+
+        private void CargaUsuario(Usuario usuario, bool requestFamiliaUsuario, int idAQuitar, out List<Usuario> usuariosGlobal)
+        {
             usuariosGlobal = usuarioDAL.Cargar();
             usuariosGlobal.RemoveAll(x => x.UsuarioId == usuario.UsuarioId);
 
-            familiasIds = familiaDAL.ObtenerIdsFamiliasPorUsuario(usuario.UsuarioId);
-            RemoverIdsFamilias(requestFamiliaUsuario, idAQuitar, familiasIds);
+            RemoverIdsFamilias(requestFamiliaUsuario, idAQuitar, usuario.Familia);
 
-            CargarFamilias(usuario, familiasIds);
-
-            SetearPatentesUsuario(usuario, familiasIds);
+            SetearPatentesUsuario(usuario, usuario.Familia.Select(familia => familia.FamiliaId).ToList());
         }
 
         private static void CargarDiccionario(Usuario usuario, Dictionary<int, int> diccionarioPatentes, List<Usuario> usuariosGlobal)
         {
+            //Si el usuario no tiene patentes no esta cargando ninguna al diccionario no deberia ser asi.
             foreach (var patenteUsuario in usuario.Patentes)
             {
                 diccionarioPatentes.Add(patenteUsuario.IdPatente, 0);
@@ -290,11 +305,11 @@
             usuarioAComparar.Patentes = usuarioAComparar.Patentes.GroupBy(p => p.IdPatente).Select(grp => grp.First()).ToList();
         }
 
-        private static void RemoverIdsFamilias(bool requestFamiliaUsuario, int idAQuitar, List<int> familiasIds)
+        private static void RemoverIdsFamilias(bool requestFamiliaUsuario, int idAQuitar, List<Familia> familias)
         {
             if (requestFamiliaUsuario)
             {
-                familiasIds.RemoveAll(x => x != idAQuitar);
+                familias.RemoveAll(x => x.FamiliaId != idAQuitar);
             }
         }
 

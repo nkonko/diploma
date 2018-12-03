@@ -3,7 +3,6 @@ namespace UI
 {
     using BLL;
     using DAL.Dao;
-    using Microsoft.VisualBasic;
     using System;
     using System.Linq;
     using System.Windows.Forms;
