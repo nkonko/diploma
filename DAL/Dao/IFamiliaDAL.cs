@@ -31,5 +31,7 @@
         List<Familia> ObtenerFamiliasUsuario(int usuarioId);
 
         List<Usuario> ObtenerUsuariosPorFamilia(int familiaId);
+
+        List<FamiliaUsuario> ObtenerTodasLasFamiliasYUsuarios();
     }
 }

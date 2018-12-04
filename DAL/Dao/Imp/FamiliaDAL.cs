@@ -239,5 +239,17 @@
             return listaUsuarios;
         }
 
+        public List<FamiliaUsuario> ObtenerTodasLasFamiliasYUsuarios()
+        {
+            var query = "SELECT * FROM FamiliaUsuario";
+            var familiasUsuarios = new List<FamiliaUsuario>();
+
+            CatchException(() =>
+            {
+                familiasUsuarios = Exec<FamiliaUsuario>(query);
+            });
+
+            return familiasUsuarios;
+        }
     }
 }

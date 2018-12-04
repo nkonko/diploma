@@ -189,10 +189,17 @@
         public bool CheckeoDePatentesParaBorrar(Usuario usuario, bool requestFamilia = false, bool requestFamiliaUsuario = false, bool esBorrado = false, int idAQuitar = 0)
         {
             ///Si ningun usuario tiene patentes no se puede borrar ningun usuario
-            if(!ComprobarTablaUsuarioPatente())
+            if (!ComprobarTablaUsuarioPatente())
             {
                 return false;
             }
+            ///Si hay usuarios en la tabla de familias no puedo borrar a todas las familias paso 5
+            if (ComprobarUsuarioFamilia())
+            {
+                return false;
+            }
+
+            CheckeoFamiliaParaBorrar(familiaABorrar);
 
             var diccionarioPatentes = new Dictionary<int, int>();
             List<Usuario> usuariosGlobal;
@@ -225,11 +232,36 @@
             return false;
         }
 
+        private bool CheckeoFamiliaParaBorrar(Familia familiaABorrar)
+        {
+            ///Si el usuario esta heredando una familia que no posee patentes entonces no tengo problema de borrarla
+            if (familiaABorrar.Patentes.Count <= 0)
+            {
+                return true;
+            }
+///1 y 2 hecho
+///3 Cargar el usuario que tiene la familia con las patentes refactorGaby y comparar si tiene las
+///patentes de la familia, entonces puedo borrar la familia
+///4 si tengo mas de un usuario, con que uno solo me diga que puedo borrar la familia por que tiene esa
+///patente entonces la borro.
+///5 si mi usuario/os no tienen las mismas patentes entonces ahora debo consultar con los 
+///usuarios globales a ver si alguno tiene las mismas patentes que mi familia
+///si alguno las tiene entonces borro la familia
+///6 si ningun usuario tiene las patentes de la familia entonces puedo borrar
+            var usuarios = familiaDAL.ObtenerUsuariosPorFamilia(familiaABorrar.FamiliaId);
+
+            usuarios.ForEach(usuario => SetearPatentesUsuario(usuario, new List<int> { familiaABorrar.FamiliaId }));
+
+        }
+
+        private bool ComprobarUsuarioFamilia()
+        {
+            return familiaDAL.ObtenerTodasLasFamiliasYUsuarios().Count > 0;
+        }
+
         private bool ComprobarTablaUsuarioPatente()
         {
-            List<UsuarioPatente> patentesUsuarios = ObtenerTodasLasPatentesYUsuarios();
-
-            return patentesUsuarios.Count > 0;
+            return ObtenerTodasLasPatentesYUsuarios().Count > 0;
         }
 
         private void CargaUsuario(Usuario usuario, bool requestFamiliaUsuario, int idAQuitar, out List<Usuario> usuariosGlobal)
