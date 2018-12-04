@@ -29,6 +29,9 @@
             usuarioBLL = new UsuarioBLL(IoCContainer.Resolve<IUsuarioDAL>(), IoCContainer.Resolve<IBitacoraBLL>());
             patenteBLL = new PatenteBLL(IoCContainer.Resolve<IPatenteDAL>());
             usuario = usuarioBLL.Cargar().Where(usuarioItem => usuarioItem.Nombre == "Nunit").FirstOrDefault();
+            usuario.Patentes = new List<Patente>();
+            usuario.Familia = new List<Familia>();
+            usuario.Patentes.AddRange(usuarioBLL.ObtenerPatentesDeUsuario(usuario.UsuarioId));
         }
 
         [Test]
@@ -55,17 +58,12 @@
         public void AssignAllPatentesToUserShouldReturnOk()
         {
             patenteBLL.GuardarPatentesUsuario(todasLasPatentes, usuario.UsuarioId);
-            usuario.Patentes = new List<Patente>();
-            usuario.Patentes.AddRange(usuarioBLL.ObtenerPatentesDeUsuario(usuario.UsuarioId));
             Assert.AreEqual(todasLasPatentes.Count, usuario.Patentes.Count);
         }
 
         [Test]
         public void DeleteAllOtherUsersShouldReturnOK()
         {
-            usuario.Patentes = new List<Patente>();
-            usuario.Familia = new List<Familia>();
-
             Assert.AreEqual(true, patenteBLL.CheckeoDePatentesParaBorrar(usuario, false, false, true));
         }
     }
