@@ -41,7 +41,7 @@
         [Test]
         public void CreateUsuarioShouldReturnOk()
         {
-            usuarioBLL.Crear(new Usuario { Nombre = "Nunit", Apellido = "Nunit", Contraseña = "123456", Email = "Nunit", Telefono = 46532, PrimerLogin = true, IdIdioma = 1, ContadorIngresosIncorrectos = 0, Activo = true, IdCanalVenta = 1 });
+            usuarioBLL.Crear(new Usuario { Nombre = "Nunit", Apellido = "Nunit", Contraseña = "123456", Email = "Nunit", Telefono = 46532, PrimerLogin = true, IdIdioma = 1, ContadorIngresosIncorrectos = 0, Activo = true, IdCanalVenta = 1, Familia = new List<Familia>(), Patentes = new List<Patente>(), Domicilio = "Nunint", DVH = 1 });
             Assert.AreEqual(true, usuarioBLL.Cargar().Exists(usuario => usuario.Nombre == "Nunit"));
         }
 
@@ -55,7 +55,18 @@
         public void AssignAllPatentesToUserShouldReturnOk()
         {
             patenteBLL.GuardarPatentesUsuario(todasLasPatentes, usuario.UsuarioId);
-            Assert.AreEqual(todasLasPatentes.Count, patenteBLL.ConsultarPatenteUsuario(usuario.UsuarioId).Count);
+            usuario.Patentes = new List<Patente>();
+            usuario.Patentes.AddRange(usuarioBLL.ObtenerPatentesDeUsuario(usuario.UsuarioId));
+            Assert.AreEqual(todasLasPatentes.Count, usuario.Patentes.Count);
+        }
+
+        [Test]
+        public void DeleteAllOtherUsersShouldReturnOK()
+        {
+            usuario.Patentes = new List<Patente>();
+            usuario.Familia = new List<Familia>();
+
+            Assert.AreEqual(true, patenteBLL.CheckeoDePatentesParaBorrar(usuario, false, false, true));
         }
     }
 }

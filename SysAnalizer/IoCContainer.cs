@@ -5,7 +5,6 @@
     using BLL.Imp;
     using DAL.Dao;
     using DAL.Dao.Imp;
-    using UI.Modelo;
 
     public static class IoCContainer
     {
