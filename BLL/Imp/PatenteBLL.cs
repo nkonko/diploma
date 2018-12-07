@@ -73,9 +73,9 @@
             return patenteDAL.CheckeoDePatentesParaBorrar(usuario, usuariosGlobales, requestFamilia, requestFamiliaUsuario, esBorrado, idFamiliaAQuitar);
         }
 
-        public bool CheckeoFamiliaParaBorrar(Familia familia, List<Usuario> usuariosGlobales)
+        public bool CheckeoFamiliaParaBorrar(Familia familia, Usuario usuarioSeleccionado, List<Usuario> usuariosGlobales)
         {
-            return patenteDAL.CheckeoFamiliaParaBorrar(familia, usuariosGlobales);
+            return patenteDAL.CheckeoFamiliaParaBorrar(familia, usuarioSeleccionado, usuariosGlobales);
         }
 
         public bool CheckeoUsuarioParaBorrar(Usuario usuario, List<Usuario> usuariosGlobales)

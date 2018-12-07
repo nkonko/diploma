@@ -504,7 +504,7 @@ namespace UI
                 }
                 else
                 {
-                    if (patenteBLL.CheckeoFamiliaParaBorrar(familia, usuariosBD))
+                    if (patenteBLL.CheckeoFamiliaParaBorrar(familia, usuario, usuariosBD))
                     {
                         familiasBLL.BorrarFamiliasUsuario(usuario.Familia, usuario.UsuarioId);
                         CargarRefrescarDatagrid();

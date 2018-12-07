@@ -96,7 +96,7 @@ namespace UI
             var familia = familiaBLL.ObtenerFamiliaConDescripcion(desc);
             var returnValue = false;
 
-            if (patenteBLL.CheckeoFamiliaParaBorrar(familia, usuarioBLL.TraerUsuariosConPatentesYFamilias()))
+            if (patenteBLL.CheckeoFamiliaParaBorrar(familia, ,usuarioBLL.TraerUsuariosConPatentesYFamilias()))
             {
                 returnValue = true;
             }

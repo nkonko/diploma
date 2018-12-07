@@ -381,7 +381,7 @@
                 {
                     patentesSinUsuarios.RemoveAll(patSinU => usuario.Patentes.Any(patU => patU.IdPatente == patSinU.IdPatente));
                 }
-
+                ///SE ESTAN BORRANDO TODOS LOS USUARIOS DE UNA FAMILIA POR ESO NO PERMITE BORRAR UNA FAMILIA QUE TIENEN 2 USUARIOS
                 usuariosGlobales.RemoveAll(usu => usu.UsuarioId == usuario.UsuarioId);
             }
 
