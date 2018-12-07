@@ -18,6 +18,8 @@
 
         List<int> ObtenerIdsFamiliasPorUsuario(int usuarioId);
 
+        Familia ObtenerFamiliaConDescripcion(string descripcion);
+
         string ObtenerDescripcionFamiliaPorId(int familiaId);
 
         List<string> ObtenerDescripcionFamiliaPorId(List<int> familiaId);

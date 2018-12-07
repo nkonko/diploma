@@ -11,12 +11,10 @@
     public class FamiliaDAL : BaseDao, ICRUD<Familia>, IFamiliaDAL
     {
         private readonly IDigitoVerificador digitoVerificador;
-        private readonly IUsuarioDAL usuarioDAL;
 
-        public FamiliaDAL(IDigitoVerificador digitoVerificador, IUsuarioDAL usuarioDAL)
+        public FamiliaDAL(IDigitoVerificador digitoVerificador)
         {
             this.digitoVerificador = digitoVerificador;
-            this.usuarioDAL = usuarioDAL;
         }
 
         public bool Actualizar(Familia objUpd)
@@ -135,15 +133,19 @@
             return famsdesc;
         }
 
-        //// Cambiar a cargar y usar linq para devolver la familia que coincida con la descripcion para no repetir codigo
         public Familia ObtenerFamiliaConDescripcion(string descripcion)
         {
             var queryString = $"SELECT * from Familia Where Descripcion = '{descripcion}'";
+            var familia = new Familia();
 
-            return CatchException(() =>
+            CatchException(() =>
             {
-                return Exec<Familia>(queryString)[0];
+                familia = Exec<Familia>(queryString)[0];
             });
+
+            familia.Patentes = ObtenerPatentesFamilia(familia.FamiliaId);
+
+            return familia;
         }
 
         public int ObtenerIdFamiliaPorDescripcion(string descripcion)
@@ -189,12 +191,21 @@
 
         public List<Patente> ObtenerPatentesFamilia(int familiaId)
         {
+            var patentes = new List<Patente>();
             var queryString = $"SELECT distinct IdPatente FROM FamiliaPatente WHERE FamiliaId = {familiaId}";
 
-            return CatchException(() =>
+            CatchException(() =>
             {
-                return Exec<Patente>(queryString);
+                patentes = Exec<Patente>(queryString);
             });
+
+            foreach (var patente in patentes)
+            {
+                var queryPatente = $"SELECT Descripcion FROM Patente WHERE IdPatente = {patente.IdPatente}";
+                patente.Descripcion = Exec<string>(queryPatente).FirstOrDefault();
+            }
+
+            return patentes;
         }
 
         public List<Patente> ObtenerPatentesDeFamilias(List<int> familiaId)
@@ -203,7 +214,7 @@
 
             foreach (var id in familiaId)
             {
-                var queryString = $"SELECT IdPatente FROM FamiliaPatente WHERE FamiliaId = {id}";
+                var queryString = $"SELECT * FROM FamiliaPatente WHERE FamiliaId = {id}";
 
                 patentes = CatchException(() =>
                 {
@@ -226,14 +237,29 @@
 
         public List<Usuario> ObtenerUsuariosPorFamilia(int familiaId)
         {
-            var queryString = string.Format("SELECT DISTINCT UsuarioId FROM FamiliaUsuario WHERE FamiliaId = {0}", familiaId);
             var listaUsuarios = new List<Usuario>();
+            var queryString = string.Format("SELECT DISTINCT UsuarioId FROM FamiliaUsuario WHERE FamiliaId = {0}", familiaId);
 
-            var usuarios = Exec<int>(queryString);
+            var ids = Exec<int>(queryString);
 
-            foreach (var usuario in usuarios)
+            if (ids.Count > 0)
             {
-                listaUsuarios.Add(usuarioDAL.ObtenerUsuarioConId(usuario));
+                var stringIds = string.Join<int>(",", ids);
+
+                CatchException(() =>
+                {
+                    var queryUsuario = string.Format("SELECT * FROM Usuario WHERE Activo = 1 AND UsuarioId IN ({0})", stringIds);
+
+                    listaUsuarios = Exec<Usuario>(queryUsuario);
+                });
+
+                foreach (var usuario in listaUsuarios)
+                {
+                    usuario.Familia = new List<Familia>();
+                    usuario.Patentes = new List<Patente>();
+
+                    usuario.Familia = ObtenerFamiliasUsuario(usuario.UsuarioId);
+                }
             }
 
             return listaUsuarios;

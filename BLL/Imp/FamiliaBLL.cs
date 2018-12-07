@@ -3,9 +3,7 @@
     using BE;
     using BE.Entidades;
     using DAL.Dao;
-    using System;
     using System.Collections.Generic;
-    using System.Runtime.Serialization;
 
     public class FamiliaBLL : ICRUD<Familia>, IFamiliaBLL
     {
@@ -23,14 +21,14 @@
 
         public bool Borrar(Familia objDel)
         {
-            var familiaEnUso = ComprobarUsoFamilia(objDel.FamiliaId);
+            //var familiaEnUso = ComprobarUsoFamilia(objDel.FamiliaId);
 
-            if (!familiaEnUso)
-            {
+          //  if (!familiaEnUso)
+            //{
                 familiaDAL.BorrarFamiliaDeFamiliaPatente(objDel.FamiliaId);
 
                 return familiaDAL.Borrar(objDel);
-            }
+           // }
 
             return false;
         }
@@ -103,6 +101,11 @@
         public List<Usuario> ObtenerUsuariosPorFamilia(int familiaId)
         {
             return familiaDAL.ObtenerUsuariosPorFamilia(familiaId);
+        }
+
+        public Familia ObtenerFamiliaConDescripcion(string descripcion)
+        {
+            return familiaDAL.ObtenerFamiliaConDescripcion(descripcion);
         }
     }
 }

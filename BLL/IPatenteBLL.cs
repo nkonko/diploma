@@ -9,6 +9,8 @@
 
         int ObtenerIdPatentePorDescripcion(string descripcion);
 
+        Patente ObtenerPatentePorDescripcion(string descripcion);
+
         List<Patente> Cargar();
 
         bool AsignarPatente(int familiaId, int patenteId);
@@ -27,6 +29,12 @@
 
         void BorrarPatentesUsuario(List<int> ids, int usuarioId);
 
-        bool CheckeoDePatentesParaBorrar(Usuario usuario, bool requestFamilia = false, bool requestFamiliaUsuario = false, bool esBorrado = false, int idFamiliaAQuitar = 0);
+        bool CheckeoDePatentesParaBorrar(Usuario usuario, List<Usuario> usuariosGlobales, bool requestFamilia = false, bool requestFamiliaUsuario = false, bool esBorrado = false, int idFamiliaAQuitar = 0);
+
+        bool CheckeoUsuarioParaBorrar(Usuario usuario, List<Usuario> usuariosGlobales);
+
+        bool CheckeoFamiliaParaBorrar(Familia familia, List<Usuario> usuariosGlobales);
+
+        bool CheckeoPatenteParaBorrar(Patente patente, Usuario usuario, List<Usuario> usuariosGlobales, bool paraNegar = false);
     }
 }

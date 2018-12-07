@@ -17,5 +17,7 @@
         bool ActivarUsuario(string email);
 
         bool DesactivarUsuario(string email);
+
+        List<Usuario> TraerUsuariosConPatentesYFamilias();
     }
 }

@@ -92,5 +92,10 @@
         {
             return usuarioDAL.ObtenerUsuarioConId(UsuarioId);
         }
+
+        public List<Usuario> TraerUsuariosConPatentesYFamilias()
+        {
+            return usuarioDAL.TraerUsuariosConPatentesYFamilias();
+        }
     }
 }

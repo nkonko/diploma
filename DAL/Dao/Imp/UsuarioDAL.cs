@@ -13,10 +13,14 @@
         public const string Iv = "HNtgQw0w";
 
         private readonly IDigitoVerificador digitoVerificador;
+        private readonly IFamiliaDAL familiaDAL;
+        private readonly IPatenteDAL patenteDAL;
 
-        public UsuarioDAL(IDigitoVerificador digitoVerificador)
+        public UsuarioDAL(IDigitoVerificador digitoVerificador, IFamiliaDAL familiaDAL, IPatenteDAL patenteDAL)
         {
             this.digitoVerificador = digitoVerificador;
+            this.familiaDAL = familiaDAL;
+            this.patenteDAL = patenteDAL;
         }
 
         public bool Crear(Usuario objAlta)
@@ -276,6 +280,33 @@
             {
                 return Exec<int>(queryString)[0];
             });
+        }
+
+        public List<Usuario> TraerUsuariosConPatentesYFamilias()
+        {
+            var usuarios = Cargar();
+
+            foreach (var usuario in usuarios)
+            {
+                usuario.Familia = new List<Familia>();
+                usuario.Patentes = new List<Patente>();
+
+                usuario.Familia = familiaDAL.ObtenerFamiliasUsuario(usuario.UsuarioId);
+                usuario.Patentes = patenteDAL.ObtenerPatentesUsuario(usuario.UsuarioId);
+            }
+
+            return usuarios;
+        }
+
+        public Usuario CargarPatentesYFamiliaUsuario(Usuario usuario)
+        {
+            usuario.Familia = new List<Familia>();
+            usuario.Patentes = new List<Patente>();
+
+            usuario.Familia = familiaDAL.ObtenerFamiliasUsuario(usuario.UsuarioId);
+            usuario.Patentes = patenteDAL.ObtenerPatentesUsuario(usuario.UsuarioId);
+
+            return usuario;
         }
     }
 }

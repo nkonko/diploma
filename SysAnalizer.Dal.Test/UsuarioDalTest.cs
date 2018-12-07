@@ -17,6 +17,7 @@
         private IUsuarioBLL usuarioBLL;
         private IPatenteBLL patenteBLL;
         public Usuario usuario { get; set; } = new Usuario();
+        public List<Usuario> usuariosBD { get; set; } = new List<Usuario>();
 
         [SetUp]
         public void Setup()
@@ -32,6 +33,7 @@
             usuario.Patentes = new List<Patente>();
             usuario.Familia = new List<Familia>();
             usuario.Patentes.AddRange(usuarioBLL.ObtenerPatentesDeUsuario(usuario.UsuarioId));
+            usuariosBD = usuarioBLL.TraerUsuariosConPatentesYFamilias();
         }
 
         [Test]
@@ -51,7 +53,7 @@
         [Test]
         public void DeleteAllUsersShouldNotReturnOk()
         {
-            Assert.AreEqual(false, patenteBLL.CheckeoDePatentesParaBorrar(usuario, false, false, true));
+            Assert.AreEqual(false, patenteBLL.CheckeoUsuarioParaBorrar(usuario, usuariosBD));
         }
 
         [Test]
@@ -64,7 +66,7 @@
         [Test]
         public void DeleteAllOtherUsersShouldReturnOK()
         {
-            Assert.AreEqual(true, patenteBLL.CheckeoDePatentesParaBorrar(usuario, false, false, true));
+            Assert.AreEqual(true, patenteBLL.CheckeoUsuarioParaBorrar(usuario, usuariosBD));
         }
     }
 }

@@ -91,6 +91,7 @@ namespace UI
             this.dgusuario.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgusuario_CellClick);
             this.dgusuario.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dgusuario.SelectionChanged += new System.EventHandler(this.dgusuario_SelectionChanged);
+            this.dgusuario.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgusuario_DataError);
             // 
             // Nombre
             // 

@@ -109,16 +109,16 @@ namespace UI
 
                         foreach (var usuario in usuarios)
                         {
-                            if (patenteBLL.CheckeoDePatentesParaBorrar(usuario, true))
-                            {
-                                BorrarPatente(familia.FamiliaId, patenteSel.IdPatente);
-                                break;
-                            }
-                            else
-                            {
-                                MessageBox.Show("No se puede quitar esta patente a la familia");
-                                CargarChecks();
-                            }
+                            //if (patenteBLL.CheckeoDePatentesParaBorrar(usuario, true))
+                            //{
+                            //    BorrarPatente(familia.FamiliaId, patenteSel.IdPatente);
+                            //    break;
+                            //}
+                            //else
+                            //{
+                            //    MessageBox.Show("No se puede quitar esta patente a la familia");
+                            //    CargarChecks();
+                            //}
                         }
                     }
                     else

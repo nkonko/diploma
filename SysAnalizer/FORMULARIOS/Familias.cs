@@ -14,6 +14,7 @@ namespace UI
         private readonly IFamiliaBLL familiaBLL;
         private readonly IAdminPatFamilia adminPatFamilia;
         private readonly IPatenteBLL patenteBLL;
+        private IUsuarioBLL usuarioBLL;
 
         public Familias(IFamiliaBLL familiaBLL, IUsuarioBLL usuarioBLL, IAdminPatFamilia adminPatFamilia, IPatenteBLL patenteBLL)
         {
@@ -26,7 +27,7 @@ namespace UI
         private void Familias_Load(object sender, EventArgs e)
         {
             CargarFamilias();
-
+            usuarioBLL = IoCContainer.Resolve<IUsuarioBLL>();
         }
 
         private void CargarFamilias()
@@ -92,19 +93,16 @@ namespace UI
         private void btnBaja_Click(object sender, EventArgs e)
         {
             var desc = chklstFamilias.SelectedItem.ToString();
+            var familia = familiaBLL.ObtenerFamiliaConDescripcion(desc);
             var returnValue = false;
-            var usuarios = familiaBLL.ObtenerUsuariosPorFamilia(familiaBLL.ObtenerIdFamiliaPorDescripcion(desc));
 
-            foreach (var usuario in usuarios)
+            if (patenteBLL.CheckeoFamiliaParaBorrar(familia, usuarioBLL.TraerUsuariosConPatentesYFamilias()))
             {
-                if (patenteBLL.CheckeoDePatentesParaBorrar(usuario, true))
-                {
-                    returnValue = true;
-                }
-                else
-                {
-                    MessageBox.Show("La familia actualmente esta en uso");
-                }
+                returnValue = true;
+            }
+            else
+            {
+                MessageBox.Show("La familia actualmente esta en uso");
             }
 
             if (returnValue)

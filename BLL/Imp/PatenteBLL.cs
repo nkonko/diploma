@@ -68,9 +68,29 @@
             patenteDAL.BorrarPatentesUsuario(ids, usuarioId);
         }
 
-        public bool CheckeoDePatentesParaBorrar(Usuario usuario, bool requestFamilia = false, bool requestFamiliaUsuario = false, bool esBorrado = false, int idFamiliaAQuitar = 0)
+        public bool CheckeoDePatentesParaBorrar(Usuario usuario, List<Usuario> usuariosGlobales, bool requestFamilia = false, bool requestFamiliaUsuario = false, bool esBorrado = false, int idFamiliaAQuitar = 0)
         {
-            return patenteDAL.CheckeoDePatentesParaBorrar(usuario, requestFamilia, requestFamiliaUsuario, esBorrado, idFamiliaAQuitar);
+            return patenteDAL.CheckeoDePatentesParaBorrar(usuario, usuariosGlobales, requestFamilia, requestFamiliaUsuario, esBorrado, idFamiliaAQuitar);
+        }
+
+        public bool CheckeoFamiliaParaBorrar(Familia familia, List<Usuario> usuariosGlobales)
+        {
+            return patenteDAL.CheckeoFamiliaParaBorrar(familia, usuariosGlobales);
+        }
+
+        public bool CheckeoUsuarioParaBorrar(Usuario usuario, List<Usuario> usuariosGlobales)
+        {
+            return patenteDAL.CheckeoUsuarioParaBorrar(usuario, usuariosGlobales);
+        }
+
+        public bool CheckeoPatenteParaBorrar(Patente patente, Usuario usuario, List<Usuario> usuariosGlobales, bool paraNegar = false)
+        {
+            return patenteDAL.CheckeoPatenteParaBorrar(patente, usuario, usuariosGlobales, paraNegar);
+        }
+
+        public Patente ObtenerPatentePorDescripcion(string descripcion)
+        {
+            return patenteDAL.ObtenerPatentePorDescripcion(descripcion);
         }
     }
 }

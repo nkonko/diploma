@@ -21,5 +21,7 @@
         bool DesactivarUsuario(string email);
 
         Usuario ObtenerUsuarioConId(int UsuarioId);
+
+        List<Usuario> TraerUsuariosConPatentesYFamilias();
     }
 }

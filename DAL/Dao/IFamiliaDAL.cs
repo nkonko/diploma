@@ -20,6 +20,8 @@
 
         bool ComprobarUsoFamilia(int familiaId);
 
+        Familia ObtenerFamiliaConDescripcion(string descripcion);
+
         List<int> ObtenerIdsFamiliasPorUsuario(int usuarioId);
 
         List<string> ObtenerDescripcionFamiliaPorId(List<int> familiaId);
