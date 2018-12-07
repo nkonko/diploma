@@ -21,16 +21,9 @@
 
         public bool Borrar(Familia objDel)
         {
-            //var familiaEnUso = ComprobarUsoFamilia(objDel.FamiliaId);
-
-          //  if (!familiaEnUso)
-            //{
                 familiaDAL.BorrarFamiliaDeFamiliaPatente(objDel.FamiliaId);
 
                 return familiaDAL.Borrar(objDel);
-           // }
-
-            return false;
         }
 
         public List<Familia> Cargar()

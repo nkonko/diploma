@@ -327,9 +327,9 @@
             return false;
         }
 
-        public bool CheckeoPatenteParaBorrar(Patente patente, Usuario usuario, List<Usuario> usuariosGlobales, bool paraNegar = false)
+        public bool CheckeoPatenteParaBorrar(Patente patente, Usuario usuario, List<Usuario> usuariosGlobales, bool paraNegarOquitarDeFamilia = false)
         {
-            if (!paraNegar)
+            if (!paraNegarOquitarDeFamilia)
             {
                 //si tiene la patente en su familia puedo borrarsela sin problema
                 if (usuario.Familia.Select(fam => fam.Patentes.Any(patFU => patFU.IdPatente == patente.IdPatente)).FirstOrDefault())

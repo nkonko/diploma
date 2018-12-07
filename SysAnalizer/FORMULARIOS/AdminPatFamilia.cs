@@ -16,6 +16,7 @@ namespace UI
         private readonly IPatenteBLL patenteBLL;
         private readonly IFamiliaBLL familiaBLL;
         private IFamilias familias;
+        private IUsuarioBLL usuarioBLL;
 
         private bool familiaNueva;
         private bool checkeadapat = false;
@@ -56,6 +57,7 @@ namespace UI
 
         private void AdminPatFamilia_Load(object sender, EventArgs e)
         {
+            usuarioBLL = IoCContainer.Resolve<IUsuarioBLL>();
             familias = IoCContainer.Resolve<IFamilias>();
             familia = familias.ObtenerFamiliaSeleccionada();
             lblFamilia.Text = "";
@@ -81,6 +83,7 @@ namespace UI
 
         private void lstPatentes_SelectedIndexChanged(object sender, EventArgs e)
         {
+            CargarChecks();
         }
 
         private void lstPatentes_ItemCheck(object sender, ItemCheckEventArgs e)
@@ -107,18 +110,26 @@ namespace UI
                     {
                         var usuarios = familiaBLL.ObtenerUsuariosPorFamilia(familia.FamiliaId);
 
-                        foreach (var usuario in usuarios)
+                        if (usuarios.Count > 0)
                         {
-                            //if (patenteBLL.CheckeoDePatentesParaBorrar(usuario, true))
-                            //{
-                            //    BorrarPatente(familia.FamiliaId, patenteSel.IdPatente);
-                            //    break;
-                            //}
-                            //else
-                            //{
-                            //    MessageBox.Show("No se puede quitar esta patente a la familia");
-                            //    CargarChecks();
-                            //}
+                            foreach (var usuario in usuarios)
+                            {
+                                usuario.Patentes.AddRange(usuarioBLL.ObtenerPatentesDeUsuario(usuario.UsuarioId));
+
+                                foreach (var familia in usuario.Familia)
+                                {
+                                    familia.Patentes = familiaBLL.ObtenerPatentesFamilia(familia.FamiliaId);
+                                }
+                                if (patenteBLL.CheckeoPatenteParaBorrar(patenteSel, usuario, usuarioBLL.TraerUsuariosConPatentesYFamilias(), true))
+                                {
+                                    BorrarPatente(familia.FamiliaId, patenteSel.IdPatente);
+                                }
+                                else
+                                {
+                                    MessageBox.Show("No se puede quitar esta patente a la familia");
+                                    CargarChecks();
+                                }
+                            }
                         }
                     }
                     else
