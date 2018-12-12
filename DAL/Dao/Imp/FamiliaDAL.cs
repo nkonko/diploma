@@ -112,7 +112,7 @@
 
             return CatchException(() =>
             {
-                return Exec<string>(queryString)[0];
+                return Exec<string>(queryString).FirstOrDefault();
             });
         }
 
@@ -126,7 +126,7 @@
 
                 CatchException(() =>
                 {
-                    famsdesc.Add(Exec<string>(queryString)[0]);
+                    famsdesc.Add(Exec<string>(queryString).FirstOrDefault());
                 });
             }
 
@@ -140,7 +140,7 @@
 
             CatchException(() =>
             {
-                familia = Exec<Familia>(queryString)[0];
+                familia = Exec<Familia>(queryString).FirstOrDefault();
             });
 
             familia.Patentes = ObtenerPatentesFamilia(familia.FamiliaId);
@@ -154,7 +154,7 @@
 
             return CatchException(() =>
             {
-                return Exec<int>(queryString, new { @descripcion = descripcion })[0];
+                return Exec<int>(queryString, new { @descripcion = descripcion }).FirstOrDefault();
             });
         }
 

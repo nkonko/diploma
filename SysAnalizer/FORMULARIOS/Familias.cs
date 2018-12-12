@@ -96,7 +96,7 @@ namespace UI
             var familia = familiaBLL.ObtenerFamiliaConDescripcion(desc);
             var returnValue = false;
 
-            if (patenteBLL.CheckeoFamiliaParaBorrar(familia, ,usuarioBLL.TraerUsuariosConPatentesYFamilias()))
+            if (patenteBLL.CheckeoFamiliaParaBorrar(familia, usuarioBLL.TraerUsuariosConPatentesYFamilias()))
             {
                 returnValue = true;
             }
@@ -129,28 +129,30 @@ namespace UI
 
             var familias = familiaBLL.Cargar();
 
-            if (!familias.Select(x => x.Descripcion).Contains(nuevoNombre))
+            if (nuevoNombre != string.Empty)
             {
-                var exitoso = familiaBLL.Actualizar(new Familia() { Descripcion = nuevoNombre, FamiliaId = familiaBLL.ObtenerIdFamiliaPorDescripcion(desc) });
-                var creadaId = familiaBLL.ObtenerIdFamiliaPorDescripcion(nuevoNombre);
-
-                familiaSeleccionada = new Familia() { FamiliaId = creadaId, Descripcion = nuevoNombre };
-
-                if (exitoso)
+                if (!familias.Select(x => x.Descripcion).Contains(nuevoNombre))
                 {
-                    adminPatFamilia.ShowDialog();
-                    MessageBox.Show("Familia y Patentes Actualizadas");
-                }
+                    var exitoso = familiaBLL.Actualizar(new Familia() { Descripcion = nuevoNombre, FamiliaId = familiaBLL.ObtenerIdFamiliaPorDescripcion(desc) });
+                    var creadaId = familiaBLL.ObtenerIdFamiliaPorDescripcion(nuevoNombre);
 
+                    familiaSeleccionada = new Familia() { FamiliaId = creadaId, Descripcion = nuevoNombre };
+
+                    if (exitoso)
+                    {
+                        MessageBox.Show("Nombre Actualizado");
+                    }
+
+                    CargarFamilias();
+                    chklstFamilias.Refresh();
+                }
+                else
+                {
+                    MessageBox.Show("La familia ya existe");
+                }
                 CargarFamilias();
                 chklstFamilias.Refresh();
             }
-            else
-            {
-                MessageBox.Show("La familia ya existe");
-            }
-            CargarFamilias();
-            chklstFamilias.Refresh();
         }
 
         private void Familias_FormClosing(object sender, FormClosingEventArgs e)
@@ -167,6 +169,22 @@ namespace UI
         private void Familias_Enter(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnModificarTodo_Click(object sender, EventArgs e)
+        {
+            adminPatFamilia.ShowDialog();
+
+            MessageBox.Show("Familia y Patentes Actualizadas");
+
+            CargarFamilias();
+            chklstFamilias.Refresh();
+        }
+
+        private void chklstFamilias_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var descFamilia = (List<string>)chklstFamilias.DataSource;
+            familiaSeleccionada = new Familia() { Descripcion = descFamilia.FirstOrDefault(), FamiliaId = familiaBLL.ObtenerIdFamiliaPorDescripcion(descFamilia.FirstOrDefault()) };
         }
     }
 }

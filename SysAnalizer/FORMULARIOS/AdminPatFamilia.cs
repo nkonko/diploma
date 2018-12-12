@@ -10,7 +10,7 @@ namespace UI
 
     public partial class AdminPatFamilia : Form, IAdminPatFamilia
     {
-        public List<Patente> patentesSeleccionadas = null;
+        public List<Patente> PatentesBd = new List<Patente>();
         private Familia familia = null;
 
         private readonly IPatenteBLL patenteBLL;
@@ -37,22 +37,11 @@ namespace UI
         public void AsignarPatente(int familiaId, int patenteId)
         {
             var asignadas = patenteBLL.AsignarPatente(familiaId, patenteId);
-            if (asignadas)
-            {
-            }
         }
 
         public void BorrarPatente(int familiaId, int patenteId)
         {
             var negadas = patenteBLL.BorrarPatente(familiaId, patenteId);
-            if (negadas)
-            {
-            }
-        }
-
-        public List<Patente> ObtenerPatentesSeleccion()
-        {
-            return patentesSeleccionadas;
         }
 
         private void AdminPatFamilia_Load(object sender, EventArgs e)
@@ -62,7 +51,9 @@ namespace UI
             familia = familias.ObtenerFamiliaSeleccionada();
             lblFamilia.Text = "";
             lblFamilia.Text = lblFamilia.Text + " " + familia.Descripcion;
-            lstPatentes.DataSource = patenteBLL.Cargar();
+            PatentesBd = patenteBLL.Cargar();
+            lstPatentes.DataSource = null;
+            lstPatentes.DataSource = PatentesBd;
             lstPatentes.DisplayMember = "Descripcion";
             lstPatentes.ValueMember = "IdPatente";
             lstPatentes.Enabled = false;
@@ -76,14 +67,24 @@ namespace UI
 
             foreach (var pat in patentes)
             {
-                var descPatente = patenteBLL.Cargar().Where(x => x.IdPatente == pat.IdPatente).Select(x => x.Descripcion).ToList()[0];
-                lstPatentes.SetItemChecked(lstPatentes.FindString(descPatente), true);
+                var descPatente = PatentesBd.Where(x => x.IdPatente == pat.IdPatente).Select(x => x.Descripcion).FirstOrDefault();
+                var index = lstPatentes.FindString(descPatente);
+
+                if (index == -1)
+                {
+                    index = 0;
+                }
+
+                lstPatentes.SetItemChecked(index, true);
             }
         }
 
-        private void lstPatentes_SelectedIndexChanged(object sender, EventArgs e)
+        public void RecargarGrilla()
         {
-            CargarChecks();
+            lstPatentes.DataSource = null;
+            lstPatentes.DataSource = PatentesBd;
+            lstPatentes.DisplayMember = "Descripcion";
+            lstPatentes.ValueMember = "IdPatente";
         }
 
         private void lstPatentes_ItemCheck(object sender, ItemCheckEventArgs e)
@@ -127,9 +128,14 @@ namespace UI
                                 else
                                 {
                                     MessageBox.Show("No se puede quitar esta patente a la familia");
-                                    CargarChecks();
+                                    RecargarGrilla();
+                                    e.NewValue = e.CurrentValue;
                                 }
                             }
+                        }
+                        else
+                        {
+                            BorrarPatente(familia.FamiliaId, patenteSel.IdPatente);
                         }
                     }
                     else

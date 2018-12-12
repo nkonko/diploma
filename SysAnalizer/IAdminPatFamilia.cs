@@ -15,7 +15,5 @@
         void Show();
 
         DialogResult ShowDialog();
-
-        List<Patente> ObtenerPatentesSeleccion();
     }
 }

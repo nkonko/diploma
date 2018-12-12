@@ -269,6 +269,11 @@
 
             if (usuarioABorrar.Patentes.Count <= 0)
             {
+                if (usuarioABorrar.Familia.Count > 0)
+                {
+                    return CheckeoDeFamiliasEnUsuariosSinPatentes(usuarioABorrar, usuariosGlobales);
+                }
+
                 return true;
             }
 
@@ -305,6 +310,25 @@
             return false;
         }
 
+        private bool CheckeoDeFamiliasEnUsuariosSinPatentes(Usuario usuarioABorrar, List<Usuario> usuariosGlobales)
+        {
+            usuariosGlobales.Remove(usuarioABorrar);
+
+            if (usuariosGlobales.Any(usuarioG => usuarioG.Familia.Any(fam => usuarioABorrar.Familia.Any(uFam => uFam.FamiliaId == fam.FamiliaId))))
+            {
+                return true;
+            }
+
+            var patentesUsuario = usuarioABorrar.Familia.Select(fam => fam.Patentes).FirstOrDefault();
+            var patentesUsuariosGlobales = usuariosGlobales.Select(ug => ug.Patentes).ToList();
+
+            if (patentesUsuario.All(upat => patentesUsuariosGlobales.All(pats => pats.Any(pat => pat.IdPatente == upat.IdPatente))))
+            {
+                return true;
+            }
+            return false;
+        }
+
         public bool CheckeoFamiliaParaBorrar(Familia familiaABorrar, List<Usuario> usuariosGlobales)
         {
             if (familiaABorrar.Patentes.Count <= 0)
@@ -317,7 +341,12 @@
                 return true;
             }
 
-           var patentesSinUsuarios = ComprobarPatentesDeUsuariosPropiosYGlobales(familiaABorrar, usuariosGlobales);
+            if (familiaDAL.ObtenerUsuariosPorFamilia(familiaABorrar.FamiliaId).Count > 1)
+            {
+                return true;
+            }
+
+            var patentesSinUsuarios = ComprobarPatentesDeUsuariosPropiosYGlobales(familiaABorrar, usuariosGlobales);
 
             if (patentesSinUsuarios.Count <= 0)
             {

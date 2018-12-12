@@ -35,6 +35,7 @@ namespace UI
             this.btnModificar = new System.Windows.Forms.Button();
             this.btnBaja = new System.Windows.Forms.Button();
             this.chklstFamilias = new System.Windows.Forms.CheckedListBox();
+            this.btnModificarTodo = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnVolver
@@ -61,18 +62,18 @@ namespace UI
             // 
             // btnModificar
             // 
-            this.btnModificar.Location = new System.Drawing.Point(175, 126);
+            this.btnModificar.Location = new System.Drawing.Point(175, 95);
             this.btnModificar.Margin = new System.Windows.Forms.Padding(2);
             this.btnModificar.Name = "btnModificar";
-            this.btnModificar.Size = new System.Drawing.Size(69, 28);
+            this.btnModificar.Size = new System.Drawing.Size(69, 35);
             this.btnModificar.TabIndex = 3;
-            this.btnModificar.Text = "Modificar";
+            this.btnModificar.Text = "Modificar nombre";
             this.btnModificar.UseVisualStyleBackColor = true;
             this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
             // 
             // btnBaja
             // 
-            this.btnBaja.Location = new System.Drawing.Point(175, 188);
+            this.btnBaja.Location = new System.Drawing.Point(175, 196);
             this.btnBaja.Margin = new System.Windows.Forms.Padding(2);
             this.btnBaja.Name = "btnBaja";
             this.btnBaja.Size = new System.Drawing.Size(69, 28);
@@ -89,12 +90,25 @@ namespace UI
             this.chklstFamilias.Name = "chklstFamilias";
             this.chklstFamilias.Size = new System.Drawing.Size(141, 169);
             this.chklstFamilias.TabIndex = 5;
+            this.chklstFamilias.SelectedIndexChanged += new System.EventHandler(this.chklstFamilias_SelectedIndexChanged);
+            // 
+            // btnModificarTodo
+            // 
+            this.btnModificarTodo.Location = new System.Drawing.Point(175, 145);
+            this.btnModificarTodo.Margin = new System.Windows.Forms.Padding(2);
+            this.btnModificarTodo.Name = "btnModificarTodo";
+            this.btnModificarTodo.Size = new System.Drawing.Size(69, 37);
+            this.btnModificarTodo.TabIndex = 6;
+            this.btnModificarTodo.Text = "Modificar Patentes";
+            this.btnModificarTodo.UseVisualStyleBackColor = true;
+            this.btnModificarTodo.Click += new System.EventHandler(this.btnModificarTodo_Click);
             // 
             // Familias
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(266, 239);
+            this.Controls.Add(this.btnModificarTodo);
             this.Controls.Add(this.chklstFamilias);
             this.Controls.Add(this.btnBaja);
             this.Controls.Add(this.btnModificar);
@@ -115,5 +129,6 @@ namespace UI
         private System.Windows.Forms.Button btnModificar;
         private System.Windows.Forms.Button btnBaja;
         private System.Windows.Forms.CheckedListBox chklstFamilias;
+        private System.Windows.Forms.Button btnModificarTodo;
     }
 }

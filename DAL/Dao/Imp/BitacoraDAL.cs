@@ -62,7 +62,7 @@
 
             return CatchException(() =>
             {
-                return Exec<int>(queryString.ToString())[0];
+                return Exec<int>(queryString.ToString()).FirstOrDefault();
             });
         }
 

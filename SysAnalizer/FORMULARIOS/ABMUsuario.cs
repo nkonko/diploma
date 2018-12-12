@@ -11,6 +11,7 @@ namespace UI
     using System.Windows.Forms;
     using EasyEncryption;
     using DAL;
+    using System.Text.RegularExpressions;
 
     public partial class ABMusuario : Form, IABMUsuario
     {
@@ -20,6 +21,7 @@ namespace UI
         private readonly IBitacoraBLL bitacoraBLL;
         private readonly IFormControl formControl;
         private readonly IBloqueoUsuario bloqueoUsuario;
+        private readonly IIdiomaBLL idiomaBLL;
 
         private const int formId = 3;
         private const string entidad = "Usuario";
@@ -41,7 +43,7 @@ namespace UI
 
         private IUsuarioBLL usuarioBLL;
 
-        public ABMusuario(IBitacoraBLL bitacoraBLL, IFormControl formControl, IFamiliaBLL familiasBLL, IPatenteBLL patenteBLL, IDigitoVerificador digitoVerificador, IBloqueoUsuario bloqueoUsuario)
+        public ABMusuario(IBitacoraBLL bitacoraBLL, IFormControl formControl, IFamiliaBLL familiasBLL, IPatenteBLL patenteBLL, IDigitoVerificador digitoVerificador, IBloqueoUsuario bloqueoUsuario, IIdiomaBLL idiomaBLL)
         {
             this.bitacoraBLL = bitacoraBLL;
             this.formControl = formControl;
@@ -49,6 +51,7 @@ namespace UI
             this.patenteBLL = patenteBLL;
             this.digitoVerificador = digitoVerificador;
             this.bloqueoUsuario = bloqueoUsuario;
+            this.idiomaBLL = idiomaBLL;
             InitializeComponent();
             dgusuario.AutoGenerateColumns = false;
         }
@@ -73,6 +76,22 @@ namespace UI
 
             chkLstPatentes.DataSource = patenteBLL.Cargar().Select(pat => pat.Descripcion).ToList();
             chkLstFamilia.DataSource = familiasBLL.Cargar().Select(fam => fam.Descripcion).ToList();
+            Traduccir();
+        }
+
+        private void Traduccir()
+        {
+            formControl.Traducciones.Clear();
+            formControl.Traducciones = GetTraducciones();
+            idiomaBLL.LlenarRecursos(formControl.Traducciones, formControl.LenguajeSeleccionado.IdIdioma, Application.OpenForms[0].Name);
+            idiomaBLL.LeerRecursos(this.Controls);
+        }
+
+        private IDictionary<string, string> GetTraducciones()
+        {
+            formControl.Traducciones = idiomaBLL.ObtenerTraduccionesFormulario(formControl.LenguajeSeleccionado.IdIdioma, Application.OpenForms[2].Name).ToDictionary(k => k.ControlName ?? k.MensajeCodigo, v => v.Traduccion);
+
+            return formControl.Traducciones;
         }
 
         private void ControlPatentes()
@@ -130,20 +149,20 @@ namespace UI
 
                         Log4netExtensions.Media(log, "Se ha creado un nuevo usuario");
                         bitacoraBLL.RegistrarEnBitacora(usu);
-                        MessageBox.Show("Registro exitoso");
+                        Alert.ShowSimpleAlert("Registro exitoso", "MSJ017");
                         CargarRefrescarDatagrid();
                     }
                     else
                     {
                         Log4netExtensions.Baja(log, "El registro de nuevo usuario ha fallado");
                         bitacoraBLL.RegistrarEnBitacora(usu);
-                        MessageBox.Show("El registro de nuevo usuario ha fallado");
+                        Alert.ShowSimpleAlert("El registro de nuevo usuario ha fallado","MSJ019");
                     }
                 }
             }
             else
             {
-                MessageBox.Show("No pueden haber 2 usuarios con el mismo email");
+                Alert.ShowSimpleAlert("No pueden haber 2 usuarios con el mismo email", "MSJ021");
                 Log4netExtensions.Alta(log, "Se intento guardar o modificar un usuario con el mismo email");
             }
         }
@@ -168,14 +187,14 @@ namespace UI
 
                     Log4netExtensions.Baja(log, string.Format("Se ha modificado al usuario {0}", DES.Decrypt(UsuarioSeleccionado.Email, key, iv)));
                     bitacoraBLL.RegistrarEnBitacora(UsuarioActivo);
-                    MessageBox.Show("Modificacion exitosa");
+                    Alert.ShowSimpleAlert("Modificacion exitosa", "MSJ023");
                     CargarRefrescarDatagrid();
                 }
                 else
                 {
                     Log4netExtensions.Baja(log, "La modificacion ha fallado");
                     bitacoraBLL.RegistrarEnBitacora(UsuarioActivo);
-                    MessageBox.Show("La modificacion ha fallado");
+                    Alert.ShowSimpleAlert("La modificacion ha fallado", "MSJ025");
                     CargarRefrescarDatagrid();
                 }
             }
@@ -184,44 +203,45 @@ namespace UI
         private void btnBorrar_Click(object sender, EventArgs e)
         {
             var permitir = verificarDatos();
-            permitir = CheckeoPatentes(UsuarioSeleccionado);
 
             if (permitir)
             {
-                var borrado = usuarioBLL.Borrar(UsuarioSeleccionado);
-
-                if (borrado)
+                if (CheckeoPatentes(UsuarioSeleccionado))
                 {
-                    familiasBLL.BorrarFamiliasUsuario(UsuarioSeleccionado.Familia, UsuarioSeleccionado.UsuarioId);
-                    CargarRefrescarDatagrid();
-                    if (digitoVerificador.ComprobarPrimerDigito(digitoVerificador.Entidades.Find(x => x == entidad)))
+                    var borrado = usuarioBLL.Borrar(UsuarioSeleccionado);
+
+                    if (borrado)
                     {
-                        digitoVerificador.InsertarDVVertical(digitoVerificador.Entidades.Find(x => x == entidad));
+                        familiasBLL.BorrarFamiliasUsuario(UsuarioSeleccionado.Familia, UsuarioSeleccionado.UsuarioId);
+                        if (digitoVerificador.ComprobarPrimerDigito(digitoVerificador.Entidades.Find(x => x == entidad)))
+                        {
+                            digitoVerificador.InsertarDVVertical(digitoVerificador.Entidades.Find(x => x == entidad));
+                        }
+                        else
+                        {
+                            digitoVerificador.ActualizarDVVertical(digitoVerificador.Entidades.Find(x => x == entidad));
+                        }
+
+                        Log4netExtensions.Alta(log, string.Format("Se borrado al usuario {0}", UsuarioSeleccionado.Email));
+                        bitacoraBLL.RegistrarEnBitacora(UsuarioActivo);
+                        Alert.ShowSimpleAlert("Borrado exitoso", "MSJ027");
+                        CargarRefrescarDatagrid();
                     }
                     else
                     {
-                        digitoVerificador.ActualizarDVVertical(digitoVerificador.Entidades.Find(x => x == entidad));
+                        Log4netExtensions.Baja(log, "El borrado de usuario ha fallado");
+                        bitacoraBLL.RegistrarEnBitacora(UsuarioActivo);
+                        Alert.ShowSimpleAlert("El borrado de usuario ha fallado", "MSJ029");
+                        CargarRefrescarDatagrid();
                     }
-
-                    Log4netExtensions.Alta(log, string.Format("Se borrado al usuario {0}", UsuarioSeleccionado.Email));
-                    bitacoraBLL.RegistrarEnBitacora(UsuarioActivo);
-                    MessageBox.Show("Borrado exitoso");
-                    CargarRefrescarDatagrid();
                 }
                 else
                 {
-                    Log4netExtensions.Baja(log, "El borrado de usuario ha fallado");
+                    Log4netExtensions.Media(log, "Una patente se encuentra en uso y no puede borrarse");
                     bitacoraBLL.RegistrarEnBitacora(UsuarioActivo);
-                    MessageBox.Show("El borrado de usuario ha fallado");
+                    Alert.ShowSimpleAlert("Una patente se encuentra en uso y no puede borrarse", "MSJ013");
                     CargarRefrescarDatagrid();
                 }
-            }
-            else
-            {
-                Log4netExtensions.Media(log, "Una patente se encuentra en uso y no puede borrarse");
-                bitacoraBLL.RegistrarEnBitacora(UsuarioActivo);
-                Alert.ShowSimpleAlert("MSJ", "Una patente se encuentra en uso y no puede borrarse");
-                CargarRefrescarDatagrid();
             }
         }
 
@@ -250,7 +270,7 @@ namespace UI
 
             if (txtEmail.Text == DES.Decrypt(UsuarioActivo.Email, key, iv))
             {
-                MessageBox.Show("No puede realizar acciones sobre el usuario activo");
+                Alert.ShowSimpleAlert("No puede realizar acciones sobre el usuario activo", "MSJ031");
                 Log4netExtensions.Alta(log, "Se intento eliminar o modificar al usuario activo");
                 returnValue = false;
             }
@@ -259,10 +279,18 @@ namespace UI
             {
                 if (string.IsNullOrEmpty(tb.Text.Trim()))
                 {
-                    MessageBox.Show("Todos los datos deben estar completos");
+                    Alert.ShowSimpleAlert("Todos los datos deben estar completos", "MSJ033");
                     Log4netExtensions.Baja(log, "Todos los datos deben estar completos");
                     returnValue = false;
                     break;
+                }
+
+                if(tb.Name == "txtNombre")
+                {
+                    if (Regex.IsMatch(tb.Text, @"[a-zA-Z]"))
+                    {
+                        //TODO
+                    }
                 }
             }
 
@@ -272,6 +300,12 @@ namespace UI
         public bool CheckeoPatentes(Usuario usuario)
         {
             var returnValue = true;
+
+            if (usuariosBD.Count == 1)
+            {
+                return false;
+            }
+
             if (usuario.Patentes.Count > 0 || usuario.Familia.Count > 0)
             {
                 returnValue = patenteBLL.CheckeoUsuarioParaBorrar(usuario, usuariosBD);
@@ -317,7 +351,7 @@ namespace UI
                 }
                 else
                 {
-                    Alert.ShowSimpleAlert("Al menos un usuario debe tener asignada esta patente");
+                    Alert.ShowSimpleAlert("Al menos un usuario debe tener asignada esta patente", "MSJ015");
                     Log4netExtensions.Alta(log, "Al menos un usuario debe tener asignada esta patente");
                     CargarRefrescarDatagrid();
                 }
@@ -474,13 +508,14 @@ namespace UI
                     {
                         patenteBLL.BorrarPatentesUsuario(ids, usuario.UsuarioId);
                         CargarRefrescarDatagrid();
-                        SetearChecks(usuario.Patentes,usuario.Familia);
+                        SetearChecks(usuario.Patentes, usuario.Familia);
                     }
                     else
                     {
-                        Alert.ShowSimpleAlert("Al menos un usuario debe tener asignada esta patente");
+                        Alert.ShowSimpleAlert("Al menos un usuario debe tener asignada esta patente", "MSJ015");
                         Log4netExtensions.Alta(log, "Al menos un usuario debe tener asignada esta patente");
                         CargarRefrescarDatagrid();
+                        e.NewValue = e.CurrentValue;
                         SetearChecks(usuario.Patentes, usuario.Familia);
                     }
                 }
@@ -504,7 +539,7 @@ namespace UI
                 }
                 else
                 {
-                    if (patenteBLL.CheckeoFamiliaParaBorrar(familia, usuario, usuariosBD))
+                    if (patenteBLL.CheckeoFamiliaParaBorrar(familia, usuariosBD))
                     {
                         familiasBLL.BorrarFamiliasUsuario(usuario.Familia, usuario.UsuarioId);
                         CargarRefrescarDatagrid();
@@ -512,8 +547,9 @@ namespace UI
                     }
                     else
                     {
-                        MessageBox.Show("No puede quitar esta familia");
+                        Alert.ShowSimpleAlert("No puede quitar esta familia", "MSJ035");
                         CargarRefrescarDatagrid();
+                        e.NewValue = e.CurrentValue;
                     }
                 }
             }

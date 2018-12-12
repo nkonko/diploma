@@ -74,7 +74,6 @@ namespace UI
             this.lstPatentes.Size = new System.Drawing.Size(152, 124);
             this.lstPatentes.TabIndex = 55;
             this.lstPatentes.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.lstPatentes_ItemCheck);
-            this.lstPatentes.SelectedIndexChanged += new System.EventHandler(this.lstPatentes_SelectedIndexChanged);
             // 
             // btnModificar
             // 

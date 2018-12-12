@@ -55,11 +55,10 @@
         /// <returns></returns>
         private static string ProcessMessage(string messageNumber)
         {
-            var formControl = IoCContainer.Resolve<IFormControl>();
-
             try
             {
-                using (ResXResourceSet resxSet = new ResXResourceSet("C:\\Users\\Nicolas Azzara\\Desktop\\diploma\\diploma\\SysAnalizer\\Recursos\\Español.resx"))
+                var Path = ObtenerPath();
+                using (ResXResourceSet resxSet = new ResXResourceSet(Path + "Recursos\\Español.resx"))
                 {
                     foreach (DictionaryEntry item in resxSet)
                     {
@@ -76,6 +75,14 @@
             }
 
             return null;
+        }
+
+        private static string ObtenerPath()
+        {
+            var Path = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
+            Path = Path.Remove(0, 6);
+            Path = Path.Substring(0, 60);
+            return Path;
         }
     }
 }
