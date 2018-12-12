@@ -1,34 +1,39 @@
 ﻿namespace BLL.Imp
 {
     using BE.Entidades;
+    using DAL.Dao;
     using System;
     using System.Collections.Generic;
 
     public class ClienteBLL : IClienteBLL
     {
+        public Cliente ClienteSeleccionado { get; set; } = new Cliente();
+
+        private readonly IClienteDAL clienteDAL;
+
+        public ClienteBLL(IClienteDAL clienteDAL)
+        {
+            this.clienteDAL = clienteDAL;
+        }
+
         public bool Actualizar(Cliente objUpd)
         {
-            throw new NotImplementedException();
+            return clienteDAL.Actualizar(objUpd);
         }
 
         public bool Borrar(Cliente objDel)
         {
-            throw new NotImplementedException();
+            return clienteDAL.Borrar(objDel);
         }
 
         public List<Cliente> Cargar()
         {
-            throw new NotImplementedException();
+            return clienteDAL.Cargar();
         }
 
         public bool Crear(Cliente objAlta)
         {
-            throw new NotImplementedException();
-        }
-
-        public Cliente ObtenerCliente(string text)
-        {
-            throw new NotImplementedException();
+            return clienteDAL.Crear(objAlta);
         }
     }
 }

@@ -88,7 +88,7 @@
     <Compile Include="Dao\Imp\DigitoVerificador.cs" />
     <Compile Include="Dao\Imp\FamiliaDAL.cs" />
     <Compile Include="Dao\Imp\FormControlDAL.cs" />
-    <Compile Include="Dao\ICLienteDAL.cs" />
+    <Compile Include="Dao\IClienteDAL.cs" />
     <Compile Include="Dao\Imp\IdiomaDAL.cs" />
     <Compile Include="Dao\IFamiliaDAL.cs" />
     <Compile Include="Dao\IFormControlDAL.cs" />

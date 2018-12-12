@@ -4,12 +4,15 @@ namespace UI
     using BE.Entidades;
     using BLL;
     using System;
+    using System.Collections.Generic;
     using System.Windows.Forms;
 
     public partial class Clientes : Form, IClientes
     {
         private readonly IClienteBLL clienteBLL;
-
+        public List<Cliente> ClientesBd { get; set; } = new List<Cliente>();
+        public Cliente ClienteSeleccionado { get; set; } = new Cliente();
+        public bool formUserClose = true;
         public Clientes(IClienteBLL clienteBLL)
         {
             this.clienteBLL = clienteBLL;
@@ -22,16 +25,21 @@ namespace UI
 
         private void button4_Click(object sender, EventArgs e)
         {
+            DialogResult = DialogResult.OK;
+            formUserClose = false;
         }
 
         private void Clientes_Load(object sender, EventArgs e)
         {
-            dgClientes.DataSource = clienteBLL.Cargar();
+            dgClientes.AutoGenerateColumns = false;
+            ClientesBd = clienteBLL.Cargar();
+            dgClientes.DataSource = ClientesBd;
         }
 
         public Cliente ObtenerClienteSeleccionado()
         {
-            return new Cliente();
+            ClienteSeleccionado = (Cliente)dgClientes.CurrentRow.DataBoundItem; ;
+            return ClienteSeleccionado;
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -41,18 +49,64 @@ namespace UI
 
         private void Clientes_FormClosing(object sender, FormClosingEventArgs e)
         {
-            e.Cancel = true;
+            if (formUserClose)
+            {
+                e.Cancel = true;
+            }
             Hide();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            clienteBLL.Crear(new Cliente() { NombreCompleto = textBox1.Text });
+            var exito = clienteBLL.Crear(new Cliente() { NombreCompleto = txtNombre.Text, Domicilio = txtDomicilio.Text, Email = txtEmail.Text, Telefono = txtTelefono.Text, Activo = true });
+            dgClientes.DataSource = clienteBLL.Cargar();
+
+            if (exito)
+            {
+                MessageBox.Show("Cliente Creado");
+            }
         }
 
         private void Clientes_Enter(object sender, EventArgs e)
         {
             dgClientes.DataSource = clienteBLL.Cargar();
+        }
+
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            var exito = clienteBLL.Actualizar(ClienteSeleccionado);
+
+            if (exito)
+            {
+                MessageBox.Show("Cliente Actualizado");
+            }
+        }
+
+        private void dgClientes_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            ObtenerClienteSeleccionado();
+            CargaControles();
+        }
+
+        private void btnBorrar_Click(object sender, EventArgs e)
+        {
+            var exito = clienteBLL.Borrar(ClienteSeleccionado);
+
+            if (exito)
+            {
+                MessageBox.Show("Cliente borrado");
+            }
+        }
+
+        private void CargaControles()
+        {
+            FormExtensions.CatchException(this, () =>
+            {
+                txtNombre.Text = ClienteSeleccionado.NombreCompleto;
+                txtEmail.Text = ClienteSeleccionado.Email;
+                txtDomicilio.Text = ClienteSeleccionado.Domicilio;
+                txtTelefono.Text = ClienteSeleccionado.Telefono.ToString();
+            });
         }
     }
 }

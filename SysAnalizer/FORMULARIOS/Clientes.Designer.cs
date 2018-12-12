@@ -29,76 +29,76 @@ namespace UI
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btnNuevas = new System.Windows.Forms.Button();
+            this.txtNombre = new System.Windows.Forms.TextBox();
+            this.txtDomicilio = new System.Windows.Forms.TextBox();
+            this.btnModificar = new System.Windows.Forms.Button();
+            this.btnBorrar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.button4 = new System.Windows.Forms.Button();
+            this.btnSelClie = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
             this.dgClientes = new System.Windows.Forms.DataGridView();
-            this.NroCLiente = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Apellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.LimiteCredito = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ClienteId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NombreCompleto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Saldo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Domicilio = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.button5 = new System.Windows.Forms.Button();
+            this.btnVolver = new System.Windows.Forms.Button();
             this.lblemail = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.txtEmail = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txtTelefono = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgClientes)).BeginInit();
             this.SuspendLayout();
             // 
-            // button1
+            // btnNuevas
             // 
-            this.button1.Location = new System.Drawing.Point(11, 90);
-            this.button1.Margin = new System.Windows.Forms.Padding(2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(74, 27);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Nuevo";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnNuevas.Location = new System.Drawing.Point(10, 53);
+            this.btnNuevas.Margin = new System.Windows.Forms.Padding(2);
+            this.btnNuevas.Name = "btnNuevas";
+            this.btnNuevas.Size = new System.Drawing.Size(74, 27);
+            this.btnNuevas.TabIndex = 1;
+            this.btnNuevas.Text = "Nuevo";
+            this.btnNuevas.UseVisualStyleBackColor = true;
+            this.btnNuevas.Click += new System.EventHandler(this.button1_Click);
             // 
-            // textBox1
+            // txtNombre
             // 
-            this.textBox1.Location = new System.Drawing.Point(201, 53);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(156, 20);
-            this.textBox1.TabIndex = 2;
+            this.txtNombre.Location = new System.Drawing.Point(201, 53);
+            this.txtNombre.Margin = new System.Windows.Forms.Padding(2);
+            this.txtNombre.Name = "txtNombre";
+            this.txtNombre.Size = new System.Drawing.Size(156, 20);
+            this.txtNombre.TabIndex = 2;
             // 
-            // textBox3
+            // txtDomicilio
             // 
-            this.textBox3.Location = new System.Drawing.Point(201, 90);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(156, 20);
-            this.textBox3.TabIndex = 4;
+            this.txtDomicilio.Location = new System.Drawing.Point(201, 90);
+            this.txtDomicilio.Margin = new System.Windows.Forms.Padding(2);
+            this.txtDomicilio.Name = "txtDomicilio";
+            this.txtDomicilio.Size = new System.Drawing.Size(156, 20);
+            this.txtDomicilio.TabIndex = 4;
             // 
-            // button2
+            // btnModificar
             // 
-            this.button2.Location = new System.Drawing.Point(10, 150);
-            this.button2.Margin = new System.Windows.Forms.Padding(2);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(74, 27);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "Modificar";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnModificar.Location = new System.Drawing.Point(10, 107);
+            this.btnModificar.Margin = new System.Windows.Forms.Padding(2);
+            this.btnModificar.Name = "btnModificar";
+            this.btnModificar.Size = new System.Drawing.Size(74, 27);
+            this.btnModificar.TabIndex = 5;
+            this.btnModificar.Text = "Modificar";
+            this.btnModificar.UseVisualStyleBackColor = true;
+            this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
             // 
-            // button3
+            // btnBorrar
             // 
-            this.button3.Location = new System.Drawing.Point(11, 216);
-            this.button3.Margin = new System.Windows.Forms.Padding(2);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(74, 27);
-            this.button3.TabIndex = 6;
-            this.button3.Text = "Borrar";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btnBorrar.Location = new System.Drawing.Point(10, 157);
+            this.btnBorrar.Margin = new System.Windows.Forms.Padding(2);
+            this.btnBorrar.Name = "btnBorrar";
+            this.btnBorrar.Size = new System.Drawing.Size(74, 27);
+            this.btnBorrar.TabIndex = 6;
+            this.btnBorrar.Text = "Borrar";
+            this.btnBorrar.UseVisualStyleBackColor = true;
+            this.btnBorrar.Click += new System.EventHandler(this.btnBorrar_Click);
             // 
             // label1
             // 
@@ -110,16 +110,16 @@ namespace UI
             this.label1.TabIndex = 7;
             this.label1.Text = "Nombre Completo :";
             // 
-            // button4
+            // btnSelClie
             // 
-            this.button4.Location = new System.Drawing.Point(11, 465);
-            this.button4.Margin = new System.Windows.Forms.Padding(2);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(126, 27);
-            this.button4.TabIndex = 9;
-            this.button4.Text = "Seleccionar para venta";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.btnSelClie.Location = new System.Drawing.Point(10, 427);
+            this.btnSelClie.Margin = new System.Windows.Forms.Padding(2);
+            this.btnSelClie.Name = "btnSelClie";
+            this.btnSelClie.Size = new System.Drawing.Size(126, 27);
+            this.btnSelClie.TabIndex = 9;
+            this.btnSelClie.Text = "Seleccionar para venta";
+            this.btnSelClie.UseVisualStyleBackColor = true;
+            this.btnSelClie.Click += new System.EventHandler(this.button4_Click);
             // 
             // label3
             // 
@@ -131,76 +131,71 @@ namespace UI
             this.label3.TabIndex = 10;
             this.label3.Text = "Domicilio : ";
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(419, 198);
-            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(79, 13);
-            this.label4.TabIndex = 11;
-            this.label4.Text = "NROCLIENTE:";
-            // 
-            // textBox4
-            // 
-            this.textBox4.Enabled = false;
-            this.textBox4.Location = new System.Drawing.Point(422, 223);
-            this.textBox4.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(109, 20);
-            this.textBox4.TabIndex = 12;
-            // 
             // dgClientes
             // 
+            this.dgClientes.AllowUserToAddRows = false;
+            this.dgClientes.AllowUserToDeleteRows = false;
             this.dgClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgClientes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.NroCLiente,
-            this.Nombre,
-            this.Apellido,
-            this.LimiteCredito,
+            this.ClienteId,
+            this.Email,
+            this.NombreCompleto,
+            this.Saldo,
             this.Domicilio});
-            this.dgClientes.Location = new System.Drawing.Point(11, 260);
+            this.dgClientes.Location = new System.Drawing.Point(10, 217);
             this.dgClientes.Margin = new System.Windows.Forms.Padding(2);
             this.dgClientes.Name = "dgClientes";
+            this.dgClientes.ReadOnly = true;
             this.dgClientes.RowTemplate.Height = 24;
             this.dgClientes.Size = new System.Drawing.Size(520, 182);
             this.dgClientes.TabIndex = 13;
+            this.dgClientes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgClientes_CellClick);
             // 
-            // NroCLiente
+            // ClienteId
             // 
-            this.NroCLiente.HeaderText = "NroCLiente";
-            this.NroCLiente.Name = "NroCLiente";
+            this.ClienteId.DataPropertyName = "ClienteId";
+            this.ClienteId.HeaderText = "NroCLiente";
+            this.ClienteId.Name = "ClienteId";
+            this.ClienteId.ReadOnly = true;
             // 
-            // Nombre
+            // Email
             // 
-            this.Nombre.HeaderText = "Nombre";
-            this.Nombre.Name = "Nombre";
+            this.Email.DataPropertyName = "Email";
+            this.Email.HeaderText = "Email";
+            this.Email.Name = "Email";
+            this.Email.ReadOnly = true;
             // 
-            // Apellido
+            // NombreCompleto
             // 
-            this.Apellido.HeaderText = "Apellido";
-            this.Apellido.Name = "Apellido";
+            this.NombreCompleto.DataPropertyName = "NombreCompleto";
+            this.NombreCompleto.HeaderText = "Nombre";
+            this.NombreCompleto.Name = "NombreCompleto";
+            this.NombreCompleto.ReadOnly = true;
             // 
-            // LimiteCredito
+            // Saldo
             // 
-            this.LimiteCredito.HeaderText = "LimiteCredito";
-            this.LimiteCredito.Name = "LimiteCredito";
+            this.Saldo.DataPropertyName = "Saldo";
+            this.Saldo.HeaderText = "LimiteCredito";
+            this.Saldo.Name = "Saldo";
+            this.Saldo.ReadOnly = true;
             // 
             // Domicilio
             // 
+            this.Domicilio.DataPropertyName = "Domicilio";
             this.Domicilio.HeaderText = "Domicilio";
             this.Domicilio.Name = "Domicilio";
+            this.Domicilio.ReadOnly = true;
             // 
-            // button5
+            // btnVolver
             // 
-            this.button5.Location = new System.Drawing.Point(10, 10);
-            this.button5.Margin = new System.Windows.Forms.Padding(2);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(74, 27);
-            this.button5.TabIndex = 14;
-            this.button5.Text = "Volver";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.btnVolver.Location = new System.Drawing.Point(10, 10);
+            this.btnVolver.Margin = new System.Windows.Forms.Padding(2);
+            this.btnVolver.Name = "btnVolver";
+            this.btnVolver.Size = new System.Drawing.Size(74, 27);
+            this.btnVolver.TabIndex = 14;
+            this.btnVolver.Text = "Volver";
+            this.btnVolver.UseVisualStyleBackColor = true;
+            this.btnVolver.Click += new System.EventHandler(this.button5_Click);
             // 
             // lblemail
             // 
@@ -212,13 +207,13 @@ namespace UI
             this.lblemail.TabIndex = 16;
             this.lblemail.Text = "Email:";
             // 
-            // textBox5
+            // txtEmail
             // 
-            this.textBox5.Location = new System.Drawing.Point(201, 129);
-            this.textBox5.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(156, 20);
-            this.textBox5.TabIndex = 15;
+            this.txtEmail.Location = new System.Drawing.Point(201, 129);
+            this.txtEmail.Margin = new System.Windows.Forms.Padding(2);
+            this.txtEmail.Name = "txtEmail";
+            this.txtEmail.Size = new System.Drawing.Size(156, 20);
+            this.txtEmail.TabIndex = 15;
             // 
             // label2
             // 
@@ -230,35 +225,33 @@ namespace UI
             this.label2.TabIndex = 18;
             this.label2.Text = "Telefono:";
             // 
-            // textBox2
+            // txtTelefono
             // 
-            this.textBox2.Location = new System.Drawing.Point(201, 168);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(156, 20);
-            this.textBox2.TabIndex = 17;
+            this.txtTelefono.Location = new System.Drawing.Point(201, 168);
+            this.txtTelefono.Margin = new System.Windows.Forms.Padding(2);
+            this.txtTelefono.Name = "txtTelefono";
+            this.txtTelefono.Size = new System.Drawing.Size(156, 20);
+            this.txtTelefono.TabIndex = 17;
             // 
             // Clientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(542, 503);
+            this.ClientSize = new System.Drawing.Size(542, 467);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.txtTelefono);
             this.Controls.Add(this.lblemail);
-            this.Controls.Add(this.textBox5);
-            this.Controls.Add(this.button5);
+            this.Controls.Add(this.txtEmail);
+            this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.dgClientes);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.button4);
+            this.Controls.Add(this.btnSelClie);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnBorrar);
+            this.Controls.Add(this.btnModificar);
+            this.Controls.Add(this.txtDomicilio);
+            this.Controls.Add(this.txtNombre);
+            this.Controls.Add(this.btnNuevas);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Clientes";
             this.Text = "Clientes";
@@ -273,26 +266,24 @@ namespace UI
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btnNuevas;
+        private System.Windows.Forms.TextBox txtNombre;
+        private System.Windows.Forms.TextBox txtDomicilio;
+        private System.Windows.Forms.Button btnModificar;
+        private System.Windows.Forms.Button btnBorrar;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button btnSelClie;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.DataGridView dgClientes;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NroCLiente;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Apellido;
-        private System.Windows.Forms.DataGridViewTextBoxColumn LimiteCredito;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Domicilio;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.Label lblemail;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox txtEmail;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txtTelefono;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ClienteId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Email;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NombreCompleto;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Saldo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Domicilio;
     }
 }

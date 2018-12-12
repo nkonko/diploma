@@ -31,10 +31,6 @@ namespace UI
         {
             this.ventasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nuevaVenta = new System.Windows.Forms.ToolStripMenuItem();
-            this.productosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.verProductosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.stockToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.verStock = new System.Windows.Forms.ToolStripMenuItem();
             this.administradorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.usuariosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bitacoraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -63,35 +59,6 @@ namespace UI
             this.nuevaVenta.Text = "Venta";
             this.nuevaVenta.Click += new System.EventHandler(this.nuevaVenta_Click);
             // 
-            // productosToolStripMenuItem
-            // 
-            this.productosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.verProductosToolStripMenuItem});
-            this.productosToolStripMenuItem.Name = "productosToolStripMenuItem";
-            this.productosToolStripMenuItem.Size = new System.Drawing.Size(73, 20);
-            this.productosToolStripMenuItem.Text = "Productos";
-            // 
-            // verProductosToolStripMenuItem
-            // 
-            this.verProductosToolStripMenuItem.Name = "verProductosToolStripMenuItem";
-            this.verProductosToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
-            this.verProductosToolStripMenuItem.Text = "Ver Productos";
-            this.verProductosToolStripMenuItem.Click += new System.EventHandler(this.verProductosToolStripMenuItem_Click);
-            // 
-            // stockToolStripMenuItem
-            // 
-            this.stockToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.verStock});
-            this.stockToolStripMenuItem.Name = "stockToolStripMenuItem";
-            this.stockToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
-            this.stockToolStripMenuItem.Text = "Stock";
-            // 
-            // verStock
-            // 
-            this.verStock.Name = "verStock";
-            this.verStock.Size = new System.Drawing.Size(122, 22);
-            this.verStock.Text = "Ver Stock";
-            // 
             // administradorToolStripMenuItem
             // 
             this.administradorToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -107,35 +74,35 @@ namespace UI
             // usuariosToolStripMenuItem
             // 
             this.usuariosToolStripMenuItem.Name = "usuariosToolStripMenuItem";
-            this.usuariosToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.usuariosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.usuariosToolStripMenuItem.Text = "Usuarios";
             this.usuariosToolStripMenuItem.Click += new System.EventHandler(this.usuariosToolStripMenuItem_Click_1);
             // 
             // bitacoraToolStripMenuItem
             // 
             this.bitacoraToolStripMenuItem.Name = "bitacoraToolStripMenuItem";
-            this.bitacoraToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.bitacoraToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.bitacoraToolStripMenuItem.Text = "Bitacora";
             this.bitacoraToolStripMenuItem.Click += new System.EventHandler(this.bitacoraToolStripMenuItem_Click);
             // 
             // backUpToolStripMenuItem
             // 
             this.backUpToolStripMenuItem.Name = "backUpToolStripMenuItem";
-            this.backUpToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.backUpToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.backUpToolStripMenuItem.Text = "BackUp";
             this.backUpToolStripMenuItem.Click += new System.EventHandler(this.backUpToolStripMenuItem_Click);
             // 
             // restoreToolStripMenuItem
             // 
             this.restoreToolStripMenuItem.Name = "restoreToolStripMenuItem";
-            this.restoreToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.restoreToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.restoreToolStripMenuItem.Text = "Restore";
             this.restoreToolStripMenuItem.Click += new System.EventHandler(this.restoreToolStripMenuItem_Click);
             // 
             // familiasToolStripMenuItem
             // 
             this.familiasToolStripMenuItem.Name = "familiasToolStripMenuItem";
-            this.familiasToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.familiasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.familiasToolStripMenuItem.Text = "Familias";
             this.familiasToolStripMenuItem.Click += new System.EventHandler(this.familiasToolStripMenuItem_Click_1);
             // 
@@ -150,7 +117,7 @@ namespace UI
             // verDatosToolStripMenuItem
             // 
             this.verDatosToolStripMenuItem.Name = "verDatosToolStripMenuItem";
-            this.verDatosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.verDatosToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.verDatosToolStripMenuItem.Text = "Ver Datos";
             this.verDatosToolStripMenuItem.Click += new System.EventHandler(this.verUsuariosToolStripMenuItem_Click);
             // 
@@ -159,8 +126,6 @@ namespace UI
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ventasToolStripMenuItem,
-            this.productosToolStripMenuItem,
-            this.stockToolStripMenuItem,
             this.administradorToolStripMenuItem,
             this.usuarioToolStripMenuItem,
             this.cerrarSesionToolStripMenuItem});
@@ -202,10 +167,6 @@ namespace UI
 
         private System.Windows.Forms.ToolStripMenuItem ventasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem nuevaVenta;
-        private System.Windows.Forms.ToolStripMenuItem productosToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem verProductosToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem stockToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem verStock;
         private System.Windows.Forms.ToolStripMenuItem administradorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem usuariosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bitacoraToolStripMenuItem;

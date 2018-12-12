@@ -1,6 +1,9 @@
-﻿namespace DAL.Dao.Imp
+﻿using BE;
+using BE.Entidades;
+
+namespace DAL.Dao
 {
-    internal interface ICLienteDAL
+    public interface IClienteDAL : ICRUD<Cliente>
     {
     }
 }

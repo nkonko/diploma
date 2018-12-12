@@ -63,6 +63,9 @@ namespace UI
 
         private void usuarios_Load(object sender, EventArgs e)
         {
+            this.dgusuario.DataError +=
+            new DataGridViewDataErrorEventHandler(dgusuario_DataError);
+
             chkLstPatentes.Enabled = false;
             chkLstFamilia.Enabled = false;
             btnNegarPat.Enabled = true;
@@ -156,7 +159,7 @@ namespace UI
                     {
                         Log4netExtensions.Baja(log, "El registro de nuevo usuario ha fallado");
                         bitacoraBLL.RegistrarEnBitacora(usu);
-                        Alert.ShowSimpleAlert("El registro de nuevo usuario ha fallado","MSJ019");
+                        Alert.ShowSimpleAlert("El registro de nuevo usuario ha fallado", "MSJ019");
                     }
                 }
             }
@@ -264,6 +267,24 @@ namespace UI
             dgusuario.DataSource = usuariosBD;
         }
 
+        private void MantenerUsuarioSeleccionado()
+        {
+            var indice = dgusuario.SelectedRows[0].Index;
+            dgusuario.DataSource = null;
+
+            usuariosBD = usuarioBLL.TraerUsuariosConPatentesYFamilias();
+
+            foreach (var usuario in usuariosBD)
+            {
+                usuario.Email = DES.Decrypt(usuario.Email, key, iv);
+            }
+
+            dgusuario.DataSource = usuariosBD;
+            dgusuario.Rows[0].Selected = false;
+            dgusuario.Rows[indice].Selected = true;
+
+        }
+
         private bool verificarDatos()
         {
             var returnValue = true;
@@ -285,11 +306,30 @@ namespace UI
                     break;
                 }
 
-                if(tb.Name == "txtNombre")
+                if (tb.Name == "txtNombre")
+                {
+                    if (!Regex.IsMatch(tb.Text, @"[a-zA-Z]"))
+                    {
+                        MessageBox.Show("El campo nombre no acepta numeros");
+                        returnValue = false;
+                    }
+                }
+
+                if (tb.Name == "txtApellido")
+                {
+                    if (!Regex.IsMatch(tb.Text, @"[a-zA-Z]"))
+                    {
+                        MessageBox.Show("El campo apellido no acepta numeros");
+                        returnValue = false;
+                    }
+                }
+
+                if (tb.Name == "txtTel")
                 {
                     if (Regex.IsMatch(tb.Text, @"[a-zA-Z]"))
                     {
-                        //TODO
+                        MessageBox.Show("no puede ingresar letras");
+                        returnValue = false;
                     }
                 }
             }
@@ -491,14 +531,13 @@ namespace UI
             if (!checkeadapat)
             {
                 var ids = new List<int>();
-                var usuario = (Usuario)dgusuario.CurrentRow.DataBoundItem;
 
                 if (!chkLstPatentes.GetItemChecked(chkLstPatentes.SelectedIndex))
                 {
                     ids.Add(patenteBLL.ObtenerIdPatentePorDescripcion(chkLstPatentes.SelectedItem.ToString()));
 
-                    patenteBLL.GuardarPatentesUsuario(ids, usuario.UsuarioId);
-
+                    patenteBLL.GuardarPatentesUsuario(ids, UsuarioSeleccionado.UsuarioId);
+                    UsuarioSeleccionado.Patentes.AddRange(usuarioBLL.ObtenerPatentesDeUsuario(UsuarioSeleccionado.UsuarioId));
                 }
                 else
                 {
@@ -506,9 +545,10 @@ namespace UI
                     ids.Add(patenteBLL.ObtenerIdPatentePorDescripcion(chkLstPatentes.SelectedItem.ToString()));
                     if (patenteBLL.CheckeoPatenteParaBorrar(patente, UsuarioSeleccionado, usuariosBD))
                     {
-                        patenteBLL.BorrarPatentesUsuario(ids, usuario.UsuarioId);
-                        CargarRefrescarDatagrid();
-                        SetearChecks(usuario.Patentes, usuario.Familia);
+                        patenteBLL.BorrarPatentesUsuario(ids, UsuarioSeleccionado.UsuarioId);
+                        MantenerUsuarioSeleccionado();
+                        UsuarioSeleccionado.Patentes.RemoveAll(pat => pat.IdPatente == patente.IdPatente);
+                        //SetearChecks(UsuarioSeleccionado.Patentes, UsuarioSeleccionado.Familia);
                     }
                     else
                     {
@@ -516,7 +556,7 @@ namespace UI
                         Log4netExtensions.Alta(log, "Al menos un usuario debe tener asignada esta patente");
                         CargarRefrescarDatagrid();
                         e.NewValue = e.CurrentValue;
-                        SetearChecks(usuario.Patentes, usuario.Familia);
+                        SetearChecks(UsuarioSeleccionado.Patentes, UsuarioSeleccionado.Familia);
                     }
                 }
             }
@@ -579,7 +619,7 @@ namespace UI
         private void dgusuario_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
             CargarRefrescarDatagrid();
-            e.Cancel = true;
+            this.dgusuario.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader);
         }
     }
 }

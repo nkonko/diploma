@@ -38,15 +38,18 @@ namespace UI
             this.radioVtaSimple = new System.Windows.Forms.RadioButton();
             this.radioVtaCC = new System.Windows.Forms.RadioButton();
             this.dgVenta = new System.Windows.Forms.DataGridView();
-            this.Producto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PrecioVenta = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.importe = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnSelProd = new System.Windows.Forms.Button();
             this.lblFecha = new System.Windows.Forms.Label();
             this.btnVolver = new System.Windows.Forms.Button();
             this.btnFinalizar = new System.Windows.Forms.Button();
+            this.btnCancelarVta = new System.Windows.Forms.Button();
+            this.rbSe = new System.Windows.Forms.RadioButton();
+            this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Monto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ClienteId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TipoVentaId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UsuarioId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EstadoId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgVenta)).BeginInit();
             this.SuspendLayout();
             // 
@@ -112,7 +115,8 @@ namespace UI
             // radioVtaSimple
             // 
             this.radioVtaSimple.AutoSize = true;
-            this.radioVtaSimple.Location = new System.Drawing.Point(136, 83);
+            this.radioVtaSimple.Checked = true;
+            this.radioVtaSimple.Location = new System.Drawing.Point(136, 34);
             this.radioVtaSimple.Margin = new System.Windows.Forms.Padding(2);
             this.radioVtaSimple.Name = "radioVtaSimple";
             this.radioVtaSimple.Size = new System.Drawing.Size(87, 17);
@@ -124,56 +128,34 @@ namespace UI
             // radioVtaCC
             // 
             this.radioVtaCC.AutoSize = true;
-            this.radioVtaCC.Location = new System.Drawing.Point(136, 115);
+            this.radioVtaCC.Location = new System.Drawing.Point(136, 58);
             this.radioVtaCC.Margin = new System.Windows.Forms.Padding(2);
             this.radioVtaCC.Name = "radioVtaCC";
             this.radioVtaCC.Size = new System.Drawing.Size(135, 17);
             this.radioVtaCC.TabIndex = 7;
-            this.radioVtaCC.TabStop = true;
             this.radioVtaCC.Text = "Venta Cuenta Corriente";
             this.radioVtaCC.UseVisualStyleBackColor = true;
             // 
             // dgVenta
             // 
+            this.dgVenta.AllowUserToAddRows = false;
+            this.dgVenta.AllowUserToDeleteRows = false;
             this.dgVenta.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgVenta.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Producto,
-            this.Cantidad,
-            this.PrecioVenta,
-            this.importe,
-            this.Cliente});
+            this.Fecha,
+            this.Monto,
+            this.ClienteId,
+            this.TipoVentaId,
+            this.UsuarioId,
+            this.EstadoId});
             this.dgVenta.Location = new System.Drawing.Point(284, 12);
             this.dgVenta.Margin = new System.Windows.Forms.Padding(2);
             this.dgVenta.Name = "dgVenta";
+            this.dgVenta.ReadOnly = true;
             this.dgVenta.RowTemplate.Height = 24;
             this.dgVenta.Size = new System.Drawing.Size(544, 346);
             this.dgVenta.TabIndex = 8;
             this.dgVenta.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            // 
-            // Producto
-            // 
-            this.Producto.HeaderText = "Producto";
-            this.Producto.Name = "Producto";
-            // 
-            // Cantidad
-            // 
-            this.Cantidad.HeaderText = "Cantidad";
-            this.Cantidad.Name = "Cantidad";
-            // 
-            // PrecioVenta
-            // 
-            this.PrecioVenta.HeaderText = "Precio Venta";
-            this.PrecioVenta.Name = "PrecioVenta";
-            // 
-            // importe
-            // 
-            this.importe.HeaderText = "importe";
-            this.importe.Name = "importe";
-            // 
-            // Cliente
-            // 
-            this.Cliente.HeaderText = "Cliente";
-            this.Cliente.Name = "Cliente";
             // 
             // btnSelProd
             // 
@@ -219,11 +201,76 @@ namespace UI
             this.btnFinalizar.UseVisualStyleBackColor = true;
             this.btnFinalizar.Click += new System.EventHandler(this.btnFinalizar_Click);
             // 
+            // btnCancelarVta
+            // 
+            this.btnCancelarVta.Location = new System.Drawing.Point(104, 317);
+            this.btnCancelarVta.Name = "btnCancelarVta";
+            this.btnCancelarVta.Size = new System.Drawing.Size(75, 40);
+            this.btnCancelarVta.TabIndex = 14;
+            this.btnCancelarVta.Text = "Cancelar Venta";
+            this.btnCancelarVta.UseVisualStyleBackColor = true;
+            this.btnCancelarVta.Click += new System.EventHandler(this.btnCancelarVta_Click);
+            // 
+            // rbSe
+            // 
+            this.rbSe.AutoSize = true;
+            this.rbSe.Location = new System.Drawing.Point(136, 83);
+            this.rbSe.Margin = new System.Windows.Forms.Padding(2);
+            this.rbSe.Name = "rbSe";
+            this.rbSe.Size = new System.Drawing.Size(50, 17);
+            this.rbSe.TabIndex = 15;
+            this.rbSe.Text = "Seña";
+            this.rbSe.UseVisualStyleBackColor = true;
+            // 
+            // Fecha
+            // 
+            this.Fecha.DataPropertyName = "Fecha";
+            this.Fecha.HeaderText = "Fecha";
+            this.Fecha.Name = "Fecha";
+            this.Fecha.ReadOnly = true;
+            // 
+            // Monto
+            // 
+            this.Monto.DataPropertyName = "Monto";
+            this.Monto.HeaderText = "Precio Venta";
+            this.Monto.Name = "Monto";
+            this.Monto.ReadOnly = true;
+            // 
+            // ClienteId
+            // 
+            this.ClienteId.DataPropertyName = "ClienteId";
+            this.ClienteId.HeaderText = "Cliente";
+            this.ClienteId.Name = "ClienteId";
+            this.ClienteId.ReadOnly = true;
+            // 
+            // TipoVentaId
+            // 
+            this.TipoVentaId.DataPropertyName = "TipoVentaId";
+            this.TipoVentaId.HeaderText = "Tipo Venta";
+            this.TipoVentaId.Name = "TipoVentaId";
+            this.TipoVentaId.ReadOnly = true;
+            // 
+            // UsuarioId
+            // 
+            this.UsuarioId.DataPropertyName = "UsuarioId";
+            this.UsuarioId.HeaderText = "Vendedor";
+            this.UsuarioId.Name = "UsuarioId";
+            this.UsuarioId.ReadOnly = true;
+            // 
+            // EstadoId
+            // 
+            this.EstadoId.DataPropertyName = "EstadoId";
+            this.EstadoId.HeaderText = "Estado";
+            this.EstadoId.Name = "EstadoId";
+            this.EstadoId.ReadOnly = true;
+            // 
             // VtaProd
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(842, 383);
+            this.Controls.Add(this.rbSe);
+            this.Controls.Add(this.btnCancelarVta);
             this.Controls.Add(this.btnFinalizar);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.lblFecha);
@@ -260,13 +307,16 @@ namespace UI
         private System.Windows.Forms.RadioButton radioVtaCC;
         private System.Windows.Forms.DataGridView dgVenta;
         private System.Windows.Forms.Button btnSelProd;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Producto;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Cantidad;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PrecioVenta;
-        private System.Windows.Forms.DataGridViewTextBoxColumn importe;
         private System.Windows.Forms.Label lblFecha;
         private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.Button btnFinalizar;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Cliente;
+        private System.Windows.Forms.Button btnCancelarVta;
+        private System.Windows.Forms.RadioButton rbSe;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Fecha;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Monto;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ClienteId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TipoVentaId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UsuarioId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn EstadoId;
     }
 }

@@ -1,15 +1,14 @@
 ﻿namespace DAL.Dao.Imp
 {
-    using BE;
     using BE.Entidades;
     using DAL.Utils;
     using System.Collections.Generic;
 
-    public class ClienteDAL : BaseDao, ICRUD<Cliente>, ICLienteDAL
+    public class ClienteDAL : BaseDao, IClienteDAL
     {
         public bool Actualizar(Cliente objUpd)
         {
-            var queryString = $"UPDATE Cliente SET NombreCompleto = @nombre, Email = @email, Telefono = @telefono, Domicilio = @domicilio, WHERE ClienteId = @ClienteId";
+            var queryString = $"UPDATE Cliente SET NombreCompleto = @nombre, Email = @email, Telefono = @telefono, Domicilio = @domicilio WHERE ClienteId = @ClienteId";
 
             return CatchException(() =>
             {
@@ -26,6 +25,10 @@
             });
         }
 
+        public void ActualizarSaldo(int Saldo)
+        {
+        }
+
         public bool Borrar(Cliente objDel)
         {
             var queryString = string.Format("UPDATE Cliente SET Activo = 0 WHERE ClienteId = {0}", objDel.ClienteId);
@@ -38,7 +41,7 @@
 
         public List<Cliente> Cargar()
         {
-            var queryString = "SELECT * FROM Cliente";
+            var queryString = "SELECT * FROM Cliente INNER JOIN CuentaCorriente ON Cliente.CuentaCorrienteId = CuentaCorriente.CuentaId WHERE Activo = 1";
 
             return CatchException(() =>
             {
@@ -48,7 +51,21 @@
 
         public bool Crear(Cliente objAlta)
         {
-            var queryString = "INSERT INTO Cliente(NombreCompleto, Email, Telefono, Domicilio, Activo) VALUES (@nombre, @email, @telefono," +
+            var cuentaQueryString = "INSERT INTO CuentaCorriente (Saldo) Values (5000)";
+            var idCuenta = 0;
+            CatchException(() =>
+            {
+                Exec(cuentaQueryString);
+            });
+
+            var lastIndexString = "SELECT IDENT_CURRENT ('[dbo].[CuentaCorriente]') AS Current_Identity;";
+            
+            CatchException(() =>
+            {
+                idCuenta = Exec<int>(lastIndexString)[0];
+            });
+
+            var queryString = "INSERT INTO Cliente(CuentaCorrienteId, NombreCompleto, Email, Telefono, Domicilio, Activo) VALUES ("+ idCuenta +", @nombre, @email, @telefono," +
                 " @domicilio, @activo)";
 
             return CatchException(() =>

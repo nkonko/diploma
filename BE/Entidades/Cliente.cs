@@ -12,6 +12,8 @@
 
         public string Domicilio { get; set; }
 
+        public float Saldo { get; set; }
+
         public bool Activo { get; set; }
     }
 }

@@ -13,7 +13,7 @@
 
         public bool Crear(Producto objAlta)
         {
-            var queryString = "INSERT INTO Producto(Descripcion ,PUnitario, PVenta ,Stock ,MinStock) VALUES( @descripcion, @pUnitario,  @pVenta,  @stock, @minStock, @activo)";
+            var queryString = "INSERT INTO Producto(Descripcion ,PUnitario, PVenta ,Stock ,MinStock, Activo) VALUES( @descripcion, @pUnitario,  @pVenta,  @stock, @minStock, @activo)";
 
             return CatchException(() =>
             {

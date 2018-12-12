@@ -30,8 +30,7 @@ namespace UI
         private void InitializeComponent()
         {
             this.btnVolver = new System.Windows.Forms.Button();
-            this.txtNroProd = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
+            this.lblNroProd = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.btnSelVta = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -48,12 +47,12 @@ namespace UI
             this.txtMinStock = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dgProd = new System.Windows.Forms.DataGridView();
-            this.Descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.P_Unitario = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.P_Costo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MinStock = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button1 = new System.Windows.Forms.Button();
+            this.Descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PUnitario = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PVenta = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Stock = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MinStock = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgProd)).BeginInit();
             this.SuspendLayout();
@@ -69,24 +68,15 @@ namespace UI
             this.btnVolver.UseVisualStyleBackColor = true;
             this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
             // 
-            // txtNroProd
+            // lblNroProd
             // 
-            this.txtNroProd.Enabled = false;
-            this.txtNroProd.Location = new System.Drawing.Point(415, 206);
-            this.txtNroProd.Margin = new System.Windows.Forms.Padding(2);
-            this.txtNroProd.Name = "txtNroProd";
-            this.txtNroProd.Size = new System.Drawing.Size(109, 20);
-            this.txtNroProd.TabIndex = 26;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(413, 181);
-            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(70, 13);
-            this.label4.TabIndex = 25;
-            this.label4.Text = "NroProducto:";
+            this.lblNroProd.AutoSize = true;
+            this.lblNroProd.Location = new System.Drawing.Point(413, 181);
+            this.lblNroProd.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblNroProd.Name = "lblNroProd";
+            this.lblNroProd.Size = new System.Drawing.Size(70, 13);
+            this.lblNroProd.TabIndex = 25;
+            this.lblNroProd.Text = "NroProducto:";
             // 
             // label3
             // 
@@ -239,42 +229,21 @@ namespace UI
             // 
             // dgProd
             // 
+            this.dgProd.AllowUserToAddRows = false;
+            this.dgProd.AllowUserToDeleteRows = false;
             this.dgProd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgProd.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Descripcion,
-            this.P_Unitario,
-            this.P_Costo,
-            this.Cantidad,
+            this.PUnitario,
+            this.PVenta,
+            this.Stock,
             this.MinStock});
             this.dgProd.Location = new System.Drawing.Point(10, 242);
             this.dgProd.Name = "dgProd";
+            this.dgProd.ReadOnly = true;
             this.dgProd.Size = new System.Drawing.Size(537, 203);
             this.dgProd.TabIndex = 34;
-            // 
-            // Descripcion
-            // 
-            this.Descripcion.HeaderText = "Descripcion";
-            this.Descripcion.Name = "Descripcion";
-            // 
-            // P_Unitario
-            // 
-            this.P_Unitario.HeaderText = "P_Unitario";
-            this.P_Unitario.Name = "P_Unitario";
-            // 
-            // P_Costo
-            // 
-            this.P_Costo.HeaderText = "P_Costo";
-            this.P_Costo.Name = "P_Costo";
-            // 
-            // Cantidad
-            // 
-            this.Cantidad.HeaderText = "Cantidad";
-            this.Cantidad.Name = "Cantidad";
-            // 
-            // MinStock
-            // 
-            this.MinStock.HeaderText = "MinStock";
-            this.MinStock.Name = "MinStock";
+            this.dgProd.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgProd_CellClick);
             // 
             // button1
             // 
@@ -284,6 +253,42 @@ namespace UI
             this.button1.TabIndex = 35;
             this.button1.Text = "Productos Inactivos";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // Descripcion
+            // 
+            this.Descripcion.DataPropertyName = "Descripcion";
+            this.Descripcion.HeaderText = "Descripcion";
+            this.Descripcion.Name = "Descripcion";
+            this.Descripcion.ReadOnly = true;
+            // 
+            // PUnitario
+            // 
+            this.PUnitario.DataPropertyName = "PUnitario";
+            this.PUnitario.HeaderText = "P_Unitario";
+            this.PUnitario.Name = "PUnitario";
+            this.PUnitario.ReadOnly = true;
+            // 
+            // PVenta
+            // 
+            this.PVenta.DataPropertyName = "PVenta";
+            this.PVenta.HeaderText = "P_Costo";
+            this.PVenta.Name = "PVenta";
+            this.PVenta.ReadOnly = true;
+            // 
+            // Stock
+            // 
+            this.Stock.DataPropertyName = "Stock";
+            this.Stock.HeaderText = "Cantidad";
+            this.Stock.Name = "Stock";
+            this.Stock.ReadOnly = true;
+            // 
+            // MinStock
+            // 
+            this.MinStock.DataPropertyName = "MinStock";
+            this.MinStock.HeaderText = "MinStock";
+            this.MinStock.Name = "MinStock";
+            this.MinStock.ReadOnly = true;
             // 
             // Productos
             // 
@@ -294,8 +299,7 @@ namespace UI
             this.Controls.Add(this.dgProd);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnVolver);
-            this.Controls.Add(this.txtNroProd);
-            this.Controls.Add(this.label4);
+            this.Controls.Add(this.lblNroProd);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnSelVta);
             this.Controls.Add(this.label2);
@@ -322,8 +326,7 @@ namespace UI
         #endregion
 
         private System.Windows.Forms.Button btnVolver;
-        private System.Windows.Forms.TextBox txtNroProd;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblNroProd;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnSelVta;
         private System.Windows.Forms.Label label2;
@@ -340,11 +343,11 @@ namespace UI
         private System.Windows.Forms.TextBox txtMinStock;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridView dgProd;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Descripcion;
-        private System.Windows.Forms.DataGridViewTextBoxColumn P_Unitario;
-        private System.Windows.Forms.DataGridViewTextBoxColumn P_Costo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Cantidad;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MinStock;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Descripcion;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PUnitario;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PVenta;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Stock;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MinStock;
     }
 }

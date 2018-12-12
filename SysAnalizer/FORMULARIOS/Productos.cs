@@ -11,6 +11,7 @@ namespace UI
         private readonly IProductoBLL productoBLL;
 
         private Producto productoSeleccionado;
+        public bool formUserClose = true;
 
         public Productos(IProductoBLL productoBLL)
         {
@@ -25,23 +26,42 @@ namespace UI
 
         private void Productos_Load(object sender, EventArgs e)
         {
+            dgProd.AutoGenerateColumns = false;
             productoSeleccionado = null;
-            productoBLL.Cargar();
+            dgProd.DataSource = productoBLL.Cargar();
         }
 
         private void btnNuevo_Click(object sender, EventArgs e)
         {
-            productoBLL.Crear(new Producto() { Descripcion = txtDescripcion.Text, PVenta = float.Parse(txtPcosto.Text), PUnitario = float.Parse(txtPunitario.Text), Stock = int.Parse(txtCantidad.Text), MinStock = int.Parse(txtMinStock.Text) });
+            var exito = productoBLL.Crear(new Producto() { Descripcion = txtDescripcion.Text, PVenta = float.Parse(txtPcosto.Text), PUnitario = float.Parse(txtPunitario.Text), Stock = int.Parse(txtCantidad.Text), MinStock = int.Parse(txtMinStock.Text) });
+
+            if (exito)
+            {
+                MessageBox.Show("Producto Creado");
+                dgProd.DataSource = productoBLL.Cargar();
+            }
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            productoBLL.Actualizar(new Producto() { Descripcion = txtDescripcion.Text, PVenta = float.Parse(txtPcosto.Text), PUnitario = float.Parse(txtPunitario.Text), Stock = int.Parse(txtCantidad.Text), MinStock = int.Parse(txtMinStock.Text) });
+            var exito = productoBLL.Actualizar(productoSeleccionado);
+
+            if (exito)
+            {
+                MessageBox.Show("Producto Actualizado");
+                dgProd.DataSource = productoBLL.Cargar();
+            }
         }
 
         private void btnBorrar_Click(object sender, EventArgs e)
         {
-            productoBLL.Borrar(new Producto() { ProductoId = int.Parse(txtNroProd.Text) });
+            var exito = productoBLL.Borrar(productoSeleccionado);
+
+            if (exito)
+            {
+                MessageBox.Show("Producto Borrado");
+                dgProd.DataSource = productoBLL.Cargar();
+            }
         }
 
         private void btnVolver_Click(object sender, EventArgs e)
@@ -60,9 +80,10 @@ namespace UI
                 PVenta = producto.PVenta,
                 PUnitario = producto.PUnitario,
                 Stock = producto.Stock,
-               MinStock = producto.MinStock
+                MinStock = producto.MinStock
             };
 
+            formUserClose = false;
             DialogResult = DialogResult.OK;
         }
 
@@ -73,8 +94,35 @@ namespace UI
 
         private void Productos_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (formUserClose)
+            {
+                e.Cancel = true;
+            }
             Hide();
-            e.Cancel = true;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dgProd_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            productoSeleccionado = (Producto)dgProd.CurrentRow.DataBoundItem;
+            CargaControles();
+        }
+
+        private void CargaControles()
+        {
+            FormExtensions.CatchException(this, () =>
+            {
+                txtDescripcion.Text = productoSeleccionado.Descripcion;
+                txtPunitario.Text = productoSeleccionado.PUnitario.ToString();
+                txtPcosto.Text = productoSeleccionado.PVenta.ToString();
+                txtCantidad.Text = productoSeleccionado.Stock.ToString();
+                txtMinStock.Text = productoSeleccionado.MinStock.ToString();
+                lblNroProd.Text = lblNroProd.Text + productoSeleccionado.ProductoId;
+            });
         }
     }
 }

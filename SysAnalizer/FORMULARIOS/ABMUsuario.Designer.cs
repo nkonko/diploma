@@ -61,7 +61,7 @@ namespace UI
             // btnVolver
             // 
             this.btnVolver.Location = new System.Drawing.Point(11, 11);
-            this.btnVolver.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnVolver.Margin = new System.Windows.Forms.Padding(2);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(74, 27);
             this.btnVolver.TabIndex = 27;
@@ -82,16 +82,17 @@ namespace UI
             this.Telefono,
             this.Domicilio});
             this.dgusuario.Location = new System.Drawing.Point(11, 213);
-            this.dgusuario.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dgusuario.Margin = new System.Windows.Forms.Padding(2);
             this.dgusuario.Name = "dgusuario";
             this.dgusuario.ReadOnly = true;
             this.dgusuario.RowTemplate.Height = 24;
+            this.dgusuario.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgusuario.Size = new System.Drawing.Size(437, 182);
             this.dgusuario.TabIndex = 26;
             this.dgusuario.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgusuario_CellClick);
             this.dgusuario.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            this.dgusuario.SelectionChanged += new System.EventHandler(this.dgusuario_SelectionChanged);
             this.dgusuario.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgusuario_DataError);
+            this.dgusuario.SelectionChanged += new System.EventHandler(this.dgusuario_SelectionChanged);
             // 
             // Nombre
             // 
@@ -161,7 +162,7 @@ namespace UI
             // btnBorrar
             // 
             this.btnBorrar.Location = new System.Drawing.Point(11, 162);
-            this.btnBorrar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnBorrar.Margin = new System.Windows.Forms.Padding(2);
             this.btnBorrar.Name = "btnBorrar";
             this.btnBorrar.Size = new System.Drawing.Size(74, 27);
             this.btnBorrar.TabIndex = 10;
@@ -172,7 +173,7 @@ namespace UI
             // btnModificar
             // 
             this.btnModificar.Location = new System.Drawing.Point(11, 112);
-            this.btnModificar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnModificar.Margin = new System.Windows.Forms.Padding(2);
             this.btnModificar.Name = "btnModificar";
             this.btnModificar.Size = new System.Drawing.Size(74, 27);
             this.btnModificar.TabIndex = 9;
@@ -183,7 +184,7 @@ namespace UI
             // txtDomicilio
             // 
             this.txtDomicilio.Location = new System.Drawing.Point(250, 82);
-            this.txtDomicilio.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtDomicilio.Margin = new System.Windows.Forms.Padding(2);
             this.txtDomicilio.Name = "txtDomicilio";
             this.txtDomicilio.Size = new System.Drawing.Size(200, 20);
             this.txtDomicilio.TabIndex = 4;
@@ -191,7 +192,7 @@ namespace UI
             // txtApellido
             // 
             this.txtApellido.Location = new System.Drawing.Point(104, 82);
-            this.txtApellido.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtApellido.Margin = new System.Windows.Forms.Padding(2);
             this.txtApellido.Name = "txtApellido";
             this.txtApellido.Size = new System.Drawing.Size(125, 20);
             this.txtApellido.TabIndex = 3;
@@ -199,7 +200,7 @@ namespace UI
             // txtNombre
             // 
             this.txtNombre.Location = new System.Drawing.Point(104, 41);
-            this.txtNombre.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtNombre.Margin = new System.Windows.Forms.Padding(2);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(125, 20);
             this.txtNombre.TabIndex = 1;
@@ -207,7 +208,7 @@ namespace UI
             // btnNuevo
             // 
             this.btnNuevo.Location = new System.Drawing.Point(11, 59);
-            this.btnNuevo.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnNuevo.Margin = new System.Windows.Forms.Padding(2);
             this.btnNuevo.Name = "btnNuevo";
             this.btnNuevo.Size = new System.Drawing.Size(74, 27);
             this.btnNuevo.TabIndex = 8;
@@ -253,7 +254,7 @@ namespace UI
             // 
             this.chkLstPatentes.FormattingEnabled = true;
             this.chkLstPatentes.Location = new System.Drawing.Point(464, 41);
-            this.chkLstPatentes.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chkLstPatentes.Margin = new System.Windows.Forms.Padding(2);
             this.chkLstPatentes.Name = "chkLstPatentes";
             this.chkLstPatentes.Size = new System.Drawing.Size(114, 124);
             this.chkLstPatentes.TabIndex = 37;
@@ -284,7 +285,7 @@ namespace UI
             // 
             this.chkLstFamilia.FormattingEnabled = true;
             this.chkLstFamilia.Location = new System.Drawing.Point(464, 225);
-            this.chkLstFamilia.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chkLstFamilia.Margin = new System.Windows.Forms.Padding(2);
             this.chkLstFamilia.Name = "chkLstFamilia";
             this.chkLstFamilia.Size = new System.Drawing.Size(114, 124);
             this.chkLstFamilia.TabIndex = 40;

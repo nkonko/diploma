@@ -20,6 +20,5 @@ namespace BE.Entidades
         public int ClienteId { get; set; }
 
         public float Monto { get; set; }
-
     }
 }
