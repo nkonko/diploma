@@ -19,8 +19,6 @@
 
         Usuario ObtenerPermisosUsuario();
 
-        string ObtenerDirectorio();
-
         IDictionary<string, string> ObtenerTraducciones();
 
         Idioma ObtenerIdioma();

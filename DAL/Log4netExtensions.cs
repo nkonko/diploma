@@ -14,7 +14,7 @@
 
         public static void Alta(this ILog log, string message)
         {
-            log.Logger.Log(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, NivelAlto, DES.Encrypt(message,key,iv), null);
+            log.Logger.Log(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, NivelAlto, DES.Encrypt(message, key, iv), null);
         }
 
         public static void AltaFormat(this ILog log, string message, params object[] args)

@@ -132,7 +132,7 @@
 
         public Patente ObtenerPatentePorDescripcion(string descripcion)
         {
-            var queryString = $"SELECT IdPatente, Descripcion FROM Patente WHERE Descripcion = '{descripcion}'";
+            var queryString = $"SELECT Patente.IdPatente, Descripcion, Negada FROM Patente INNER JOIN UsuarioPatente ON Patente.IdPatente = UsuarioPatente.IdPatente WHERE Descripcion ='{descripcion}'";
 
             return CatchException(() =>
             {

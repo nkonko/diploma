@@ -219,7 +219,7 @@
 
         public List<Patente> ObtenerPatentesDeUsuario(int usuarioId)
         {
-            var queryString = $"SELECT UsuarioPatente.IdPatente, Patente.Descripcion FROM UsuarioPatente INNER JOIN Patente ON UsuarioPatente.IdPatente = Patente.IdPatente WHERE UsuarioId = {usuarioId} AND Negada = 0";
+            var queryString = $"SELECT UsuarioPatente.IdPatente, Patente.Descripcion, UsuarioPatente.Negada FROM UsuarioPatente INNER JOIN Patente ON UsuarioPatente.IdPatente = Patente.IdPatente WHERE UsuarioId = {usuarioId}";
 
             return CatchException(() =>
             {

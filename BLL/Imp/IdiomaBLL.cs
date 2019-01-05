@@ -11,7 +11,7 @@
 
     public class IdiomaBLL : IIdiomaBLL
     {
-        private static readonly string ResourcesFilePath ="C:\\Users\\Nicolas Azzara\\Desktop\\diploma\\diploma\\SysAnalizer\\Recursos\\Español.resx";
+        private readonly string directorioRecursos = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\Recursos\\Español.resx";
 
         private readonly IIdiomaDAL idiomaDAL;
 
@@ -19,11 +19,6 @@
         {
             this.idiomaDAL = idiomaDAL;
         }
-
-        //public string FillPath()
-        //{
-        //    return new FileInfo("Español.resx").FullName;
-        //}
 
         public List<Idioma> ObtenerTodosLosIdiomas()
         {
@@ -37,7 +32,7 @@
 
         public void LlenarRecursos(IDictionary<string, string> traducciones, int idiomaSeleccionado, string nombreFormulario)
         {
-            using (ResXResourceWriter resxWriter = new ResXResourceWriter(ResourcesFilePath))
+            using (ResXResourceWriter resxWriter = new ResXResourceWriter(ObtenerDirectorioRecursos()))
             {
                 if (traducciones.Any())
                 {
@@ -51,7 +46,7 @@
 
         public void LeerRecursos(Control.ControlCollection controls)
         {
-            using (ResXResourceSet resxSet = new ResXResourceSet(ResourcesFilePath))
+            using (ResXResourceSet resxSet = new ResXResourceSet(ObtenerDirectorioRecursos()))
             {
                 foreach (DictionaryEntry item in resxSet)
                 {
@@ -61,6 +56,11 @@
                     }
                 }
             }
+        }
+
+        public string ObtenerDirectorioRecursos()
+        {
+            return directorioRecursos;
         }
     }
 }

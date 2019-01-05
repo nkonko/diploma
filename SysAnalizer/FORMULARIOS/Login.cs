@@ -6,6 +6,7 @@ namespace UI
     using DAL.Dao;
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Resources;
     using System.Windows.Forms;
@@ -122,7 +123,7 @@ namespace UI
 
             formControl.LenguajeSeleccionado = lenguajeSeleccionado;
 
-            using (ResXResourceWriter resxWriter = new ResXResourceWriter(formControl.ObtenerDirectorio()))
+            using (ResXResourceWriter resxWriter = new ResXResourceWriter(idiomaBLL.ObtenerDirectorioRecursos()))
             {
                 resxWriter.Dispose();
             }
@@ -145,7 +146,9 @@ namespace UI
 
         private void LimpiarRecursos()
         {
-            using (ResXResourceWriter resxWriter = new ResXResourceWriter("C:\\Users\\Nicolas Azzara\\Desktop\\diploma\\diploma\\SysAnalizer\\Recursos\\Español.resx"))
+            var directorioRecursos = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\Recursos\\Español.resx";
+
+            using (ResXResourceWriter resxWriter = new ResXResourceWriter(idiomaBLL.ObtenerDirectorioRecursos()))
             {                                                              
                 resxWriter.Dispose();
             }

@@ -59,13 +59,13 @@
             });
 
             var lastIndexString = "SELECT IDENT_CURRENT ('[dbo].[CuentaCorriente]') AS Current_Identity;";
-            
+
             CatchException(() =>
             {
                 idCuenta = Exec<int>(lastIndexString)[0];
             });
 
-            var queryString = "INSERT INTO Cliente(CuentaCorrienteId, NombreCompleto, Email, Telefono, Domicilio, Activo) VALUES ("+ idCuenta +", @nombre, @email, @telefono," +
+            var queryString = "INSERT INTO Cliente(CuentaCorrienteId, NombreCompleto, Email, Telefono, Domicilio, Activo) VALUES (" + idCuenta + ", @nombre, @email, @telefono," +
                 " @domicilio, @activo)";
 
             return CatchException(() =>

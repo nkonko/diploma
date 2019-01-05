@@ -38,8 +38,9 @@ namespace UI
 
         public Cliente ObtenerClienteSeleccionado()
         {
-            ClienteSeleccionado = (Cliente)dgClientes.CurrentRow.DataBoundItem; ;
-            return ClienteSeleccionado;
+            return (ClienteSeleccionado != null)
+                ? ClienteSeleccionado
+                : ClienteSeleccionado = (Cliente)dgClientes.CurrentRow.DataBoundItem;
         }
 
         private void button5_Click(object sender, EventArgs e)

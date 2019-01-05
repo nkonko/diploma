@@ -40,8 +40,6 @@
 
         private IDictionary<string, string> traducciones = new Dictionary<string, string>();
 
-        private readonly string directorioRecursos = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\Recursos\\Español.resx";
-
         public List<Patente> ObtenerPermisosFormularios()
         {
             return formControlBLL.ObtenerPermisosFormularios();
@@ -79,11 +77,6 @@
         public Usuario ObtenerInfoUsuario()
         {
             return UsuarioActivo;
-        }
-
-        public string ObtenerDirectorio()
-        {
-            return directorioRecursos;
         }
 
         public Idioma ObtenerIdioma()

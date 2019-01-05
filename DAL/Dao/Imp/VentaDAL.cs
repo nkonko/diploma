@@ -48,10 +48,10 @@
         {
             var queryString = "SELECT * FROM Venta;";
 
-           return CatchException(() =>
-            {
-                return Exec<Venta>(queryString);
-            });
+            return CatchException(() =>
+             {
+                 return Exec<Venta>(queryString);
+             });
         }
 
         public bool Actualizar(Venta objUpd)

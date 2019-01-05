@@ -90,7 +90,6 @@ namespace UI
             this.dgusuario.Size = new System.Drawing.Size(437, 182);
             this.dgusuario.TabIndex = 26;
             this.dgusuario.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgusuario_CellClick);
-            this.dgusuario.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dgusuario.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgusuario_DataError);
             this.dgusuario.SelectionChanged += new System.EventHandler(this.dgusuario_SelectionChanged);
             // 

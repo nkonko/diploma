@@ -13,5 +13,7 @@
         void LlenarRecursos(IDictionary<string, string> traducciones, int idiomaSeleccionado, string nombreFormulario);
 
         void LeerRecursos(Control.ControlCollection controls);
+
+        string ObtenerDirectorioRecursos();
     }
 }
