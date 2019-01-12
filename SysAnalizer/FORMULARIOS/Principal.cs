@@ -59,11 +59,6 @@ namespace UI
 
         private void usuariosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void usuariosToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
             abmUsuario.MdiParent = this;
             abmUsuario.Show();
         }

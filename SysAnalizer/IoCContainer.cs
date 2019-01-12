@@ -58,6 +58,9 @@
             contBuilder.RegisterType<DigitoVerificador>().As<IDigitoVerificador>().SingleInstance();
             contBuilder.RegisterType<BloqueoProductos>().As<IBloqueoProductos>().SingleInstance();
             contBuilder.RegisterType<BloqueoUsuario>().As<IBloqueoUsuario>().SingleInstance();
+            contBuilder.RegisterType<AdminFamUsuario>().As<IAdminFam>().SingleInstance();
+            contBuilder.RegisterType<AdminPatUsuario>().As<IAdminPat>().SingleInstance();
+            contBuilder.RegisterType<NegarPatUsuario>().As<INegarPat>().SingleInstance();
             return contBuilder.Build();
         }
     }

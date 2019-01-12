@@ -49,12 +49,12 @@ namespace UI
             this.label12 = new System.Windows.Forms.Label();
             this.txtTel = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.chkLstPatentes = new System.Windows.Forms.CheckedListBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.chkLstFamilia = new System.Windows.Forms.CheckedListBox();
             this.btnNegarPat = new System.Windows.Forms.Button();
             this.btnUsuariosInactivos = new System.Windows.Forms.Button();
+            this.btnAsignarPat = new System.Windows.Forms.Button();
+            this.btnAsignarFam = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgusuario)).BeginInit();
             this.SuspendLayout();
             // 
@@ -87,11 +87,10 @@ namespace UI
             this.dgusuario.ReadOnly = true;
             this.dgusuario.RowTemplate.Height = 24;
             this.dgusuario.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgusuario.Size = new System.Drawing.Size(437, 182);
+            this.dgusuario.Size = new System.Drawing.Size(554, 182);
             this.dgusuario.TabIndex = 26;
             this.dgusuario.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgusuario_CellClick);
             this.dgusuario.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgusuario_DataError);
-            this.dgusuario.SelectionChanged += new System.EventHandler(this.dgusuario_SelectionChanged);
             // 
             // Nombre
             // 
@@ -249,21 +248,10 @@ namespace UI
             this.label6.Text = "Teléfono:";
             this.label6.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // chkLstPatentes
-            // 
-            this.chkLstPatentes.FormattingEnabled = true;
-            this.chkLstPatentes.Location = new System.Drawing.Point(464, 41);
-            this.chkLstPatentes.Margin = new System.Windows.Forms.Padding(2);
-            this.chkLstPatentes.Name = "chkLstPatentes";
-            this.chkLstPatentes.Size = new System.Drawing.Size(114, 124);
-            this.chkLstPatentes.TabIndex = 37;
-            this.chkLstPatentes.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.chkLstPatentes_ItemCheck);
-            this.chkLstPatentes.SelectedIndexChanged += new System.EventHandler(this.chkLstPatentes_SelectedIndexChanged);
-            // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(461, 208);
+            this.label7.Location = new System.Drawing.Point(461, 89);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(42, 13);
@@ -280,30 +268,19 @@ namespace UI
             this.label8.TabIndex = 39;
             this.label8.Text = "Patentes:";
             // 
-            // chkLstFamilia
-            // 
-            this.chkLstFamilia.FormattingEnabled = true;
-            this.chkLstFamilia.Location = new System.Drawing.Point(464, 225);
-            this.chkLstFamilia.Margin = new System.Windows.Forms.Padding(2);
-            this.chkLstFamilia.Name = "chkLstFamilia";
-            this.chkLstFamilia.Size = new System.Drawing.Size(114, 124);
-            this.chkLstFamilia.TabIndex = 40;
-            this.chkLstFamilia.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.chkLstFamilia_ItemCheck);
-            // 
             // btnNegarPat
             // 
-            this.btnNegarPat.Enabled = false;
-            this.btnNegarPat.Location = new System.Drawing.Point(593, 41);
+            this.btnNegarPat.Location = new System.Drawing.Point(571, 41);
             this.btnNegarPat.Name = "btnNegarPat";
-            this.btnNegarPat.Size = new System.Drawing.Size(75, 38);
+            this.btnNegarPat.Size = new System.Drawing.Size(97, 38);
             this.btnNegarPat.TabIndex = 41;
-            this.btnNegarPat.Text = "Negar Patente";
+            this.btnNegarPat.Text = "Negar/Habilitar Patentes";
             this.btnNegarPat.UseVisualStyleBackColor = true;
             this.btnNegarPat.Click += new System.EventHandler(this.btnNegarPat_Click);
             // 
             // btnUsuariosInactivos
             // 
-            this.btnUsuariosInactivos.Location = new System.Drawing.Point(593, 341);
+            this.btnUsuariosInactivos.Location = new System.Drawing.Point(596, 342);
             this.btnUsuariosInactivos.Name = "btnUsuariosInactivos";
             this.btnUsuariosInactivos.Size = new System.Drawing.Size(75, 53);
             this.btnUsuariosInactivos.TabIndex = 42;
@@ -311,17 +288,37 @@ namespace UI
             this.btnUsuariosInactivos.UseVisualStyleBackColor = true;
             this.btnUsuariosInactivos.Click += new System.EventHandler(this.btnUsuariosInactivos_Click);
             // 
+            // btnAsignarPat
+            // 
+            this.btnAsignarPat.Location = new System.Drawing.Point(468, 41);
+            this.btnAsignarPat.Name = "btnAsignarPat";
+            this.btnAsignarPat.Size = new System.Drawing.Size(97, 38);
+            this.btnAsignarPat.TabIndex = 43;
+            this.btnAsignarPat.Text = "Asignar/Quitar Patentes";
+            this.btnAsignarPat.UseVisualStyleBackColor = true;
+            this.btnAsignarPat.Click += new System.EventHandler(this.btnAsignarPat_Click);
+            // 
+            // btnAsignarFam
+            // 
+            this.btnAsignarFam.Location = new System.Drawing.Point(468, 112);
+            this.btnAsignarFam.Name = "btnAsignarFam";
+            this.btnAsignarFam.Size = new System.Drawing.Size(97, 38);
+            this.btnAsignarFam.TabIndex = 44;
+            this.btnAsignarFam.Text = "Asignar/Quitar Familia";
+            this.btnAsignarFam.UseVisualStyleBackColor = true;
+            this.btnAsignarFam.Click += new System.EventHandler(this.btnAsignarFam_Click);
+            // 
             // ABMusuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(683, 406);
+            this.Controls.Add(this.btnAsignarFam);
+            this.Controls.Add(this.btnAsignarPat);
             this.Controls.Add(this.btnUsuariosInactivos);
             this.Controls.Add(this.btnNegarPat);
-            this.Controls.Add(this.chkLstFamilia);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.chkLstPatentes);
             this.Controls.Add(this.txtTel);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.txtEmail);
@@ -341,7 +338,6 @@ namespace UI
             this.Text = "ABM usuarios";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ABMusuario_FormClosing);
             this.Load += new System.EventHandler(this.usuarios_Load);
-            this.Enter += new System.EventHandler(this.ABMusuario_Enter);
             ((System.ComponentModel.ISupportInitialize)(this.dgusuario)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -365,10 +361,8 @@ namespace UI
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox txtTel;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.CheckedListBox chkLstPatentes;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.CheckedListBox chkLstFamilia;
         private System.Windows.Forms.Button btnNegarPat;
         private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
         private System.Windows.Forms.DataGridViewTextBoxColumn Apellido;
@@ -376,5 +370,7 @@ namespace UI
         private System.Windows.Forms.DataGridViewTextBoxColumn Telefono;
         private System.Windows.Forms.DataGridViewTextBoxColumn Domicilio;
         private System.Windows.Forms.Button btnUsuariosInactivos;
+        private System.Windows.Forms.Button btnAsignarPat;
+        private System.Windows.Forms.Button btnAsignarFam;
     }
 }

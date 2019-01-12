@@ -136,6 +136,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FormControl.cs" />
+    <Compile Include="FORMULARIOS\AdminFamUsuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMULARIOS\AdminFamUsuario.Designer.cs">
+      <DependentUpon>AdminFamUsuario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FORMULARIOS\NegarPatUsuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMULARIOS\NegarPatUsuario.Designer.cs">
+      <DependentUpon>NegarPatUsuario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FORMULARIOS\AdminPatUsuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMULARIOS\AdminPatUsuario.Designer.cs">
+      <DependentUpon>AdminPatUsuario.cs</DependentUpon>
+    </Compile>
     <Compile Include="FORMULARIOS\BloqueoProductos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -192,9 +210,12 @@
     <Compile Include="FORMULARIOS\BitacoraUI.Designer.cs">
       <DependentUpon>BitacoraUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="IAdminFam.cs" />
+    <Compile Include="IAdminPat.cs" />
     <Compile Include="IBloqueoProductos.cs" />
     <Compile Include="IBloqueoUsuario.cs" />
     <Compile Include="IBackupUI.cs" />
+    <Compile Include="INegarPat.cs" />
     <Compile Include="InputBox.cs" />
     <Compile Include="IRestoreUI.cs" />
     <Compile Include="IAdminPatFamilia.cs" />
@@ -254,6 +275,15 @@
       <DependentUpon>Español.resx</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <EmbeddedResource Include="FORMULARIOS\AdminFamUsuario.resx">
+      <DependentUpon>AdminFamUsuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMULARIOS\NegarPatUsuario.resx">
+      <DependentUpon>NegarPatUsuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMULARIOS\AdminPatUsuario.resx">
+      <DependentUpon>AdminPatUsuario.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FORMULARIOS\BloqueoProductos.resx">
       <DependentUpon>BloqueoProductos.cs</DependentUpon>
     </EmbeddedResource>
