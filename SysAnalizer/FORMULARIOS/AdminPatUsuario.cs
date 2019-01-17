@@ -65,11 +65,6 @@ namespace UI
             CargarListas();
         }
 
-        private void PatSistema_Click(object sender, EventArgs e)
-        {
-            ActualizarSeleccionado();
-        }
-
         private void ActualizarSeleccionado()
         {
             var descPatenteSistema = PatSistema.GetItemText(PatSistema.SelectedItem);
@@ -95,6 +90,16 @@ namespace UI
         private void btnVolver_Click(object sender, EventArgs e)
         {
             this.Hide();
+        }
+
+        private void PatUsuario_Click(object sender, EventArgs e)
+        {
+            ActualizarSeleccionado();
+        }
+
+        private void PatSistema_Click(object sender, EventArgs e)
+        {
+            ActualizarSeleccionado();
         }
     }
 }

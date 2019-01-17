@@ -192,7 +192,7 @@
 
         public List<Patente> ConsultarPatenteUsuarioJOIN(int usuarioId)
         {
-            var queryString = "SELECT UsuarioPatente.IdPatente, Descripcion FROM USuarioPatente INNER JOIN Patente ON UsuarioPatente.IdPatente = Patente.IdPatente WHERE UsuarioId = @usuarioId";
+            var queryString = "SELECT UsuarioPatente.IdPatente, Descripcion FROM UsuarioPatente INNER JOIN Patente ON UsuarioPatente.IdPatente = Patente.IdPatente WHERE UsuarioId = @usuarioId";
 
             return CatchException(() =>
             {

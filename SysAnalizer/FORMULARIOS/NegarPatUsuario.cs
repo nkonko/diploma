@@ -4,6 +4,7 @@ namespace UI
     using BE.Entidades;
     using BLL;
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Windows.Forms;
 
@@ -11,17 +12,25 @@ namespace UI
     {
         private const string lblUsu = "Usuario: ";
         private readonly IPatenteBLL patenteBLL;
+        private readonly IUsuarioBLL usuarioBLL;
+        private readonly IFamiliaBLL familiaBLL;
         private IABMUsuario aBMUsuario;
 
         public Usuario UsuarioSeleccionado { get; set; } = new Usuario();
 
-        public Patente PatenteUsuarioSeleccionada { get; set; } = new Patente();
-        public Patente PatenteSistemaSeleccionada { get; set; } = new Patente();
+        public Patente PatenteNegadaSeleccionada { get; set; } = new Patente();
+        public Patente PatenteHabilitadaSeleccionada { get; set; } = new Patente();
 
-        public NegarPatUsuario(IPatenteBLL patenteBLL)
+        public List<Patente> patentesHabilitadas { get; set; } = new List<Patente>();
+        public List<Patente> patentesNegadas { get; set; } = new List<Patente>();
+
+
+        public NegarPatUsuario(IPatenteBLL patenteBLL, IUsuarioBLL usuarioBLL, IFamiliaBLL familiaBLL)
         {
             InitializeComponent();
             this.patenteBLL = patenteBLL;
+            this.usuarioBLL = usuarioBLL;
+            this.familiaBLL = familiaBLL;
         }
 
         private void NegarPatUsuario_Load(object sender, EventArgs e)
@@ -30,20 +39,109 @@ namespace UI
 
             UsuarioSeleccionado = aBMUsuario.ObtenerUsuarioSeleccionado();
 
+            CargarListas();
+
+            ActualizarSeleccionado();
+
+            CargarLbl();
+        }
+
+        private void CargarLbl()
+        {
+            lblUsuario.Text = string.Empty;
+            lblUsuario.Text = lblUsu + UsuarioSeleccionado.Email;
+        }
+
+        private void ActualizarSeleccionado()
+        {
+            var descPatenteNegada = PatNegadas.GetItemText(PatNegadas.SelectedItem);
+            var descPatenteHabilitada = PatHabilitadas.GetItemText(PatHabilitadas.SelectedItem);
+
+            PatenteNegadaSeleccionada = patenteBLL.ObtenerPatentePorDescripcion(descPatenteNegada);
+            PatenteHabilitadaSeleccionada = patenteBLL.ObtenerPatentePorDescripcion(descPatenteHabilitada);
+        }
+
+        private void CargarListas()
+        {
             CargarPatentes();
+
+            PatHabilitadas.DataSource = patentesHabilitadas.Select(patH => patH.Descripcion).ToList();
+            PatNegadas.DataSource = patentesNegadas.Select(patN => patN.Descripcion).ToList();
         }
 
         private void CargarPatentes()
         {
             var patentesBd = patenteBLL.Cargar();
+            patentesNegadas = UsuarioSeleccionado.Patentes.Where(patN => patN.Negada == true).ToList();
 
-            var patHabilitadas = patentesBd.Where(patBd => );
-
-            if (patentesBd.Count > 0)
+            foreach (var patenteNegada in patentesNegadas)
             {
-                
+                patentesBd.RemoveAll(patBd => patBd.IdPatente == patenteNegada.IdPatente);
             }
 
+            patentesHabilitadas = patentesBd;
+        }
+
+        private void btnVolver_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+        }
+
+        private void btnNegar_Click(object sender, EventArgs e)
+        {
+            ActualizarSeleccionado();
+
+            if (UsuarioSeleccionado.Patentes.Any(patUsu => patUsu.IdPatente == PatenteHabilitadaSeleccionada.IdPatente))
+            {
+                UsuarioSeleccionado.Patentes.Where(pat => pat.IdPatente == PatenteHabilitadaSeleccionada.IdPatente).FirstOrDefault().Negada = true;
+            }
+
+            patenteBLL.NegarPatente(PatenteHabilitadaSeleccionada.IdPatente, UsuarioSeleccionado.UsuarioId);
+
+            ActualizarUsuarioSeleccionado();
+
+            CargarListas();
+        }
+
+        private void ActualizarUsuarioSeleccionado()
+        {
+            UsuarioSeleccionado.Patentes = null;
+            UsuarioSeleccionado.Patentes = new List<Patente>();
+            UsuarioSeleccionado.Patentes.AddRange(usuarioBLL.ObtenerPatentesDeUsuario(UsuarioSeleccionado.UsuarioId));
+
+            UsuarioSeleccionado.Familia = null;
+            UsuarioSeleccionado.Familia = new List<Familia>();
+            UsuarioSeleccionado.Familia = familiaBLL.ObtenerFamiliasUsuario(UsuarioSeleccionado.UsuarioId);
+            foreach (var familia in UsuarioSeleccionado.Familia)
+            {
+                familia.Patentes = familiaBLL.ObtenerPatentesFamilia(familia.FamiliaId);
+            }
+        }
+
+        private void btnHabilitar_Click(object sender, EventArgs e)
+        {
+            ActualizarSeleccionado();
+
+            if (UsuarioSeleccionado.Patentes.Any(patUsu => patUsu.IdPatente == PatenteNegadaSeleccionada.IdPatente))
+            {
+                UsuarioSeleccionado.Patentes.Where(pat => pat.IdPatente == PatenteNegadaSeleccionada.IdPatente).FirstOrDefault().Negada = false;
+            }
+
+            patenteBLL.HabilitarPatente(PatenteNegadaSeleccionada.IdPatente, UsuarioSeleccionado.UsuarioId);
+
+            ActualizarUsuarioSeleccionado();
+
+            CargarListas();
+        }
+
+        private void PatHabilitadas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ActualizarSeleccionado();
+        }
+
+        private void PatNegadas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ActualizarSeleccionado();
         }
     }
 }

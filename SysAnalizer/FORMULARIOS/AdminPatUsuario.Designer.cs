@@ -78,6 +78,7 @@ namespace UI
             this.PatUsuario.Name = "PatUsuario";
             this.PatUsuario.Size = new System.Drawing.Size(163, 173);
             this.PatUsuario.TabIndex = 0;
+            this.PatUsuario.Click += new System.EventHandler(this.PatUsuario_Click);
             // 
             // groupBox2
             // 

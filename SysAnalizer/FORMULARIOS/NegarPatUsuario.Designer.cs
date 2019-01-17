@@ -36,8 +36,8 @@ namespace UI
             this.PatHabilitadas = new System.Windows.Forms.ListBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.PatNegadas = new System.Windows.Forms.ListBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnHabilitar = new System.Windows.Forms.Button();
+            this.btnNegar = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -50,6 +50,7 @@ namespace UI
             this.btnVolver.TabIndex = 62;
             this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = true;
+            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
             // 
             // lblUsuario
             // 
@@ -77,6 +78,7 @@ namespace UI
             this.PatHabilitadas.Name = "PatHabilitadas";
             this.PatHabilitadas.Size = new System.Drawing.Size(163, 173);
             this.PatHabilitadas.TabIndex = 0;
+            this.PatHabilitadas.SelectedIndexChanged += new System.EventHandler(this.PatHabilitadas_SelectedIndexChanged);
             // 
             // groupBox2
             // 
@@ -95,30 +97,33 @@ namespace UI
             this.PatNegadas.Name = "PatNegadas";
             this.PatNegadas.Size = new System.Drawing.Size(163, 173);
             this.PatNegadas.TabIndex = 1;
+            this.PatNegadas.SelectedIndexChanged += new System.EventHandler(this.PatNegadas_SelectedIndexChanged);
             // 
-            // button1
+            // btnHabilitar
             // 
-            this.button1.Location = new System.Drawing.Point(329, 255);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(69, 23);
-            this.button1.TabIndex = 63;
-            this.button1.Text = "<-- Habilitar";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnHabilitar.Location = new System.Drawing.Point(329, 255);
+            this.btnHabilitar.Name = "btnHabilitar";
+            this.btnHabilitar.Size = new System.Drawing.Size(69, 23);
+            this.btnHabilitar.TabIndex = 63;
+            this.btnHabilitar.Text = "<-- Habilitar";
+            this.btnHabilitar.UseVisualStyleBackColor = true;
+            this.btnHabilitar.Click += new System.EventHandler(this.btnHabilitar_Click);
             // 
-            // button2
+            // btnNegar
             // 
-            this.button2.Location = new System.Drawing.Point(12, 255);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(69, 23);
-            this.button2.TabIndex = 64;
-            this.button2.Text = "Negar -->";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnNegar.Location = new System.Drawing.Point(12, 255);
+            this.btnNegar.Name = "btnNegar";
+            this.btnNegar.Size = new System.Drawing.Size(69, 23);
+            this.btnNegar.TabIndex = 64;
+            this.btnNegar.Text = "Negar -->";
+            this.btnNegar.UseVisualStyleBackColor = true;
+            this.btnNegar.Click += new System.EventHandler(this.btnNegar_Click);
             // 
             // NegarPatUsuario
             // 
             this.ClientSize = new System.Drawing.Size(412, 287);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnNegar);
+            this.Controls.Add(this.btnHabilitar);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.lblUsuario);
@@ -138,8 +143,8 @@ namespace UI
         private System.Windows.Forms.Label lblUsuario;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnHabilitar;
+        private System.Windows.Forms.Button btnNegar;
         private System.Windows.Forms.ListBox PatHabilitadas;
         private System.Windows.Forms.ListBox PatNegadas;
     }

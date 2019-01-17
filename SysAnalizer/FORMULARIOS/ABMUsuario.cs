@@ -75,6 +75,8 @@ namespace UI
 
             SetearObjetosSeleccionados();
 
+            CargarPatentesFamiliaUsuarioSeleccionado();
+
             CargaControles();
 
             Traduccir();
