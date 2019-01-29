@@ -67,6 +67,13 @@ namespace UI
         {
             usuarioBLL = IoCContainer.Resolve<IUsuarioBLL>();
 
+            HacerLoad();
+
+            Traduccir();
+        }
+
+        private void HacerLoad()
+        {
             UsuarioActivo = formControl.ObtenerInfoUsuario();
 
             ControlPatentes();
@@ -78,27 +85,55 @@ namespace UI
             CargarPatentesFamiliaUsuarioSeleccionado();
 
             CargaControles();
-
-            Traduccir();
         }
 
         private void ControlPatentes()
         {
             var patForm = formControl.ObtenerPermisosFormulario(formId);
-            var patUsu = formControl.ObtenerPermisosUsuario();
-            var patentes = patenteBLL.Cargar();
+            var usuarioActivo = formControl.ObtenerPermisosUsuario();
+            var patentesSistema = patenteBLL.Cargar();
 
-            if (!patForm.Exists(item => patUsu.Patentes.Select(item2 => item2.IdPatente).Contains(item.IdPatente = patentes.Where(p => (p.Descripcion == "Alta Usuario")).Select(p => p.IdPatente).FirstOrDefault())))
+            if (!patForm.Exists(item => usuarioActivo.Patentes.Select(item2 => item2.IdPatente).Contains(item.IdPatente = patentesSistema.Where(p => (p.Descripcion == "Alta Usuario")).Select(p => p.IdPatente).FirstOrDefault())))
             {
                 btnNuevo.Enabled = false;
+
             }
-            if (!patForm.Exists(item => patUsu.Patentes.Select(item2 => item2.IdPatente).Contains(item.IdPatente = patentes.Where(p => (p.Descripcion == "Baja Usuario")).Select(p => p.IdPatente).FirstOrDefault())))
+            else
+            {
+                btnNuevo.Enabled = true;
+
+                if (usuarioActivo.Patentes.FirstOrDefault(p => p.Descripcion == "Alta Usuario").Negada)
+                {
+                    btnNuevo.Enabled = false;
+                }
+            }
+
+            if (!patForm.Exists(item => usuarioActivo.Patentes.Select(item2 => item2.IdPatente).Contains(item.IdPatente = patentesSistema.Where(p => (p.Descripcion == "Baja Usuario")).Select(p => p.IdPatente).FirstOrDefault())))
             {
                 btnBorrar.Enabled = false;
             }
-            if (!patForm.Exists(item => patUsu.Patentes.Select(item2 => item2.IdPatente).Contains(item.IdPatente = patentes.Where(p => (p.Descripcion == "Mod Usuario")).Select(p => p.IdPatente).FirstOrDefault())))
+            else
+            {
+                btnBorrar.Enabled = true;
+
+                if (usuarioActivo.Patentes.FirstOrDefault(p => p.Descripcion == "Baja Usuario").Negada)
+                {
+                    btnNuevo.Enabled = false;
+                }
+            }
+
+            if (!patForm.Exists(item => usuarioActivo.Patentes.Select(item2 => item2.IdPatente).Contains(item.IdPatente = patentesSistema.Where(p => (p.Descripcion == "Mod Usuario")).Select(p => p.IdPatente).FirstOrDefault())))
             {
                 btnModificar.Enabled = false;
+            }
+            else
+            {
+                btnModificar.Enabled = true;
+
+                if (usuarioActivo.Patentes.FirstOrDefault(p => p.Descripcion == "Mod Usuario").Negada)
+                {
+                    btnNuevo.Enabled = false;
+                }
             }
         }
 
@@ -458,21 +493,29 @@ namespace UI
         private void btnAsignarPat_Click(object sender, EventArgs e)
         {
             adminPat.ShowDialog();
+            HacerLoad();
         }
 
         private void btnNegarPat_Click(object sender, EventArgs e)
         {
             negarPat.ShowDialog();
+            HacerLoad();
         }
 
         private void btnAsignarFam_Click(object sender, EventArgs e)
         {
             adminFam.ShowDialog();
+            HacerLoad();
         }
 
         public Usuario ObtenerUsuarioSeleccionado()
         {
             return UsuarioSeleccionado;
+        }
+
+        public List<Usuario> ObtenerUsuariosBd()
+        {
+            return usuariosBD;
         }
     }
 }

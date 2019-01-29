@@ -130,9 +130,9 @@
             });
         }
 
-        public Patente ObtenerPatentePorDescripcion(string descripcion)
+        public Patente ObtenerPatentePorDescripcion(string descripcion, int usuarioId)
         {
-            var queryString = $"SELECT Patente.IdPatente, Descripcion, Negada FROM Patente INNER JOIN UsuarioPatente ON Patente.IdPatente = UsuarioPatente.IdPatente WHERE Descripcion ='{descripcion}'";
+            var queryString = $"SELECT Patente.IdPatente, Patente.Descripcion, (SELECT negada FROM UsuarioPatente WHERE UsuarioId = {usuarioId} AND IdPatente = Patente.IdPatente) as Negada FROM Patente WHERE Descripcion = '{descripcion}'";
 
             return CatchException(() =>
             {

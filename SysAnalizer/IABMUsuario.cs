@@ -1,6 +1,7 @@
 ﻿namespace UI
 {
     using BE.Entidades;
+    using System.Collections.Generic;
     using System.Windows.Forms;
 
     public interface IABMUsuario
@@ -10,5 +11,7 @@
         void Show();
 
         Usuario ObtenerUsuarioSeleccionado();
+
+        List<Usuario> ObtenerUsuariosBd();
     }
 }

@@ -57,16 +57,28 @@ namespace UI
             var descPatenteNegada = PatNegadas.GetItemText(PatNegadas.SelectedItem);
             var descPatenteHabilitada = PatHabilitadas.GetItemText(PatHabilitadas.SelectedItem);
 
-            PatenteNegadaSeleccionada = patenteBLL.ObtenerPatentePorDescripcion(descPatenteNegada);
-            PatenteHabilitadaSeleccionada = patenteBLL.ObtenerPatentePorDescripcion(descPatenteHabilitada);
+            PatenteNegadaSeleccionada = patenteBLL.ObtenerPatentePorDescripcion(descPatenteNegada, UsuarioSeleccionado.UsuarioId);
+            PatenteHabilitadaSeleccionada = patenteBLL.ObtenerPatentePorDescripcion(descPatenteHabilitada, UsuarioSeleccionado.UsuarioId);
         }
 
         private void CargarListas()
         {
             CargarPatentes();
 
+            LimpiarListas();
+
             PatHabilitadas.DataSource = patentesHabilitadas.Select(patH => patH.Descripcion).ToList();
             PatNegadas.DataSource = patentesNegadas.Select(patN => patN.Descripcion).ToList();
+        }
+
+        private void LimpiarListas()
+        {
+            PatHabilitadas.ClearSelected();
+            PatNegadas.ClearSelected();
+            PatHabilitadas.SelectedItem = null;
+            PatNegadas.SelectedItem = null;
+            PatHabilitadas.DataSource = null;
+            PatNegadas.DataSource = null;
         }
 
         private void CargarPatentes()
@@ -84,6 +96,7 @@ namespace UI
 
         private void btnVolver_Click(object sender, EventArgs e)
         {
+            LimpiarListas();
             this.Hide();
         }
 
@@ -96,7 +109,12 @@ namespace UI
                 UsuarioSeleccionado.Patentes.Where(pat => pat.IdPatente == PatenteHabilitadaSeleccionada.IdPatente).FirstOrDefault().Negada = true;
             }
 
-            patenteBLL.NegarPatente(PatenteHabilitadaSeleccionada.IdPatente, UsuarioSeleccionado.UsuarioId);
+            var permitido = patenteBLL.CheckeoPatenteParaBorrar(PatenteHabilitadaSeleccionada, UsuarioSeleccionado, aBMUsuario.ObtenerUsuariosBd(), true);
+
+            if (permitido)
+            {
+                patenteBLL.NegarPatente(PatenteHabilitadaSeleccionada.IdPatente, UsuarioSeleccionado.UsuarioId);
+            }
 
             ActualizarUsuarioSeleccionado();
 

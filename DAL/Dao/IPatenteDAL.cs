@@ -15,7 +15,7 @@
 
         int ObtenerIdPatentePorDescripcion(string descripcion);
 
-        Patente ObtenerPatentePorDescripcion(string descripcion);
+        Patente ObtenerPatentePorDescripcion(string descripcion, int usuarioId);
 
         bool BorrarPatente(int familiaId, int patenteId);
 

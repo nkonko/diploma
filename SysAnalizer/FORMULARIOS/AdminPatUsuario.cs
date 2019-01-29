@@ -47,15 +47,26 @@ namespace UI
 
         private void CargarListas()
         {
+            LimpiarListas();
+
             PatSistema.DataSource = patenteBLL.Cargar().Select(pat => pat.Descripcion).ToList();
             PatUsuario.DataSource = UsuarioSeleccionado.Patentes.Select(pat => pat.Descripcion).ToList();
+        }
+
+        private void LimpiarListas()
+        {
+            PatSistema.ClearSelected();
+            PatUsuario.ClearSelected();
+            PatUsuario.SelectedItem = null;
+            PatSistema.DataSource = null;
+            PatUsuario.DataSource = null;
         }
 
         private void btnAsignar_Click(object sender, EventArgs e)
         {
             ActualizarSeleccionado();
 
-            if (!UsuarioSeleccionado.Patentes.Any(patUsu => patUsu.IdPatente == PatenteUsuarioSeleccionada.IdPatente))
+            if (!UsuarioSeleccionado.Patentes.Any(patUsu => patUsu.IdPatente == PatenteSistemaSeleccionada.IdPatente))
             {
                 UsuarioSeleccionado.Patentes.Add(PatenteSistemaSeleccionada);
             }
@@ -70,25 +81,38 @@ namespace UI
             var descPatenteSistema = PatSistema.GetItemText(PatSistema.SelectedItem);
             var descPatenteUsuario = PatUsuario.GetItemText(PatUsuario.SelectedItem);
 
-            PatenteSistemaSeleccionada = patenteBLL.ObtenerPatentePorDescripcion(descPatenteSistema);
-            PatenteUsuarioSeleccionada = patenteBLL.ObtenerPatentePorDescripcion(descPatenteUsuario);
+            PatenteSistemaSeleccionada = patenteBLL.ObtenerPatentePorDescripcion(descPatenteSistema, UsuarioSeleccionado.UsuarioId);
+            PatenteUsuarioSeleccionada = patenteBLL.ObtenerPatentePorDescripcion(descPatenteUsuario, UsuarioSeleccionado.UsuarioId);
         }
 
         private void btnQuitar_Click(object sender, EventArgs e)
         {
             ActualizarSeleccionado();
 
-            if (UsuarioSeleccionado.Patentes.Any(patUsu => patUsu.IdPatente == PatenteUsuarioSeleccionada.IdPatente))
+            var permitir = patenteBLL.CheckeoPatenteParaBorrar(PatenteUsuarioSeleccionada, UsuarioSeleccionado, aBMUsuario.ObtenerUsuariosBd());
+
+            if (permitir)
             {
-                UsuarioSeleccionado.Patentes.RemoveAll(PatUsu => PatUsu.IdPatente == PatenteUsuarioSeleccionada.IdPatente);
+                if (UsuarioSeleccionado.Patentes.Any(patUsu => patUsu.IdPatente == PatenteUsuarioSeleccionada.IdPatente))
+                {
+                    UsuarioSeleccionado.Patentes.RemoveAll(PatUsu => PatUsu.IdPatente == PatenteUsuarioSeleccionada.IdPatente);
+                }
+
+                patenteBLL.BorrarPatentesUsuario(new List<int>() { PatenteUsuarioSeleccionada.IdPatente }, UsuarioSeleccionado.UsuarioId);
+
+                PatUsuario.ClearSelected();
+            }
+            else
+            {
+                Alert.ShowSimpleAlert("Al menos un usuario debe tener asignada esta patente", "MSJ015");
             }
 
-            patenteBLL.BorrarPatentesUsuario(new List<int>() { PatenteUsuarioSeleccionada.IdPatente }, UsuarioSeleccionado.UsuarioId);
             CargarListas();
         }
 
         private void btnVolver_Click(object sender, EventArgs e)
         {
+            LimpiarListas();
             this.Hide();
         }
 

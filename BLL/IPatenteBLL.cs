@@ -9,7 +9,7 @@
 
         int ObtenerIdPatentePorDescripcion(string descripcion);
 
-        Patente ObtenerPatentePorDescripcion(string descripcion);
+        Patente ObtenerPatentePorDescripcion(string descripcion, int usuarioId);
 
         List<Patente> Cargar();
 

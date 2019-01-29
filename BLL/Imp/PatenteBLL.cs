@@ -88,9 +88,9 @@
             return patenteDAL.CheckeoPatenteParaBorrar(patente, usuario, usuariosGlobales, paraNegar);
         }
 
-        public Patente ObtenerPatentePorDescripcion(string descripcion)
+        public Patente ObtenerPatentePorDescripcion(string descripcion, int usuarioId)
         {
-            return patenteDAL.ObtenerPatentePorDescripcion(descripcion);
+            return patenteDAL.ObtenerPatentePorDescripcion(descripcion, usuarioId);
         }
     }
 }
