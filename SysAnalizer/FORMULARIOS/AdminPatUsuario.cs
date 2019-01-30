@@ -113,6 +113,7 @@ namespace UI
         private void btnVolver_Click(object sender, EventArgs e)
         {
             LimpiarListas();
+
             this.Hide();
         }
 

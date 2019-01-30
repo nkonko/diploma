@@ -84,6 +84,7 @@ namespace UI
         private void CargarPatentes()
         {
             var patentesBd = patenteBLL.Cargar();
+
             patentesNegadas = UsuarioSeleccionado.Patentes.Where(patN => patN.Negada == true).ToList();
 
             foreach (var patenteNegada in patentesNegadas)
@@ -97,6 +98,7 @@ namespace UI
         private void btnVolver_Click(object sender, EventArgs e)
         {
             LimpiarListas();
+
             this.Hide();
         }
 
@@ -104,21 +106,24 @@ namespace UI
         {
             ActualizarSeleccionado();
 
-            if (UsuarioSeleccionado.Patentes.Any(patUsu => patUsu.IdPatente == PatenteHabilitadaSeleccionada.IdPatente))
+            if (PatenteHabilitadaSeleccionada != null)
             {
-                UsuarioSeleccionado.Patentes.Where(pat => pat.IdPatente == PatenteHabilitadaSeleccionada.IdPatente).FirstOrDefault().Negada = true;
+                if (UsuarioSeleccionado.Patentes.Any(patUsu => patUsu.IdPatente == PatenteHabilitadaSeleccionada.IdPatente))
+                {
+                    UsuarioSeleccionado.Patentes.Where(pat => pat.IdPatente == PatenteHabilitadaSeleccionada.IdPatente).FirstOrDefault().Negada = true;
+                }
+
+                var permitido = patenteBLL.CheckeoPatenteParaBorrar(PatenteHabilitadaSeleccionada, UsuarioSeleccionado, aBMUsuario.ObtenerUsuariosBd(), true);
+
+                if (permitido)
+                {
+                    patenteBLL.NegarPatente(PatenteHabilitadaSeleccionada.IdPatente, UsuarioSeleccionado.UsuarioId);
+                }
+
+                ActualizarUsuarioSeleccionado();
+
+                CargarListas();
             }
-
-            var permitido = patenteBLL.CheckeoPatenteParaBorrar(PatenteHabilitadaSeleccionada, UsuarioSeleccionado, aBMUsuario.ObtenerUsuariosBd(), true);
-
-            if (permitido)
-            {
-                patenteBLL.NegarPatente(PatenteHabilitadaSeleccionada.IdPatente, UsuarioSeleccionado.UsuarioId);
-            }
-
-            ActualizarUsuarioSeleccionado();
-
-            CargarListas();
         }
 
         private void ActualizarUsuarioSeleccionado()
@@ -140,16 +145,19 @@ namespace UI
         {
             ActualizarSeleccionado();
 
-            if (UsuarioSeleccionado.Patentes.Any(patUsu => patUsu.IdPatente == PatenteNegadaSeleccionada.IdPatente))
+            if (PatenteNegadaSeleccionada != null)
             {
-                UsuarioSeleccionado.Patentes.Where(pat => pat.IdPatente == PatenteNegadaSeleccionada.IdPatente).FirstOrDefault().Negada = false;
+                if (UsuarioSeleccionado.Patentes.Any(patUsu => patUsu.IdPatente == PatenteNegadaSeleccionada.IdPatente))
+                {
+                    UsuarioSeleccionado.Patentes.Where(pat => pat.IdPatente == PatenteNegadaSeleccionada.IdPatente).FirstOrDefault().Negada = false;
+
+                    patenteBLL.HabilitarPatente(PatenteNegadaSeleccionada.IdPatente, UsuarioSeleccionado.UsuarioId);
+                }
+
+                ActualizarUsuarioSeleccionado();
+
+                CargarListas();
             }
-
-            patenteBLL.HabilitarPatente(PatenteNegadaSeleccionada.IdPatente, UsuarioSeleccionado.UsuarioId);
-
-            ActualizarUsuarioSeleccionado();
-
-            CargarListas();
         }
 
         private void PatHabilitadas_SelectedIndexChanged(object sender, EventArgs e)

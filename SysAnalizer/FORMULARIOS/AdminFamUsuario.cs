@@ -11,6 +11,7 @@ namespace UI
     public partial class AdminFamUsuario : Form, IAdminFam
     {
         private const string lblUsu = "Usuario: ";
+        private readonly IPatenteBLL patenteBLL;
         private readonly IFamiliaBLL familiaBLL;
         private IABMUsuario aBMUsuario;
 
@@ -63,8 +64,19 @@ namespace UI
 
         private void CargarListas()
         {
+            LimpiarListas();
+
             CargarFamiliaSistema();
             CargarFamiliaUsuario();
+        }
+
+        private void LimpiarListas()
+        {
+            FamUsuario.ClearSelected();
+            FamSistema.ClearSelected();
+            FamUsuario.SelectedItem = null;
+            FamSistema.DataSource = null;
+            FamUsuario.DataSource = null;
         }
 
         private void CargarFamiliaUsuario()
@@ -97,6 +109,8 @@ namespace UI
 
         private void btnVolver_Click(object sender, EventArgs e)
         {
+            LimpiarListas();
+
             this.Hide();
         }
 
@@ -104,12 +118,24 @@ namespace UI
         {
             ActualizarSeleccionado();
 
-            if (UsuarioSeleccionado.Familia.Any(famUsu => famUsu.FamiliaId == FamiliaUsuarioSeleccionada.FamiliaId))
+            var permitir = patenteBLL.CheckeoFamiliaParaBorrar(FamiliaUsuarioSeleccionada, aBMUsuario.ObtenerUsuariosBd());
+
+            if (permitir)
             {
-                UsuarioSeleccionado.Familia.RemoveAll(famUsu => famUsu.FamiliaId == FamiliaUsuarioSeleccionada.FamiliaId);
+
+                if (UsuarioSeleccionado.Familia.Any(famUsu => famUsu.FamiliaId == FamiliaUsuarioSeleccionada.FamiliaId))
+                {
+                    UsuarioSeleccionado.Familia.RemoveAll(famUsu => famUsu.FamiliaId == FamiliaUsuarioSeleccionada.FamiliaId);
+                }
+
+                familiaBLL.BorrarFamiliasUsuario(new List<Familia>() { FamiliaUsuarioSeleccionada }, UsuarioSeleccionado.UsuarioId);
+
+            }
+            else
+            {
+                Alert.ShowSimpleAlert("No puede quitar esta familia", "MSJ035");
             }
 
-            familiaBLL.BorrarFamiliasUsuario(new List<Familia>() { FamiliaUsuarioSeleccionada }, UsuarioSeleccionado.UsuarioId);
             CargarListas();
         }
 
