@@ -5,7 +5,7 @@
 
     public class DigitoVerificador : BaseDao, IDigitoVerificador
     {
-        public List<string> Entidades { get; set; } = SqlUtils.Tables;
+        public List<string> Entidades { get; set; } = SqlUtils.GetTables();
 
         public int CalcularDVHorizontal(List<string> columnasString, List<int> columnasInt)
         {

@@ -88,9 +88,9 @@
             return usuarioDAL.DesactivarUsuario(email);
         }
 
-        public Usuario ObtenerUsuarioConId(int UsuarioId)
+        public Usuario ObtenerUsuarioConId(int usuarioId)
         {
-            return usuarioDAL.ObtenerUsuarioConId(UsuarioId);
+            return usuarioDAL.ObtenerUsuarioConId(usuarioId);
         }
 
         public List<Usuario> TraerUsuariosConPatentesYFamilias()

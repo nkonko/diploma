@@ -21,16 +21,18 @@
             var queryString = "INSERT INTO Venta(Fecha, UsuarioId, EstadoId,TipoVentaId,ClienteId,Monto,DVH) VALUES (@fecha, @usuarioId, @estado, @tipoVenta, @cliente, @monto, @dvh)";
             return CatchException(() =>
             {
-                return Exec(queryString, new
-                {
-                    @fecha = objAlta.Fecha,
-                    @estado = objAlta.EstadoId,
-                    @usuarioId = objAlta.UsuarioId,
-                    @tipoVenta = objAlta.TipoVentaId,
-                    @cliente = objAlta.ClienteId,
-                    @monto = objAlta.Monto,
-                    @dvh = digitoVH
-                });
+                return Exec(
+                    queryString,
+                    new
+                    {
+                        @fecha = objAlta.Fecha,
+                        @estado = objAlta.EstadoId,
+                        @usuarioId = objAlta.UsuarioId,
+                        @tipoVenta = objAlta.TipoVentaId,
+                        @cliente = objAlta.ClienteId,
+                        @monto = objAlta.Monto,
+                        @dvh = digitoVH
+                    });
             });
         }
 

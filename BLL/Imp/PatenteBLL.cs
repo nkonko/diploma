@@ -68,9 +68,9 @@
             patenteDAL.BorrarPatentesUsuario(ids, usuarioId);
         }
 
-        public bool CheckeoDePatentesParaBorrar(Usuario usuario, List<Usuario> usuariosGlobales, bool requestFamilia = false, bool requestFamiliaUsuario = false, bool esBorrado = false, int idFamiliaAQuitar = 0)
+        public bool CheckeoDePatentesParaBorrar(Usuario usuario, List<Usuario> usuariosGlobales, bool requestFamilia = false, bool requestFamiliaUsuario = false, bool borrado = false, int familiaAQuitarId = 0)
         {
-            return patenteDAL.CheckeoDePatentesParaBorrar(usuario, usuariosGlobales, requestFamilia, requestFamiliaUsuario, esBorrado, idFamiliaAQuitar);
+            return patenteDAL.CheckeoDePatentesParaBorrar(usuario, usuariosGlobales, requestFamilia, requestFamiliaUsuario, borrado, familiaAQuitarId);
         }
 
         public bool CheckeoFamiliaParaBorrar(Familia familia, List<Usuario> usuariosGlobales)

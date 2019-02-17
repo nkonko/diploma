@@ -4,11 +4,13 @@ namespace UI
     using BE.Entidades;
     using BLL;
     using DAL.Dao;
+    using SplashScreen;
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Resources;
+    using System.Threading;
     using System.Windows.Forms;
 
     public partial class Login : Form
@@ -23,12 +25,39 @@ namespace UI
 
         public Login(IIdiomaBLL idiomaBLL, IDigitoVerificador digitoVerificador)
         {
+            var thread = new Thread(new ThreadStart(Splash));
+            thread.Start();
             this.digitoVerificador = digitoVerificador;
             this.idiomaBLL = idiomaBLL;
             InitializeComponent();
             txt_contraseña.PasswordChar = '*';
+            ProcesarSplash(thread);
         }
 
+        private void ProcesarSplash(Thread thread)
+        {
+            var str = string.Empty;
+
+            for (int i = 0; i < 50000; i++)
+            {
+                str += i.ToString();
+            }
+
+            thread.Abort();
+        }
+
+        private void Splash()
+        {
+            var splashForm = new SplashForm()
+            {
+                AppName = "SysAnalizer",
+                Icon = Properties.Resources.money,
+                ShowIcon = true,
+                ShowInTaskbar = true
+            };
+
+            Application.Run(splashForm);
+        }
 
         private void Form1_Load(object sender, EventArgs e)
         {

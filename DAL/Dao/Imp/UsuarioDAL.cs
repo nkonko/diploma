@@ -197,14 +197,14 @@
             }
         }
 
-        public Usuario ObtenerUsuarioConId(int UsuarioId)
+        public Usuario ObtenerUsuarioConId(int usuarioId)
         {
             var usuario = new List<Usuario>();
             var queryString = "SELECT * FROM dbo.Usuario WHERE UsuarioId = @UsuarioId";
 
             CatchException(() =>
             {
-                usuario = Exec<Usuario>(queryString, new { UsuarioId = UsuarioId });
+                usuario = Exec<Usuario>(queryString, new { UsuarioId = usuarioId });
             });
 
             if (usuario.Count > 0)
@@ -244,6 +244,33 @@
             return Borrar(new Usuario() { Email = email });
         }
 
+        public Usuario CargarPatentesYFamiliaUsuario(Usuario usuario)
+        {
+            usuario.Familia = new List<Familia>();
+            usuario.Patentes = new List<Patente>();
+
+            usuario.Familia = familiaDAL.ObtenerFamiliasUsuario(usuario.UsuarioId);
+            usuario.Patentes = patenteDAL.ObtenerPatentesUsuario(usuario.UsuarioId);
+
+            return usuario;
+        }
+
+        public List<Usuario> TraerUsuariosConPatentesYFamilias()
+        {
+            var usuarios = Cargar();
+
+            foreach (var usuario in usuarios)
+            {
+                usuario.Familia = new List<Familia>();
+                usuario.Patentes = new List<Patente>();
+
+                usuario.Familia = familiaDAL.ObtenerFamiliasUsuario(usuario.UsuarioId);
+                usuario.Patentes = patenteDAL.ObtenerPatentesUsuario(usuario.UsuarioId);
+            }
+
+            return usuarios;
+        }
+
         private bool ValidarContraseña(string contraseña, string contEncriptada)
         {
             if (contraseña == contEncriptada)
@@ -280,33 +307,6 @@
             {
                 return Exec<int>(queryString)[0];
             });
-        }
-
-        public List<Usuario> TraerUsuariosConPatentesYFamilias()
-        {
-            var usuarios = Cargar();
-
-            foreach (var usuario in usuarios)
-            {
-                usuario.Familia = new List<Familia>();
-                usuario.Patentes = new List<Patente>();
-
-                usuario.Familia = familiaDAL.ObtenerFamiliasUsuario(usuario.UsuarioId);
-                usuario.Patentes = patenteDAL.ObtenerPatentesUsuario(usuario.UsuarioId);
-            }
-
-            return usuarios;
-        }
-
-        public Usuario CargarPatentesYFamiliaUsuario(Usuario usuario)
-        {
-            usuario.Familia = new List<Familia>();
-            usuario.Patentes = new List<Patente>();
-
-            usuario.Familia = familiaDAL.ObtenerFamiliasUsuario(usuario.UsuarioId);
-            usuario.Patentes = patenteDAL.ObtenerPatentesUsuario(usuario.UsuarioId);
-
-            return usuario;
         }
     }
 }

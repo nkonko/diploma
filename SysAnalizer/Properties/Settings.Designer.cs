@@ -26,8 +26,7 @@ namespace UI.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP\\SQLEXPRESS;Initial Catalog=UI2;Integrated Security=T" +
-            "rue")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP\\SQLEXPRESS;Initial Catalog=UI2;Integrated Security=True")]
         public string UI2ConnectionString {
             get {
                 return ((string)(this["UI2ConnectionString"]));

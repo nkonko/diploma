@@ -8,7 +8,6 @@ namespace UI
 
     public static class FormExtensions 
     {
-
         public static void CatchException(this Form form, Action func, Action<Exception> onError = null)
         {
             try

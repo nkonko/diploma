@@ -195,6 +195,8 @@ namespace UI
             {
                 UsuarioSeleccionado = (Usuario)dgusuario.CurrentRow.DataBoundItem;
 
+                CargarPatentesFamiliaUsuarioSeleccionado();
+
                 CargaControles();
             }
         }

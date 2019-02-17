@@ -30,6 +30,11 @@
             return asignado;
         }
 
+        public List<Patente> ObtenerPatentesUsuario(int usuarioId)
+        {
+            return ConsultarPatenteUsuarioJOIN(usuarioId);
+        }
+
         public bool BorrarPatente(int familiaId, int patenteId)
         {
             var borrada = false;
@@ -69,18 +74,6 @@
                     });
                 }
             }
-        }
-
-        private List<UsuarioPatente> ObtenerTodasLasPatentesYUsuarios()
-        {
-            var optQuery = "SELECT * FROM UsuarioPatente";
-            var patentesUsuarios = new List<UsuarioPatente>();
-
-            CatchException(() =>
-            {
-                patentesUsuarios = Exec<UsuarioPatente>(optQuery);
-            });
-            return patentesUsuarios;
         }
 
         public bool NegarPatenteUsuario(int patenteId, int usuarioId)
@@ -214,47 +207,48 @@
             }
         }
 
-        public bool CheckeoDePatentesParaBorrar(Usuario usuario, List<Usuario> UsuariosGlobales, bool requestFamilia = false, bool requestFamiliaUsuario = false, bool esBorrado = false, int idAQuitar = 0)
+        public bool CheckeoDePatentesParaBorrar(Usuario usuario, List<Usuario> usuariosGlobales, bool requestFamilia = false, bool requestFamiliaUsuario = false, bool borrado = false, int quitarId = 0)
         {
-            CheckeoUsuarioParaBorrar(usuario, UsuariosGlobales);
+            CheckeoUsuarioParaBorrar(usuario, usuariosGlobales);
 
             ///Si ningun usuario tiene patentes no se puede borrar ningun usuario
             if (!ComprobarTablaUsuarioPatente())
             {
                 return false;
             }
-            ///Si hay usuarios en la tabla de familias no puedo borrar a todas las familias paso 5
-            //NO SE ESTA IDENTIFICANDO QUE FAMILIA NO SE PUEDE BORRAR
-            //if (ComprobarUsuarioFamilia())
-            //{
-            //    return false;
-            //}
 
-            //CheckeoFamiliaParaBorrar(familiaABorrar);
+            ////Si hay usuarios en la tabla de familias no puedo borrar a todas las familias paso 5
+            ////NO SE ESTA IDENTIFICANDO QUE FAMILIA NO SE PUEDE BORRAR
+            ////if (ComprobarUsuarioFamilia())
+            ////{
+            ////    return false;
+            ////}
+
+            ////CheckeoFamiliaParaBorrar(familiaABorrar);
 
             var diccionarioPatentes = new Dictionary<int, int>();
-            List<Usuario> usuariosGlobal = UsuariosGlobales;
+            List<Usuario> usuariosGlobal = usuariosGlobales;
             List<int> familiasIds = usuario.Familia.Select(familia => familia.FamiliaId).ToList();
 
-            CargaUsuario(usuario, requestFamiliaUsuario, idAQuitar, usuariosGlobal);
+            CargaUsuario(usuario, requestFamiliaUsuario, quitarId, usuariosGlobal);
 
-            //Revisar metodo que obtiene las patentes de las familias, que trae???? las patentes de una familia sola o de todas
-            //if (!esBorrado)
-            //{
-            //    if (usuarioDAL.ObtenerPatentesDeUsuario(usuario.UsuarioId).Count == familiaDAL.ObtenerPatentesDeFamilias(familiasIds).Count)
-            //    {
-            //        if (usuario.Patentes.Count == familiaDAL.ObtenerPatentesDeFamilias(familiasIds).Count)
-            //        {
-            //            return true;
-            //        }
-            //    }
-            //}
+            ////Revisar metodo que obtiene las patentes de las familias, que trae???? las patentes de una familia sola o de todas
+            ////if (!esBorrado)
+            ////{
+            ////    if (usuarioDAL.ObtenerPatentesDeUsuario(usuario.UsuarioId).Count == familiaDAL.ObtenerPatentesDeFamilias(familiasIds).Count)
+            ////    {
+            ////        if (usuario.Patentes.Count == familiaDAL.ObtenerPatentesDeFamilias(familiasIds).Count)
+            ////        {
+            ////            return true;
+            ////        }
+            ////    }
+            ////}
 
             CargarUsuariosGlobales(usuario, requestFamilia, usuariosGlobal);
 
             CargarDiccionario(usuario, diccionarioPatentes, usuariosGlobal);
-            // Uno de los problemas esta en este metodo no checkea una a una las patentes sino todo el diccionario y encima tiene un and habria que
-            // Separar las condiciones para hacer dos comprobaciones 
+            //// Uno de los problemas esta en este metodo no checkea una a una las patentes sino todo el diccionario y encima tiene un and habria que
+            //// Separar las condiciones para hacer dos comprobaciones 
             if (diccionarioPatentes.Count > 0 && diccionarioPatentes.All(x => x.Value > 0))
             {
                 return true;
@@ -310,25 +304,6 @@
             return false;
         }
 
-        private bool CheckeoDeFamiliasEnUsuariosSinPatentes(Usuario usuarioABorrar, List<Usuario> usuariosGlobales)
-        {
-            usuariosGlobales.Remove(usuarioABorrar);
-
-            if (usuariosGlobales.Any(usuarioG => usuarioG.Familia.Any(fam => usuarioABorrar.Familia.Any(uFam => uFam.FamiliaId == fam.FamiliaId))))
-            {
-                return true;
-            }
-
-            var patentesUsuario = usuarioABorrar.Familia.Select(fam => fam.Patentes).FirstOrDefault();
-            var patentesUsuariosGlobales = usuariosGlobales.Select(ug => ug.Patentes).ToList();
-
-            if (patentesUsuario.All(upat => patentesUsuariosGlobales.All(pats => pats.Any(pat => pat.IdPatente == upat.IdPatente))))
-            {
-                return true;
-            }
-            return false;
-        }
-
         public bool CheckeoFamiliaParaBorrar(Familia familiaABorrar, List<Usuario> usuariosGlobales)
         {
             if (familiaABorrar.Patentes.Count <= 0)
@@ -360,15 +335,17 @@
         {
             if (!paraNegarOquitarDeFamilia)
             {
-                //si tiene la patente en su familia puedo borrarsela sin problema
+                ////si tiene la patente en su familia puedo borrarsela sin problema
                 if (usuario.Familia.Select(fam => fam.Patentes.Any(patFU => patFU.IdPatente == patente.IdPatente)).FirstOrDefault())
                 {
                     return true;
                 }
             }
 
-            var patentesSinUsuarios = new List<Patente>();
-            patentesSinUsuarios.Add(patente);
+            var patentesSinUsuarios = new List<Patente>
+            {
+                patente
+            };
 
             usuariosGlobales.RemoveAll(usu => usu.UsuarioId == usuario.UsuarioId);
 
@@ -388,6 +365,44 @@
             }
 
             return false;
+        }
+
+        private static void CargarDiccionario(Usuario usuario, Dictionary<int, int> diccionarioPatentes, List<Usuario> usuariosGlobal)
+        {
+            ////Si el usuario no tiene patentes no esta cargando ninguna al diccionario no deberia ser asi.
+            foreach (var patenteUsuario in usuario.Patentes)
+            {
+                diccionarioPatentes.Add(patenteUsuario.IdPatente, 0);
+                var contador = 0;
+
+                foreach (var usuarioAComparar in usuariosGlobal)
+                {
+                    foreach (var patenteAComparar in usuarioAComparar.Patentes)
+                    {
+                        if (patenteUsuario.IdPatente == patenteAComparar.IdPatente)
+                        {
+                            contador++;
+                            diccionarioPatentes[patenteUsuario.IdPatente] = contador;
+                        }
+                    }
+                }
+            }
+        }
+
+        private static void RemoverIdsFamilias(bool requestFamiliaUsuario, int quitarId, List<Familia> familias)
+        {
+            if (requestFamiliaUsuario)
+            {
+                familias.RemoveAll(x => x.FamiliaId != quitarId);
+            }
+        }
+
+        private static void CargarFamilias(Usuario usuario, List<int> familiaId)
+        {
+            foreach (var idfam in familiaId)
+            {
+                usuario.Familia.Add(new Familia() { FamiliaId = idfam });
+            }
         }
 
         private List<Patente> ComprobarPatentesDeUsuariosPropiosYGlobales(Familia familiaABorrar, List<Usuario> usuariosGlobales)
@@ -410,7 +425,9 @@
                 {
                     patentesSinUsuarios.RemoveAll(patSinU => usuario.Patentes.Any(patU => patU.IdPatente == patSinU.IdPatente));
                 }
-                ///SE ESTAN BORRANDO TODOS LOS USUARIOS DE UNA FAMILIA POR ESO NO PERMITE BORRAR UNA FAMILIA QUE TIENEN 2 USUARIOS
+
+                ////SE ESTAN BORRANDO TODOS LOS USUARIOS DE UNA FAMILIA POR ESO NO PERMITE BORRAR UNA FAMILIA QUE TIENEN 2 USUARIOS
+
                 usuariosGlobales.RemoveAll(usu => usu.UsuarioId == usuario.UsuarioId);
             }
 
@@ -437,35 +454,13 @@
             return ObtenerTodasLasPatentesYUsuarios().Count > 0;
         }
 
-        private void CargaUsuario(Usuario usuario, bool requestFamiliaUsuario, int idAQuitar, List<Usuario> usuariosGlobal)
+        private void CargaUsuario(Usuario usuario, bool requestFamiliaUsuario, int quitarId, List<Usuario> usuariosGlobal)
         {
             usuariosGlobal.RemoveAll(x => x.UsuarioId == usuario.UsuarioId);
 
-            RemoverIdsFamilias(requestFamiliaUsuario, idAQuitar, usuario.Familia);
+            RemoverIdsFamilias(requestFamiliaUsuario, quitarId, usuario.Familia);
 
             SetearPatentesUsuario(usuario, usuario.Familia.Select(familia => familia.FamiliaId).ToList());
-        }
-
-        private static void CargarDiccionario(Usuario usuario, Dictionary<int, int> diccionarioPatentes, List<Usuario> usuariosGlobal)
-        {
-            //Si el usuario no tiene patentes no esta cargando ninguna al diccionario no deberia ser asi.
-            foreach (var patenteUsuario in usuario.Patentes)
-            {
-                diccionarioPatentes.Add(patenteUsuario.IdPatente, 0);
-                var contador = 0;
-
-                foreach (var usuarioAComparar in usuariosGlobal)
-                {
-                    foreach (var patenteAComparar in usuarioAComparar.Patentes)
-                    {
-                        if (patenteUsuario.IdPatente == patenteAComparar.IdPatente)
-                        {
-                            contador++;
-                            diccionarioPatentes[patenteUsuario.IdPatente] = contador;
-                        }
-                    }
-                }
-            }
         }
 
         private void CargarUsuariosGlobales(Usuario usuario, bool requestFamilia, List<Usuario> usuariosGlobal)
@@ -497,7 +492,6 @@
                         usuarioAComparar.Patentes.AddRange(familiaDAL.ObtenerPatentesFamilia(idfam));
                     }
                 }
-
             }
         }
 
@@ -514,34 +508,45 @@
             }
         }
 
-        private static void RemoverIdsFamilias(bool requestFamiliaUsuario, int idAQuitar, List<Familia> familias)
-        {
-            if (requestFamiliaUsuario)
-            {
-                familias.RemoveAll(x => x.FamiliaId != idAQuitar);
-            }
-        }
-
-        private static void CargarFamilias(Usuario usuario, List<int> familiaId)
-        {
-            foreach (var idfam in familiaId)
-            {
-                usuario.Familia.Add(new Familia() { FamiliaId = idfam });
-            }
-        }
-
         private void SetearPatentesUsuario(Usuario usuario, List<int> familiaId)
         {
-            //usuario.Patentes.AddRange(usuarioDAL.ObtenerPatentesDeUsuario(usuario.UsuarioId));
+            ////usuario.Patentes.AddRange(usuarioDAL.ObtenerPatentesDeUsuario(usuario.UsuarioId));
 
             usuario.Patentes.AddRange(familiaDAL.ObtenerPatentesDeFamilias(familiaId));
 
             usuario.Patentes = usuario.Patentes.GroupBy(p => p.IdPatente).Select(grp => grp.First()).ToList();
         }
 
-        public List<Patente> ObtenerPatentesUsuario(int usuarioId)
+        private List<UsuarioPatente> ObtenerTodasLasPatentesYUsuarios()
         {
-            return ConsultarPatenteUsuarioJOIN(usuarioId);
+            var optQuery = "SELECT * FROM UsuarioPatente";
+            var patentesUsuarios = new List<UsuarioPatente>();
+
+            CatchException(() =>
+            {
+                patentesUsuarios = Exec<UsuarioPatente>(optQuery);
+            });
+            return patentesUsuarios;
+        }
+
+        private bool CheckeoDeFamiliasEnUsuariosSinPatentes(Usuario usuarioABorrar, List<Usuario> usuariosGlobales)
+        {
+            usuariosGlobales.Remove(usuarioABorrar);
+
+            if (usuariosGlobales.Any(usuarioG => usuarioG.Familia.Any(fam => usuarioABorrar.Familia.Any(uFam => uFam.FamiliaId == fam.FamiliaId))))
+            {
+                return true;
+            }
+
+            var patentesUsuario = usuarioABorrar.Familia.Select(fam => fam.Patentes).FirstOrDefault();
+            var patentesUsuariosGlobales = usuariosGlobales.Select(ug => ug.Patentes).ToList();
+
+            if (patentesUsuario.All(upat => patentesUsuariosGlobales.All(pats => pats.Any(pat => pat.IdPatente == upat.IdPatente))))
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

@@ -5,6 +5,5 @@
 
     public interface IClienteBLL : ICRUD<Cliente>
     {
-        //Cliente ObtenerCliente(string text);
     }
 }

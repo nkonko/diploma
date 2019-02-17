@@ -29,7 +29,7 @@
 
         void BorrarPatentesUsuario(List<int> ids, int usuarioId);
 
-        bool CheckeoDePatentesParaBorrar(Usuario usuario, List<Usuario> UsuariosGlobales, bool requestFamilia = false, bool requestFamiliaUsuario = false, bool esBorrado = false, int idAQuitar = 0);
+        bool CheckeoDePatentesParaBorrar(Usuario usuario, List<Usuario> usuariosGlobales, bool requestFamilia = false, bool requestFamiliaUsuario = false, bool borrado = false, int quitarId = 0);
 
         List<Patente> ObtenerPatentesUsuario(int usuarioId);
 

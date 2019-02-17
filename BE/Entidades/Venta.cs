@@ -1,5 +1,4 @@
-﻿
-namespace BE.Entidades
+﻿namespace BE.Entidades
 {
     using System;
 

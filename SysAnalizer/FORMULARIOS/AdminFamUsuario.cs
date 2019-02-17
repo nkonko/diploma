@@ -21,10 +21,11 @@ namespace UI
 
         public Familia FamiliaSistemaSeleccionada { get; set; } = new Familia();
 
-        public AdminFamUsuario(IFamiliaBLL familiaBLL)
+        public AdminFamUsuario(IFamiliaBLL familiaBLL, IPatenteBLL patenteBLL)
         {
             InitializeComponent();
             this.familiaBLL = familiaBLL;
+            this.patenteBLL = patenteBLL;
         }
 
         private void AdminFamUsuario_Load(object sender, EventArgs e)

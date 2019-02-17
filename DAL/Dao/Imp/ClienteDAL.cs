@@ -25,7 +25,7 @@
             });
         }
 
-        public void ActualizarSaldo(int Saldo)
+        public void ActualizarSaldo(int saldo)
         {
         }
 
@@ -52,7 +52,7 @@
         public bool Crear(Cliente objAlta)
         {
             var cuentaQueryString = "INSERT INTO CuentaCorriente (Saldo) Values (5000)";
-            var idCuenta = 0;
+            var cuentaId = 0;
             CatchException(() =>
             {
                 Exec(cuentaQueryString);
@@ -62,10 +62,10 @@
 
             CatchException(() =>
             {
-                idCuenta = Exec<int>(lastIndexString)[0];
+                cuentaId = Exec<int>(lastIndexString)[0];
             });
 
-            var queryString = "INSERT INTO Cliente(CuentaCorrienteId, NombreCompleto, Email, Telefono, Domicilio, Activo) VALUES (" + idCuenta + ", @nombre, @email, @telefono," +
+            var queryString = "INSERT INTO Cliente(CuentaCorrienteId, NombreCompleto, Email, Telefono, Domicilio, Activo) VALUES (" + cuentaId + ", @nombre, @email, @telefono," +
                 " @domicilio, @activo)";
 
             return CatchException(() =>

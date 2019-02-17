@@ -7,15 +7,15 @@
     using EasyEncryption;
     using System;
     using System.Collections.Generic;
-    using System.Data;
     using System.Linq;
     using System.Text;
 
     public class BitacoraDAL : BaseDao, IBitacoraDAL
     {
+        public const string Key = "bZr2URKx";
+        public const string Code = "HNtgQw0w";
+
         private readonly IDigitoVerificador digitoVerificador;
-        public const string key = "bZr2URKx";
-        public const string iv = "HNtgQw0w";
 
         public BitacoraDAL(IDigitoVerificador digitoVerificador)
         {
@@ -113,7 +113,7 @@
                 bitacoras = Exec<Bitacora>(query);
             });
 
-            bitacoras.ForEach(x => x.InformacionAsociada = DES.Decrypt(x.InformacionAsociada, key, iv));
+            bitacoras.ForEach(x => x.InformacionAsociada = DES.Decrypt(x.InformacionAsociada, Key, Code));
 
             return bitacoras;
         }

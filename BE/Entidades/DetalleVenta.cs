@@ -8,7 +8,7 @@
 
         public int VentaId { get; set; }
 
-        public Venta venta { get; set; }
+        public Venta Venta { get; set; }
 
         public List<Producto> Productos { get; set; }
 
