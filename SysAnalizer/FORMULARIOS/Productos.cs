@@ -11,17 +11,13 @@ namespace UI
         private readonly IProductoBLL productoBLL;
 
         private Producto productoSeleccionado;
+
         public bool formUserClose = true;
 
         public Productos(IProductoBLL productoBLL)
         {
             this.productoBLL = productoBLL;
             InitializeComponent();
-        }
-
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
         }
 
         private void Productos_Load(object sender, EventArgs e)
@@ -101,7 +97,7 @@ namespace UI
             Hide();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnInactivos_Click(object sender, EventArgs e)
         {
 
         }

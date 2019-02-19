@@ -10,9 +10,13 @@ namespace UI
     public partial class Clientes : Form, IClientes
     {
         private readonly IClienteBLL clienteBLL;
+
         public List<Cliente> ClientesBd { get; set; } = new List<Cliente>();
-        public Cliente ClienteSeleccionado { get; set; } = new Cliente();
+
+        public Cliente ClienteSeleccionado { get; set; } 
+
         public bool formUserClose = true;
+
         public Clientes(IClienteBLL clienteBLL)
         {
             this.clienteBLL = clienteBLL;
@@ -23,7 +27,7 @@ namespace UI
         {
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void btnSelClie_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.OK;
             formUserClose = false;
@@ -32,6 +36,11 @@ namespace UI
         private void Clientes_Load(object sender, EventArgs e)
         {
             dgClientes.AutoGenerateColumns = false;
+            CargarClientes();
+        }
+
+        private void CargarClientes()
+        {
             ClientesBd = clienteBLL.Cargar();
             dgClientes.DataSource = ClientesBd;
         }
@@ -43,7 +52,7 @@ namespace UI
                 : ClienteSeleccionado = (Cliente)dgClientes.CurrentRow.DataBoundItem;
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void btnVolver_Click(object sender, EventArgs e)
         {
             Hide();
         }
@@ -57,20 +66,15 @@ namespace UI
             Hide();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnNuevo_Click(object sender, EventArgs e)
         {
             var exito = clienteBLL.Crear(new Cliente() { NombreCompleto = txtNombre.Text, Domicilio = txtDomicilio.Text, Email = txtEmail.Text, Telefono = txtTelefono.Text, Activo = true });
-            dgClientes.DataSource = clienteBLL.Cargar();
+            CargarClientes();
 
             if (exito)
             {
                 MessageBox.Show("Cliente Creado");
             }
-        }
-
-        private void Clientes_Enter(object sender, EventArgs e)
-        {
-            dgClientes.DataSource = clienteBLL.Cargar();
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
@@ -85,6 +89,7 @@ namespace UI
 
         private void dgClientes_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            ClienteSeleccionado = null;
             ObtenerClienteSeleccionado();
             CargaControles();
         }

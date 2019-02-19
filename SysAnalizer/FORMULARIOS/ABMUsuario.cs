@@ -301,34 +301,42 @@ namespace UI
 
         private void btn_modificar_Click(object sender, EventArgs e)
         {
-            var permitir = verificarDatos();
-            if (permitir)
+            if (!usuariosBD.Exists(usuario => usuario.Email == txtEmail.Text))
             {
-                var modificado = usuarioBLL.Actualizar(new Usuario() { Nombre = txtNombre.Text, Apellido = txtApellido.Text, Email = txtEmail.Text, Telefono = int.Parse(txtTel.Text), Domicilio = txtDomicilio.Text, PrimerLogin = true, ContadorIngresosIncorrectos = 0, Activo = true });
-
-                if (modificado)
+                var permitir = verificarDatos();
+                if (permitir)
                 {
-                    if (digitoVerificador.ComprobarPrimerDigito(digitoVerificador.Entidades.Find(x => x == entidad)))
+                    var modificado = usuarioBLL.Actualizar(new Usuario() { Nombre = txtNombre.Text, Apellido = txtApellido.Text, Email = txtEmail.Text, Telefono = int.Parse(txtTel.Text), Domicilio = txtDomicilio.Text, PrimerLogin = true, ContadorIngresosIncorrectos = 0, Activo = true });
+
+                    if (modificado)
                     {
-                        digitoVerificador.InsertarDVVertical(digitoVerificador.Entidades.Find(x => x == entidad));
+                        if (digitoVerificador.ComprobarPrimerDigito(digitoVerificador.Entidades.Find(x => x == entidad)))
+                        {
+                            digitoVerificador.InsertarDVVertical(digitoVerificador.Entidades.Find(x => x == entidad));
+                        }
+                        else
+                        {
+                            digitoVerificador.ActualizarDVVertical(digitoVerificador.Entidades.Find(x => x == entidad));
+                        }
+
+                        Log4netExtensions.Baja(log, string.Format("Se ha modificado al usuario {0}", DES.Decrypt(UsuarioSeleccionado.Email, key, iv)));
+                        bitacoraBLL.RegistrarEnBitacora(UsuarioActivo);
+                        Alert.ShowSimpleAlert("Modificacion exitosa", "MSJ023");
+                        CargarRefrescarDatagrid();
                     }
                     else
                     {
-                        digitoVerificador.ActualizarDVVertical(digitoVerificador.Entidades.Find(x => x == entidad));
+                        Log4netExtensions.Baja(log, "La modificacion ha fallado");
+                        bitacoraBLL.RegistrarEnBitacora(UsuarioActivo);
+                        Alert.ShowSimpleAlert("La modificacion ha fallado", "MSJ025");
+                        CargarRefrescarDatagrid();
                     }
-
-                    Log4netExtensions.Baja(log, string.Format("Se ha modificado al usuario {0}", DES.Decrypt(UsuarioSeleccionado.Email, key, iv)));
-                    bitacoraBLL.RegistrarEnBitacora(UsuarioActivo);
-                    Alert.ShowSimpleAlert("Modificacion exitosa", "MSJ023");
-                    CargarRefrescarDatagrid();
                 }
-                else
-                {
-                    Log4netExtensions.Baja(log, "La modificacion ha fallado");
-                    bitacoraBLL.RegistrarEnBitacora(UsuarioActivo);
-                    Alert.ShowSimpleAlert("La modificacion ha fallado", "MSJ025");
-                    CargarRefrescarDatagrid();
-                }
+            }
+            else
+            {
+                Alert.ShowSimpleAlert("No pueden haber 2 usuarios con el mismo email", "MSJ021");
+                Log4netExtensions.Alta(log, "Se intento guardar o modificar un usuario con el mismo email");
             }
         }
 

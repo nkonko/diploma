@@ -29,14 +29,14 @@ namespace UI
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnNuevas = new System.Windows.Forms.Button();
+            this.btnNuevo = new System.Windows.Forms.Button();
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.txtDomicilio = new System.Windows.Forms.TextBox();
             this.btnModificar = new System.Windows.Forms.Button();
             this.btnBorrar = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblNombreCom = new System.Windows.Forms.Label();
             this.btnSelClie = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lblDomicilio = new System.Windows.Forms.Label();
             this.dgClientes = new System.Windows.Forms.DataGridView();
             this.ClienteId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -46,44 +46,44 @@ namespace UI
             this.btnVolver = new System.Windows.Forms.Button();
             this.lblemail = new System.Windows.Forms.Label();
             this.txtEmail = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblTelefono = new System.Windows.Forms.Label();
             this.txtTelefono = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgClientes)).BeginInit();
             this.SuspendLayout();
             // 
-            // btnNuevas
+            // btnNuevo
             // 
-            this.btnNuevas.Location = new System.Drawing.Point(10, 53);
-            this.btnNuevas.Margin = new System.Windows.Forms.Padding(2);
-            this.btnNuevas.Name = "btnNuevas";
-            this.btnNuevas.Size = new System.Drawing.Size(74, 27);
-            this.btnNuevas.TabIndex = 1;
-            this.btnNuevas.Text = "Nuevo";
-            this.btnNuevas.UseVisualStyleBackColor = true;
-            this.btnNuevas.Click += new System.EventHandler(this.button1_Click);
+            this.btnNuevo.Location = new System.Drawing.Point(13, 65);
+            this.btnNuevo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnNuevo.Name = "btnNuevo";
+            this.btnNuevo.Size = new System.Drawing.Size(99, 33);
+            this.btnNuevo.TabIndex = 1;
+            this.btnNuevo.Text = "Nuevo";
+            this.btnNuevo.UseVisualStyleBackColor = true;
+            this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
             // 
             // txtNombre
             // 
-            this.txtNombre.Location = new System.Drawing.Point(201, 53);
-            this.txtNombre.Margin = new System.Windows.Forms.Padding(2);
+            this.txtNombre.Location = new System.Drawing.Point(268, 65);
+            this.txtNombre.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtNombre.Name = "txtNombre";
-            this.txtNombre.Size = new System.Drawing.Size(156, 20);
+            this.txtNombre.Size = new System.Drawing.Size(207, 22);
             this.txtNombre.TabIndex = 2;
             // 
             // txtDomicilio
             // 
-            this.txtDomicilio.Location = new System.Drawing.Point(201, 90);
-            this.txtDomicilio.Margin = new System.Windows.Forms.Padding(2);
+            this.txtDomicilio.Location = new System.Drawing.Point(268, 111);
+            this.txtDomicilio.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtDomicilio.Name = "txtDomicilio";
-            this.txtDomicilio.Size = new System.Drawing.Size(156, 20);
+            this.txtDomicilio.Size = new System.Drawing.Size(207, 22);
             this.txtDomicilio.TabIndex = 4;
             // 
             // btnModificar
             // 
-            this.btnModificar.Location = new System.Drawing.Point(10, 107);
-            this.btnModificar.Margin = new System.Windows.Forms.Padding(2);
+            this.btnModificar.Location = new System.Drawing.Point(13, 132);
+            this.btnModificar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnModificar.Name = "btnModificar";
-            this.btnModificar.Size = new System.Drawing.Size(74, 27);
+            this.btnModificar.Size = new System.Drawing.Size(99, 33);
             this.btnModificar.TabIndex = 5;
             this.btnModificar.Text = "Modificar";
             this.btnModificar.UseVisualStyleBackColor = true;
@@ -91,45 +91,43 @@ namespace UI
             // 
             // btnBorrar
             // 
-            this.btnBorrar.Location = new System.Drawing.Point(10, 157);
-            this.btnBorrar.Margin = new System.Windows.Forms.Padding(2);
+            this.btnBorrar.Location = new System.Drawing.Point(13, 193);
+            this.btnBorrar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnBorrar.Name = "btnBorrar";
-            this.btnBorrar.Size = new System.Drawing.Size(74, 27);
+            this.btnBorrar.Size = new System.Drawing.Size(99, 33);
             this.btnBorrar.TabIndex = 6;
             this.btnBorrar.Text = "Borrar";
             this.btnBorrar.UseVisualStyleBackColor = true;
             this.btnBorrar.Click += new System.EventHandler(this.btnBorrar_Click);
             // 
-            // label1
+            // lblNombreCom
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(100, 53);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(97, 13);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "Nombre Completo :";
+            this.lblNombreCom.AutoSize = true;
+            this.lblNombreCom.Location = new System.Drawing.Point(133, 65);
+            this.lblNombreCom.Name = "lblNombreCom";
+            this.lblNombreCom.Size = new System.Drawing.Size(129, 17);
+            this.lblNombreCom.TabIndex = 7;
+            this.lblNombreCom.Text = "Nombre Completo :";
             // 
             // btnSelClie
             // 
-            this.btnSelClie.Location = new System.Drawing.Point(10, 427);
-            this.btnSelClie.Margin = new System.Windows.Forms.Padding(2);
+            this.btnSelClie.Location = new System.Drawing.Point(13, 526);
+            this.btnSelClie.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSelClie.Name = "btnSelClie";
-            this.btnSelClie.Size = new System.Drawing.Size(126, 27);
+            this.btnSelClie.Size = new System.Drawing.Size(168, 33);
             this.btnSelClie.TabIndex = 9;
             this.btnSelClie.Text = "Seleccionar para venta";
             this.btnSelClie.UseVisualStyleBackColor = true;
-            this.btnSelClie.Click += new System.EventHandler(this.button4_Click);
+            this.btnSelClie.Click += new System.EventHandler(this.btnSelClie_Click);
             // 
-            // label3
+            // lblDomicilio
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(143, 92);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(58, 13);
-            this.label3.TabIndex = 10;
-            this.label3.Text = "Domicilio : ";
+            this.lblDomicilio.AutoSize = true;
+            this.lblDomicilio.Location = new System.Drawing.Point(191, 113);
+            this.lblDomicilio.Name = "lblDomicilio";
+            this.lblDomicilio.Size = new System.Drawing.Size(76, 17);
+            this.lblDomicilio.TabIndex = 10;
+            this.lblDomicilio.Text = "Domicilio : ";
             // 
             // dgClientes
             // 
@@ -142,12 +140,12 @@ namespace UI
             this.NombreCompleto,
             this.Saldo,
             this.Domicilio});
-            this.dgClientes.Location = new System.Drawing.Point(10, 217);
-            this.dgClientes.Margin = new System.Windows.Forms.Padding(2);
+            this.dgClientes.Location = new System.Drawing.Point(13, 267);
+            this.dgClientes.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgClientes.Name = "dgClientes";
             this.dgClientes.ReadOnly = true;
             this.dgClientes.RowTemplate.Height = 24;
-            this.dgClientes.Size = new System.Drawing.Size(520, 182);
+            this.dgClientes.Size = new System.Drawing.Size(693, 224);
             this.dgClientes.TabIndex = 13;
             this.dgClientes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgClientes_CellClick);
             // 
@@ -188,76 +186,73 @@ namespace UI
             // 
             // btnVolver
             // 
-            this.btnVolver.Location = new System.Drawing.Point(10, 10);
-            this.btnVolver.Margin = new System.Windows.Forms.Padding(2);
+            this.btnVolver.Location = new System.Drawing.Point(13, 12);
+            this.btnVolver.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnVolver.Name = "btnVolver";
-            this.btnVolver.Size = new System.Drawing.Size(74, 27);
+            this.btnVolver.Size = new System.Drawing.Size(99, 33);
             this.btnVolver.TabIndex = 14;
             this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = true;
-            this.btnVolver.Click += new System.EventHandler(this.button5_Click);
+            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
             // 
             // lblemail
             // 
             this.lblemail.AutoSize = true;
-            this.lblemail.Location = new System.Drawing.Point(155, 132);
-            this.lblemail.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblemail.Location = new System.Drawing.Point(207, 162);
             this.lblemail.Name = "lblemail";
-            this.lblemail.Size = new System.Drawing.Size(35, 13);
+            this.lblemail.Size = new System.Drawing.Size(46, 17);
             this.lblemail.TabIndex = 16;
             this.lblemail.Text = "Email:";
             // 
             // txtEmail
             // 
-            this.txtEmail.Location = new System.Drawing.Point(201, 129);
-            this.txtEmail.Margin = new System.Windows.Forms.Padding(2);
+            this.txtEmail.Location = new System.Drawing.Point(268, 159);
+            this.txtEmail.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(156, 20);
+            this.txtEmail.Size = new System.Drawing.Size(207, 22);
             this.txtEmail.TabIndex = 15;
             // 
-            // label2
+            // lblTelefono
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(138, 171);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(52, 13);
-            this.label2.TabIndex = 18;
-            this.label2.Text = "Telefono:";
+            this.lblTelefono.AutoSize = true;
+            this.lblTelefono.Location = new System.Drawing.Point(184, 210);
+            this.lblTelefono.Name = "lblTelefono";
+            this.lblTelefono.Size = new System.Drawing.Size(68, 17);
+            this.lblTelefono.TabIndex = 18;
+            this.lblTelefono.Text = "Telefono:";
             // 
             // txtTelefono
             // 
-            this.txtTelefono.Location = new System.Drawing.Point(201, 168);
-            this.txtTelefono.Margin = new System.Windows.Forms.Padding(2);
+            this.txtTelefono.Location = new System.Drawing.Point(268, 207);
+            this.txtTelefono.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtTelefono.Name = "txtTelefono";
-            this.txtTelefono.Size = new System.Drawing.Size(156, 20);
+            this.txtTelefono.Size = new System.Drawing.Size(207, 22);
             this.txtTelefono.TabIndex = 17;
             // 
             // Clientes
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(542, 467);
-            this.Controls.Add(this.label2);
+            this.ClientSize = new System.Drawing.Size(723, 575);
+            this.Controls.Add(this.lblTelefono);
             this.Controls.Add(this.txtTelefono);
             this.Controls.Add(this.lblemail);
             this.Controls.Add(this.txtEmail);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.dgClientes);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.lblDomicilio);
             this.Controls.Add(this.btnSelClie);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblNombreCom);
             this.Controls.Add(this.btnBorrar);
             this.Controls.Add(this.btnModificar);
             this.Controls.Add(this.txtDomicilio);
             this.Controls.Add(this.txtNombre);
-            this.Controls.Add(this.btnNuevas);
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Controls.Add(this.btnNuevo);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Clientes";
             this.Text = "Clientes";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Clientes_FormClosing);
             this.Load += new System.EventHandler(this.Clientes_Load);
-            this.Enter += new System.EventHandler(this.Clientes_Enter);
             ((System.ComponentModel.ISupportInitialize)(this.dgClientes)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -266,19 +261,19 @@ namespace UI
 
         #endregion
 
-        private System.Windows.Forms.Button btnNuevas;
+        private System.Windows.Forms.Button btnNuevo;
         private System.Windows.Forms.TextBox txtNombre;
         private System.Windows.Forms.TextBox txtDomicilio;
         private System.Windows.Forms.Button btnModificar;
         private System.Windows.Forms.Button btnBorrar;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblNombreCom;
         private System.Windows.Forms.Button btnSelClie;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblDomicilio;
         private System.Windows.Forms.DataGridView dgClientes;
         private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.Label lblemail;
         private System.Windows.Forms.TextBox txtEmail;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblTelefono;
         private System.Windows.Forms.TextBox txtTelefono;
         private System.Windows.Forms.DataGridViewTextBoxColumn ClienteId;
         private System.Windows.Forms.DataGridViewTextBoxColumn Email;
