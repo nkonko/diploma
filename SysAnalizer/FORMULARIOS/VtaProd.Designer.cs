@@ -38,38 +38,35 @@ namespace UI
             this.radioVtaSimple = new System.Windows.Forms.RadioButton();
             this.radioVtaCC = new System.Windows.Forms.RadioButton();
             this.dgVenta = new System.Windows.Forms.DataGridView();
-            this.btnSelProd = new System.Windows.Forms.Button();
-            this.lblFecha = new System.Windows.Forms.Label();
-            this.btnVolver = new System.Windows.Forms.Button();
-            this.btnFinalizar = new System.Windows.Forms.Button();
-            this.btnCancelarVta = new System.Windows.Forms.Button();
-            this.rbSe = new System.Windows.Forms.RadioButton();
             this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Monto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ClienteId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TipoVentaId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.UsuarioId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EstadoId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnSelProd = new System.Windows.Forms.Button();
+            this.btnVolver = new System.Windows.Forms.Button();
+            this.btnFinalizar = new System.Windows.Forms.Button();
+            this.btnCancelarVta = new System.Windows.Forms.Button();
+            this.rbSe = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.dgVenta)).BeginInit();
             this.SuspendLayout();
             // 
             // lblCliente
             // 
             this.lblCliente.AutoSize = true;
-            this.lblCliente.Location = new System.Drawing.Point(12, 58);
-            this.lblCliente.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblCliente.Location = new System.Drawing.Point(16, 71);
             this.lblCliente.Name = "lblCliente";
-            this.lblCliente.Size = new System.Drawing.Size(55, 13);
+            this.lblCliente.Size = new System.Drawing.Size(69, 17);
             this.lblCliente.TabIndex = 0;
             this.lblCliente.Text = "CLIENTE:";
-            this.lblCliente.Click += new System.EventHandler(this.label1_Click);
             // 
             // btnSelCliente
             // 
-            this.btnSelCliente.Location = new System.Drawing.Point(14, 83);
-            this.btnSelCliente.Margin = new System.Windows.Forms.Padding(2);
+            this.btnSelCliente.Location = new System.Drawing.Point(19, 102);
+            this.btnSelCliente.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSelCliente.Name = "btnSelCliente";
-            this.btnSelCliente.Size = new System.Drawing.Size(91, 49);
+            this.btnSelCliente.Size = new System.Drawing.Size(121, 60);
             this.btnSelCliente.TabIndex = 1;
             this.btnSelCliente.Text = "Seleccionar Cliente";
             this.btnSelCliente.UseVisualStyleBackColor = true;
@@ -78,37 +75,34 @@ namespace UI
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 150);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Location = new System.Drawing.Point(16, 185);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(113, 13);
+            this.label2.Size = new System.Drawing.Size(146, 17);
             this.label2.TabIndex = 2;
             this.label2.Text = "CODIGO PRODUCTO";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // txtCodProd
             // 
-            this.txtCodProd.Location = new System.Drawing.Point(14, 165);
-            this.txtCodProd.Margin = new System.Windows.Forms.Padding(2);
+            this.txtCodProd.Location = new System.Drawing.Point(19, 203);
+            this.txtCodProd.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtCodProd.Name = "txtCodProd";
-            this.txtCodProd.Size = new System.Drawing.Size(132, 20);
+            this.txtCodProd.Size = new System.Drawing.Size(175, 22);
             this.txtCodProd.TabIndex = 3;
             // 
             // txtCant
             // 
-            this.txtCant.Location = new System.Drawing.Point(14, 206);
-            this.txtCant.Margin = new System.Windows.Forms.Padding(2);
+            this.txtCant.Location = new System.Drawing.Point(19, 254);
+            this.txtCant.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtCant.Name = "txtCant";
-            this.txtCant.Size = new System.Drawing.Size(72, 20);
+            this.txtCant.Size = new System.Drawing.Size(95, 22);
             this.txtCant.TabIndex = 5;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 191);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Location = new System.Drawing.Point(16, 235);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(62, 13);
+            this.label3.Size = new System.Drawing.Size(77, 17);
             this.label3.TabIndex = 4;
             this.label3.Text = "CANTIDAD";
             // 
@@ -116,10 +110,10 @@ namespace UI
             // 
             this.radioVtaSimple.AutoSize = true;
             this.radioVtaSimple.Checked = true;
-            this.radioVtaSimple.Location = new System.Drawing.Point(136, 34);
-            this.radioVtaSimple.Margin = new System.Windows.Forms.Padding(2);
+            this.radioVtaSimple.Location = new System.Drawing.Point(181, 42);
+            this.radioVtaSimple.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.radioVtaSimple.Name = "radioVtaSimple";
-            this.radioVtaSimple.Size = new System.Drawing.Size(87, 17);
+            this.radioVtaSimple.Size = new System.Drawing.Size(112, 21);
             this.radioVtaSimple.TabIndex = 6;
             this.radioVtaSimple.TabStop = true;
             this.radioVtaSimple.Text = "Venta Simple";
@@ -128,10 +122,11 @@ namespace UI
             // radioVtaCC
             // 
             this.radioVtaCC.AutoSize = true;
-            this.radioVtaCC.Location = new System.Drawing.Point(136, 58);
-            this.radioVtaCC.Margin = new System.Windows.Forms.Padding(2);
+            this.radioVtaCC.Enabled = false;
+            this.radioVtaCC.Location = new System.Drawing.Point(181, 71);
+            this.radioVtaCC.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.radioVtaCC.Name = "radioVtaCC";
-            this.radioVtaCC.Size = new System.Drawing.Size(135, 17);
+            this.radioVtaCC.Size = new System.Drawing.Size(177, 21);
             this.radioVtaCC.TabIndex = 7;
             this.radioVtaCC.Text = "Venta Cuenta Corriente";
             this.radioVtaCC.UseVisualStyleBackColor = true;
@@ -148,79 +143,14 @@ namespace UI
             this.TipoVentaId,
             this.UsuarioId,
             this.EstadoId});
-            this.dgVenta.Location = new System.Drawing.Point(284, 12);
-            this.dgVenta.Margin = new System.Windows.Forms.Padding(2);
+            this.dgVenta.Location = new System.Drawing.Point(379, 15);
+            this.dgVenta.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgVenta.Name = "dgVenta";
             this.dgVenta.ReadOnly = true;
             this.dgVenta.RowTemplate.Height = 24;
-            this.dgVenta.Size = new System.Drawing.Size(544, 346);
+            this.dgVenta.Size = new System.Drawing.Size(725, 426);
             this.dgVenta.TabIndex = 8;
             this.dgVenta.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            // 
-            // btnSelProd
-            // 
-            this.btnSelProd.Location = new System.Drawing.Point(14, 236);
-            this.btnSelProd.Margin = new System.Windows.Forms.Padding(2);
-            this.btnSelProd.Name = "btnSelProd";
-            this.btnSelProd.Size = new System.Drawing.Size(91, 49);
-            this.btnSelProd.TabIndex = 9;
-            this.btnSelProd.Text = "Seleccionar Producto";
-            this.btnSelProd.UseVisualStyleBackColor = true;
-            this.btnSelProd.Click += new System.EventHandler(this.btnSelProd_Click);
-            // 
-            // lblFecha
-            // 
-            this.lblFecha.AutoSize = true;
-            this.lblFecha.Location = new System.Drawing.Point(12, 344);
-            this.lblFecha.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblFecha.Name = "lblFecha";
-            this.lblFecha.Size = new System.Drawing.Size(37, 13);
-            this.lblFecha.TabIndex = 10;
-            this.lblFecha.Text = "fecha:";
-            this.lblFecha.Click += new System.EventHandler(this.lblFecha_Click);
-            // 
-            // btnVolver
-            // 
-            this.btnVolver.Location = new System.Drawing.Point(9, 10);
-            this.btnVolver.Margin = new System.Windows.Forms.Padding(2);
-            this.btnVolver.Name = "btnVolver";
-            this.btnVolver.Size = new System.Drawing.Size(64, 25);
-            this.btnVolver.TabIndex = 11;
-            this.btnVolver.Text = "Volver";
-            this.btnVolver.UseVisualStyleBackColor = true;
-            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
-            // 
-            // btnFinalizar
-            // 
-            this.btnFinalizar.Location = new System.Drawing.Point(205, 317);
-            this.btnFinalizar.Margin = new System.Windows.Forms.Padding(2);
-            this.btnFinalizar.Name = "btnFinalizar";
-            this.btnFinalizar.Size = new System.Drawing.Size(75, 41);
-            this.btnFinalizar.TabIndex = 13;
-            this.btnFinalizar.Text = "Finalizar Venta";
-            this.btnFinalizar.UseVisualStyleBackColor = true;
-            this.btnFinalizar.Click += new System.EventHandler(this.btnFinalizar_Click);
-            // 
-            // btnCancelarVta
-            // 
-            this.btnCancelarVta.Location = new System.Drawing.Point(104, 317);
-            this.btnCancelarVta.Name = "btnCancelarVta";
-            this.btnCancelarVta.Size = new System.Drawing.Size(75, 40);
-            this.btnCancelarVta.TabIndex = 14;
-            this.btnCancelarVta.Text = "Cancelar Venta";
-            this.btnCancelarVta.UseVisualStyleBackColor = true;
-            this.btnCancelarVta.Click += new System.EventHandler(this.btnCancelarVta_Click);
-            // 
-            // rbSe
-            // 
-            this.rbSe.AutoSize = true;
-            this.rbSe.Location = new System.Drawing.Point(136, 83);
-            this.rbSe.Margin = new System.Windows.Forms.Padding(2);
-            this.rbSe.Name = "rbSe";
-            this.rbSe.Size = new System.Drawing.Size(50, 17);
-            this.rbSe.TabIndex = 15;
-            this.rbSe.Text = "Seña";
-            this.rbSe.UseVisualStyleBackColor = true;
             // 
             // Fecha
             // 
@@ -264,16 +194,70 @@ namespace UI
             this.EstadoId.Name = "EstadoId";
             this.EstadoId.ReadOnly = true;
             // 
+            // btnSelProd
+            // 
+            this.btnSelProd.Location = new System.Drawing.Point(19, 290);
+            this.btnSelProd.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnSelProd.Name = "btnSelProd";
+            this.btnSelProd.Size = new System.Drawing.Size(121, 60);
+            this.btnSelProd.TabIndex = 9;
+            this.btnSelProd.Text = "Seleccionar Producto";
+            this.btnSelProd.UseVisualStyleBackColor = true;
+            this.btnSelProd.Click += new System.EventHandler(this.btnSelProd_Click);
+            // 
+            // btnVolver
+            // 
+            this.btnVolver.Location = new System.Drawing.Point(12, 12);
+            this.btnVolver.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnVolver.Name = "btnVolver";
+            this.btnVolver.Size = new System.Drawing.Size(85, 31);
+            this.btnVolver.TabIndex = 11;
+            this.btnVolver.Text = "Volver";
+            this.btnVolver.UseVisualStyleBackColor = true;
+            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
+            // 
+            // btnFinalizar
+            // 
+            this.btnFinalizar.Location = new System.Drawing.Point(273, 390);
+            this.btnFinalizar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnFinalizar.Name = "btnFinalizar";
+            this.btnFinalizar.Size = new System.Drawing.Size(100, 50);
+            this.btnFinalizar.TabIndex = 13;
+            this.btnFinalizar.Text = "Agregar producto";
+            this.btnFinalizar.UseVisualStyleBackColor = true;
+            this.btnFinalizar.Click += new System.EventHandler(this.btnFinalizar_Click);
+            // 
+            // btnCancelarVta
+            // 
+            this.btnCancelarVta.Location = new System.Drawing.Point(139, 390);
+            this.btnCancelarVta.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCancelarVta.Name = "btnCancelarVta";
+            this.btnCancelarVta.Size = new System.Drawing.Size(100, 49);
+            this.btnCancelarVta.TabIndex = 14;
+            this.btnCancelarVta.Text = "Cancelar Venta";
+            this.btnCancelarVta.UseVisualStyleBackColor = true;
+            this.btnCancelarVta.Click += new System.EventHandler(this.btnCancelarVta_Click);
+            // 
+            // rbSe
+            // 
+            this.rbSe.AutoSize = true;
+            this.rbSe.Location = new System.Drawing.Point(181, 102);
+            this.rbSe.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.rbSe.Name = "rbSe";
+            this.rbSe.Size = new System.Drawing.Size(62, 21);
+            this.rbSe.TabIndex = 15;
+            this.rbSe.Text = "Seña";
+            this.rbSe.UseVisualStyleBackColor = true;
+            // 
             // VtaProd
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(842, 383);
+            this.ClientSize = new System.Drawing.Size(1123, 471);
             this.Controls.Add(this.rbSe);
             this.Controls.Add(this.btnCancelarVta);
             this.Controls.Add(this.btnFinalizar);
             this.Controls.Add(this.btnVolver);
-            this.Controls.Add(this.lblFecha);
             this.Controls.Add(this.btnSelProd);
             this.Controls.Add(this.dgVenta);
             this.Controls.Add(this.radioVtaCC);
@@ -284,7 +268,7 @@ namespace UI
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnSelCliente);
             this.Controls.Add(this.lblCliente);
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "VtaProd";
             this.Text = "Venta_de_productos";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.VtaProd_FormClosing);
@@ -307,7 +291,6 @@ namespace UI
         private System.Windows.Forms.RadioButton radioVtaCC;
         private System.Windows.Forms.DataGridView dgVenta;
         private System.Windows.Forms.Button btnSelProd;
-        private System.Windows.Forms.Label lblFecha;
         private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.Button btnFinalizar;
         private System.Windows.Forms.Button btnCancelarVta;

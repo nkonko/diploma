@@ -10,7 +10,7 @@ namespace UI
     {
         private readonly IProductoBLL productoBLL;
 
-        private Producto productoSeleccionado;
+        private Producto productoSeleccionado = new Producto();
 
         public bool formUserClose = true;
 
@@ -24,7 +24,7 @@ namespace UI
         {
             dgProd.AutoGenerateColumns = false;
             productoSeleccionado = null;
-            dgProd.DataSource = productoBLL.Cargar();
+            CargarProductos();
         }
 
         private void btnNuevo_Click(object sender, EventArgs e)
@@ -34,7 +34,7 @@ namespace UI
             if (exito)
             {
                 MessageBox.Show("Producto Creado");
-                dgProd.DataSource = productoBLL.Cargar();
+                CargarProductos();
             }
         }
 
@@ -45,7 +45,7 @@ namespace UI
             if (exito)
             {
                 MessageBox.Show("Producto Actualizado");
-                dgProd.DataSource = productoBLL.Cargar();
+                CargarProductos();
             }
         }
 
@@ -56,7 +56,7 @@ namespace UI
             if (exito)
             {
                 MessageBox.Show("Producto Borrado");
-                dgProd.DataSource = productoBLL.Cargar();
+                CargarProductos();
             }
         }
 
@@ -67,23 +67,13 @@ namespace UI
 
         private void btnSelVta_Click(object sender, EventArgs e)
         {
-            var producto = (Producto)dgProd.CurrentRow.DataBoundItem;
-
-            productoSeleccionado = new Producto()
-            {
-                Descripcion = producto.Descripcion,
-                ProductoId = producto.ProductoId,
-                PVenta = producto.PVenta,
-                PUnitario = producto.PUnitario,
-                Stock = producto.Stock,
-                MinStock = producto.MinStock
-            };
+            ActualizarSeleccionado();
 
             formUserClose = false;
             DialogResult = DialogResult.OK;
         }
 
-        public Producto GetProductoSeleccionado()
+        public Producto ObtenerProductoSeleccionado()
         {
             return productoSeleccionado;
         }
@@ -104,8 +94,13 @@ namespace UI
 
         private void dgProd_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            productoSeleccionado = (Producto)dgProd.CurrentRow.DataBoundItem;
+            ActualizarSeleccionado();
             CargaControles();
+        }
+
+        private void ActualizarSeleccionado()
+        {
+            productoSeleccionado = (Producto)dgProd.CurrentRow.DataBoundItem;
         }
 
         private void CargaControles()
@@ -117,8 +112,25 @@ namespace UI
                 txtPcosto.Text = productoSeleccionado.PVenta.ToString();
                 txtCantidad.Text = productoSeleccionado.Stock.ToString();
                 txtMinStock.Text = productoSeleccionado.MinStock.ToString();
-                lblNroProd.Text = lblNroProd.Text + productoSeleccionado.ProductoId;
+                CambiarNroCliente();
             });
+        }
+
+        private void CambiarNroCliente()
+        {
+            lblNroProd.Text = lblNroProd.Text.Length != 12
+                            ? lblNroProd.Text.Substring(0, 12)
+                            : lblNroProd.Text + productoSeleccionado.ProductoId;
+
+            if (lblNroProd.Text.Length == 12)
+            {
+                lblNroProd.Text += productoSeleccionado.ProductoId;
+            }
+        }
+
+        private void CargarProductos()
+        {
+            dgProd.DataSource = productoBLL.Cargar();
         }
     }
 }

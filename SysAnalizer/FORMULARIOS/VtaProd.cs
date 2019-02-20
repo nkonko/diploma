@@ -39,14 +39,6 @@ namespace UI
             Devolucion,
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-        }
-
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             VentaSeleccionada = (Venta)dgVenta.CurrentRow.DataBoundItem;
@@ -54,7 +46,6 @@ namespace UI
 
         private void VtaProd_Load(object sender, EventArgs e)
         {
-            lblFecha.Text = DateTime.UtcNow.ToString();
             UsuarioActivo = formControl.ObtenerInfoUsuario();
         }
 
@@ -112,16 +103,19 @@ namespace UI
 
         private void btnSelCliente_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtCodProd.Text))
+            var resultado = cliente.ShowDialog();
+
+            if (resultado == DialogResult.OK)
             {
-                var resultado = cliente.ShowDialog();
-                if (resultado == DialogResult.OK)
-                {
-                    ClienteSeleccionado = cliente.ObtenerClienteSeleccionado();
-                }
+                ClienteSeleccionado = cliente.ObtenerClienteSeleccionado();
+                lblCliente.Text += ClienteSeleccionado.NombreCompleto;
+                radioVtaCC.Enabled = true;
+                radioVtaCC.Checked = true;
             }
             else
             {
+                radioVtaCC.Enabled = false;
+                radioVtaCC.Checked = false;
             }
         }
 
@@ -132,18 +126,13 @@ namespace UI
                 var resultado = productos.ShowDialog();
                 if (resultado == DialogResult.OK)
                 {
-                    ProductoSeleccionado = productos.GetProductoSeleccionado();
+                    ProductoSeleccionado = productos.ObtenerProductoSeleccionado();
                 }
             }
             else
             {
                 ProductoSeleccionado = productoBLL.ObtenerProductoPorCodigo(txtCodProd.Text);
             }
-        }
-
-        private void lblFecha_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void VtaProd_FormClosing(object sender, FormClosingEventArgs e)

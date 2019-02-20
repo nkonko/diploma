@@ -9,6 +9,6 @@
 
         DialogResult ShowDialog();
 
-        Producto GetProductoSeleccionado();
+        Producto ObtenerProductoSeleccionado();
     }
 }
