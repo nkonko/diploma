@@ -5,7 +5,7 @@
     using System.Collections.Generic;
     using DAL.Utils;
 
-    public class VentaDAL : BaseDao, ICRUD<Venta>, IVentaDAL
+    public class VentaDAL : BaseDao, ICRUD<Venta>, ICRUD<DetalleVenta>, IVentaDAL
     {
         private readonly IDigitoVerificador digitoVerificador;
 
@@ -64,6 +64,45 @@
             {
                 return Exec(queryString);
             });
+        }
+
+        public bool Crear(DetalleVenta objAlta)
+        {
+            foreach (var producto in objAlta.Productos)
+            {
+                var queryString = "INSERT INTO DetalleVenta ([DetalleId] ,[VentaId] ,[ProductoId] ,[Importe] ,[Cantidad]) VALUES (@detalleId, @ventaId, @productoId, @importe, @cantidad)";
+
+                return CatchException(() =>
+                {
+                    return Exec(
+                        queryString,
+                        new
+                        {
+                            @detalleID = objAlta.VentaId,
+                            @ventaId = objAlta.VentaId,
+                            @productoId = producto.ProductoId,
+                            @importe = objAlta.Importe,
+                            @cantidad = objAlta.Cantidad
+                        });
+                });
+            }
+
+            return true;
+        }
+
+        List<DetalleVenta> ICRUD<DetalleVenta>.Cargar()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool Borrar(DetalleVenta objDel)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool Actualizar(DetalleVenta objUpd)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

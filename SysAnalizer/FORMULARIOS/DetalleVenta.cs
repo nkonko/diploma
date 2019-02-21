@@ -14,6 +14,7 @@ namespace UI
         private readonly IClienteBLL clienteBLL;
         private readonly IClientes cliente;
         private readonly IFormControl formControl;
+
         public Cliente ClienteSeleccionado { get; set; } = new Cliente();
         public Producto ProductoSeleccionado { get; set; } = new Producto();
         public Venta VentaSeleccionada { get; set; } = new Venta();
@@ -28,18 +29,23 @@ namespace UI
             this.clienteBLL = clienteBLL;
             this.formControl = formControl;
             InitializeComponent();
+            RecargarDatagrid();
         }
 
         public enum TipoVenta
         {
-            notUsed,
-            Seña,
+            Seña = 1,
             VentaSimple,
             Cliente,
             Devolucion,
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            SetearVentaSeleccionada();
+        }
+
+        private void SetearVentaSeleccionada()
         {
             VentaSeleccionada = (Venta)dgVenta.CurrentRow.DataBoundItem;
         }
@@ -49,50 +55,49 @@ namespace UI
             UsuarioActivo = formControl.ObtenerInfoUsuario();
         }
 
-        private void btnFinalizar_Click(object sender, EventArgs e)
+        private void btnAgregarProducto_Click(object sender, EventArgs e)
         {
             if (radioVtaSimple.Checked)
             {
-                ventaBLL.Crear(new Venta()
-                {
-                    ClienteId = 0,
-                    Fecha = DateTime.UtcNow,
-                    TipoVentaId = 2,
-                    EstadoId = 2,
-                    Monto = int.Parse(txtCant.Text) * ProductoSeleccionado.PVenta,
-                    Usuario = UsuarioActivo,
-                    UsuarioId = UsuarioActivo.UsuarioId,
-                });
+                ventaBLL.Crear(CrearNuevaVenta(ClienteSeleccionado.ClienteId, 2, DateTime.UtcNow, int.Parse(txtCant.Text) * ProductoSeleccionado.PVenta, 2, UsuarioActivo.UsuarioId, ProductoSeleccionado));
+                radioVtaCC.Enabled = false;
+                rbSe.Enabled = false;
             }
 
             if (radioVtaCC.Checked)
             {
-                ventaBLL.Crear(new Venta()
-                {
-                    ClienteId = ClienteSeleccionado.ClienteId,
-                    Fecha = DateTime.UtcNow,
-                    TipoVentaId = 3,
-                    EstadoId = 1,
-                    Monto = int.Parse(txtCant.Text) * ProductoSeleccionado.PVenta,
-                    Usuario = UsuarioActivo,
-                    UsuarioId = UsuarioActivo.UsuarioId,
-                });
+                ventaBLL.Crear(CrearNuevaVenta(ClienteSeleccionado.ClienteId, 1, DateTime.UtcNow, int.Parse(txtCant.Text) * ProductoSeleccionado.PVenta, 3, UsuarioActivo.UsuarioId, ProductoSeleccionado));
+                radioVtaSimple.Enabled = false;
+                rbSe.Enabled = false;
             }
 
             if (rbSe.Checked)
             {
-                ventaBLL.Crear(new Venta()
-                {
-                    ClienteId = ClienteSeleccionado.ClienteId,
-                    Fecha = DateTime.UtcNow,
-                    TipoVentaId = 1,
-                    EstadoId = 1,
-                    Monto = int.Parse(txtCant.Text) * ProductoSeleccionado.PVenta,
-                    Usuario = UsuarioActivo,
-                    UsuarioId = UsuarioActivo.UsuarioId,
-                });
+                ventaBLL.Crear(CrearNuevaVenta(ClienteSeleccionado.ClienteId, 1, DateTime.UtcNow, int.Parse(txtCant.Text) * ProductoSeleccionado.PVenta, 1, UsuarioActivo.UsuarioId, ProductoSeleccionado));
+                radioVtaSimple.Enabled = false;
+                radioVtaCC.Enabled = false;
             }
 
+            RecargarDatagrid();
+        }
+
+        private Venta CrearNuevaVenta(int clienteId, int estadoId, DateTime fecha, float monto, int tipoVta, int usuarioId, Producto producto)
+        {
+            return new Venta()
+            {
+                ClienteId = clienteId,
+                EstadoId = estadoId,
+                Fecha = fecha,
+                Monto = monto,
+                TipoVentaId = tipoVta,
+                UsuarioId = usuarioId,
+                Producto = producto
+            };
+        }
+
+        private void RecargarDatagrid()
+        {
+            dgVenta.DataSource = null;
             dgVenta.DataSource = ventaBLL.Cargar();
         }
 
@@ -147,6 +152,20 @@ namespace UI
             ProductoSeleccionado = null;
             txtCant.Text = "";
             txtCodProd.Text = "";
+            radioVtaCC.Enabled = true;
+            radioVtaSimple.Enabled = true;
+            rbSe.Enabled = true;
+        }
+
+        private void btnFinalizarVenta_Click(object sender, EventArgs e)
+        {
+            ClienteSeleccionado = null;
+            ProductoSeleccionado = null;
+            txtCant.Text = "";
+            txtCodProd.Text = "";
+            radioVtaCC.Enabled = true;
+            radioVtaSimple.Enabled = true;
+            rbSe.Enabled = true;
         }
     }
 }

@@ -272,11 +272,11 @@
     <Compile Include="FORMULARIOS\RestoreUI.Designer.cs">
       <DependentUpon>RestoreUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="FORMULARIOS\VtaProd.cs">
+    <Compile Include="FORMULARIOS\DetalleVenta.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FORMULARIOS\VtaProd.Designer.cs">
-      <DependentUpon>VtaProd.cs</DependentUpon>
+    <Compile Include="FORMULARIOS\DetalleVenta.Designer.cs">
+      <DependentUpon>DetalleVenta.cs</DependentUpon>
     </Compile>
     <Compile Include="Recursos\Español.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -349,8 +349,8 @@
     <EmbeddedResource Include="FORMULARIOS\RestoreUI.resx">
       <DependentUpon>RestoreUI.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FORMULARIOS\VtaProd.resx">
-      <DependentUpon>VtaProd.cs</DependentUpon>
+    <EmbeddedResource Include="FORMULARIOS\DetalleVenta.resx">
+      <DependentUpon>DetalleVenta.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Recursos\Español.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -39,6 +39,7 @@ namespace UI
             this.radioVtaCC = new System.Windows.Forms.RadioButton();
             this.dgVenta = new System.Windows.Forms.DataGridView();
             this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Producto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Monto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ClienteId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TipoVentaId = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -49,13 +50,16 @@ namespace UI
             this.btnFinalizar = new System.Windows.Forms.Button();
             this.btnCancelarVta = new System.Windows.Forms.Button();
             this.rbSe = new System.Windows.Forms.RadioButton();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgVenta)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblCliente
             // 
             this.lblCliente.AutoSize = true;
-            this.lblCliente.Location = new System.Drawing.Point(16, 71);
+            this.lblCliente.Location = new System.Drawing.Point(367, 68);
             this.lblCliente.Name = "lblCliente";
             this.lblCliente.Size = new System.Drawing.Size(69, 17);
             this.lblCliente.TabIndex = 0;
@@ -63,7 +67,7 @@ namespace UI
             // 
             // btnSelCliente
             // 
-            this.btnSelCliente.Location = new System.Drawing.Point(19, 102);
+            this.btnSelCliente.Location = new System.Drawing.Point(223, 68);
             this.btnSelCliente.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSelCliente.Name = "btnSelCliente";
             this.btnSelCliente.Size = new System.Drawing.Size(121, 60);
@@ -75,15 +79,15 @@ namespace UI
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(16, 185);
+            this.label2.Location = new System.Drawing.Point(9, 206);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(146, 17);
+            this.label2.Size = new System.Drawing.Size(113, 17);
             this.label2.TabIndex = 2;
-            this.label2.Text = "CODIGO PRODUCTO";
+            this.label2.Text = "Codigo Producto";
             // 
             // txtCodProd
             // 
-            this.txtCodProd.Location = new System.Drawing.Point(19, 203);
+            this.txtCodProd.Location = new System.Drawing.Point(12, 234);
             this.txtCodProd.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtCodProd.Name = "txtCodProd";
             this.txtCodProd.Size = new System.Drawing.Size(175, 22);
@@ -91,26 +95,26 @@ namespace UI
             // 
             // txtCant
             // 
-            this.txtCant.Location = new System.Drawing.Point(19, 254);
+            this.txtCant.Location = new System.Drawing.Point(12, 368);
             this.txtCant.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtCant.Name = "txtCant";
-            this.txtCant.Size = new System.Drawing.Size(95, 22);
+            this.txtCant.Size = new System.Drawing.Size(74, 22);
             this.txtCant.TabIndex = 5;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(16, 235);
+            this.label3.Location = new System.Drawing.Point(9, 341);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(77, 17);
+            this.label3.Size = new System.Drawing.Size(64, 17);
             this.label3.TabIndex = 4;
-            this.label3.Text = "CANTIDAD";
+            this.label3.Text = "Cantidad";
             // 
             // radioVtaSimple
             // 
             this.radioVtaSimple.AutoSize = true;
             this.radioVtaSimple.Checked = true;
-            this.radioVtaSimple.Location = new System.Drawing.Point(181, 42);
+            this.radioVtaSimple.Location = new System.Drawing.Point(6, 27);
             this.radioVtaSimple.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.radioVtaSimple.Name = "radioVtaSimple";
             this.radioVtaSimple.Size = new System.Drawing.Size(112, 21);
@@ -123,7 +127,7 @@ namespace UI
             // 
             this.radioVtaCC.AutoSize = true;
             this.radioVtaCC.Enabled = false;
-            this.radioVtaCC.Location = new System.Drawing.Point(181, 71);
+            this.radioVtaCC.Location = new System.Drawing.Point(6, 77);
             this.radioVtaCC.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.radioVtaCC.Name = "radioVtaCC";
             this.radioVtaCC.Size = new System.Drawing.Size(177, 21);
@@ -138,17 +142,18 @@ namespace UI
             this.dgVenta.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgVenta.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Fecha,
+            this.Producto,
             this.Monto,
             this.ClienteId,
             this.TipoVentaId,
             this.UsuarioId,
             this.EstadoId});
-            this.dgVenta.Location = new System.Drawing.Point(379, 15);
+            this.dgVenta.Location = new System.Drawing.Point(223, 138);
             this.dgVenta.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgVenta.Name = "dgVenta";
             this.dgVenta.ReadOnly = true;
             this.dgVenta.RowTemplate.Height = 24;
-            this.dgVenta.Size = new System.Drawing.Size(725, 426);
+            this.dgVenta.Size = new System.Drawing.Size(743, 363);
             this.dgVenta.TabIndex = 8;
             this.dgVenta.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -158,6 +163,12 @@ namespace UI
             this.Fecha.HeaderText = "Fecha";
             this.Fecha.Name = "Fecha";
             this.Fecha.ReadOnly = true;
+            // 
+            // Producto
+            // 
+            this.Producto.HeaderText = "Producto";
+            this.Producto.Name = "Producto";
+            this.Producto.ReadOnly = true;
             // 
             // Monto
             // 
@@ -196,12 +207,12 @@ namespace UI
             // 
             // btnSelProd
             // 
-            this.btnSelProd.Location = new System.Drawing.Point(19, 290);
+            this.btnSelProd.Location = new System.Drawing.Point(12, 265);
             this.btnSelProd.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSelProd.Name = "btnSelProd";
             this.btnSelProd.Size = new System.Drawing.Size(121, 60);
             this.btnSelProd.TabIndex = 9;
-            this.btnSelProd.Text = "Seleccionar Producto";
+            this.btnSelProd.Text = "Lista Productos";
             this.btnSelProd.UseVisualStyleBackColor = true;
             this.btnSelProd.Click += new System.EventHandler(this.btnSelProd_Click);
             // 
@@ -218,21 +229,21 @@ namespace UI
             // 
             // btnFinalizar
             // 
-            this.btnFinalizar.Location = new System.Drawing.Point(273, 390);
+            this.btnFinalizar.Location = new System.Drawing.Point(12, 409);
             this.btnFinalizar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnFinalizar.Name = "btnFinalizar";
-            this.btnFinalizar.Size = new System.Drawing.Size(100, 50);
+            this.btnFinalizar.Size = new System.Drawing.Size(121, 50);
             this.btnFinalizar.TabIndex = 13;
             this.btnFinalizar.Text = "Agregar producto";
             this.btnFinalizar.UseVisualStyleBackColor = true;
-            this.btnFinalizar.Click += new System.EventHandler(this.btnFinalizar_Click);
+            this.btnFinalizar.Click += new System.EventHandler(this.btnAgregarProducto_Click);
             // 
             // btnCancelarVta
             // 
-            this.btnCancelarVta.Location = new System.Drawing.Point(139, 390);
-            this.btnCancelarVta.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCancelarVta.Location = new System.Drawing.Point(825, 505);
+            this.btnCancelarVta.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancelarVta.Name = "btnCancelarVta";
-            this.btnCancelarVta.Size = new System.Drawing.Size(100, 49);
+            this.btnCancelarVta.Size = new System.Drawing.Size(141, 49);
             this.btnCancelarVta.TabIndex = 14;
             this.btnCancelarVta.Text = "Cancelar Venta";
             this.btnCancelarVta.UseVisualStyleBackColor = true;
@@ -241,7 +252,7 @@ namespace UI
             // rbSe
             // 
             this.rbSe.AutoSize = true;
-            this.rbSe.Location = new System.Drawing.Point(181, 102);
+            this.rbSe.Location = new System.Drawing.Point(6, 52);
             this.rbSe.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.rbSe.Name = "rbSe";
             this.rbSe.Size = new System.Drawing.Size(62, 21);
@@ -249,31 +260,54 @@ namespace UI
             this.rbSe.Text = "Seña";
             this.rbSe.UseVisualStyleBackColor = true;
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.rbSe);
+            this.groupBox1.Controls.Add(this.radioVtaSimple);
+            this.groupBox1.Controls.Add(this.radioVtaCC);
+            this.groupBox1.Location = new System.Drawing.Point(12, 61);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(196, 120);
+            this.groupBox1.TabIndex = 16;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Seleccione Tipo de Venta";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(677, 506);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(141, 47);
+            this.button1.TabIndex = 17;
+            this.button1.Text = "FinalizarVenta";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.btnFinalizarVenta_Click);
+            // 
             // VtaProd
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1123, 471);
-            this.Controls.Add(this.rbSe);
-            this.Controls.Add(this.btnCancelarVta);
-            this.Controls.Add(this.btnFinalizar);
-            this.Controls.Add(this.btnVolver);
+            this.ClientSize = new System.Drawing.Size(978, 567);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnSelProd);
-            this.Controls.Add(this.dgVenta);
-            this.Controls.Add(this.radioVtaCC);
-            this.Controls.Add(this.radioVtaSimple);
-            this.Controls.Add(this.txtCant);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.txtCodProd);
             this.Controls.Add(this.label2);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.txtCodProd);
+            this.Controls.Add(this.btnCancelarVta);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.btnFinalizar);
+            this.Controls.Add(this.txtCant);
+            this.Controls.Add(this.btnVolver);
+            this.Controls.Add(this.dgVenta);
             this.Controls.Add(this.btnSelCliente);
             this.Controls.Add(this.lblCliente);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "VtaProd";
-            this.Text = "Venta_de_productos";
+            this.Text = "Detalle Venta";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.VtaProd_FormClosing);
             this.Load += new System.EventHandler(this.VtaProd_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgVenta)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -296,10 +330,13 @@ namespace UI
         private System.Windows.Forms.Button btnCancelarVta;
         private System.Windows.Forms.RadioButton rbSe;
         private System.Windows.Forms.DataGridViewTextBoxColumn Fecha;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Producto;
         private System.Windows.Forms.DataGridViewTextBoxColumn Monto;
         private System.Windows.Forms.DataGridViewTextBoxColumn ClienteId;
         private System.Windows.Forms.DataGridViewTextBoxColumn TipoVentaId;
         private System.Windows.Forms.DataGridViewTextBoxColumn UsuarioId;
         private System.Windows.Forms.DataGridViewTextBoxColumn EstadoId;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button button1;
     }
 }
