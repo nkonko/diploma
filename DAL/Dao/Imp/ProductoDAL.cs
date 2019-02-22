@@ -4,6 +4,7 @@
     using BE.Entidades;
     using DAL.Utils;
     using System.Collections.Generic;
+    using System.Linq;
 
     public class ProductoDAL : BaseDao, ICRUD<Producto>, IProductoDAL
     {
@@ -33,7 +34,7 @@
 
         public bool Borrar(Producto objDel)
         {
-            var queryString = $"UPDATE Producto SET Activo = 0 WHERE ProductoId = @codigo {objDel.ProductoId}";
+            var queryString = $"UPDATE Producto SET Activo = 0 WHERE ProductoId = @codigo";
 
             return CatchException(() =>
             {
@@ -48,7 +49,7 @@
 
         public List<Producto> Cargar()
         {
-            var queryString = "SELECT * FROM Producto;";
+            var queryString = "SELECT * FROM Producto WHERE Activo = 1;";
 
             return CatchException(() =>
             {
@@ -82,7 +83,37 @@
 
             return CatchException(() =>
             {
-                return Exec<Producto>(queryString, new { @codigo = codigo })[0];
+                return Exec<Producto>(queryString, new { @codigo = codigo }).FirstOrDefault();
+            });
+        }
+
+        public List<Producto> CargarInactivos()
+        {
+            var queryString = "SELECT * FROM Producto WHERE Activo = 0;";
+
+            return CatchException(() =>
+            {
+                return Exec<Producto>(queryString);
+            });
+        }
+
+        public bool ActivarProducto(string productoId)
+        {
+            var queryString = $"UPDATE Producto SET Activo = 1 WHERE ProductoId = {productoId} ;";
+
+            return CatchException(() =>
+            {
+                return Exec(queryString);
+            });
+        }
+
+        public bool DesactivarProducto(string productoId)
+        {
+            var queryString = $"UPDATE Producto SET Activo = 0 WHERE ProductoId = {productoId} ;";
+
+            return CatchException(() =>
+            {
+                return Exec(queryString);
             });
         }
     }

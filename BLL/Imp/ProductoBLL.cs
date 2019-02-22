@@ -4,10 +4,13 @@
     using BE.Entidades;
     using DAL.Dao;
     using System.Collections.Generic;
+    using System.Text.RegularExpressions;
 
     public class ProductoBLL : ICRUD<Producto>, IProductoBLL
     {
         private readonly IProductoDAL productoDAL;
+
+        private Regex ObtenerInt = new Regex("\\d+");
 
         public ProductoBLL(IProductoDAL productoDAL)
         {
@@ -37,6 +40,25 @@
         public Producto ObtenerProductoPorCodigo(string codigo)
         {
             return productoDAL.ObtenerProductoPorCodigo(codigo);
+        }
+
+        public List<Producto> CargarInactivos()
+        {
+            return productoDAL.CargarInactivos();
+        }
+
+        public bool ActivarProducto(string descripcion)
+        {
+            var productoId = ObtenerInt.Match(descripcion).Value;
+
+            return productoDAL.ActivarProducto(productoId);
+        }
+
+        public bool DesactivarProducto(string descripcion)
+        {
+            var productoId = ObtenerInt.Match(descripcion).Value;
+
+            return productoDAL.DesactivarProducto(productoId);
         }
     }
 }

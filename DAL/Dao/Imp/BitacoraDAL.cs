@@ -52,7 +52,7 @@
 
             return CatchException(() =>
              {
-                 return Exec<Bitacora>(queryString.ToString())[0];
+                 return Exec<Bitacora>(queryString)[0];
              });
         }
 
@@ -62,7 +62,7 @@
 
             return CatchException(() =>
             {
-                return Exec<int>(queryString.ToString()).FirstOrDefault();
+                return Exec<int>(queryString).FirstOrDefault();
             });
         }
 

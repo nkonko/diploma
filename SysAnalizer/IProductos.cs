@@ -5,6 +5,8 @@
 
     public interface IProductos
     {
+        Form MdiParent { get; set; }
+
         void Show();
 
         DialogResult ShowDialog();

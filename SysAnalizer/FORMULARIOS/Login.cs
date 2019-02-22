@@ -25,43 +25,14 @@ namespace UI
 
         public Login(IIdiomaBLL idiomaBLL, IDigitoVerificador digitoVerificador)
         {
-            var thread = new Thread(new ThreadStart(Splash));
-            thread.Start();
             this.digitoVerificador = digitoVerificador;
             this.idiomaBLL = idiomaBLL;
             InitializeComponent();
             txt_contraseña.PasswordChar = '*';
-            ProcesarSplash(thread);
-        }
-
-        private void ProcesarSplash(Thread thread)
-        {
-            var str = string.Empty;
-
-            for (int i = 0; i < 50000; i++)
-            {
-                str += i.ToString();
-            }
-
-            thread.Abort();
-        }
-
-        private void Splash()
-        {
-            var splashForm = new SplashForm()
-            {
-                AppName = "SysAnalizer",
-                Icon = Properties.Resources.money,
-                ShowIcon = true,
-                ShowInTaskbar = true
-            };
-
-            Application.Run(splashForm);
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.Activate();
             LimpiarRecursos();
             this.AcceptButton = btn_ingresar;
             log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);

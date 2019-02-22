@@ -527,5 +527,10 @@ namespace UI
         {
             return usuariosBD;
         }
+
+        private void dgusuario_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

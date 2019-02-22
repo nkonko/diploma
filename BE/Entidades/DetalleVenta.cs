@@ -8,10 +8,6 @@
 
         public int VentaId { get; set; }
 
-        public List<Producto> Productos { get; set; }
-
-        public float Importe { get; set; }
-
-        public int Cantidad { get; set; }
+        public List<LineaDetalle> LineasDetalle { get; set; } = new List<LineaDetalle>();
     }
 }

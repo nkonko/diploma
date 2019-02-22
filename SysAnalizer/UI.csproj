@@ -145,6 +145,9 @@
     <Compile Include="FORMULARIOS\AdminFamUsuario.Designer.cs">
       <DependentUpon>AdminFamUsuario.cs</DependentUpon>
     </Compile>
+    <Compile Include="FORMULARIOS\BloqueoProductos.Designer.cs">
+      <DependentUpon>BloqueoProductos.cs</DependentUpon>
+    </Compile>
     <Compile Include="FORMULARIOS\WaitForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -165,9 +168,6 @@
     </Compile>
     <Compile Include="FORMULARIOS\BloqueoProductos.cs">
       <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FORMULARIOS\BloqueoUsuarios - Copy.Designer.cs">
-      <DependentUpon>BloqueoProductos.cs</DependentUpon>
     </Compile>
     <Compile Include="FORMULARIOS\BloqueoUsuarios.cs">
       <SubType>Form</SubType>
@@ -236,7 +236,7 @@
     <Compile Include="IFamilias.cs" />
     <Compile Include="IFormControl.cs" />
     <Compile Include="IProductos.cs" />
-    <Compile Include="IVtaProd.cs" />
+    <Compile Include="IDetalleVenta.cs" />
     <Compile Include="IoCContainer.cs" />
     <Compile Include="IPrincipal.cs" />
     <Compile Include="FORMULARIOS\Login.cs">
@@ -272,11 +272,11 @@
     <Compile Include="FORMULARIOS\RestoreUI.Designer.cs">
       <DependentUpon>RestoreUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="FORMULARIOS\DetalleVenta.cs">
+    <Compile Include="FORMULARIOS\DetalleVentaUI.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FORMULARIOS\DetalleVenta.Designer.cs">
-      <DependentUpon>DetalleVenta.cs</DependentUpon>
+    <Compile Include="FORMULARIOS\DetalleVentaUI.Designer.cs">
+      <DependentUpon>DetalleVentaUI.cs</DependentUpon>
     </Compile>
     <Compile Include="Recursos\Español.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -349,8 +349,8 @@
     <EmbeddedResource Include="FORMULARIOS\RestoreUI.resx">
       <DependentUpon>RestoreUI.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FORMULARIOS\DetalleVenta.resx">
-      <DependentUpon>DetalleVenta.cs</DependentUpon>
+    <EmbeddedResource Include="FORMULARIOS\DetalleVentaUI.resx">
+      <DependentUpon>DetalleVentaUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Recursos\Español.resx">
       <Generator>ResXFileCodeGenerator</Generator>

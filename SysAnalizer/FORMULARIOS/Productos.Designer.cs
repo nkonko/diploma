@@ -63,7 +63,7 @@ namespace UI
             this.btnVolver.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(99, 33);
-            this.btnVolver.TabIndex = 28;
+            this.btnVolver.TabIndex = 6;
             this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = true;
             this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
@@ -71,17 +71,17 @@ namespace UI
             // lblNroProd
             // 
             this.lblNroProd.AutoSize = true;
-            this.lblNroProd.Location = new System.Drawing.Point(551, 223);
+            this.lblNroProd.Location = new System.Drawing.Point(229, 28);
             this.lblNroProd.Name = "lblNroProd";
-            this.lblNroProd.Size = new System.Drawing.Size(92, 17);
+            this.lblNroProd.Size = new System.Drawing.Size(96, 17);
             this.lblNroProd.TabIndex = 25;
-            this.lblNroProd.Text = "NroProducto:";
+            this.lblNroProd.Text = "Nro Producto:";
             // 
-            // label3
+            // lblPecioVenta
             // 
             this.lblPecioVenta.AutoSize = true;
             this.lblPecioVenta.Location = new System.Drawing.Point(229, 158);
-            this.lblPecioVenta.Name = "label3";
+            this.lblPecioVenta.Name = "lblPecioVenta";
             this.lblPecioVenta.Size = new System.Drawing.Size(64, 17);
             this.lblPecioVenta.TabIndex = 24;
             this.lblPecioVenta.Text = "P. venta:";
@@ -92,25 +92,25 @@ namespace UI
             this.btnSelVta.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSelVta.Name = "btnSelVta";
             this.btnSelVta.Size = new System.Drawing.Size(168, 33);
-            this.btnSelVta.TabIndex = 23;
+            this.btnSelVta.TabIndex = 5;
             this.btnSelVta.Text = "Seleccionar para venta";
             this.btnSelVta.UseVisualStyleBackColor = true;
             this.btnSelVta.Click += new System.EventHandler(this.btnSelVta_Click);
             // 
-            // label2
+            // lblPreUnitario
             // 
             this.lblPreUnitario.AutoSize = true;
             this.lblPreUnitario.Location = new System.Drawing.Point(229, 113);
-            this.lblPreUnitario.Name = "label2";
+            this.lblPreUnitario.Name = "lblPreUnitario";
             this.lblPreUnitario.Size = new System.Drawing.Size(76, 17);
             this.lblPreUnitario.TabIndex = 22;
             this.lblPreUnitario.Text = "P. unitario:";
             // 
-            // label1
+            // lblDesc
             // 
             this.lblDesc.AutoSize = true;
             this.lblDesc.Location = new System.Drawing.Point(229, 73);
-            this.lblDesc.Name = "label1";
+            this.lblDesc.Name = "lblDesc";
             this.lblDesc.Size = new System.Drawing.Size(86, 17);
             this.lblDesc.TabIndex = 21;
             this.lblDesc.Text = "Descripcion:";
@@ -121,7 +121,7 @@ namespace UI
             this.btnBorrar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnBorrar.Name = "btnBorrar";
             this.btnBorrar.Size = new System.Drawing.Size(99, 33);
-            this.btnBorrar.TabIndex = 20;
+            this.btnBorrar.TabIndex = 3;
             this.btnBorrar.Text = "Borrar";
             this.btnBorrar.UseVisualStyleBackColor = true;
             this.btnBorrar.Click += new System.EventHandler(this.btnBorrar_Click);
@@ -132,7 +132,7 @@ namespace UI
             this.btnModificar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnModificar.Name = "btnModificar";
             this.btnModificar.Size = new System.Drawing.Size(99, 33);
-            this.btnModificar.TabIndex = 19;
+            this.btnModificar.TabIndex = 2;
             this.btnModificar.Text = "Modificar";
             this.btnModificar.UseVisualStyleBackColor = true;
             this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
@@ -167,16 +167,16 @@ namespace UI
             this.btnNuevo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnNuevo.Name = "btnNuevo";
             this.btnNuevo.Size = new System.Drawing.Size(99, 33);
-            this.btnNuevo.TabIndex = 15;
+            this.btnNuevo.TabIndex = 1;
             this.btnNuevo.Text = "Nuevo";
             this.btnNuevo.UseVisualStyleBackColor = true;
             this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
             // 
-            // label5
+            // lblCant
             // 
             this.lblCant.AutoSize = true;
             this.lblCant.Location = new System.Drawing.Point(51, 25);
-            this.lblCant.Name = "label5";
+            this.lblCant.Name = "lblCant";
             this.lblCant.Size = new System.Drawing.Size(68, 17);
             this.lblCant.TabIndex = 30;
             this.lblCant.Text = "Cantidad:";
@@ -187,13 +187,13 @@ namespace UI
             this.txtCantidad.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtCantidad.Name = "txtCantidad";
             this.txtCantidad.Size = new System.Drawing.Size(165, 22);
-            this.txtCantidad.TabIndex = 29;
+            this.txtCantidad.TabIndex = 19;
             // 
-            // label6
+            // lblMinStock
             // 
             this.lblMinStock.AutoSize = true;
             this.lblMinStock.Location = new System.Drawing.Point(5, 62);
-            this.lblMinStock.Name = "label6";
+            this.lblMinStock.Name = "lblMinStock";
             this.lblMinStock.Size = new System.Drawing.Size(113, 17);
             this.lblMinStock.TabIndex = 32;
             this.lblMinStock.Text = "Minimo en stock:";
@@ -204,7 +204,7 @@ namespace UI
             this.txtMinStock.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtMinStock.Name = "txtMinStock";
             this.txtMinStock.Size = new System.Drawing.Size(165, 22);
-            this.txtMinStock.TabIndex = 31;
+            this.txtMinStock.TabIndex = 20;
             // 
             // groupBox1
             // 
@@ -233,10 +233,10 @@ namespace UI
             this.Stock,
             this.MinStock});
             this.dgProd.Location = new System.Drawing.Point(13, 298);
-            this.dgProd.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgProd.Margin = new System.Windows.Forms.Padding(4);
             this.dgProd.Name = "dgProd";
             this.dgProd.ReadOnly = true;
-            this.dgProd.Size = new System.Drawing.Size(716, 250);
+            this.dgProd.Size = new System.Drawing.Size(544, 250);
             this.dgProd.TabIndex = 34;
             this.dgProd.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgProd_CellClick);
             // 
@@ -277,11 +277,11 @@ namespace UI
             // 
             // btnInactivos
             // 
-            this.btnInactivos.Location = new System.Drawing.Point(568, 68);
-            this.btnInactivos.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnInactivos.Location = new System.Drawing.Point(412, 564);
+            this.btnInactivos.Margin = new System.Windows.Forms.Padding(4);
             this.btnInactivos.Name = "btnInactivos";
-            this.btnInactivos.Size = new System.Drawing.Size(145, 62);
-            this.btnInactivos.TabIndex = 35;
+            this.btnInactivos.Size = new System.Drawing.Size(145, 35);
+            this.btnInactivos.TabIndex = 4;
             this.btnInactivos.Text = "Productos Inactivos";
             this.btnInactivos.UseVisualStyleBackColor = true;
             this.btnInactivos.Click += new System.EventHandler(this.btnInactivos_Click);
@@ -290,7 +290,7 @@ namespace UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(751, 610);
+            this.ClientSize = new System.Drawing.Size(567, 610);
             this.Controls.Add(this.btnInactivos);
             this.Controls.Add(this.dgProd);
             this.Controls.Add(this.groupBox1);

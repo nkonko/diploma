@@ -2,7 +2,6 @@
 {
     using BE.Entidades;
     using DAL.Dao;
-    using System;
     using System.Collections.Generic;
 
     public class ClienteBLL : IClienteBLL

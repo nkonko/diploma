@@ -5,7 +5,6 @@ namespace UI
     using System;
     using System.Linq;
     using System.Windows.Forms;
-    using EasyEncryption;
 
     public partial class BloqueoProductos : Form, IBloqueoProductos
     {
@@ -18,40 +17,25 @@ namespace UI
         {
             InitializeComponent();
             this.productoBLL = productoBLL;
-        }
-
-        private void BloqueoProductos_Load(object sender, EventArgs e)
-        {
             CargarProductos();
         }
 
         private void CargarProductos()
         {
-            throw new NotImplementedException();
+            lstActivos.DataSource =  productoBLL.Cargar().Select(x => x.ProductoId + " - " + x.Descripcion).ToList();
+            lstInactivos.DataSource = productoBLL.CargarInactivos().Select(x => x.ProductoId + " - " + x.Descripcion).ToList(); ;
         }
 
-        private void btnVolver_Click(object sender, EventArgs e)
-        {
-            Hide();
-            DialogResult = DialogResult.OK;
-        }
-
-        private void BloqueUsuario_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            Hide();
-            DialogResult = DialogResult.OK;
-            e.Cancel = true;
-        }
-
-        private void btnActivar_Click(object sender, EventArgs e)
+        private void btnActivar_Click_1(object sender, EventArgs e)
         {
             if (lstInactivos.Items.Count > 0)
             {
-                //var activado = productoBLL.ActivarUsuario(lstInactivos.SelectedValue.ToString());
-                //if (activado)
-                //{
-                //    CargarUsuarios();
-                //}
+                var activado = productoBLL.ActivarProducto(lstInactivos.SelectedValue.ToString());
+
+                if (activado)
+                {
+                    CargarProductos();
+                }
             }
         }
 
@@ -59,24 +43,19 @@ namespace UI
         {
             if (lstActivos.Items.Count > 0)
             {
-                //var desactivado = productoBLL.DesactivarUsuario(lstActivos.SelectedValue.ToString());
-                //if (desactivado)
-                //{
-                //    CargarUsuarios();
-                //}
+                var desactivado = productoBLL.DesactivarProducto(lstActivos.SelectedValue.ToString());
+                if (desactivado)
+                {
+                    CargarProductos();
+                }
             }
         }
 
-        private void CargarUsuarios()
+        private void BloqueoProductos_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //lstActivos.DataSource = productoBLL.Cargar().Select(x => DES.Decrypt(x.Email, Key, Iv)).ToList();
-            //lstInactivos.DataSource = productoBLL.CargarInactivos().Select(x => DES.Decrypt(x.Email, Key, Iv)).ToList();
-        }
-
-
-        private void BloqueoUsuario_Load(object sender, EventArgs e)
-        {
-
+            this.Hide();
+            DialogResult = DialogResult.OK;
+            e.Cancel = true;
         }
     }
 }

@@ -14,10 +14,8 @@
 
         public int TipoVentaId { get; set; }
 
-        public int ClienteId { get; set; }
+        public int? ClienteId { get; set; }
 
         public float Monto { get; set; }
-
-        public Producto Producto { get; set; }
     }
 }

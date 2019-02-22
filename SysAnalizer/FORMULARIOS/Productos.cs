@@ -9,14 +9,16 @@ namespace UI
     public partial class Productos : Form, IProductos
     {
         private readonly IProductoBLL productoBLL;
+        private readonly IBloqueoProductos bloqueoProductos;
 
         private Producto productoSeleccionado = new Producto();
 
         public bool formUserClose = true;
 
-        public Productos(IProductoBLL productoBLL)
+        public Productos(IProductoBLL productoBLL,IBloqueoProductos bloqueoProductos)
         {
             this.productoBLL = productoBLL;
+            this.bloqueoProductos = bloqueoProductos;
             InitializeComponent();
         }
 
@@ -35,6 +37,7 @@ namespace UI
             {
                 MessageBox.Show("Producto Creado");
                 CargarProductos();
+                LimpiarControles();
             }
         }
 
@@ -46,6 +49,7 @@ namespace UI
             {
                 MessageBox.Show("Producto Actualizado");
                 CargarProductos();
+                LimpiarControles();
             }
         }
 
@@ -57,7 +61,18 @@ namespace UI
             {
                 MessageBox.Show("Producto Borrado");
                 CargarProductos();
+                LimpiarControles();
             }
+        }
+
+        private void LimpiarControles()
+        {
+            txtDescripcion.Text = string.Empty;
+            txtPunitario.Text = string.Empty;
+            txtPcosto.Text = string.Empty;
+            txtCantidad.Text = string.Empty;
+            txtMinStock.Text = string.Empty;
+            lblNroProd.Text = "Nro Producto:";
         }
 
         private void btnVolver_Click(object sender, EventArgs e)
@@ -89,7 +104,7 @@ namespace UI
 
         private void btnInactivos_Click(object sender, EventArgs e)
         {
-
+            bloqueoProductos.ShowDialog();
         }
 
         private void dgProd_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -112,24 +127,18 @@ namespace UI
                 txtPcosto.Text = productoSeleccionado.PVenta.ToString();
                 txtCantidad.Text = productoSeleccionado.Stock.ToString();
                 txtMinStock.Text = productoSeleccionado.MinStock.ToString();
-                CambiarNroCliente();
+                CambiarNroProducto();
             });
         }
 
-        private void CambiarNroCliente()
+        private void CambiarNroProducto()
         {
-            lblNroProd.Text = lblNroProd.Text.Length != 12
-                            ? lblNroProd.Text.Substring(0, 12)
-                            : lblNroProd.Text + productoSeleccionado.ProductoId;
-
-            if (lblNroProd.Text.Length == 12)
-            {
                 lblNroProd.Text += productoSeleccionado.ProductoId;
-            }
         }
 
         private void CargarProductos()
         {
+            dgProd.DataSource = null;
             dgProd.DataSource = productoBLL.Cargar();
         }
     }

@@ -46,6 +46,7 @@
     <Compile Include="Entidades\Familia.cs" />
     <Compile Include="Entidades\FamiliaPatente.cs" />
     <Compile Include="Entidades\Formulario.cs" />
+    <Compile Include="Entidades\LineaDetalle.cs" />
     <Compile Include="Entidades\TraduccionFormulario.cs" />
     <Compile Include="Entidades\FamiliaUsuario.cs" />
     <Compile Include="Entidades\UsuarioPatente.cs" />

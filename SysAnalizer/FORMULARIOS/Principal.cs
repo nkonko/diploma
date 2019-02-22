@@ -11,7 +11,7 @@ namespace UI
     {
         private readonly IFormControl formControl;
         private readonly IUsuarioDAL usuarioDAL;
-        private readonly IVtaProd venta_De_Productos;
+        private readonly IDetalleVenta venta_De_Productos;
         private readonly IABMUsuario abmUsuario;
         private readonly IBitacoraUI bitacora;
         private readonly IFamilias familias;
@@ -19,8 +19,20 @@ namespace UI
         private readonly IDatosUsuario datosUsuario;
         private readonly IBackupUI backupUI;
         private readonly IRestoreUI restoreUI;
+        private readonly IProductos productosUI;
 
-        public Principal(IUsuarioDAL usuarioDAL, IVtaProd venta_De_Productos, IABMUsuario abmUsuario, IBitacoraUI bitacora, IFormControl formControl, IFamilias familias, IFamiliaBLL familiaBLL, IDatosUsuario datosUsuario, IBackupUI backupUI, IRestoreUI restoreUI)
+        public Principal(
+            IUsuarioDAL usuarioDAL,
+            IDetalleVenta venta_De_Productos,
+            IABMUsuario abmUsuario,
+            IBitacoraUI bitacora,
+            IFormControl formControl,
+            IFamilias familias,
+            IFamiliaBLL familiaBLL,
+            IDatosUsuario datosUsuario,
+            IBackupUI backupUI,
+            IRestoreUI restoreUI,
+            IProductos productosUI)
         {
             InitializeComponent();
             this.formControl = formControl;
@@ -33,6 +45,7 @@ namespace UI
             this.datosUsuario = datosUsuario;
             this.backupUI = backupUI;
             this.restoreUI = restoreUI;
+            this.productosUI = productosUI;
         }
 
         private void Principal_Load(object sender, EventArgs e)
@@ -102,7 +115,7 @@ namespace UI
                 }
             }
         }
-       
+
         private void backUpToolStripMenuItem_Click(object sender, EventArgs e)
         {
             backupUI.MdiParent = this;
@@ -121,20 +134,10 @@ namespace UI
             datosUsuario.Show();
         }
 
-        private void patentesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void familiasToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             familias.MdiParent = this;
             familias.Show();
-        }
-
-        private void clientesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void restoreToolStripMenuItem_Click(object sender, EventArgs e)
@@ -157,6 +160,12 @@ namespace UI
         private void Principal_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void verProductosToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            productosUI.MdiParent = this;
+            productosUI.Show();
         }
     }
 }

@@ -2,7 +2,7 @@
 {
     using System.Windows.Forms;
 
-    public interface IVtaProd
+    public interface IDetalleVenta
     {
         Form MdiParent { get; set; }
 

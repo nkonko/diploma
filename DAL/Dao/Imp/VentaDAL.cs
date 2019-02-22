@@ -4,8 +4,9 @@
     using BE.Entidades;
     using System.Collections.Generic;
     using DAL.Utils;
+    using System.Linq;
 
-    public class VentaDAL : BaseDao, ICRUD<Venta>, ICRUD<DetalleVenta>, IVentaDAL
+    public class VentaDAL : BaseDao, ICRUD<Venta>, IVentaDAL
     {
         private readonly IDigitoVerificador digitoVerificador;
 
@@ -66,43 +67,13 @@
             });
         }
 
-        public bool Crear(DetalleVenta objAlta)
+        public int ObtenerUltimoIdVenta()
         {
-            foreach (var producto in objAlta.Productos)
-            {
-                var queryString = "INSERT INTO DetalleVenta ([DetalleId] ,[VentaId] ,[ProductoId] ,[Importe] ,[Cantidad]) VALUES (@detalleId, @ventaId, @productoId, @importe, @cantidad)";
+            var queryString = "SELECT ISNULL(IDENT_CURRENT ('[dbo].[Venta]'), 0) as current_identity";
 
-                return CatchException(() =>
-                {
-                    return Exec(
-                        queryString,
-                        new
-                        {
-                            @detalleID = objAlta.VentaId,
-                            @ventaId = objAlta.VentaId,
-                            @productoId = producto.ProductoId,
-                            @importe = objAlta.Importe,
-                            @cantidad = objAlta.Cantidad
-                        });
-                });
-            }
+            var id = CatchException(() => Exec<int>(queryString.ToString()).FirstOrDefault());
 
-            return true;
-        }
-
-        List<DetalleVenta> ICRUD<DetalleVenta>.Cargar()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public bool Borrar(DetalleVenta objDel)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public bool Actualizar(DetalleVenta objUpd)
-        {
-            throw new System.NotImplementedException();
+            return (id != 0) ? id : 1;
         }
     }
 }

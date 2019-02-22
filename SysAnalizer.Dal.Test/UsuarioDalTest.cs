@@ -31,11 +31,6 @@
             SetMockUtils();
         }
 
-        private void SetMockUtils()
-        {
-            usuarioMock = new Mock<IUsuarioDAL>();
-        }
-
         [Test]
         public void Reinicio()
         {
@@ -73,6 +68,11 @@
         public void DeleteAllOtherUsersShouldReturnOK()
         {
             Assert.AreEqual(true, patenteBLL.CheckeoUsuarioParaBorrar(Usuario, UsuariosBD));
+        }
+
+        private void SetMockUtils()
+        {
+            usuarioMock = new Mock<IUsuarioDAL>();
         }
 
         private void CrearInstancias()

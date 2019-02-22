@@ -25,12 +25,6 @@ namespace UI
             CargarUsuarios();
         }
 
-        private void btnVolver_Click(object sender, EventArgs e)
-        {
-            Hide();
-            DialogResult = DialogResult.OK;
-        }
-
         private void BloqueUsuario_FormClosing(object sender, FormClosingEventArgs e)
         {
             Hide();

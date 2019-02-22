@@ -5,8 +5,9 @@
     using System.Configuration;
     using System.Data;
     using System.Data.SqlClient;
+    using System.Linq;
 
-    public class SqlUtils
+    public class SqlUtils : BaseDao
     {
         ////private static log4net.ILog log;
 
@@ -16,25 +17,9 @@
 
         public static SqlConnection Connection()
         {
-            //SetearConfiguracion();
+            ////SetearConfiguracion();
             var conn = new SqlConnection(ConfigurationManager.AppSettings["connString"]);
             return conn;
-        }
-
-        private static void SetearConfiguracion()
-        {
-            ////log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            var connectionString = config
-                .AppSettings.Settings["connString"]
-                .Value;
-            var startIndex = connectionString.IndexOf('=');
-            var endIndex = connectionString.IndexOf('\\');
-            var cambiarNombre = connectionString.Substring(startIndex + 1, endIndex - startIndex - 1);
-            var nuevoConnectionString = connectionString.Replace(cambiarNombre, Environment.MachineName);
-            config.AppSettings.Settings["connString"].Value = nuevoConnectionString;
-            ////log.Logger.Repository.GetAppenders().OfType<AdoNetAppender>().SingleOrDefault().ConnectionString = nuevoConnectionString;
-            config.Save(ConfigurationSaveMode.Modified, true);
         }
 
         public static List<string> GetTables()
@@ -51,6 +36,36 @@
 
                 return tableNames;
             }
+        }
+
+        public int GenerarId(string campoId, string entidad)
+        {
+            var ultimoId = CatchException(() => Exec<int>($"SELECT {campoId} FROM {entidad}"));
+
+            if (ultimoId.Count > 0)
+            {
+                return ultimoId.Last() + 1;
+            }
+            else
+            {
+                return 1;
+            }
+        }
+
+        private static void SetearConfiguracion()
+        {
+            ////log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            var connectionString = config
+                .AppSettings.Settings["connString"]
+                .Value;
+            var startIndex = connectionString.IndexOf('=');
+            var endIndex = connectionString.IndexOf('\\');
+            var cambiarNombre = connectionString.Substring(startIndex + 1, endIndex - startIndex - 1);
+            var nuevoConnectionString = connectionString.Replace(cambiarNombre, Environment.MachineName);
+            config.AppSettings.Settings["connString"].Value = nuevoConnectionString;
+            ////log.Logger.Repository.GetAppenders().OfType<AdoNetAppender>().SingleOrDefault().ConnectionString = nuevoConnectionString;
+            config.Save(ConfigurationSaveMode.Modified, true);
         }
 
         private static string GetStringsFromRegister(string table, string connectionString)

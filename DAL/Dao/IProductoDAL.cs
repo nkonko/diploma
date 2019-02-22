@@ -14,5 +14,11 @@
         bool Crear(Producto objAlta);
 
         Producto ObtenerProductoPorCodigo(string codigo);
+
+        List<Producto> CargarInactivos();
+
+        bool ActivarProducto(string descripcion);
+
+        bool DesactivarProducto(string descripcion);
     }
 }
