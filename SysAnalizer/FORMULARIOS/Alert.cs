@@ -58,7 +58,7 @@
             try
             {
                 var path = ObtenerPath();
-                using (ResXResourceSet resxSet = new ResXResourceSet(path + "Recursos\\Español.resx"))
+                using (ResXResourceSet resxSet = new ResXResourceSet(path + "\\Recursos\\Español.resx"))
                 {
                     foreach (DictionaryEntry item in resxSet)
                     {
@@ -81,7 +81,6 @@
         {
             var path = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
             path = path.Remove(0, 6);
-            path = path.Substring(0, 60);
             return path;
         }
     }
