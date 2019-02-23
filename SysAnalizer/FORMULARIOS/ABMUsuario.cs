@@ -15,18 +15,20 @@ namespace UI
 
     public partial class ABMusuario : Form, IABMUsuario
     {
+        private readonly ITraductor traductor;
         private readonly IDigitoVerificador digitoVerificador;
         private readonly IFamiliaBLL familiasBLL;
         private readonly IPatenteBLL patenteBLL;
         private readonly IBitacoraBLL bitacoraBLL;
-        private readonly IFormControl formControl;
         private readonly IBloqueoUsuario bloqueoUsuario;
         private readonly IAdminPat adminPat;
         private readonly IAdminFam adminFam;
         private readonly INegarPat negarPat;
+        private readonly IFormControl formControl;
         private readonly IIdiomaBLL idiomaBLL;
 
         private const int formId = 3;
+        private const string nombreForm = "ABMUsuario";
         private const string entidad = "Usuario";
         public const string key = "bZr2URKx";
         public const string iv = "HNtgQw0w";
@@ -45,7 +47,18 @@ namespace UI
 
         private IUsuarioBLL usuarioBLL;
 
-        public ABMusuario(IBitacoraBLL bitacoraBLL, IFormControl formControl, IFamiliaBLL familiasBLL, IPatenteBLL patenteBLL, IDigitoVerificador digitoVerificador, IBloqueoUsuario bloqueoUsuario, IIdiomaBLL idiomaBLL, IAdminPat adminPat, IAdminFam adminFam, INegarPat negarPat)
+        public ABMusuario(
+            IBitacoraBLL bitacoraBLL,
+            IFormControl formControl,
+            IFamiliaBLL familiasBLL,
+            IPatenteBLL patenteBLL,
+            IDigitoVerificador digitoVerificador,
+            IBloqueoUsuario bloqueoUsuario,
+            IIdiomaBLL idiomaBLL,
+            IAdminPat adminPat,
+            IAdminFam adminFam,
+            INegarPat negarPat,
+            ITraductor traductor)
         {
             this.bitacoraBLL = bitacoraBLL;
             this.formControl = formControl;
@@ -57,6 +70,7 @@ namespace UI
             this.negarPat = negarPat;
             this.adminFam = adminFam;
             this.adminPat = adminPat;
+            this.traductor = traductor;
             InitializeComponent();
             dgusuario.AutoGenerateColumns = false;
         }
@@ -158,17 +172,7 @@ namespace UI
 
         private void Traduccir()
         {
-            formControl.Traducciones.Clear();
-            formControl.Traducciones = GetTraducciones();
-            idiomaBLL.LlenarRecursos(formControl.Traducciones, formControl.LenguajeSeleccionado.IdIdioma, Application.OpenForms[0].Name);
-            idiomaBLL.LeerRecursos(this.Controls);
-        }
-
-        private IDictionary<string, string> GetTraducciones()
-        {
-            formControl.Traducciones = idiomaBLL.ObtenerTraduccionesFormulario(formControl.LenguajeSeleccionado.IdIdioma, Application.OpenForms[2].Name).ToDictionary(k => k.ControlName ?? k.MensajeCodigo, v => v.Traduccion);
-
-            return formControl.Traducciones;
+            traductor.Traduccir(this, nombreForm);
         }
 
         private void CargaControles()

@@ -13,7 +13,7 @@ namespace UI
 
         public List<Cliente> ClientesBd { get; set; } = new List<Cliente>();
 
-        public Cliente ClienteSeleccionado { get; set; } 
+        public Cliente ClienteSeleccionado { get; set; }
 
         public bool formUserClose = true;
 
@@ -42,6 +42,7 @@ namespace UI
         private void CargarClientes()
         {
             ClientesBd = clienteBLL.Cargar();
+            dgClientes.DataSource = null;
             dgClientes.DataSource = ClientesBd;
         }
 
@@ -70,6 +71,7 @@ namespace UI
         {
             var exito = clienteBLL.Crear(new Cliente() { NombreCompleto = txtNombre.Text, Domicilio = txtDomicilio.Text, Email = txtEmail.Text, Telefono = txtTelefono.Text, Activo = true });
             CargarClientes();
+            LimpiarControles();
 
             if (exito)
             {
@@ -79,7 +81,9 @@ namespace UI
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            var exito = clienteBLL.Actualizar(ClienteSeleccionado);
+            var exito = clienteBLL.Actualizar(new Cliente() { ClienteId = ClienteSeleccionado.ClienteId, NombreCompleto = txtNombre.Text, Domicilio = txtDomicilio.Text, Email = txtEmail.Text, Telefono = txtTelefono.Text, Activo = true });
+            CargarClientes();
+            LimpiarControles();
 
             if (exito)
             {
@@ -97,6 +101,8 @@ namespace UI
         private void btnBorrar_Click(object sender, EventArgs e)
         {
             var exito = clienteBLL.Borrar(ClienteSeleccionado);
+            CargarClientes();
+            LimpiarControles();
 
             if (exito)
             {
@@ -112,6 +118,17 @@ namespace UI
                 txtEmail.Text = ClienteSeleccionado.Email;
                 txtDomicilio.Text = ClienteSeleccionado.Domicilio;
                 txtTelefono.Text = ClienteSeleccionado.Telefono.ToString();
+            });
+        }
+
+        private void LimpiarControles()
+        {
+            FormExtensions.CatchException(this, () =>
+            {
+                txtNombre.Text = string.Empty;
+                txtEmail.Text = string.Empty;
+                txtDomicilio.Text = string.Empty;
+                txtTelefono.Text = string.Empty;
             });
         }
     }

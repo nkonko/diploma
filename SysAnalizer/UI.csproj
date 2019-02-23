@@ -145,6 +145,12 @@
     <Compile Include="FORMULARIOS\AdminFamUsuario.Designer.cs">
       <DependentUpon>AdminFamUsuario.cs</DependentUpon>
     </Compile>
+    <Compile Include="FORMULARIOS\VentaUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMULARIOS\VentaUI.Designer.cs">
+      <DependentUpon>VentaUI.cs</DependentUpon>
+    </Compile>
     <Compile Include="FORMULARIOS\BloqueoProductos.Designer.cs">
       <DependentUpon>BloqueoProductos.cs</DependentUpon>
     </Compile>
@@ -257,6 +263,7 @@
     <Compile Include="FORMULARIOS\Productos.Designer.cs">
       <DependentUpon>Productos.cs</DependentUpon>
     </Compile>
+    <Compile Include="ITraductor.cs" />
     <Compile Include="Modelo\ModeloBitacora.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -284,8 +291,12 @@
       <DependentUpon>Español.resx</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Traductor.cs" />
     <EmbeddedResource Include="FORMULARIOS\AdminFamUsuario.resx">
       <DependentUpon>AdminFamUsuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMULARIOS\VentaUI.resx">
+      <DependentUpon>VentaUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FORMULARIOS\WaitForm.resx">
       <DependentUpon>WaitForm.cs</DependentUpon>

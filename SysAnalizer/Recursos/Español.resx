@@ -117,10 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="MSJ001" xml:space="preserve">
-    <value>Are you sure you want to exit?</value>
+  <data name="MSJ080" xml:space="preserve">
+    <value>El codigo de producto no existe</value>
   </data>
-  <data name="MSJ010" xml:space="preserve">
-    <value>Something was wrong with BD</value>
+  <data name="MSJ082" xml:space="preserve">
+    <value>Debe Seleccionar al menos un producto y la cantidad</value>
+  </data>
+  <data name="MSJ084" xml:space="preserve">
+    <value>Venta cancelada</value>
+  </data>
+  <data name="MSJ086" xml:space="preserve">
+    <value>Venta realizada con exito</value>
   </data>
 </root>

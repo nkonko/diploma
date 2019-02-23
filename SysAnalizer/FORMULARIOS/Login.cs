@@ -4,17 +4,12 @@ namespace UI
     using BE.Entidades;
     using BLL;
     using DAL.Dao;
-    using SplashScreen;
     using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Resources;
-    using System.Threading;
     using System.Windows.Forms;
 
     public partial class Login : Form
     {
+        private const string nombreForm = "Login";
 
         private log4net.ILog log;
         private IPrincipal PrincipalForm;
@@ -22,18 +17,19 @@ namespace UI
         private IFormControl formControl;
         private readonly IIdiomaBLL idiomaBLL;
         private readonly IDigitoVerificador digitoVerificador;
+        private readonly ITraductor traductor;
 
-        public Login(IIdiomaBLL idiomaBLL, IDigitoVerificador digitoVerificador)
+        public Login(IIdiomaBLL idiomaBLL, IDigitoVerificador digitoVerificador, ITraductor traductor)
         {
             this.digitoVerificador = digitoVerificador;
             this.idiomaBLL = idiomaBLL;
+            this.traductor = traductor;
             InitializeComponent();
             txt_contraseña.PasswordChar = '*';
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            LimpiarRecursos();
             this.AcceptButton = btn_ingresar;
             log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
             PrincipalForm = IoCContainer.Resolve<IPrincipal>();
@@ -59,17 +55,7 @@ namespace UI
 
         private void Traduccir()
         {
-            formControl.Traducciones.Clear();
-            formControl.Traducciones = GetTraducciones();
-            idiomaBLL.LlenarRecursos(formControl.Traducciones, formControl.LenguajeSeleccionado.IdIdioma, Application.OpenForms[0].Name);
-            idiomaBLL.LeerRecursos(this.Controls);
-        }
-
-        private IDictionary<string, string> GetTraducciones()
-        {
-            formControl.Traducciones = idiomaBLL.ObtenerTraduccionesFormulario(formControl.LenguajeSeleccionado.IdIdioma, Application.OpenForms[0].Name).ToDictionary(k => k.ControlName ?? k.MensajeCodigo, v => v.Traduccion);
-
-            return formControl.Traducciones;
+            traductor.Traduccir(this, nombreForm);
         }
 
         private void CargarCombo()
@@ -124,34 +110,14 @@ namespace UI
 
             formControl.LenguajeSeleccionado = lenguajeSeleccionado;
 
-            using (ResXResourceWriter resxWriter = new ResXResourceWriter(idiomaBLL.ObtenerDirectorioRecursos()))
-            {
-                resxWriter.Dispose();
-            }
-            AplicarTraduccion();
+            Traduccir();
         }
 
         private void btn_salir_Click(object sender, EventArgs e)
         {
-            if (Alert.ConfirmationMessage("MSJ001", "Salir del sistema", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (Alert.ConfirmationMessage("MSJ001", "Seguro que desea salir?", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 this.Close();
-            }
-        }
-
-        public void AplicarTraduccion()
-        {
-            var provIdioma = FormExtensions.AplicarTraducciones();
-            provIdioma.LeerRecursos(this.Controls);
-        }
-
-        private void LimpiarRecursos()
-        {
-            var directorioRecursos = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\Recursos\\Español.resx";
-
-            using (ResXResourceWriter resxWriter = new ResXResourceWriter(idiomaBLL.ObtenerDirectorioRecursos()))
-            {                                                              
-                resxWriter.Dispose();
             }
         }
     }

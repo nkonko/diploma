@@ -45,10 +45,10 @@ namespace UI
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
             this.dgDetalleVta = new System.Windows.Forms.DataGridView();
-            this.btnQuitarProd = new System.Windows.Forms.Button();
             this.Producto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Importe = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnQuitarProd = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgDetalleVta)).BeginInit();
             this.SuspendLayout();
@@ -58,9 +58,9 @@ namespace UI
             this.lblCliente.AutoSize = true;
             this.lblCliente.Location = new System.Drawing.Point(451, 68);
             this.lblCliente.Name = "lblCliente";
-            this.lblCliente.Size = new System.Drawing.Size(69, 17);
+            this.lblCliente.Size = new System.Drawing.Size(55, 17);
             this.lblCliente.TabIndex = 0;
-            this.lblCliente.Text = "CLIENTE:";
+            this.lblCliente.Text = "Cliente:";
             // 
             // btnSelCliente
             // 
@@ -230,17 +230,6 @@ namespace UI
             this.dgDetalleVta.TabIndex = 18;
             this.dgDetalleVta.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgDetalleVta_CellClick);
             // 
-            // btnQuitarProd
-            // 
-            this.btnQuitarProd.Location = new System.Drawing.Point(149, 410);
-            this.btnQuitarProd.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnQuitarProd.Name = "btnQuitarProd";
-            this.btnQuitarProd.Size = new System.Drawing.Size(121, 50);
-            this.btnQuitarProd.TabIndex = 19;
-            this.btnQuitarProd.Text = "Quitar producto";
-            this.btnQuitarProd.UseVisualStyleBackColor = true;
-            this.btnQuitarProd.Click += new System.EventHandler(this.btnQuitarProd_Click);
-            // 
             // Producto
             // 
             this.Producto.DataPropertyName = "DescProducto";
@@ -261,6 +250,17 @@ namespace UI
             this.Cantidad.HeaderText = "Cantidad";
             this.Cantidad.Name = "Cantidad";
             this.Cantidad.ReadOnly = true;
+            // 
+            // btnQuitarProd
+            // 
+            this.btnQuitarProd.Location = new System.Drawing.Point(149, 410);
+            this.btnQuitarProd.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnQuitarProd.Name = "btnQuitarProd";
+            this.btnQuitarProd.Size = new System.Drawing.Size(121, 50);
+            this.btnQuitarProd.TabIndex = 19;
+            this.btnQuitarProd.Text = "Quitar producto";
+            this.btnQuitarProd.UseVisualStyleBackColor = true;
+            this.btnQuitarProd.Click += new System.EventHandler(this.btnQuitarProd_Click);
             // 
             // DetalleVentaUI
             // 

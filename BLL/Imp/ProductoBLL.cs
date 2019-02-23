@@ -10,7 +10,7 @@
     {
         private readonly IProductoDAL productoDAL;
 
-        private Regex ObtenerInt = new Regex("\\d+");
+        private Regex obtenerInt = new Regex("\\d+");
 
         public ProductoBLL(IProductoDAL productoDAL)
         {
@@ -49,14 +49,14 @@
 
         public bool ActivarProducto(string descripcion)
         {
-            var productoId = ObtenerInt.Match(descripcion).Value;
+            var productoId = obtenerInt.Match(descripcion).Value;
 
             return productoDAL.ActivarProducto(productoId);
         }
 
         public bool DesactivarProducto(string descripcion)
         {
-            var productoId = ObtenerInt.Match(descripcion).Value;
+            var productoId = obtenerInt.Match(descripcion).Value;
 
             return productoDAL.DesactivarProducto(productoId);
         }

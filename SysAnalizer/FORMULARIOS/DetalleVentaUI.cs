@@ -22,6 +22,7 @@ namespace UI
         private readonly IClientes cliente;
         private readonly IFormControl formControl;
         private readonly SqlUtils sqlUtils = new SqlUtils();
+        private readonly ITraductor traductor;
 
         public Cliente ClienteSeleccionado { get; set; } = new Cliente();
         public Producto ProductoSeleccionado { get; set; } = new Producto();
@@ -37,7 +38,8 @@ namespace UI
             IProductos productos,
             IClienteBLL clienteBLL,
             IClientes cliente,
-            IFormControl formControl)
+            IFormControl formControl,
+            ITraductor traductor)
         {
             this.ventaBLL = ventaBLL;
             this.detalleVentaBLL = detalleVentaBLL;
@@ -46,6 +48,7 @@ namespace UI
             this.cliente = cliente;
             this.clienteBLL = clienteBLL;
             this.formControl = formControl;
+            this.traductor = traductor;
             InitializeComponent();
             dgDetalleVta.AutoGenerateColumns = false;
         }
@@ -69,11 +72,13 @@ namespace UI
         private void VtaProd_Load(object sender, EventArgs e)
         {
             UsuarioActivo = formControl.ObtenerInfoUsuario();
+
+            traductor.Traduccir(this, nomEntidad);
         }
 
         private void btnAgregarProducto_Click(object sender, EventArgs e)
         {
-            if ((ProductoSeleccionado.ProductoId != 0 || !string.IsNullOrEmpty(txtCodProd.Text)) && !string.IsNullOrEmpty(txtCant.Text))
+            if (ProductoSeleccionado.ProductoId != 0 && !string.IsNullOrEmpty(txtCant.Text))
             {
                 ListGrid.Add(CrearNuevaLinea());
 
@@ -87,15 +92,22 @@ namespace UI
                 {
                     ProductoSeleccionado = productoBLL.ObtenerProductoPorCodigo(txtCodProd.Text);
 
-                    ListGrid.Add(CrearNuevaLinea());
+                    if (ProductoSeleccionado != null)
+                    {
+                        ListGrid.Add(CrearNuevaLinea());
 
-                    RecargarDatagrid();
+                        RecargarDatagrid();
 
-                    LimpiarControles();
+                        LimpiarControles();
+                    }
+                    else
+                    {
+                        Alert.ShowSimpleAlert("El codigo de producto no existe", "MSJ080");
+                    }
                 }
                 else
                 {
-                    Alert.ShowSimpleAlert("Debe Seleccionar al menos un producto y la cantidad", "");
+                    Alert.ShowSimpleAlert("Debe Seleccionar al menos un producto y la cantidad", "MSJ082");
                 }
             }
         }
@@ -115,6 +127,7 @@ namespace UI
         {
             txtCant.Text = string.Empty;
             txtCodProd.Text = string.Empty;
+            lblCliente.Text = "Cliente:";
         }
 
         private Venta CrearNuevaVenta(int estadoId, DateTime fecha, float monto, int tipoVta, int usuarioId, int? clienteId = null)
@@ -189,7 +202,7 @@ namespace UI
             radioVtaSimple.Enabled = true;
             rbSe.Enabled = true;
 
-            Alert.ShowSimpleAlert("Venta cancelada", "");
+            Alert.ShowSimpleAlert("Venta cancelada", "MSJ084");
         }
 
         private void btnFinalizarVenta_Click(object sender, EventArgs e)
@@ -201,12 +214,12 @@ namespace UI
 
             if (radioVtaCC.Checked)
             {
-                ventaBLL.Crear(CrearNuevaVenta(EstadoVenta.Pendiente.GetHashCode(), DateTime.UtcNow, int.Parse(txtCant.Text) * ProductoSeleccionado.PVenta, TipoVenta.Cliente.GetHashCode(), UsuarioActivo.UsuarioId, ClienteSeleccionado.ClienteId));
+                ventaBLL.Crear(CrearNuevaVenta(EstadoVenta.Pendiente.GetHashCode(), DateTime.UtcNow, CalcularMontoTotal(), TipoVenta.Cliente.GetHashCode(), UsuarioActivo.UsuarioId, ClienteSeleccionado.ClienteId));
             }
 
             if (rbSe.Checked)
             {
-                ventaBLL.Crear(CrearNuevaVenta(EstadoVenta.Pendiente.GetHashCode(), DateTime.UtcNow, int.Parse(txtCant.Text) * ProductoSeleccionado.PVenta, TipoVenta.Seña.GetHashCode(), UsuarioActivo.UsuarioId));
+                ventaBLL.Crear(CrearNuevaVenta(EstadoVenta.Pendiente.GetHashCode(), DateTime.UtcNow, CalcularMontoTotal(), TipoVenta.Seña.GetHashCode(), UsuarioActivo.UsuarioId));
             }
 
             foreach (var linea in ListGrid)
@@ -218,7 +231,7 @@ namespace UI
                 detalleVentaBLL.Crear(DetalleEnGrid);
             }
 
-            Alert.ShowSimpleAlert("Venta realizada con exito", "");
+            Alert.ShowSimpleAlert("Venta realizada con exito", "MSJ086");
 
             VaciaListGrid();
 

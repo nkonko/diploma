@@ -8,6 +8,7 @@ namespace UI
 
     public partial class Productos : Form, IProductos
     {
+        private const string nombreForm = "Productos";
         private readonly IProductoBLL productoBLL;
         private readonly IBloqueoProductos bloqueoProductos;
 
@@ -43,7 +44,7 @@ namespace UI
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            var exito = productoBLL.Actualizar(productoSeleccionado);
+            var exito = productoBLL.Actualizar(new Producto() {ProductoId = productoSeleccionado.ProductoId, Descripcion = txtDescripcion.Text, PVenta = float.Parse(txtPcosto.Text), PUnitario = float.Parse(txtPunitario.Text), Stock = int.Parse(txtCantidad.Text), MinStock = int.Parse(txtMinStock.Text) });
 
             if (exito)
             {
@@ -110,6 +111,7 @@ namespace UI
         private void dgProd_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             ActualizarSeleccionado();
+            LimpiarControles();
             CargaControles();
         }
 

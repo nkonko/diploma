@@ -63,7 +63,7 @@
             contBuilder.RegisterType<NegarPatUsuario>().As<INegarPat>().SingleInstance();
             contBuilder.RegisterType<DetalleVentaDAL>().As<IDetalleVentaDAL>().SingleInstance();
             contBuilder.RegisterType<DetalleVentaBLL>().As<IDetalleVentaBLL>().SingleInstance();
-
+            contBuilder.RegisterType<Traductor>().As<ITraductor>().SingleInstance();
             return contBuilder.Build();
         }
     }
