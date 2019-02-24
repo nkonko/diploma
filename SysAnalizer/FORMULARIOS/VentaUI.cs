@@ -16,6 +16,7 @@ namespace UI
         private readonly ITraductor traductor;
         private readonly IClienteBLL clienteBLL;
         private readonly IUsuarioBLL usuarioBLL;
+        private readonly IDetalleRefForm detalleRefForm;
 
         private const string nombreForm = "Venta";
         public const string key = "bZr2URKx";
@@ -26,13 +27,15 @@ namespace UI
         public LineaVenta LineaSeleccionada { get; set; } = new LineaVenta();
         public Venta VentaSeleccionada { get; set; } = new Venta();
         public List<Venta> VentasBd { get; set; } = new List<Venta>();
-        public List<LineaVenta> ListGrid { get; set; } = new List<LineaVenta>();
-        public VentaUI(ITraductor traductor, IVentaBLL ventaBLL, IClienteBLL clienteBLL, IUsuarioBLL usuarioBLL)
+        public List<LineaVenta> ListGrid { get; set; }
+
+        public VentaUI(ITraductor traductor, IVentaBLL ventaBLL, IClienteBLL clienteBLL, IUsuarioBLL usuarioBLL, IDetalleRefForm detalleRefForm)
         {
             this.traductor = traductor;
             this.ventaBLL = ventaBLL;
             this.clienteBLL = clienteBLL;
             this.usuarioBLL = usuarioBLL;
+            this.detalleRefForm = detalleRefForm;
             InitializeComponent();
             dgVenta.AutoGenerateColumns = false;
         }
@@ -46,6 +49,9 @@ namespace UI
 
         private void CargarVentas()
         {
+            ListGrid = null;
+            ListGrid = new List<LineaVenta>();
+
             VentasBd = ventaBLL.Cargar();
 
             foreach (var venta in VentasBd)
@@ -86,23 +92,14 @@ namespace UI
             if (e.RowIndex >= 0)
             {
                 LineaSeleccionada = (LineaVenta)dgVenta.CurrentRow.DataBoundItem;
+
+                VentaSeleccionada = CrearVenta(LineaSeleccionada.Estado);
             }
         }
 
         private void btnAprobar_Click(object sender, EventArgs e)
         {
-            var venta = new Venta()
-            {
-                VentaId = LineaSeleccionada.VentaId,
-                ClienteId = clienteBLL.Cargar()
-                .Where(x => x.ClienteId == int.Parse(obtenerInt.Match(LineaSeleccionada.Cliente).Value))
-                .Select(x => x.ClienteId).FirstOrDefault(),
-                EstadoId = ventaBLL.ObtenerEstadoVentaConString("Aprobada"),
-                Fecha = LineaSeleccionada.Fecha,
-                Monto = LineaSeleccionada.Monto,
-                TipoVentaId = ventaBLL.ObtenerTipoVentaConString(LineaSeleccionada.TipoVenta),
-                UsuarioId = usuarioBLL.ObtenerUsuarioConEmail(LineaSeleccionada.Vendedor).UsuarioId
-            };
+            var venta = CrearVenta("Aprobada");
 
             ventaBLL.Actualizar(venta);
 
@@ -113,18 +110,7 @@ namespace UI
 
         private void btnRechazar_Click(object sender, EventArgs e)
         {
-            var venta = new Venta()
-            {
-                VentaId = LineaSeleccionada.VentaId,
-                ClienteId = clienteBLL.Cargar()
-                .Where(x => x.ClienteId == int.Parse(obtenerInt.Match(LineaSeleccionada.Cliente).Value))
-                .Select(x => x.ClienteId).FirstOrDefault(),
-                EstadoId = ventaBLL.ObtenerEstadoVentaConString("Rechazada"),
-                Fecha = LineaSeleccionada.Fecha,
-                Monto = LineaSeleccionada.Monto,
-                TipoVentaId = ventaBLL.ObtenerTipoVentaConString(LineaSeleccionada.TipoVenta),
-                UsuarioId = usuarioBLL.ObtenerUsuarioConEmail(LineaSeleccionada.Vendedor).UsuarioId
-            };
+            var venta = CrearVenta("Rechazada");
 
             ventaBLL.Actualizar(venta);
 
@@ -135,24 +121,58 @@ namespace UI
 
         private void bntCancelar_Click(object sender, EventArgs e)
         {
-            var venta = new Venta()
-            {
-                VentaId = LineaSeleccionada.VentaId,
-                ClienteId = clienteBLL.Cargar()
-                .Where(x => x.ClienteId == int.Parse(obtenerInt.Match(LineaSeleccionada.Cliente).Value))
-                .Select(x => x.ClienteId).FirstOrDefault(),
-                EstadoId = ventaBLL.ObtenerEstadoVentaConString("Cancelada"),
-                Fecha = LineaSeleccionada.Fecha,
-                Monto = LineaSeleccionada.Monto,
-                TipoVentaId = ventaBLL.ObtenerTipoVentaConString(LineaSeleccionada.TipoVenta),
-                UsuarioId = usuarioBLL.ObtenerUsuarioConEmail(LineaSeleccionada.Vendedor).UsuarioId
-            };
+            var venta = CrearVenta("Cancelada");
 
             ventaBLL.Actualizar(venta);
 
             CargarVentas();
 
             CargarGrid();
+        }
+
+        private int? DeterminarCliente()
+        {
+            int? cliente = 0;
+
+            if (LineaSeleccionada.Cliente != " - ")
+            {
+                cliente = clienteBLL.Cargar()
+                   .Where(x => x.ClienteId == int.Parse(obtenerInt.Match(LineaSeleccionada.Cliente).Value))
+                   .Select(x => x.ClienteId).FirstOrDefault();
+            }
+            else
+            {
+                cliente = null;
+            }
+
+            return cliente;
+        }
+
+        private void btnDetalle_Click(object sender, EventArgs e)
+        {
+            detalleRefForm.ShowDialog();
+        }
+
+        private Venta CrearVenta(string estadoVenta)
+        {
+            int? cliente = DeterminarCliente();
+
+            var venta = new Venta()
+            {
+                VentaId = LineaSeleccionada.VentaId,
+                ClienteId = cliente,
+                EstadoId = ventaBLL.ObtenerEstadoVentaConString(estadoVenta),
+                Fecha = LineaSeleccionada.Fecha,
+                Monto = LineaSeleccionada.Monto,
+                TipoVentaId = ventaBLL.ObtenerTipoVentaConString(LineaSeleccionada.TipoVenta),
+                UsuarioId = usuarioBLL.ObtenerUsuarioConEmail(LineaSeleccionada.Vendedor).UsuarioId
+            };
+            return venta;
+        }
+
+        public Venta ObtenerVentaSeleccionada()
+        {
+            return VentaSeleccionada;
         }
     }
 }

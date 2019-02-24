@@ -43,6 +43,7 @@
     <Compile Include="Entidades\Bitacora.cs" />
     <Compile Include="Entidades\Cliente.cs" />
     <Compile Include="Entidades\DetalleVenta.cs" />
+    <Compile Include="Entidades\DetalleVentaBd.cs" />
     <Compile Include="Entidades\Familia.cs" />
     <Compile Include="Entidades\FamiliaPatente.cs" />
     <Compile Include="Entidades\Formulario.cs" />

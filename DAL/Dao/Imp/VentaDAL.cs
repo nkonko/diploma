@@ -60,7 +60,7 @@
 
         public bool Actualizar(Venta objUpd)
         {
-            var queryString = string.Format("UPDATE  WHERE IdVenta = {0}", objUpd.VentaId);
+            var queryString = $@"UPDATE Venta  SET Fecha = '{objUpd.Fecha.ToShortDateString()}', UsuarioId = {objUpd.UsuarioId}, EstadoId = {objUpd.EstadoId}, TipoVentaId = {objUpd.TipoVentaId}, ClienteId = {objUpd.ClienteId}, Monto = {objUpd.Monto}, DVH = 0 WHERE VentaId = {objUpd.VentaId}";
 
             return CatchException(() =>
             {

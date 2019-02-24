@@ -57,13 +57,14 @@ namespace UI
             this.TipoVenta,
             this.Cliente,
             this.Monto});
-            this.dgVenta.Location = new System.Drawing.Point(12, 74);
+            this.dgVenta.Location = new System.Drawing.Point(9, 60);
+            this.dgVenta.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dgVenta.MultiSelect = false;
             this.dgVenta.Name = "dgVenta";
             this.dgVenta.ReadOnly = true;
             this.dgVenta.RowTemplate.Height = 24;
             this.dgVenta.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgVenta.Size = new System.Drawing.Size(878, 314);
+            this.dgVenta.Size = new System.Drawing.Size(658, 255);
             this.dgVenta.TabIndex = 0;
             this.dgVenta.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgVenta_CellClick);
             // 
@@ -111,9 +112,10 @@ namespace UI
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(13, 13);
+            this.button1.Location = new System.Drawing.Point(10, 11);
+            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(86, 30);
+            this.button1.Size = new System.Drawing.Size(64, 24);
             this.button1.TabIndex = 1;
             this.button1.Text = "Volver";
             this.button1.UseVisualStyleBackColor = true;
@@ -121,18 +123,21 @@ namespace UI
             // 
             // btnDetalle
             // 
-            this.btnDetalle.Location = new System.Drawing.Point(783, 407);
+            this.btnDetalle.Location = new System.Drawing.Point(587, 331);
+            this.btnDetalle.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnDetalle.Name = "btnDetalle";
-            this.btnDetalle.Size = new System.Drawing.Size(107, 33);
+            this.btnDetalle.Size = new System.Drawing.Size(80, 27);
             this.btnDetalle.TabIndex = 2;
             this.btnDetalle.Text = "Ver Detalle";
             this.btnDetalle.UseVisualStyleBackColor = true;
+            this.btnDetalle.Click += new System.EventHandler(this.btnDetalle_Click);
             // 
             // btnAprobar
             // 
-            this.btnAprobar.Location = new System.Drawing.Point(907, 74);
+            this.btnAprobar.Location = new System.Drawing.Point(680, 60);
+            this.btnAprobar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnAprobar.Name = "btnAprobar";
-            this.btnAprobar.Size = new System.Drawing.Size(87, 27);
+            this.btnAprobar.Size = new System.Drawing.Size(65, 22);
             this.btnAprobar.TabIndex = 3;
             this.btnAprobar.Text = "Aprobar";
             this.btnAprobar.UseVisualStyleBackColor = true;
@@ -140,9 +145,10 @@ namespace UI
             // 
             // btnRechazar
             // 
-            this.btnRechazar.Location = new System.Drawing.Point(907, 120);
+            this.btnRechazar.Location = new System.Drawing.Point(680, 98);
+            this.btnRechazar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnRechazar.Name = "btnRechazar";
-            this.btnRechazar.Size = new System.Drawing.Size(87, 31);
+            this.btnRechazar.Size = new System.Drawing.Size(65, 25);
             this.btnRechazar.TabIndex = 4;
             this.btnRechazar.Text = "Rechazar";
             this.btnRechazar.UseVisualStyleBackColor = true;
@@ -150,9 +156,10 @@ namespace UI
             // 
             // bntCancelar
             // 
-            this.bntCancelar.Location = new System.Drawing.Point(907, 171);
+            this.bntCancelar.Location = new System.Drawing.Point(680, 139);
+            this.bntCancelar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.bntCancelar.Name = "bntCancelar";
-            this.bntCancelar.Size = new System.Drawing.Size(87, 31);
+            this.bntCancelar.Size = new System.Drawing.Size(65, 25);
             this.bntCancelar.TabIndex = 5;
             this.bntCancelar.Text = "Cancelar";
             this.bntCancelar.UseVisualStyleBackColor = true;
@@ -160,16 +167,15 @@ namespace UI
             // 
             // VentaUI
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1005, 464);
+            this.ClientSize = new System.Drawing.Size(754, 377);
             this.Controls.Add(this.bntCancelar);
             this.Controls.Add(this.btnRechazar);
             this.Controls.Add(this.btnAprobar);
             this.Controls.Add(this.btnDetalle);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.dgVenta);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "VentaUI";
             this.Text = "Venta";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.VentaUI_FormClosing);

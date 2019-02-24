@@ -45,11 +45,9 @@ namespace UI
         {
             if (!digitoVerificador.ComprobarIntegridad())
             {
-                ////traducir
                 Alert.ShowSimpleAlert("Problema integridad base de datos, contacte al administrador", "MSJ000");
 
                 this.Close();
-
             }
         }
 

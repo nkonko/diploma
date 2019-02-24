@@ -7,6 +7,13 @@
 
     public class DetalleVentaDAL : BaseDao, IDetalleVentaDAL, ICRUD<DetalleVenta>
     {
+        private readonly IProductoDAL productoDAL;
+
+        public DetalleVentaDAL(IProductoDAL productoDAL)
+        {
+            this.productoDAL = productoDAL;
+        }
+
         public bool Actualizar(DetalleVenta objUpd)
         {
             var queryString = string.Format("UPDATE  FROM DetalleVenta WHERE DetalleId = {0}", objUpd.VentaId);
@@ -29,12 +36,35 @@
 
         public List<DetalleVenta> Cargar()
         {
+            var detalleVenta = new List<DetalleVenta>();
+
             var queryString = "SELECT * FROM DetalleVenta;";
 
-            return CatchException(() =>
+            var detalleBd = CatchException(() => Exec<DetalleVentaBd>(queryString));
+
+            foreach (var detalle in detalleBd)
             {
-                return Exec<DetalleVenta>(queryString);
-            });
+                var producto = productoDAL.ObtenerProductoPorCodigo(detalle.ProductoId.ToString());
+
+                detalleVenta.Add(
+                    new DetalleVenta()
+                    {
+                        DetalleId = detalle.DetalleId,
+                        VentaId = detalle.VentaId,
+                        LineasDetalle = new List<LineaDetalle>()
+                        {
+                            new LineaDetalle()
+                            {
+                                Cantidad = detalle.Cantidad,
+                                Importe = detalle.Importe,
+                                Producto = producto ,
+                                DescProducto = producto.Descripcion
+                            }
+                        }
+                    });
+            };
+
+            return detalleVenta;
         }
 
         public bool Crear(DetalleVenta objAlta)

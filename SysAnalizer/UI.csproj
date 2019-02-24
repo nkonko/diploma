@@ -145,6 +145,13 @@
     <Compile Include="FORMULARIOS\AdminFamUsuario.Designer.cs">
       <DependentUpon>AdminFamUsuario.cs</DependentUpon>
     </Compile>
+    <Compile Include="FORMULARIOS\DetalleRefForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMULARIOS\DetalleRefForm.Designer.cs">
+      <DependentUpon>DetalleRefForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IDetalleRefForm.cs" />
     <Compile Include="IVentaUI.cs" />
     <Compile Include="FORMULARIOS\VentaUI.cs">
       <SubType>Form</SubType>
@@ -295,6 +302,9 @@
     <Compile Include="Traductor.cs" />
     <EmbeddedResource Include="FORMULARIOS\AdminFamUsuario.resx">
       <DependentUpon>AdminFamUsuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMULARIOS\DetalleRefForm.resx">
+      <DependentUpon>DetalleRefForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FORMULARIOS\VentaUI.resx">
       <DependentUpon>VentaUI.cs</DependentUpon>
