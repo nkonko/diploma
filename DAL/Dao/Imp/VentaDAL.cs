@@ -2,8 +2,9 @@
 {
     using BE;
     using BE.Entidades;
-    using System.Collections.Generic;
     using DAL.Utils;
+    using System;
+    using System.Collections.Generic;
     using System.Linq;
 
     public class VentaDAL : BaseDao, ICRUD<Venta>, IVentaDAL
@@ -74,6 +75,74 @@
             var id = CatchException(() => Exec<int>(queryString.ToString()).FirstOrDefault());
 
             return (id != 0) ? id : 1;
+        }
+
+        public string ObtenerEstadoVentaConId(int estadoId)
+        {
+            switch (estadoId)
+            {
+                case 1: return EstadoVenta.Pendiente.ToString();
+                case 2: return EstadoVenta.Aprobada.ToString();
+                case 3: return EstadoVenta.Rechazada.ToString();
+                case 4: return EstadoVenta.Cancelada.ToString();
+            }
+
+            return "Estado inexistente";
+        }
+
+        public string ObtenerTipoVentaConId(int tipoVtaId)
+        {
+            switch (tipoVtaId)
+            {
+                case 1: return TipoVenta.Seña.ToString();
+                case 2: return TipoVenta.VentaSimple.ToString();
+                case 3: return TipoVenta.Cliente.ToString();
+                case 4: return TipoVenta.Devolucion.ToString();
+            }
+
+            return "Tipo inexistente";
+        }
+
+        public int ObtenerTipoVentaConString(string tipoVta)
+        {
+            switch (tipoVta)
+            {
+                case "Seña": return 1;
+                case "VentaSimple": return 2;
+                case "Cliente": return 3;
+                case "Devolucion": return 4;
+            }
+
+            return 0;
+        }
+
+        public int ObtenerEstadoVentaConString(string estado)
+        {
+            switch (estado)
+            {
+                case "Pendiente": return 1;
+                case "Aprobada": return 2;
+                case "Rechazada": return 3;
+                case "Cancelada": return 4;
+            }
+
+            return 0;
+        }
+
+        public enum TipoVenta
+        {
+            Seña = 1,
+            VentaSimple,
+            Cliente,
+            Devolucion,
+        }
+
+        public enum EstadoVenta
+        {
+            Pendiente = 1,
+            Aprobada,
+            Rechazada,
+            Cancelada,
         }
     }
 }

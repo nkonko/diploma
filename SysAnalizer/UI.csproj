@@ -145,6 +145,7 @@
     <Compile Include="FORMULARIOS\AdminFamUsuario.Designer.cs">
       <DependentUpon>AdminFamUsuario.cs</DependentUpon>
     </Compile>
+    <Compile Include="IVentaUI.cs" />
     <Compile Include="FORMULARIOS\VentaUI.cs">
       <SubType>Form</SubType>
     </Compile>

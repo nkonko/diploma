@@ -34,5 +34,10 @@
         {
             return clienteDAL.Crear(objAlta);
         }
+
+        public string ObtenerClienteConId(int? clienteId)
+        {
+            return clienteDAL.ObtenerClienteConId(clienteId);
+        }
     }
 }

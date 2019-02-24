@@ -5,5 +5,6 @@
 
     public interface IClienteDAL : ICRUD<Cliente>
     {
+        string ObtenerClienteConId(int? clienteId);
     }
 }

@@ -3,6 +3,7 @@
     using BE.Entidades;
     using DAL.Utils;
     using System.Collections.Generic;
+    using System.Linq;
 
     public class ClienteDAL : BaseDao, IClienteDAL
     {
@@ -81,6 +82,19 @@
                         @activo = 1
                     });
             });
+        }
+
+        public string ObtenerClienteConId(int? clienteId)
+        {
+            if (clienteId != null)
+            {
+                return Cargar()
+                    .Where(x => x.ClienteId == clienteId)
+                    .Select(x => x.ClienteId + " - " + x.NombreCompleto)
+                    .FirstOrDefault();
+            }
+
+            return " - ";
         }
     }
 }

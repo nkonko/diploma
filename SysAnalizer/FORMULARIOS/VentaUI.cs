@@ -3,27 +3,38 @@ namespace UI
 {
     using BE.Entidades;
     using BLL;
+    using EasyEncryption;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Text.RegularExpressions;
     using System.Windows.Forms;
 
-    public partial class VentaUI : Form
+    public partial class VentaUI : Form, IVentaUI
     {
         private readonly IVentaBLL ventaBLL;
         private readonly ITraductor traductor;
+        private readonly IClienteBLL clienteBLL;
+        private readonly IUsuarioBLL usuarioBLL;
 
         private const string nombreForm = "Venta";
+        public const string key = "bZr2URKx";
+        public const string iv = "HNtgQw0w";
 
-        public LineaVenta lineaSeleccionada { get; set; } = new LineaVenta();
-        public Venta ventaSeleccionada { get; set; } = new Venta();
-        public List<Venta> ventasBd { get; set; } = new List<Venta>();
-        public List<LineaVenta> listGrid { get; set; } = new List<LineaVenta>();
+        private Regex obtenerInt = new Regex("\\d+");
 
-        public VentaUI(ITraductor traductor, IVentaBLL ventaBLL)
+        public LineaVenta LineaSeleccionada { get; set; } = new LineaVenta();
+        public Venta VentaSeleccionada { get; set; } = new Venta();
+        public List<Venta> VentasBd { get; set; } = new List<Venta>();
+        public List<LineaVenta> ListGrid { get; set; } = new List<LineaVenta>();
+        public VentaUI(ITraductor traductor, IVentaBLL ventaBLL, IClienteBLL clienteBLL, IUsuarioBLL usuarioBLL)
         {
             this.traductor = traductor;
             this.ventaBLL = ventaBLL;
+            this.clienteBLL = clienteBLL;
+            this.usuarioBLL = usuarioBLL;
             InitializeComponent();
+            dgVenta.AutoGenerateColumns = false;
         }
 
         private void VentaUI_Load(object sender, EventArgs e)
@@ -35,18 +46,113 @@ namespace UI
 
         private void CargarVentas()
         {
-            ventasBd = ventaBLL.Cargar();
+            VentasBd = ventaBLL.Cargar();
 
-            foreach (var venta in ventasBd)
+            foreach (var venta in VentasBd)
             {
-
+                ListGrid.Add(
+                    new LineaVenta()
+                    {
+                        VentaId = venta.VentaId,
+                        Fecha = venta.Fecha,
+                        Cliente = clienteBLL.ObtenerClienteConId(venta.ClienteId),
+                        Estado = ventaBLL.ObtenerEstadoVenta(venta.EstadoId),
+                        TipoVenta = ventaBLL.ObtenerTipoVenta(venta.TipoVentaId),
+                        Vendedor = usuarioBLL.Cargar().Where(x => x.UsuarioId == venta.UsuarioId).Select(x => DES.Decrypt(x.Email, key, iv)).FirstOrDefault(),
+                        Monto = venta.Monto
+                    });
             }
         }
 
         private void CargarGrid()
         {
             dgVenta.DataSource = null;
-            dgVenta.DataSource = listGrid;
+            dgVenta.DataSource = ListGrid;
+        }
+
+        private void btnVolver_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+        }
+
+        private void VentaUI_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Hide();
+            e.Cancel = true;
+        }
+
+        private void dgVenta_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                LineaSeleccionada = (LineaVenta)dgVenta.CurrentRow.DataBoundItem;
+            }
+        }
+
+        private void btnAprobar_Click(object sender, EventArgs e)
+        {
+            var venta = new Venta()
+            {
+                VentaId = LineaSeleccionada.VentaId,
+                ClienteId = clienteBLL.Cargar()
+                .Where(x => x.ClienteId == int.Parse(obtenerInt.Match(LineaSeleccionada.Cliente).Value))
+                .Select(x => x.ClienteId).FirstOrDefault(),
+                EstadoId = ventaBLL.ObtenerEstadoVentaConString("Aprobada"),
+                Fecha = LineaSeleccionada.Fecha,
+                Monto = LineaSeleccionada.Monto,
+                TipoVentaId = ventaBLL.ObtenerTipoVentaConString(LineaSeleccionada.TipoVenta),
+                UsuarioId = usuarioBLL.ObtenerUsuarioConEmail(LineaSeleccionada.Vendedor).UsuarioId
+            };
+
+            ventaBLL.Actualizar(venta);
+
+            CargarVentas();
+
+            CargarGrid();
+        }
+
+        private void btnRechazar_Click(object sender, EventArgs e)
+        {
+            var venta = new Venta()
+            {
+                VentaId = LineaSeleccionada.VentaId,
+                ClienteId = clienteBLL.Cargar()
+                .Where(x => x.ClienteId == int.Parse(obtenerInt.Match(LineaSeleccionada.Cliente).Value))
+                .Select(x => x.ClienteId).FirstOrDefault(),
+                EstadoId = ventaBLL.ObtenerEstadoVentaConString("Rechazada"),
+                Fecha = LineaSeleccionada.Fecha,
+                Monto = LineaSeleccionada.Monto,
+                TipoVentaId = ventaBLL.ObtenerTipoVentaConString(LineaSeleccionada.TipoVenta),
+                UsuarioId = usuarioBLL.ObtenerUsuarioConEmail(LineaSeleccionada.Vendedor).UsuarioId
+            };
+
+            ventaBLL.Actualizar(venta);
+
+            CargarVentas();
+
+            CargarGrid();
+        }
+
+        private void bntCancelar_Click(object sender, EventArgs e)
+        {
+            var venta = new Venta()
+            {
+                VentaId = LineaSeleccionada.VentaId,
+                ClienteId = clienteBLL.Cargar()
+                .Where(x => x.ClienteId == int.Parse(obtenerInt.Match(LineaSeleccionada.Cliente).Value))
+                .Select(x => x.ClienteId).FirstOrDefault(),
+                EstadoId = ventaBLL.ObtenerEstadoVentaConString("Cancelada"),
+                Fecha = LineaSeleccionada.Fecha,
+                Monto = LineaSeleccionada.Monto,
+                TipoVentaId = ventaBLL.ObtenerTipoVentaConString(LineaSeleccionada.TipoVenta),
+                UsuarioId = usuarioBLL.ObtenerUsuarioConEmail(LineaSeleccionada.Vendedor).UsuarioId
+            };
+
+            ventaBLL.Actualizar(venta);
+
+            CargarVentas();
+
+            CargarGrid();
         }
     }
 }

@@ -30,7 +30,6 @@ namespace UI
         private void btnSelClie_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.OK;
-            formUserClose = false;
         }
 
         private void Clientes_Load(object sender, EventArgs e)
@@ -60,11 +59,8 @@ namespace UI
 
         private void Clientes_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (formUserClose)
-            {
-                e.Cancel = true;
-            }
             Hide();
+            e.Cancel = true;
         }
 
         private void btnNuevo_Click(object sender, EventArgs e)

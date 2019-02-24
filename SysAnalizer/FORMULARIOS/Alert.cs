@@ -53,7 +53,7 @@
             return null;
         }
 
-        public static string ObtenerPath()
+        private static string ObtenerPath()
         {
             return Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\Recursos\\Español.resx";
         }

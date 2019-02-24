@@ -20,6 +20,7 @@ namespace UI
         private readonly IBackupUI backupUI;
         private readonly IRestoreUI restoreUI;
         private readonly IProductos productosUI;
+        private readonly IVentaUI ventaUI;
 
         public Principal(
             IUsuarioDAL usuarioDAL,
@@ -32,7 +33,8 @@ namespace UI
             IDatosUsuario datosUsuario,
             IBackupUI backupUI,
             IRestoreUI restoreUI,
-            IProductos productosUI)
+            IProductos productosUI,
+            IVentaUI ventaUI)
         {
             InitializeComponent();
             this.formControl = formControl;
@@ -46,6 +48,7 @@ namespace UI
             this.backupUI = backupUI;
             this.restoreUI = restoreUI;
             this.productosUI = productosUI;
+            this.ventaUI = ventaUI;
         }
 
         private void Principal_Load(object sender, EventArgs e)
@@ -80,11 +83,6 @@ namespace UI
         {
             bitacora.MdiParent = this;
             bitacora.Show();
-        }
-
-        private void verProductosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
         }
 
         public void ComprobarSiEsPrimerLogin(string usuario)
@@ -166,6 +164,12 @@ namespace UI
         {
             productosUI.MdiParent = this;
             productosUI.Show();
+        }
+
+        private void verVentasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ventaUI.MdiParent = this;
+            ventaUI.Show();
         }
     }
 }

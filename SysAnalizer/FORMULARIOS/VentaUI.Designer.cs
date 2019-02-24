@@ -32,12 +32,16 @@ namespace UI
         {
             this.dgVenta = new System.Windows.Forms.DataGridView();
             this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Vendedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TipoVenta = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Monto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button1 = new System.Windows.Forms.Button();
+            this.btnDetalle = new System.Windows.Forms.Button();
+            this.btnAprobar = new System.Windows.Forms.Button();
+            this.btnRechazar = new System.Windows.Forms.Button();
+            this.bntCancelar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgVenta)).BeginInit();
             this.SuspendLayout();
             // 
@@ -48,52 +52,59 @@ namespace UI
             this.dgVenta.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgVenta.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Fecha,
-            this.Usuario,
+            this.Vendedor,
             this.Estado,
             this.TipoVenta,
             this.Cliente,
             this.Monto});
-            this.dgVenta.Location = new System.Drawing.Point(12, 62);
+            this.dgVenta.Location = new System.Drawing.Point(12, 74);
             this.dgVenta.MultiSelect = false;
             this.dgVenta.Name = "dgVenta";
             this.dgVenta.ReadOnly = true;
             this.dgVenta.RowTemplate.Height = 24;
             this.dgVenta.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgVenta.Size = new System.Drawing.Size(652, 314);
+            this.dgVenta.Size = new System.Drawing.Size(878, 314);
             this.dgVenta.TabIndex = 0;
+            this.dgVenta.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgVenta_CellClick);
             // 
             // Fecha
             // 
+            this.Fecha.DataPropertyName = "Fecha";
             this.Fecha.HeaderText = "Fecha";
             this.Fecha.Name = "Fecha";
             this.Fecha.ReadOnly = true;
             // 
-            // Usuario
+            // Vendedor
             // 
-            this.Usuario.HeaderText = "Usuario";
-            this.Usuario.Name = "Usuario";
-            this.Usuario.ReadOnly = true;
+            this.Vendedor.DataPropertyName = "Vendedor";
+            this.Vendedor.HeaderText = "Vendedor";
+            this.Vendedor.Name = "Vendedor";
+            this.Vendedor.ReadOnly = true;
             // 
             // Estado
             // 
+            this.Estado.DataPropertyName = "Estado";
             this.Estado.HeaderText = "Estado";
             this.Estado.Name = "Estado";
             this.Estado.ReadOnly = true;
             // 
             // TipoVenta
             // 
+            this.TipoVenta.DataPropertyName = "TipoVenta";
             this.TipoVenta.HeaderText = "Tipo Venta";
             this.TipoVenta.Name = "TipoVenta";
             this.TipoVenta.ReadOnly = true;
             // 
             // Cliente
             // 
+            this.Cliente.DataPropertyName = "Cliente";
             this.Cliente.HeaderText = "Cliente";
             this.Cliente.Name = "Cliente";
             this.Cliente.ReadOnly = true;
             // 
             // Monto
             // 
+            this.Monto.DataPropertyName = "Monto";
             this.Monto.HeaderText = "Monto";
             this.Monto.Name = "Monto";
             this.Monto.ReadOnly = true;
@@ -102,21 +113,66 @@ namespace UI
             // 
             this.button1.Location = new System.Drawing.Point(13, 13);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(86, 30);
             this.button1.TabIndex = 1;
             this.button1.Text = "Volver";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.btnVolver_Click);
+            // 
+            // btnDetalle
+            // 
+            this.btnDetalle.Location = new System.Drawing.Point(783, 407);
+            this.btnDetalle.Name = "btnDetalle";
+            this.btnDetalle.Size = new System.Drawing.Size(107, 33);
+            this.btnDetalle.TabIndex = 2;
+            this.btnDetalle.Text = "Ver Detalle";
+            this.btnDetalle.UseVisualStyleBackColor = true;
+            // 
+            // btnAprobar
+            // 
+            this.btnAprobar.Location = new System.Drawing.Point(907, 74);
+            this.btnAprobar.Name = "btnAprobar";
+            this.btnAprobar.Size = new System.Drawing.Size(87, 27);
+            this.btnAprobar.TabIndex = 3;
+            this.btnAprobar.Text = "Aprobar";
+            this.btnAprobar.UseVisualStyleBackColor = true;
+            this.btnAprobar.Click += new System.EventHandler(this.btnAprobar_Click);
+            // 
+            // btnRechazar
+            // 
+            this.btnRechazar.Location = new System.Drawing.Point(907, 120);
+            this.btnRechazar.Name = "btnRechazar";
+            this.btnRechazar.Size = new System.Drawing.Size(87, 31);
+            this.btnRechazar.TabIndex = 4;
+            this.btnRechazar.Text = "Rechazar";
+            this.btnRechazar.UseVisualStyleBackColor = true;
+            this.btnRechazar.Click += new System.EventHandler(this.btnRechazar_Click);
+            // 
+            // bntCancelar
+            // 
+            this.bntCancelar.Location = new System.Drawing.Point(907, 171);
+            this.bntCancelar.Name = "bntCancelar";
+            this.bntCancelar.Size = new System.Drawing.Size(87, 31);
+            this.bntCancelar.TabIndex = 5;
+            this.bntCancelar.Text = "Cancelar";
+            this.bntCancelar.UseVisualStyleBackColor = true;
+            this.bntCancelar.Click += new System.EventHandler(this.bntCancelar_Click);
             // 
             // VentaUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(676, 464);
+            this.ClientSize = new System.Drawing.Size(1005, 464);
+            this.Controls.Add(this.bntCancelar);
+            this.Controls.Add(this.btnRechazar);
+            this.Controls.Add(this.btnAprobar);
+            this.Controls.Add(this.btnDetalle);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.dgVenta);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "VentaUI";
             this.Text = "Venta";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.VentaUI_FormClosing);
             this.Load += new System.EventHandler(this.VentaUI_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgVenta)).EndInit();
             this.ResumeLayout(false);
@@ -126,12 +182,16 @@ namespace UI
         #endregion
 
         private System.Windows.Forms.DataGridView dgVenta;
+        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Fecha;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Usuario;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Vendedor;
         private System.Windows.Forms.DataGridViewTextBoxColumn Estado;
         private System.Windows.Forms.DataGridViewTextBoxColumn TipoVenta;
         private System.Windows.Forms.DataGridViewTextBoxColumn Cliente;
         private System.Windows.Forms.DataGridViewTextBoxColumn Monto;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnDetalle;
+        private System.Windows.Forms.Button btnAprobar;
+        private System.Windows.Forms.Button btnRechazar;
+        private System.Windows.Forms.Button bntCancelar;
     }
 }

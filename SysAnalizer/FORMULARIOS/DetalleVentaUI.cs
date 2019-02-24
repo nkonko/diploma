@@ -4,6 +4,7 @@ namespace UI
 {
     using BE.Entidades;
     using BLL;
+    using DAL.Dao.Imp;
     using DAL.Utils;
     using System;
     using System.Collections.Generic;
@@ -21,8 +22,8 @@ namespace UI
         private readonly IClienteBLL clienteBLL;
         private readonly IClientes cliente;
         private readonly IFormControl formControl;
-        private readonly SqlUtils sqlUtils = new SqlUtils();
         private readonly ITraductor traductor;
+        private readonly SqlUtils sqlUtils = new SqlUtils();
 
         public Cliente ClienteSeleccionado { get; set; } = new Cliente();
         public Producto ProductoSeleccionado { get; set; } = new Producto();
@@ -51,22 +52,6 @@ namespace UI
             this.traductor = traductor;
             InitializeComponent();
             dgDetalleVta.AutoGenerateColumns = false;
-        }
-
-        public enum TipoVenta
-        {
-            Seña = 1,
-            VentaSimple,
-            Cliente,
-            Devolucion,
-        }
-
-        public enum EstadoVenta
-        {
-            Pendiente = 1,
-            Aprobada,
-            Rechazada,
-            Cancelada,
         }
 
         private void VtaProd_Load(object sender, EventArgs e)
@@ -209,17 +194,17 @@ namespace UI
         {
             if (radioVtaSimple.Checked)
             {
-                ventaBLL.Crear(CrearNuevaVenta(EstadoVenta.Aprobada.GetHashCode(), DateTime.UtcNow, CalcularMontoTotal(), TipoVenta.VentaSimple.GetHashCode(), UsuarioActivo.UsuarioId));
+                ventaBLL.Crear(CrearNuevaVenta(VentaDAL.EstadoVenta.Aprobada.GetHashCode(), DateTime.UtcNow, CalcularMontoTotal(), VentaDAL.TipoVenta.VentaSimple.GetHashCode() , UsuarioActivo.UsuarioId));
             }
 
             if (radioVtaCC.Checked)
             {
-                ventaBLL.Crear(CrearNuevaVenta(EstadoVenta.Pendiente.GetHashCode(), DateTime.UtcNow, CalcularMontoTotal(), TipoVenta.Cliente.GetHashCode(), UsuarioActivo.UsuarioId, ClienteSeleccionado.ClienteId));
+                ventaBLL.Crear(CrearNuevaVenta(VentaDAL.EstadoVenta.Pendiente.GetHashCode(), DateTime.UtcNow, CalcularMontoTotal(), VentaDAL.TipoVenta.Cliente.GetHashCode(), UsuarioActivo.UsuarioId, ClienteSeleccionado.ClienteId));
             }
 
             if (rbSe.Checked)
             {
-                ventaBLL.Crear(CrearNuevaVenta(EstadoVenta.Pendiente.GetHashCode(), DateTime.UtcNow, CalcularMontoTotal(), TipoVenta.Seña.GetHashCode(), UsuarioActivo.UsuarioId));
+                ventaBLL.Crear(CrearNuevaVenta(VentaDAL.EstadoVenta.Pendiente.GetHashCode(), DateTime.UtcNow, CalcularMontoTotal(), VentaDAL.TipoVenta.Seña.GetHashCode(), UsuarioActivo.UsuarioId));
             }
 
             foreach (var linea in ListGrid)

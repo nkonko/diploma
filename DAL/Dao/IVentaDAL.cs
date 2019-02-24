@@ -1,15 +1,15 @@
-﻿namespace BLL
+﻿namespace DAL.Dao
 {
     using BE;
     using BE.Entidades;
 
-    public interface IVentaBLL : ICRUD<Venta>
+    public interface IVentaDAL : ICRUD<Venta>
     {
         int ObtenerUltimoIdVenta();
 
-        string ObtenerEstadoVenta(int estadoId);
+        string ObtenerEstadoVentaConId(int estadoId);
 
-        string ObtenerTipoVenta(int tipoVtaId);
+        string ObtenerTipoVentaConId(int tipoVtaId);
 
         int ObtenerEstadoVentaConString(string estado);
 

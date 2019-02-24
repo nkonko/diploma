@@ -5,5 +5,6 @@
 
     public interface IClienteBLL : ICRUD<Cliente>
     {
+        string ObtenerClienteConId(int? clienteId);
     }
 }

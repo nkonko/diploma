@@ -4,9 +4,11 @@
 
     public class LineaVenta
     {
+        public int VentaId { get; set; }
+
         public DateTime Fecha { get; set; }
 
-        public string NombreUsuario { get; set; }
+        public string Vendedor { get; set; }
 
         public string Estado { get; set; }
 

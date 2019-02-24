@@ -27,6 +27,11 @@
             idiomaBLL.LeerRecursos(control.Controls);
         }
 
+        public string ObtenerPathRecursos()
+        {
+            return Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\Recursos\\Español.resx";
+        }
+
         private void BorrarRecursos()
         {
             using (ResXResourceWriter resxWriter = new ResXResourceWriter(ObtenerPathRecursos()))
@@ -41,11 +46,5 @@
 
             return formControl.Traducciones;
         }
-
-        public string ObtenerPathRecursos()
-        {
-            return Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\Recursos\\Español.resx";
-        }
-
     }
 }

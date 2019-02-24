@@ -64,6 +64,7 @@
             contBuilder.RegisterType<DetalleVentaDAL>().As<IDetalleVentaDAL>().SingleInstance();
             contBuilder.RegisterType<DetalleVentaBLL>().As<IDetalleVentaBLL>().SingleInstance();
             contBuilder.RegisterType<Traductor>().As<ITraductor>().SingleInstance();
+            contBuilder.RegisterType<VentaUI>().As<IVentaUI>().SingleInstance();
             return contBuilder.Build();
         }
     }

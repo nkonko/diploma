@@ -34,6 +34,26 @@
             return ventaDAL.Crear(objAlta);
         }
 
+        public string ObtenerEstadoVenta(int estadoId)
+        {
+            return ventaDAL.ObtenerEstadoVentaConId(estadoId);
+        }
+
+        public int ObtenerEstadoVentaConString(string estado)
+        {
+            return ventaDAL.ObtenerEstadoVentaConString(estado);
+        }
+
+        public string ObtenerTipoVenta(int tipoVtaId)
+        {
+            return ventaDAL.ObtenerTipoVentaConId(tipoVtaId);
+        }
+
+        public int ObtenerTipoVentaConString(string tipoVta)
+        {
+            return ventaDAL.ObtenerTipoVentaConString(tipoVta);
+        }
+
         public int ObtenerUltimoIdVenta()
         {
             return ventaDAL.ObtenerUltimoIdVenta();

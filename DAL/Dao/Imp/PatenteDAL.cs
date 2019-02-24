@@ -415,7 +415,11 @@
 
             foreach (var usuario in usuarios)
             {
-                patentesSinUsuarios.AddRange(familiaABorrar.Patentes.Where(patente => !(usuario.Patentes.Select(patenteUsu => patenteUsu.IdPatente).Contains(patente.IdPatente))).ToList());
+                patentesSinUsuarios.AddRange(familiaABorrar.Patentes
+                    .Where(patente => !usuario.Patentes
+                    .Select(patenteUsu => patenteUsu.IdPatente)
+                    .Contains(patente.IdPatente)).ToList());
+
                 patentesSinUsuarios = patentesSinUsuarios.Distinct().ToList();
             }
 

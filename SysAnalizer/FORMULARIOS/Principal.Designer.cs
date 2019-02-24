@@ -41,9 +41,7 @@ namespace UI
             this.usuarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.verDatosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.productosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cerrarSesionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.verProductosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -59,15 +57,16 @@ namespace UI
             // nuevaVenta
             // 
             this.nuevaVenta.Name = "nuevaVenta";
-            this.nuevaVenta.Size = new System.Drawing.Size(178, 26);
+            this.nuevaVenta.Size = new System.Drawing.Size(181, 26);
             this.nuevaVenta.Text = "Realizar Venta";
             this.nuevaVenta.Click += new System.EventHandler(this.nuevaVenta_Click);
             // 
             // verVentasToolStripMenuItem
             // 
             this.verVentasToolStripMenuItem.Name = "verVentasToolStripMenuItem";
-            this.verVentasToolStripMenuItem.Size = new System.Drawing.Size(178, 26);
+            this.verVentasToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.verVentasToolStripMenuItem.Text = "Ver Ventas";
+            this.verVentasToolStripMenuItem.Click += new System.EventHandler(this.verVentasToolStripMenuItem_Click);
             // 
             // administradorToolStripMenuItem
             // 
@@ -136,7 +135,6 @@ namespace UI
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ventasToolStripMenuItem,
-            this.productosToolStripMenuItem,
             this.administradorToolStripMenuItem,
             this.usuarioToolStripMenuItem,
             this.cerrarSesionToolStripMenuItem});
@@ -147,27 +145,12 @@ namespace UI
             this.menuStrip1.TabIndex = 5;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // productosToolStripMenuItem
-            // 
-            this.productosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.verProductosToolStripMenuItem});
-            this.productosToolStripMenuItem.Name = "productosToolStripMenuItem";
-            this.productosToolStripMenuItem.Size = new System.Drawing.Size(87, 24);
-            this.productosToolStripMenuItem.Text = "Productos";
-            // 
             // cerrarSesionToolStripMenuItem
             // 
             this.cerrarSesionToolStripMenuItem.Name = "cerrarSesionToolStripMenuItem";
             this.cerrarSesionToolStripMenuItem.Size = new System.Drawing.Size(108, 24);
             this.cerrarSesionToolStripMenuItem.Text = "Cerrar Sesion";
             this.cerrarSesionToolStripMenuItem.Click += new System.EventHandler(this.cerrarSesionToolStripMenuItem_Click);
-            // 
-            // verProductosToolStripMenuItem
-            // 
-            this.verProductosToolStripMenuItem.Name = "verProductosToolStripMenuItem";
-            this.verProductosToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
-            this.verProductosToolStripMenuItem.Text = "Ver Productos";
-            this.verProductosToolStripMenuItem.Click += new System.EventHandler(this.verProductosToolStripMenuItem_Click_1);
             // 
             // Principal
             // 
@@ -205,7 +188,5 @@ namespace UI
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem cerrarSesionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem verVentasToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem productosToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem verProductosToolStripMenuItem;
     }
 }
