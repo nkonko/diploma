@@ -43,17 +43,16 @@ namespace UI
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(364, 16);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(123, 17);
+            this.label2.Size = new System.Drawing.Size(94, 13);
             this.label2.TabIndex = 13;
             this.label2.Text = "Usuarios Inactivos";
             // 
             // lstInactivos
             // 
             this.lstInactivos.FormattingEnabled = true;
-            this.lstInactivos.ItemHeight = 16;
             this.lstInactivos.Location = new System.Drawing.Point(367, 50);
             this.lstInactivos.Name = "lstInactivos";
-            this.lstInactivos.Size = new System.Drawing.Size(218, 276);
+            this.lstInactivos.Size = new System.Drawing.Size(218, 264);
             this.lstInactivos.TabIndex = 12;
             // 
             // label1
@@ -61,7 +60,7 @@ namespace UI
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(10, 16);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(113, 17);
+            this.label1.Size = new System.Drawing.Size(86, 13);
             this.label1.TabIndex = 11;
             this.label1.Text = "Usuarios Activos";
             // 
@@ -73,6 +72,7 @@ namespace UI
             this.btnDesactivar.TabIndex = 10;
             this.btnDesactivar.Text = "Desactivar";
             this.btnDesactivar.UseVisualStyleBackColor = true;
+            this.btnDesactivar.Click += new System.EventHandler(this.btnDesactivar_Click);
             // 
             // btnActivar
             // 
@@ -82,14 +82,14 @@ namespace UI
             this.btnActivar.TabIndex = 9;
             this.btnActivar.Text = "Activar";
             this.btnActivar.UseVisualStyleBackColor = true;
+            this.btnActivar.Click += new System.EventHandler(this.btnActivar_Click);
             // 
             // lstActivos
             // 
             this.lstActivos.FormattingEnabled = true;
-            this.lstActivos.ItemHeight = 16;
             this.lstActivos.Location = new System.Drawing.Point(10, 50);
             this.lstActivos.Name = "lstActivos";
-            this.lstActivos.Size = new System.Drawing.Size(218, 276);
+            this.lstActivos.Size = new System.Drawing.Size(218, 264);
             this.lstActivos.TabIndex = 7;
             // 
             // BloqueoUsuario

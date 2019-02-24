@@ -9,6 +9,7 @@ namespace UI
     public partial class DetalleRefForm : Form, IDetalleRefForm
     {
         private readonly IDetalleVentaBLL detalleVentaBLL;
+        private int VentaId { get; set; }
 
         public DetalleRefForm(IDetalleVentaBLL detalleVentaBLL)
         {
@@ -19,13 +20,17 @@ namespace UI
         private void DetalleRefForm_Load(object sender, EventArgs e)
         {
             dgDetalleVenta.AutoGenerateColumns = false;
-            var ventaUI = IoCContainer.Resolve<IVentaUI>();
-            CargarDetalle(ventaUI.ObtenerVentaSeleccionada().VentaId);
+            CargarDetalle();
         }
 
-        private void CargarDetalle(int ventaId)
+        private void CargarDetalle()
         {
-            dgDetalleVenta.DataSource = detalleVentaBLL.Cargar().Where(x => x.VentaId == ventaId).Select(x => x.LineasDetalle).FirstOrDefault();
+            var ventaUI = IoCContainer.Resolve<IVentaUI>();
+            VentaId = ventaUI.ObtenerVentaSeleccionada().VentaId;
+
+            dgDetalleVenta.DataSource = detalleVentaBLL.Cargar()
+                                                       .Where(x => x.VentaId == VentaId)
+                                                       .SelectMany(x => x.LineasDetalle).ToList();
         }
 
         private void btnVolver_Click(object sender, EventArgs e)

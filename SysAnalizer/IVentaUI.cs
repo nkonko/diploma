@@ -10,6 +10,8 @@ namespace UI
 
         void Show();
 
-        Venta ObtenerVentaSeleccionada(); 
+        Venta ObtenerVentaSeleccionada();
+
+        void HacerLoad();
     }
 }

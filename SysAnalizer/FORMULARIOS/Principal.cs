@@ -168,6 +168,7 @@ namespace UI
 
         private void verVentasToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            ventaUI.HacerLoad();
             ventaUI.MdiParent = this;
             ventaUI.Show();
         }

@@ -119,6 +119,10 @@ namespace UI
                 {
                     patenteBLL.NegarPatente(PatenteHabilitadaSeleccionada.IdPatente, UsuarioSeleccionado.UsuarioId);
                 }
+                else
+                {
+                    MessageBox.Show("Imposible Negar esta patente");
+                }
 
                 ActualizarUsuarioSeleccionado();
 

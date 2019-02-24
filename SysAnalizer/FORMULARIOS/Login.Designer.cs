@@ -43,55 +43,55 @@ namespace UI
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(29, 43);
-            this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label1.Location = new System.Drawing.Point(9, 15);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(766, 37);
+            this.label1.Size = new System.Drawing.Size(252, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Por favor ingrese usuario y contraseña para ingresar";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(32, 154);
-            this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label2.Location = new System.Drawing.Point(10, 54);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(132, 37);
+            this.label2.Size = new System.Drawing.Size(44, 13);
             this.label2.TabIndex = 1;
             this.label2.Text = "usuario:";
             // 
             // txt_user
             // 
-            this.txt_user.Location = new System.Drawing.Point(38, 202);
-            this.txt_user.Margin = new System.Windows.Forms.Padding(6);
+            this.txt_user.Location = new System.Drawing.Point(12, 71);
+            this.txt_user.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txt_user.Name = "txt_user";
-            this.txt_user.Size = new System.Drawing.Size(799, 44);
+            this.txt_user.Size = new System.Drawing.Size(255, 20);
             this.txt_user.TabIndex = 2;
             // 
             // txt_contraseña
             // 
-            this.txt_contraseña.Location = new System.Drawing.Point(41, 359);
-            this.txt_contraseña.Margin = new System.Windows.Forms.Padding(6);
+            this.txt_contraseña.Location = new System.Drawing.Point(13, 126);
+            this.txt_contraseña.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txt_contraseña.Name = "txt_contraseña";
-            this.txt_contraseña.Size = new System.Drawing.Size(793, 44);
+            this.txt_contraseña.Size = new System.Drawing.Size(253, 20);
             this.txt_contraseña.TabIndex = 4;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(29, 313);
-            this.label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label3.Location = new System.Drawing.Point(9, 110);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(192, 37);
+            this.label3.Size = new System.Drawing.Size(64, 13);
             this.label3.TabIndex = 3;
             this.label3.Text = "Contraseña:";
             // 
             // btn_ingresar
             // 
-            this.btn_ingresar.Location = new System.Drawing.Point(41, 697);
-            this.btn_ingresar.Margin = new System.Windows.Forms.Padding(6);
+            this.btn_ingresar.Location = new System.Drawing.Point(13, 245);
+            this.btn_ingresar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btn_ingresar.Name = "btn_ingresar";
-            this.btn_ingresar.Size = new System.Drawing.Size(291, 88);
+            this.btn_ingresar.Size = new System.Drawing.Size(92, 31);
             this.btn_ingresar.TabIndex = 6;
             this.btn_ingresar.Text = "Ingresar";
             this.btn_ingresar.UseVisualStyleBackColor = true;
@@ -99,10 +99,10 @@ namespace UI
             // 
             // btn_salir
             // 
-            this.btn_salir.Location = new System.Drawing.Point(494, 697);
-            this.btn_salir.Margin = new System.Windows.Forms.Padding(6);
+            this.btn_salir.Location = new System.Drawing.Point(156, 245);
+            this.btn_salir.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btn_salir.Name = "btn_salir";
-            this.btn_salir.Size = new System.Drawing.Size(291, 88);
+            this.btn_salir.Size = new System.Drawing.Size(92, 31);
             this.btn_salir.TabIndex = 7;
             this.btn_salir.Text = "Salir";
             this.btn_salir.UseVisualStyleBackColor = true;
@@ -111,28 +111,28 @@ namespace UI
             // cbo_idioma
             // 
             this.cbo_idioma.FormattingEnabled = true;
-            this.cbo_idioma.Location = new System.Drawing.Point(554, 509);
-            this.cbo_idioma.Margin = new System.Windows.Forms.Padding(6);
+            this.cbo_idioma.Location = new System.Drawing.Point(175, 179);
+            this.cbo_idioma.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.cbo_idioma.Name = "cbo_idioma";
-            this.cbo_idioma.Size = new System.Drawing.Size(283, 45);
+            this.cbo_idioma.Size = new System.Drawing.Size(92, 21);
             this.cbo_idioma.TabIndex = 8;
             this.cbo_idioma.SelectedIndexChanged += new System.EventHandler(this.cbo_idioma_SelectedIndexChanged);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(25, 509);
-            this.label4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label4.Location = new System.Drawing.Point(8, 179);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(288, 37);
+            this.label4.Size = new System.Drawing.Size(97, 13);
             this.label4.TabIndex = 9;
             this.label4.Text = "Seleccionar Idioma";
             // 
             // Login
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(19F, 37F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(883, 825);
+            this.ClientSize = new System.Drawing.Size(279, 287);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.cbo_idioma);
             this.Controls.Add(this.btn_salir);
@@ -142,7 +142,7 @@ namespace UI
             this.Controls.Add(this.txt_user);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(6);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "Login";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "UI - Acceso ";

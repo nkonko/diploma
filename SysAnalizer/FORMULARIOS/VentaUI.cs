@@ -43,6 +43,11 @@ namespace UI
         private void VentaUI_Load(object sender, EventArgs e)
         {
             traductor.Traduccir(this, nombreForm);
+            HacerLoad();
+        }
+
+        public void HacerLoad()
+        {
             CargarVentas();
             CargarGrid();
         }

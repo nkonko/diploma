@@ -287,6 +287,7 @@ namespace UI
                         bitacoraBLL.RegistrarEnBitacora(usu);
                         Alert.ShowSimpleAlert("Registro exitoso", "MSJ017");
                         CargarRefrescarDatagrid();
+                        LimpiarControles();
                     }
                     else
                     {
@@ -327,6 +328,7 @@ namespace UI
                         bitacoraBLL.RegistrarEnBitacora(UsuarioActivo);
                         Alert.ShowSimpleAlert("Modificacion exitosa", "MSJ023");
                         CargarRefrescarDatagrid();
+                        LimpiarControles();
                     }
                     else
                     {
@@ -370,6 +372,7 @@ namespace UI
                         bitacoraBLL.RegistrarEnBitacora(UsuarioActivo);
                         Alert.ShowSimpleAlert("Borrado exitoso", "MSJ027");
                         CargarRefrescarDatagrid();
+                        LimpiarControles();
                     }
                     else
                     {
@@ -387,6 +390,18 @@ namespace UI
                     CargarRefrescarDatagrid();
                 }
             }
+        }
+
+        private void LimpiarControles()
+        {
+            FormExtensions.CatchException(this, () =>
+            {
+                txtNombre.Text = string.Empty;
+                txtApellido.Text = string.Empty;
+                txtEmail.Text = string.Empty;
+                txtTel.Text = string.Empty;
+                txtDomicilio.Text = string.Empty;
+            });
         }
 
         private void btnUsuariosInactivos_Click(object sender, EventArgs e)
