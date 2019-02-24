@@ -149,6 +149,20 @@ namespace UI
                     btnNuevo.Enabled = false;
                 }
             }
+
+            if (!patForm.Exists(item => usuarioActivo.Patentes.Select(item2 => item2.IdPatente).Contains(item.IdPatente = patentesSistema.Where(p => (p.Descripcion == "BloqDesb")).Select(p => p.IdPatente).FirstOrDefault())))
+            {
+                btnUsuariosInactivos.Enabled = false;
+            }
+            else
+            {
+                btnUsuariosInactivos.Enabled = true;
+
+                if (usuarioActivo.Patentes.FirstOrDefault(p => p.Descripcion == "BloqDesb").Negada)
+                {
+                    btnNuevo.Enabled = false;
+                }
+            }
         }
 
         private void CargarRefrescarDatagrid()

@@ -41,6 +41,7 @@ namespace UI
             this.txtApellido = new System.Windows.Forms.TextBox();
             this.txtDireccion = new System.Windows.Forms.TextBox();
             this.txtTel = new System.Windows.Forms.TextBox();
+            this.chkCont = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // btnVolver
@@ -52,6 +53,7 @@ namespace UI
             this.btnVolver.Text = "Volver";
             this.btnVolver.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnVolver.UseVisualStyleBackColor = true;
+            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
             // 
             // lblNombre
             // 
@@ -100,7 +102,7 @@ namespace UI
             // 
             // btnActualizar
             // 
-            this.btnActualizar.Location = new System.Drawing.Point(176, 234);
+            this.btnActualizar.Location = new System.Drawing.Point(176, 286);
             this.btnActualizar.Name = "btnActualizar";
             this.btnActualizar.Size = new System.Drawing.Size(75, 23);
             this.btnActualizar.TabIndex = 7;
@@ -118,7 +120,7 @@ namespace UI
             // 
             // btnCambiarDatos
             // 
-            this.btnCambiarDatos.Location = new System.Drawing.Point(12, 234);
+            this.btnCambiarDatos.Location = new System.Drawing.Point(12, 286);
             this.btnCambiarDatos.Name = "btnCambiarDatos";
             this.btnCambiarDatos.Size = new System.Drawing.Size(94, 23);
             this.btnCambiarDatos.TabIndex = 1;
@@ -150,11 +152,22 @@ namespace UI
             this.txtTel.TabIndex = 6;
             this.txtTel.Visible = false;
             // 
+            // chkCont
+            // 
+            this.chkCont.AutoSize = true;
+            this.chkCont.Location = new System.Drawing.Point(16, 235);
+            this.chkCont.Name = "chkCont";
+            this.chkCont.Size = new System.Drawing.Size(127, 17);
+            this.chkCont.TabIndex = 10;
+            this.chkCont.Text = "Cambiar Contraseña?";
+            this.chkCont.UseVisualStyleBackColor = true;
+            // 
             // DatosUsuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(263, 269);
+            this.ClientSize = new System.Drawing.Size(263, 337);
+            this.Controls.Add(this.chkCont);
             this.Controls.Add(this.txtTel);
             this.Controls.Add(this.txtDireccion);
             this.Controls.Add(this.txtApellido);
@@ -190,5 +203,6 @@ namespace UI
         private System.Windows.Forms.TextBox txtDireccion;
         private System.Windows.Forms.TextBox txtTel;
         private System.Windows.Forms.TextBox txtNombre;
+        private System.Windows.Forms.CheckBox chkCont;
     }
 }
