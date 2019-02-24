@@ -5,7 +5,13 @@
 
     public interface IFormControl
     {
-       List<Patente> ObtenerPermisosFormularios();
+        IDictionary<string, string> Traducciones { get; set; }
+
+        Idioma LenguajeSeleccionado { get; set; }
+
+        List<Patente> ObtenerPermisosFormularios();
+
+        List<Patente> ObtenerPermisosFormulario(int formId);
 
         void GuardarDatosSesionUsuario(Usuario usuario);
 
@@ -13,6 +19,8 @@
 
         Usuario ObtenerPermisosUsuario();
 
-        ////Dictionary<string, bool> AccesosUsuario();
+        IDictionary<string, string> ObtenerTraducciones();
+
+        Idioma ObtenerIdioma();
     }
 }

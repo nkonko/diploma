@@ -21,7 +21,9 @@
 
         public bool Borrar(Familia objDel)
         {
-            return familiaDAL.Borrar(objDel);
+                familiaDAL.BorrarFamiliaDeFamiliaPatente(objDel.FamiliaId);
+
+                return familiaDAL.Borrar(objDel);
         }
 
         public List<Familia> Cargar()
@@ -39,9 +41,9 @@
             return familiaDAL.ObtenerPatentesFamilia(familiaId);
         }
 
-        public void GuardarFamiliaUsuario(int familiaId, int usuarioId)
+        public void GuardarFamiliasUsuario(List<int> familiasId, int usuarioId)
         {
-            familiaDAL.GuardarFamiliaUsuario(familiaId, usuarioId);
+            familiaDAL.GuardarFamiliasUsuario(familiasId, usuarioId);
         }
 
         public int ObtenerIdFamiliaPorDescripcion(string descripcion)
@@ -57,6 +59,46 @@
         public string ObtenerDescripcionFamiliaPorId(int familiaId)
         {
             return familiaDAL.ObtenerDescripcionFamiliaPorId(familiaId);
+        }
+
+        public bool ComprobarUsoFamilia(int familiaId)
+        {
+            return familiaDAL.ComprobarUsoFamilia(familiaId);
+        }
+
+        public List<Patente> ObtenerPatentesFamilia(List<int> familiaId)
+        {
+            return familiaDAL.ObtenerPatentesDeFamilias(familiaId);
+        }
+
+        public List<int> ObtenerIdsFamiliasPorUsuario(int usuarioId)
+        {
+            return familiaDAL.ObtenerIdsFamiliasPorUsuario(usuarioId);
+        }
+
+        public List<string> ObtenerDescripcionFamiliaPorId(List<int> familiaId)
+        {
+            return familiaDAL.ObtenerDescripcionFamiliaPorId(familiaId);
+        }
+
+        public void BorrarFamiliasUsuario(List<Familia> familias, int usuarioId)
+        {
+            familiaDAL.BorrarFamiliasUsuario(familias, usuarioId);
+        }
+
+        public List<Familia> ObtenerFamiliasUsuario(int usuarioId)
+        {
+            return familiaDAL.ObtenerFamiliasUsuario(usuarioId);
+        }
+
+        public List<Usuario> ObtenerUsuariosPorFamilia(int familiaId)
+        {
+            return familiaDAL.ObtenerUsuariosPorFamilia(familiaId);
+        }
+
+        public Familia ObtenerFamiliaConDescripcion(string descripcion)
+        {
+            return familiaDAL.ObtenerFamiliaConDescripcion(descripcion);
         }
     }
 }

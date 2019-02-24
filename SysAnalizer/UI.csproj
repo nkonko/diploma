@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>UI</RootNamespace>
     <AssemblyName>UI</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
@@ -57,6 +57,9 @@
     <Reference Include="Autofac.Configuration, Version=4.1.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.Configuration.4.1.0\lib\net45\Autofac.Configuration.dll</HintPath>
     </Reference>
+    <Reference Include="EasyEncryption, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EasyEncryption.1.0.2\lib\EasyEncryption.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
@@ -84,6 +87,24 @@
     <Reference Include="Microsoft.Extensions.Primitives, Version=1.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Primitives.1.1.1\lib\netstandard1.0\Microsoft.Extensions.Primitives.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.900.148\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.900.148\lib\net40\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Design, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.900.148\lib\net40\Microsoft.ReportViewer.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.900.148\lib\net40\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.WebForms.DLL</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.900.148\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.SqlServer.ConnectionInfo, Version=14.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.SqlServer.ConnectionInfoExtended, Version=14.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.SqlServer.Smo, Version=14.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
@@ -91,6 +112,9 @@
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="SplashScreen, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SplashScreen.Winforms.1.0.0\lib\SplashScreen.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -115,6 +139,57 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FormControl.cs" />
+    <Compile Include="FORMULARIOS\AdminFamUsuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMULARIOS\AdminFamUsuario.Designer.cs">
+      <DependentUpon>AdminFamUsuario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FORMULARIOS\DetalleRefForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMULARIOS\DetalleRefForm.Designer.cs">
+      <DependentUpon>DetalleRefForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IDetalleRefForm.cs" />
+    <Compile Include="IVentaUI.cs" />
+    <Compile Include="FORMULARIOS\VentaUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMULARIOS\VentaUI.Designer.cs">
+      <DependentUpon>VentaUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FORMULARIOS\BloqueoProductos.Designer.cs">
+      <DependentUpon>BloqueoProductos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FORMULARIOS\WaitForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMULARIOS\WaitForm.Designer.cs">
+      <DependentUpon>WaitForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FORMULARIOS\NegarPatUsuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMULARIOS\NegarPatUsuario.Designer.cs">
+      <DependentUpon>NegarPatUsuario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FORMULARIOS\AdminPatUsuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMULARIOS\AdminPatUsuario.Designer.cs">
+      <DependentUpon>AdminPatUsuario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FORMULARIOS\BloqueoProductos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMULARIOS\BloqueoUsuarios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMULARIOS\BloqueoUsuarios.Designer.cs">
+      <DependentUpon>BloqueoUsuarios.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FORMULARIOS\Alert.cs" />
     <Compile Include="FORMULARIOS\DatosUsuario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -145,12 +220,6 @@
     <Compile Include="FORMULARIOS\BackupUI.Designer.cs">
       <DependentUpon>BackupUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="FORMULARIOS\Bitacora.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FORMULARIOS\Bitacora.Designer.cs">
-      <DependentUpon>Bitacora.cs</DependentUpon>
-    </Compile>
     <Compile Include="FORMULARIOS\Clientes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -158,17 +227,30 @@
       <DependentUpon>Clientes.cs</DependentUpon>
     </Compile>
     <Compile Include="FormExtensions.cs" />
-    <Compile Include="FORMULARIOS\FileExplorer.cs">
+    <Compile Include="FORMULARIOS\BitacoraUI.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FORMULARIOS\FileExplorer.Designer.cs">
-      <DependentUpon>FileExplorer.cs</DependentUpon>
+    <Compile Include="FORMULARIOS\BitacoraUI.Designer.cs">
+      <DependentUpon>BitacoraUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="IAdminFam.cs" />
+    <Compile Include="IAdminPat.cs" />
+    <Compile Include="IBloqueoProductos.cs" />
+    <Compile Include="IBloqueoUsuario.cs" />
+    <Compile Include="IBackupUI.cs" />
+    <Compile Include="INegarPat.cs" />
+    <Compile Include="InputBox.cs" />
+    <Compile Include="IRestoreUI.cs" />
+    <Compile Include="IAdminPatFamilia.cs" />
+    <Compile Include="IClientes.cs" />
+    <Compile Include="IDatosUsuario.cs" />
+    <Compile Include="IPatente.cs" />
     <Compile Include="IBitacora.cs" />
     <Compile Include="IABMUsuario.cs" />
     <Compile Include="IFamilias.cs" />
     <Compile Include="IFormControl.cs" />
-    <Compile Include="IVtaProd.cs" />
+    <Compile Include="IProductos.cs" />
+    <Compile Include="IDetalleVenta.cs" />
     <Compile Include="IoCContainer.cs" />
     <Compile Include="IPrincipal.cs" />
     <Compile Include="FORMULARIOS\Login.cs">
@@ -189,6 +271,8 @@
     <Compile Include="FORMULARIOS\Productos.Designer.cs">
       <DependentUpon>Productos.cs</DependentUpon>
     </Compile>
+    <Compile Include="ITraductor.cs" />
+    <Compile Include="Modelo\ModeloBitacora.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FORMULARIOS\ABMusuario.cs">
@@ -197,18 +281,53 @@
     <Compile Include="FORMULARIOS\ABMusuario.Designer.cs">
       <DependentUpon>ABMusuario.cs</DependentUpon>
     </Compile>
-    <Compile Include="FORMULARIOS\Restore.cs">
+    <Compile Include="FORMULARIOS\RestoreUI.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FORMULARIOS\Restore.Designer.cs">
-      <DependentUpon>Restore.cs</DependentUpon>
+    <Compile Include="FORMULARIOS\RestoreUI.Designer.cs">
+      <DependentUpon>RestoreUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="FORMULARIOS\VtaProd.cs">
+    <Compile Include="FORMULARIOS\DetalleVentaUI.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FORMULARIOS\VtaProd.Designer.cs">
-      <DependentUpon>VtaProd.cs</DependentUpon>
+    <Compile Include="FORMULARIOS\DetalleVentaUI.Designer.cs">
+      <DependentUpon>DetalleVentaUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="Recursos\Español.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Español.resx</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Traductor.cs" />
+    <EmbeddedResource Include="FORMULARIOS\AdminFamUsuario.resx">
+      <DependentUpon>AdminFamUsuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMULARIOS\DetalleRefForm.resx">
+      <DependentUpon>DetalleRefForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMULARIOS\VentaUI.resx">
+      <DependentUpon>VentaUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMULARIOS\WaitForm.resx">
+      <DependentUpon>WaitForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMULARIOS\NegarPatUsuario.resx">
+      <DependentUpon>NegarPatUsuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMULARIOS\AdminPatUsuario.resx">
+      <DependentUpon>AdminPatUsuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMULARIOS\BloqueoProductos.resx">
+      <DependentUpon>BloqueoProductos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMULARIOS\BloqueoUsuarios.resx">
+      <DependentUpon>BloqueoUsuarios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reporte\Bitacora.rdlc" />
+    <EmbeddedResource Include="FORMULARIOS\BitacoraUI.resx">
+      <DependentUpon>BitacoraUI.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FORMULARIOS\DatosUsuario.resx">
       <DependentUpon>DatosUsuario.cs</DependentUpon>
     </EmbeddedResource>
@@ -224,14 +343,8 @@
     <EmbeddedResource Include="FORMULARIOS\BackupUI.resx">
       <DependentUpon>BackupUI.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FORMULARIOS\Bitacora.resx">
-      <DependentUpon>Bitacora.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="FORMULARIOS\Clientes.resx">
       <DependentUpon>Clientes.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FORMULARIOS\FileExplorer.resx">
-      <DependentUpon>FileExplorer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FORMULARIOS\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
@@ -255,14 +368,22 @@
     <EmbeddedResource Include="FORMULARIOS\ABMusuario.resx">
       <DependentUpon>ABMusuario.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FORMULARIOS\Restore.resx">
-      <DependentUpon>Restore.cs</DependentUpon>
+    <EmbeddedResource Include="FORMULARIOS\RestoreUI.resx">
+      <DependentUpon>RestoreUI.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FORMULARIOS\VtaProd.resx">
-      <DependentUpon>VtaProd.cs</DependentUpon>
+    <EmbeddedResource Include="FORMULARIOS\DetalleVentaUI.resx">
+      <DependentUpon>DetalleVentaUI.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="app.config" />
+    <EmbeddedResource Include="Recursos\Español.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Español.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\UI.Modelo.ModeloBitacora.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -296,6 +417,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\money.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

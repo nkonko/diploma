@@ -2,9 +2,7 @@
 {
     public class Producto
     {
-        public int IdProducto { get; set; }
-
-        public string CodigoProducto { get; set; }
+        public int ProductoId { get; set; }
 
         public string Descripcion { get; set; }
 
@@ -15,5 +13,7 @@
         public int Stock { get; set; }
 
         public int MinStock { get; set; }
+
+        public bool Activo { get; set; }
     }
 }

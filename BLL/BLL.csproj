@@ -31,11 +31,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EasyEncryption, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EasyEncryption.1.0.2\lib\EasyEncryption.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -43,13 +47,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IClienteBLL.cs" />
+    <Compile Include="IDetalleVentaBLL.cs" />
     <Compile Include="IFamiliaBLL.cs" />
+    <Compile Include="IFormControlBLL.cs" />
+    <Compile Include="IIdiomaBLL.cs" />
     <Compile Include="Imp\BitacoraBLL.cs" />
+    <Compile Include="Imp\ClienteBLL.cs" />
+    <Compile Include="Imp\DetalleVentaBLL.cs" />
     <Compile Include="Imp\FamiliaBLL.cs" />
     <Compile Include="IBitacoraBLL.cs" />
-    <Compile Include="Imp\Idioma.cs" />
-    <Compile Include="Imp\IPatenteBLL.cs" />
-    <Compile Include="Imp\IVentaBLL.cs" />
+    <Compile Include="Imp\FormControlBLL.cs" />
+    <Compile Include="Imp\IdiomaBLL.cs" />
+    <Compile Include="IPatenteBLL.cs" />
+    <Compile Include="IVentaBLL.cs" />
     <Compile Include="Imp\PatenteBLL.cs" />
     <Compile Include="IproductoBLL.cs" />
     <Compile Include="IUsuarioBLL.cs" />

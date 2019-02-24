@@ -1,10 +1,9 @@
 ﻿namespace BLL
 {
-    using System.Collections.Generic;
     using BE;
     using BE.Entidades;
-    using DAL;
     using DAL.Dao;
+    using System.Collections.Generic;
 
     public class VentaBLL : ICRUD<Venta>, IVentaBLL
     {
@@ -33,6 +32,31 @@
         public bool Crear(Venta objAlta)
         {
             return ventaDAL.Crear(objAlta);
+        }
+
+        public string ObtenerEstadoVenta(int estadoId)
+        {
+            return ventaDAL.ObtenerEstadoVentaConId(estadoId);
+        }
+
+        public int ObtenerEstadoVentaConString(string estado)
+        {
+            return ventaDAL.ObtenerEstadoVentaConString(estado);
+        }
+
+        public string ObtenerTipoVenta(int tipoVtaId)
+        {
+            return ventaDAL.ObtenerTipoVentaConId(tipoVtaId);
+        }
+
+        public int ObtenerTipoVentaConString(string tipoVta)
+        {
+            return ventaDAL.ObtenerTipoVentaConString(tipoVta);
+        }
+
+        public int ObtenerUltimoIdVenta()
+        {
+            return ventaDAL.ObtenerUltimoIdVenta();
         }
     }
 }

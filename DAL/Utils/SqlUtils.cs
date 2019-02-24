@@ -5,10 +5,11 @@
     using System.Configuration;
     using System.Data;
     using System.Data.SqlClient;
+    using System.Linq;
 
-    public class SqlUtils
+    public class SqlUtils : BaseDao
     {
-        public List<string> Tables { get; set; }
+        ////private static log4net.ILog log;
 
         public SqlUtils()
         {
@@ -16,11 +17,12 @@
 
         public static SqlConnection Connection()
         {
+            ////SetearConfiguracion();
             var conn = new SqlConnection(ConfigurationManager.AppSettings["connString"]);
             return conn;
         }
 
-        private static List<string> GetTables(string connectionString)
+        public static List<string> GetTables()
         {
             using (SqlConnection connection = Connection())
             {
@@ -36,9 +38,39 @@
             }
         }
 
+        public int GenerarId(string campoId, string entidad)
+        {
+            var ultimoId = CatchException(() => Exec<int>($"SELECT {campoId} FROM {entidad}"));
+
+            if (ultimoId.Count > 0)
+            {
+                return ultimoId.Last() + 1;
+            }
+            else
+            {
+                return 1;
+            }
+        }
+
+        private static void SetearConfiguracion()
+        {
+            ////log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            var connectionString = config
+                .AppSettings.Settings["connString"]
+                .Value;
+            var startIndex = connectionString.IndexOf('=');
+            var endIndex = connectionString.IndexOf('\\');
+            var cambiarNombre = connectionString.Substring(startIndex + 1, endIndex - startIndex - 1);
+            var nuevoConnectionString = connectionString.Replace(cambiarNombre, Environment.MachineName);
+            config.AppSettings.Settings["connString"].Value = nuevoConnectionString;
+            ////log.Logger.Repository.GetAppenders().OfType<AdoNetAppender>().SingleOrDefault().ConnectionString = nuevoConnectionString;
+            config.Save(ConfigurationSaveMode.Modified, true);
+        }
+
         private static string GetStringsFromRegister(string table, string connectionString)
         {
-            string returnValue  = "not implemented";
+            string returnValue = "not implemented";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -48,7 +80,7 @@
                 DataTable dt = new DataTable();
 
                 var da = new SqlDataAdapter(command);
-                
+
                 try
                 {
                     connection.Open();

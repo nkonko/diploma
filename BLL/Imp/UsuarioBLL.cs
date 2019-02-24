@@ -2,6 +2,7 @@
 {
     using BE;
     using BE.Entidades;
+    using DAL;
     using DAL.Dao;
     using log4net;
     using System.Collections.Generic;
@@ -26,17 +27,17 @@
 
             if (ingresa)
             {
-                log.Info("Usuario logueado correctamente");
+                Log4netExtensions.Baja(log, "Usuario logueado correctamente");
                 return ingresa;
             }
 
-            if (usu.CIngresos < 3)
+            if (usu.ContadorIngresosIncorrectos < 3)
             {
-                log.Info("Login Incorrecto");
+                Log4netExtensions.Baja(log, "Login Incorrecto");
             }
             else
             {
-                log.Info("Login Incorrecto, Cuenta bloqueada");
+                Log4netExtensions.Media(log, "Login Incorrecto, Cuenta bloqueada");
             }
 
             return ingresa;
@@ -70,6 +71,31 @@
         public List<Patente> ObtenerPatentesDeUsuario(int usuarioId)
         {
             return usuarioDAL.ObtenerPatentesDeUsuario(usuarioId);
+        }
+
+        public List<Usuario> CargarInactivos()
+        {
+            return usuarioDAL.CargarInactivos();
+        }
+
+        public bool ActivarUsuario(string email)
+        {
+            return usuarioDAL.ActivarUsuario(email);
+        }
+
+        public bool DesactivarUsuario(string email)
+        {
+            return usuarioDAL.DesactivarUsuario(email);
+        }
+
+        public Usuario ObtenerUsuarioConId(int usuarioId)
+        {
+            return usuarioDAL.ObtenerUsuarioConId(usuarioId);
+        }
+
+        public List<Usuario> TraerUsuariosConPatentesYFamilias()
+        {
+            return usuarioDAL.TraerUsuariosConPatentesYFamilias();
         }
     }
 }

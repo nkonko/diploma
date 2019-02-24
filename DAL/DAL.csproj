@@ -82,19 +82,27 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dao\IBitacoraDAL.cs" />
+    <Compile Include="Dao\IDetalleVentaDAL.cs" />
     <Compile Include="Dao\IDigitoVerificador.cs" />
     <Compile Include="Dao\Imp\BitacoraDAL.cs" />
+    <Compile Include="Dao\Imp\ClienteDAL.cs" />
+    <Compile Include="Dao\Imp\DetalleVentaDAL.cs" />
     <Compile Include="Dao\Imp\DigitoVerificador.cs" />
     <Compile Include="Dao\Imp\FamiliaDAL.cs" />
+    <Compile Include="Dao\Imp\FormControlDAL.cs" />
+    <Compile Include="Dao\IClienteDAL.cs" />
     <Compile Include="Dao\Imp\IdiomaDAL.cs" />
     <Compile Include="Dao\IFamiliaDAL.cs" />
-    <Compile Include="Dao\IVenta.cs" />
+    <Compile Include="Dao\IFormControlDAL.cs" />
+    <Compile Include="Dao\IIdiomaDAL.cs" />
+    <Compile Include="Dao\IVentaDAL.cs" />
     <Compile Include="Dao\IProductoDAL.cs" />
     <Compile Include="Dao\IPatenteDAL.cs" />
     <Compile Include="Dao\IUsuarioDAL.cs" />
     <Compile Include="Dao\Imp\PatenteDAL.cs" />
     <Compile Include="Dao\Imp\ProductoDAL.cs" />
     <Compile Include="Dao\Imp\UsuarioDAL.cs" />
+    <Compile Include="Log4netExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Dao\Imp\VentaDAL.cs" />
     <Compile Include="Utils\BaseDao.cs" />

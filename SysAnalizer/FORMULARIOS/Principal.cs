@@ -3,7 +3,6 @@ namespace UI
 {
     using BLL;
     using DAL.Dao;
-    using Microsoft.VisualBasic;
     using System;
     using System.Linq;
     using System.Windows.Forms;
@@ -12,13 +11,30 @@ namespace UI
     {
         private readonly IFormControl formControl;
         private readonly IUsuarioDAL usuarioDAL;
-        private readonly IVtaProd venta_De_Productos;
+        private readonly IDetalleVenta venta_De_Productos;
         private readonly IABMUsuario abmUsuario;
-        private readonly IBitacora bitacora;
+        private readonly IBitacoraUI bitacora;
         private readonly IFamilias familias;
         private readonly IFamiliaBLL familiaBLL;
+        private readonly IDatosUsuario datosUsuario;
+        private readonly IBackupUI backupUI;
+        private readonly IRestoreUI restoreUI;
+        private readonly IProductos productosUI;
+        private readonly IVentaUI ventaUI;
 
-        public Principal(IUsuarioDAL usuarioDAL, IVtaProd venta_De_Productos, IABMUsuario abmUsuario, IBitacora bitacora, IFormControl formControl, IFamilias familias, IFamiliaBLL familiaBLL)
+        public Principal(
+            IUsuarioDAL usuarioDAL,
+            IDetalleVenta venta_De_Productos,
+            IABMUsuario abmUsuario,
+            IBitacoraUI bitacora,
+            IFormControl formControl,
+            IFamilias familias,
+            IFamiliaBLL familiaBLL,
+            IDatosUsuario datosUsuario,
+            IBackupUI backupUI,
+            IRestoreUI restoreUI,
+            IProductos productosUI,
+            IVentaUI ventaUI)
         {
             InitializeComponent();
             this.formControl = formControl;
@@ -28,13 +44,17 @@ namespace UI
             this.bitacora = bitacora;
             this.familias = familias;
             this.familiaBLL = familiaBLL;
+            this.datosUsuario = datosUsuario;
+            this.backupUI = backupUI;
+            this.restoreUI = restoreUI;
+            this.productosUI = productosUI;
+            this.ventaUI = ventaUI;
         }
 
         private void Principal_Load(object sender, EventArgs e)
         {
-            ////Traer id de familia que machee con idusuario de familiaUsuario
+            ////Traer id de familia que machee con idusuario de familiaUsuario //revisar
             //var idFamilia = familiaBLL.Cargar().Find(
-
             var patForm = formControl.ObtenerPermisosFormularios();
 
             var patUsu = formControl.ObtenerPermisosUsuario();
@@ -49,65 +69,108 @@ namespace UI
 
         private void nuevaVenta_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            venta_De_Productos.MdiParent = this;
             venta_De_Productos.Show();
         }
 
         private void usuariosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void usuariosToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            this.Hide();
+            abmUsuario.MdiParent = this;
             abmUsuario.Show();
         }
 
         private void bitacoraToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            bitacora.MdiParent = this;
             bitacora.Show();
-        }
-
-        private void verProductosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
         }
 
         public void ComprobarSiEsPrimerLogin(string usuario)
         {
-            var usu = usuarioDAL.ObtenerUsuarioConEmail(usuario);
+            var usu = formControl.ObtenerInfoUsuario();
             if (usu.PrimerLogin)
             {
-                var nuevaContraseña = Interaction.InputBox("Ingrese su nuevo password", "Nuevo Password", "");
-                var cambioExitoso = usuarioDAL.CambiarPassword(usu, nuevaContraseña, true);
-                if (cambioExitoso)
+                var nuevaContraseña = "";
+
+                var items = InputBox.fillItems("Contraseña", nuevaContraseña);
+
+                InputBox input = InputBox.Show("Ingrese nueva contraseña", items, InputBoxButtons.OK);
+
+                if (input.Result == InputBoxResult.OK)
                 {
-                    //Log.Info("Password Actualizado");
-                    MessageBox.Show("Su Password fue actualizado");
-                }
-                else
-                {
-                    //Log.Info("Fallo la actualizacion del password");
-                    MessageBox.Show("Error Password no actualizado");
+                    nuevaContraseña = input.Items["Contraseña"];
+                    var cambioExitoso = usuarioDAL.CambiarContraseña(usu, nuevaContraseña, true);
+                    if (cambioExitoso)
+                    {
+                        //Log.Info("Password Actualizado");
+                        MessageBox.Show("Su contraseña fue actualizada");
+                    }
+                    else
+                    {
+                        //Log.Info("Fallo la actualizacion del password");
+                        MessageBox.Show("Error contraseña no actualizada");
+                    }
                 }
             }
         }
 
         private void backUpToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            backupUI.MdiParent = this;
+            backupUI.Show();
         }
 
         private void familiasToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            familias.MdiParent = this;
             familias.Show();
         }
 
         private void verUsuariosToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            datosUsuario.MdiParent = this;
+            datosUsuario.Show();
+        }
 
+        private void familiasToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            familias.MdiParent = this;
+            familias.Show();
+        }
+
+        private void restoreToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            restoreUI.MdiParent = this;
+            restoreUI.Show();
+        }
+
+        private void cerrarSesionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var confirmation = MessageBox.Show("Esta seguro que desea salir del sistema?", "Salir del sistema", MessageBoxButtons.YesNo);
+            if (confirmation == DialogResult.Yes)
+            {
+                Application.Exit();
+            }
+
+            return;
+        }
+
+        private void Principal_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void verProductosToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            productosUI.MdiParent = this;
+            productosUI.Show();
+        }
+
+        private void verVentasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ventaUI.HacerLoad();
+            ventaUI.MdiParent = this;
+            ventaUI.Show();
         }
     }
 }

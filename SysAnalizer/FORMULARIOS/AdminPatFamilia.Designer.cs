@@ -29,36 +29,28 @@ namespace UI
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnAceptar = new System.Windows.Forms.Button();
             this.btnVolver = new System.Windows.Forms.Button();
             this.lblFamilia = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lstPatentes = new System.Windows.Forms.CheckedListBox();
+            this.btnModificar = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // btnAceptar
-            // 
-            this.btnAceptar.Location = new System.Drawing.Point(19, 218);
-            this.btnAceptar.Name = "btnAceptar";
-            this.btnAceptar.Size = new System.Drawing.Size(69, 23);
-            this.btnAceptar.TabIndex = 59;
-            this.btnAceptar.Text = "Aceptar";
-            this.btnAceptar.UseVisualStyleBackColor = true;
-            // 
             // btnVolver
             // 
-            this.btnVolver.Location = new System.Drawing.Point(105, 218);
+            this.btnVolver.Location = new System.Drawing.Point(12, 12);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(69, 23);
             this.btnVolver.TabIndex = 58;
             this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = true;
+            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
             // 
             // lblFamilia
             // 
             this.lblFamilia.AutoSize = true;
-            this.lblFamilia.Location = new System.Drawing.Point(16, 13);
+            this.lblFamilia.Location = new System.Drawing.Point(87, 17);
             this.lblFamilia.Name = "lblFamilia";
             this.lblFamilia.Size = new System.Drawing.Size(42, 13);
             this.lblFamilia.TabIndex = 56;
@@ -67,9 +59,9 @@ namespace UI
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.lstPatentes);
-            this.groupBox1.Location = new System.Drawing.Point(28, 43);
+            this.groupBox1.Location = new System.Drawing.Point(12, 45);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(136, 169);
+            this.groupBox1.Size = new System.Drawing.Size(182, 169);
             this.groupBox1.TabIndex = 55;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "PATENTES";
@@ -77,34 +69,36 @@ namespace UI
             // lstPatentes
             // 
             this.lstPatentes.FormattingEnabled = true;
-            this.lstPatentes.Items.AddRange(new object[] {
-            "Patente 1",
-            "Patente 2",
-            "Patente 3",
-            "Patente 4",
-            "Patente 5",
-            "Patente 6",
-            "Patente 7",
-            "Patente 8",
-            "Patente 9"});
             this.lstPatentes.Location = new System.Drawing.Point(15, 19);
             this.lstPatentes.Name = "lstPatentes";
-            this.lstPatentes.Size = new System.Drawing.Size(106, 139);
+            this.lstPatentes.Size = new System.Drawing.Size(152, 124);
             this.lstPatentes.TabIndex = 55;
-            this.lstPatentes.SelectedIndexChanged += new System.EventHandler(this.lstPatentes_SelectedIndexChanged);
+            this.lstPatentes.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.lstPatentes_ItemCheck);
+            // 
+            // btnModificar
+            // 
+            this.btnModificar.Location = new System.Drawing.Point(12, 220);
+            this.btnModificar.Name = "btnModificar";
+            this.btnModificar.Size = new System.Drawing.Size(73, 25);
+            this.btnModificar.TabIndex = 59;
+            this.btnModificar.Text = "Modificar";
+            this.btnModificar.UseVisualStyleBackColor = true;
+            this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
             // 
             // AdminPatFamilia
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(194, 254);
-            this.Controls.Add(this.btnAceptar);
+            this.ClientSize = new System.Drawing.Size(231, 254);
+            this.Controls.Add(this.btnModificar);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.lblFamilia);
             this.Controls.Add(this.groupBox1);
             this.Name = "AdminPatFamilia";
             this.Text = "AdminPatFamilia";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AdminPatFamilia_FormClosing);
             this.Load += new System.EventHandler(this.AdminPatFamilia_Load);
+            this.Enter += new System.EventHandler(this.AdminPatFamilia_Enter);
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -112,11 +106,10 @@ namespace UI
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.Label lblFamilia;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.CheckedListBox lstPatentes;
+        private System.Windows.Forms.Button btnModificar;
     }
 }

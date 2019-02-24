@@ -8,10 +8,20 @@
     {
         bool LogIn(string email, string contraseña);
 
-        bool CambiarPassword(Usuario usuario, string nuevaContraseña, bool primerLogin);
+        bool CambiarContraseña(Usuario usuario, string nuevaContraseña, bool primerLogin);
 
         Usuario ObtenerUsuarioConEmail(string email);
 
         List<Patente> ObtenerPatentesDeUsuario(int usuarioId);
+
+        List<Usuario> CargarInactivos();
+
+        bool ActivarUsuario(string email);
+
+        bool DesactivarUsuario(string email);
+
+        Usuario ObtenerUsuarioConId(int usuarioId);
+
+        List<Usuario> TraerUsuariosConPatentesYFamilias();
     }
 }

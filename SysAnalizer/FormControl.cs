@@ -1,44 +1,56 @@
-﻿//// El objetivo de esta clase es el de poder devolver permisos de los formularios en base a las patentes que tenga cargado el usuario, las patentes se deberan cargar luego
-//// de consultarlas mediante la dal patente, se sumaran a las patentes del usuario las patentes obtenidas por la familia, otra funcionalidad sera la de mantener
-//// la informacion del usuario.
-namespace UI
+﻿namespace UI
 {
     using BE.Entidades;
     using BLL;
     using DAL.Utils;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Windows.Forms;
 
     public class FormControl : BaseDao, IFormControl
     {
-        private Usuario UsuarioActivo { get; set; }
+        public Idioma LenguajeSeleccionado
+        {
+            get { return lenguajeSel; }
+            set { lenguajeSel = value; }
+        }
 
-        private readonly IUsuarioBLL usuarioBLL;
-        private readonly IFamiliaBLL familiaBLL;
+        public IDictionary<string, string> Traducciones
+        {
+            get { return traducciones; }
+            set { traducciones = value; }
+        }
 
-        public FormControl(IUsuarioBLL usuarioBLL, IFamiliaBLL familiaBLL)
+        public FormControl(IUsuarioBLL usuarioBLL, IFamiliaBLL familiaBLL, IFormControlBLL formControlBLL, IIdiomaBLL idiomaBLL)
         {
             this.usuarioBLL = usuarioBLL;
             this.familiaBLL = familiaBLL;
+            this.formControlBLL = formControlBLL;
+            this.idiomaBLL = idiomaBLL;
         }
+
+        private Idioma lenguajeSel;
+        private readonly IIdiomaBLL idiomaBLL;
+        private readonly IUsuarioBLL usuarioBLL;
+        private readonly IFamiliaBLL familiaBLL;
+        private readonly IFormControlBLL formControlBLL;
+
+        private Usuario UsuarioActivo { get; set; }
+
+        private IDictionary<string, string> traducciones = new Dictionary<string, string>();
 
         public List<Patente> ObtenerPermisosFormularios()
         {
-            var query = "SELECT IdPatente FROM FormularioPatente";
-
-            return CatchException(() =>
-            {
-                return Exec<Patente>(query);
-            });
+            return formControlBLL.ObtenerPermisosFormularios();
         }
 
         public Usuario ObtenerPermisosUsuario()
         {
             var patentes = new List<Patente>();
 
-            patentes.AddRange(usuarioBLL.ObtenerPatentesDeUsuario(UsuarioActivo.IdUsuario));
+            patentes.AddRange(usuarioBLL.ObtenerPatentesDeUsuario(UsuarioActivo.UsuarioId));
 
-            patentes.AddRange(familiaBLL.ObtenerPatentesFamilia(UsuarioActivo.Familia.IdFamilia));
+            patentes.AddRange(familiaBLL.ObtenerPatentesFamilia(UsuarioActivo.Familia.Select(x => x.FamiliaId).ToList()));
 
             patentes = patentes.GroupBy(p => p.IdPatente).Select(grp => grp.First()).ToList();
 
@@ -49,9 +61,14 @@ namespace UI
 
         public void GuardarDatosSesionUsuario(Usuario usuario)
         {
-            usuario.Familia = new Familia();
-            usuario.Familia.IdFamilia = familiaBLL.ObtenerIdFamiliaPorUsuario(usuario.IdUsuario);
-            usuario.Familia.Descripcion = familiaBLL.ObtenerDescripcionFamiliaPorId(usuario.Familia.IdFamilia);
+            usuario.Familia = new List<Familia>();
+
+            var famIds = familiaBLL.ObtenerIdsFamiliasPorUsuario(usuario.UsuarioId);
+
+            foreach (var id in famIds)
+            {
+                usuario.Familia.Add(new Familia() { FamiliaId = id, Descripcion = familiaBLL.ObtenerDescripcionFamiliaPorId(id) });
+            }
 
             UsuarioActivo = usuario;
         }
@@ -61,37 +78,20 @@ namespace UI
             return UsuarioActivo;
         }
 
-        ////public Dictionary<string, bool> AccesosUsuario()
-        ////{
-        ////    var accesos = new Hashtable();
-            
-        ////    var patentesForm = ObtenerPermisosFormularios();
-        ////    var patentesUsu = ObtenerPermisosUsuario().Patentes;
-        ////    ////var patUsu = patentesUsu.Select(x => x.IdPatente);
-        ////    ////var iguales = patUsu.Intersect(patentesForm.Select(pf => pf.IdPatente));
+        public Idioma ObtenerIdioma()
+        {
+            return LenguajeSeleccionado;
+        }
 
-        ////    var q = patentesUsu.Where(item => patentesForm.Select(item2 => item2.IdPatente).Contains(item.IdPatente)).ToList();
-        ////    var d = (from item in patentesForm
-        ////            where item.IdPatente.Equals(from item2 in patentesUsu select item.IdPatente)
-        ////            select item.Descripcion).ToList();
-        ////    accesos.Add(d, q);
+        public IDictionary<string, string> ObtenerTraducciones()
+        {
+            Traducciones = idiomaBLL.ObtenerTraduccionesFormulario(LenguajeSeleccionado.IdIdioma, Application.OpenForms[0].Name).ToDictionary(k => k.ControlName ?? k.MensajeCodigo, v => v.Traduccion);
+            return Traducciones;
+        }
 
-        ////    foreach (var form in patentesForm)
-        ////    {
-        ////        foreach (var patUsu in patentesUsu)
-        ////        {
-        ////            if (form.IdPatente == patUsu.IdPatente)
-        ////            {
-        ////                accesos.Add(form.Descripcion, true);
-        ////            }
-        ////            else
-        ////            {
-        ////                accesos.Add(form.Descripcion, false);
-        ////            }
-        ////        }
-        ////    }
-
-        ////    return null;
-        ////}
+        public List<Patente> ObtenerPermisosFormulario(int formId)
+        {
+            return formControlBLL.ObtenerPermisosFormulario(formId);
+        }
     }
 }

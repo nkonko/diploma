@@ -1,7 +1,11 @@
 ﻿namespace UI
 {
-    public interface IBitacora
+    using System.Windows.Forms;
+
+    public interface IBitacoraUI
     {
+        Form MdiParent { get; set; }
+
         void Show();
     }
 }

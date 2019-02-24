@@ -1,31 +1,39 @@
 ﻿namespace DAL.Utils
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Data;
     using Dapper;
     using log4net;
+    using System;
+    using System.Collections.Generic;
 
     public abstract class BaseDao
     {
         private readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public bool Exec(string query)
+        public bool Exec(string query, object param = null)
         {
-            using (IDbConnection connection = SqlUtils.Connection())
+            using (var connection = SqlUtils.Connection())
             {
                 connection.Open();
-                connection.Execute(query);
+                if (param == null)
+                {
+                    connection.Execute(query);
+                }
+                else
+                {
+                    connection.Execute(query, param);
+                }
+
                 return true;
             }
         }
 
-        public List<T> Exec<T>(string query)
+        public List<T> Exec<T>(string query, object param = null)
         {
-            using (IDbConnection connection = SqlUtils.Connection())
+            using (var connection = SqlUtils.Connection())
             {
                 connection.Open();
-                var result = (List<T>)connection.Query<T>(query);
+
+                var result = param == null ? (List<T>)connection.Query<T>(query) : (List<T>)connection.Query<T>(query, param);
 
                 return result;
             }
@@ -48,7 +56,7 @@
             }
             catch (Exception ex)
             {
-                log.Error(ex);
+                Log4netExtensions.Alta(log, ex.Message);
                 throw;
             }
         }

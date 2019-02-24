@@ -43,8 +43,15 @@
     <Compile Include="Entidades\Bitacora.cs" />
     <Compile Include="Entidades\Cliente.cs" />
     <Compile Include="Entidades\DetalleVenta.cs" />
+    <Compile Include="Entidades\DetalleVentaBd.cs" />
     <Compile Include="Entidades\Familia.cs" />
+    <Compile Include="Entidades\FamiliaPatente.cs" />
     <Compile Include="Entidades\Formulario.cs" />
+    <Compile Include="Entidades\LineaDetalle.cs" />
+    <Compile Include="Entidades\LineaVenta.cs" />
+    <Compile Include="Entidades\TraduccionFormulario.cs" />
+    <Compile Include="Entidades\FamiliaUsuario.cs" />
+    <Compile Include="Entidades\UsuarioPatente.cs" />
     <Compile Include="FiltrosBitacora.cs" />
     <Compile Include="ICRUD.cs" />
     <Compile Include="Entidades\Idioma.cs" />

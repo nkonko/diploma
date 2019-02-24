@@ -7,7 +7,7 @@ namespace UI
     using System;
     using System.Windows.Forms;
 
-    public partial class BackupUI : Form
+    public partial class BackupUI : Form, IBackupUI
     {
         public BackupUI()
         {
@@ -22,16 +22,34 @@ namespace UI
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             progressBar1.Value = 0;
+            var cantVolumenes = Convert.ToInt32(cboCantidad.SelectedItem);
+
+            if(cantVolumenes == 0)
+            {
+                cantVolumenes = 1;
+            }
 
             try
             {
-                var dbServer = new Server(new ServerConnection(SqlUtils.Connection()));
-                var dbBackUp = new Backup() { Action = BackupActionType.Database, Database = "SYSANALIZER2" };
-                dbBackUp.Devices.AddDevice(@"C:\Data\SYSANALIZER2.bak", DeviceType.File);
-                dbBackUp.Initialize = true;
-                dbBackUp.PercentComplete += DbPercentComplete;
-                dbBackUp.Complete += DbBackUp_Complete;
-                dbBackUp.SqlBackupAsync(dbServer);
+                if (txtDirectorio.Text.Trim() != String.Empty && txtNombre.Text.Trim() != String.Empty)
+                {
+                    var dbServer = new Server(new ServerConnection(SqlUtils.Connection()));
+                    var dbBackUp = new Backup() { Action = BackupActionType.Database, Database = "SYSANALIZER2" };
+
+                    for (int i = 0; i < cantVolumenes; i++)
+                    {
+                        dbBackUp.Devices.AddDevice(txtDirectorio.Text.Trim() + "\\" + txtNombre.Text.Trim() + i + ".bak", DeviceType.File);
+                    }
+
+                    dbBackUp.Initialize = true;
+                    dbBackUp.PercentComplete += DbPercentComplete;
+                    dbBackUp.Complete += DbBackUp_Complete;
+                    dbBackUp.SqlBackupAsync(dbServer);
+                }
+                else
+                {
+                    MessageBox.Show("Debe seleccionar un path para la ubicacion del archivo backup y setear una descripción");
+                }
             }
             catch (Exception ex)
             {
@@ -62,6 +80,39 @@ namespace UI
             {
                 lblProgreso.Text = $"{e.Percent}%";
             });
+        }
+
+        private void btnExaminar_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog explorerDialog = new System.Windows.Forms.FolderBrowserDialog();
+            if (explorerDialog.ShowDialog() == DialogResult.OK)
+            {
+                txtDirectorio.Text = explorerDialog.SelectedPath;
+                Environment.SpecialFolder root = explorerDialog.RootFolder;
+            }
+        }
+
+        private void chkDividir_CheckedChanged(object sender, EventArgs e)
+        {
+            if(chkDividir.Checked)
+            {
+                cboCantidad.Enabled = true;
+            }
+            else
+            {
+                cboCantidad.Enabled = false;
+            }
+        }
+
+        private void BackupUI_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            Hide();
+        }
+
+        private void BackupUI_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }

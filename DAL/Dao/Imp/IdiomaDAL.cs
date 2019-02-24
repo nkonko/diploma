@@ -1,30 +1,35 @@
 ﻿namespace DAL.Dao.Imp
 {
-    using BE;
     using BE.Entidades;
-    using System;
+    using DAL.Utils;
     using System.Collections.Generic;
 
-    public class IdiomaDAL : ICRUD<Idioma>
+    public class IdiomaDAL : BaseDao, IIdiomaDAL
     {
-        public bool Crear(Idioma objAlta)
+        public List<Idioma> ObtenerTodosLosIdiomas()
         {
-            throw new NotImplementedException();
+            var query = "Select * from Idioma";
+
+            return CatchException(() =>
+            {
+                return Exec<Idioma>(query);
+            });
         }
 
-        public bool Borrar(Idioma objDel)
+        public List<TraduccionFormulario> ObtenerTraduccionesFormulario(int idiomaId, string nombreForm)
         {
-            throw new NotImplementedException();
-        }
+            var query = string.Format(
+                "SELECT trad.* FROM Traduccion trad " +
+                 "INNER JOIN Formularios ON Formularios.IdFormulario = trad.IdFormulario " +
+                 "INNER JOIN Idioma ON Idioma.IdIdioma = trad.IdIdioma " +
+                 "WHERE Idioma.IdIdioma = {0} AND Formularios.NombreFormulario = '{1}'",
+                idiomaId,
+                nombreForm);
 
-        public List<Idioma> Cargar()
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Actualizar(Idioma objUpd)
-        {
-            throw new NotImplementedException();
+            return CatchException(() =>
+           {
+               return Exec<TraduccionFormulario>(query);
+           });
         }
     }
 }

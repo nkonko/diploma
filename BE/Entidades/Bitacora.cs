@@ -14,7 +14,7 @@
 
         public string InformacionAsociada { get; set; }
 
-        public int IdUsuario { get; set; }
+        public string Usuario { get; set; }
 
         public int DVH { get; set; }
     }

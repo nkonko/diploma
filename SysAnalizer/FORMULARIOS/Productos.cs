@@ -6,45 +6,142 @@ namespace UI
     using System;
     using System.Windows.Forms;
 
-    public partial class Productos : Form
+    public partial class Productos : Form, IProductos
     {
-
+        private const string nombreForm = "Productos";
         private readonly IProductoBLL productoBLL;
+        private readonly IBloqueoProductos bloqueoProductos;
 
-        public Productos(IProductoBLL productoBLL)
+        private Producto productoSeleccionado = new Producto();
+
+        public bool formUserClose = true;
+
+        public Productos(IProductoBLL productoBLL,IBloqueoProductos bloqueoProductos)
         {
             this.productoBLL = productoBLL;
+            this.bloqueoProductos = bloqueoProductos;
             InitializeComponent();
-        }
-
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
         }
 
         private void Productos_Load(object sender, EventArgs e)
         {
-            productoBLL.Cargar();
+            dgProd.AutoGenerateColumns = false;
+            productoSeleccionado = null;
+            CargarProductos();
         }
 
         private void btnNuevo_Click(object sender, EventArgs e)
         {
-            productoBLL.Crear(new Producto() { Descripcion = txtDescripcion.Text, PVenta = float.Parse(txtPcosto.Text), PUnitario = float.Parse(txtPunitario.Text), Stock = int.Parse(txtCantidad.Text) });
+            var exito = productoBLL.Crear(new Producto() { Descripcion = txtDescripcion.Text, PVenta = float.Parse(txtPcosto.Text), PUnitario = float.Parse(txtPunitario.Text), Stock = int.Parse(txtCantidad.Text), MinStock = int.Parse(txtMinStock.Text) });
+
+            if (exito)
+            {
+                MessageBox.Show("Producto Creado");
+                CargarProductos();
+                LimpiarControles();
+            }
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            productoBLL.Actualizar(new Producto() { Descripcion = txtDescripcion.Text, PVenta = float.Parse(txtPcosto.Text), PUnitario = float.Parse(txtPunitario.Text), Stock = int.Parse(txtCantidad.Text) });
+            var exito = productoBLL.Actualizar(new Producto() {ProductoId = productoSeleccionado.ProductoId, Descripcion = txtDescripcion.Text, PVenta = float.Parse(txtPcosto.Text), PUnitario = float.Parse(txtPunitario.Text), Stock = int.Parse(txtCantidad.Text), MinStock = int.Parse(txtMinStock.Text) });
+
+            if (exito)
+            {
+                MessageBox.Show("Producto Actualizado");
+                CargarProductos();
+                LimpiarControles();
+            }
         }
 
         private void btnBorrar_Click(object sender, EventArgs e)
         {
-            productoBLL.Borrar(new Producto() { CodigoProducto = txtNroProd.Text });
+            var exito = productoBLL.Borrar(productoSeleccionado);
+
+            if (exito)
+            {
+                MessageBox.Show("Producto Borrado");
+                CargarProductos();
+                LimpiarControles();
+            }
+        }
+
+        private void LimpiarControles()
+        {
+            txtDescripcion.Text = string.Empty;
+            txtPunitario.Text = string.Empty;
+            txtPcosto.Text = string.Empty;
+            txtCantidad.Text = string.Empty;
+            txtMinStock.Text = string.Empty;
+            lblNroProd.Text = "Nro Producto:";
         }
 
         private void btnVolver_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            Hide();
+        }
+
+        private void btnSelVta_Click(object sender, EventArgs e)
+        {
+            ActualizarSeleccionado();
+
+            formUserClose = false;
+            DialogResult = DialogResult.OK;
+        }
+
+        public Producto ObtenerProductoSeleccionado()
+        {
+            return productoSeleccionado;
+        }
+
+        private void Productos_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (formUserClose)
+            {
+                e.Cancel = true;
+            }
+            Hide();
+        }
+
+        private void btnInactivos_Click(object sender, EventArgs e)
+        {
+            bloqueoProductos.ShowDialog();
+        }
+
+        private void dgProd_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            ActualizarSeleccionado();
+            LimpiarControles();
+            CargaControles();
+        }
+
+        private void ActualizarSeleccionado()
+        {
+            productoSeleccionado = (Producto)dgProd.CurrentRow.DataBoundItem;
+        }
+
+        private void CargaControles()
+        {
+            FormExtensions.CatchException(this, () =>
+            {
+                txtDescripcion.Text = productoSeleccionado.Descripcion;
+                txtPunitario.Text = productoSeleccionado.PUnitario.ToString();
+                txtPcosto.Text = productoSeleccionado.PVenta.ToString();
+                txtCantidad.Text = productoSeleccionado.Stock.ToString();
+                txtMinStock.Text = productoSeleccionado.MinStock.ToString();
+                CambiarNroProducto();
+            });
+        }
+
+        private void CambiarNroProducto()
+        {
+                lblNroProd.Text += productoSeleccionado.ProductoId;
+        }
+
+        private void CargarProductos()
+        {
+            dgProd.DataSource = null;
+            dgProd.DataSource = productoBLL.Cargar();
         }
     }
 }

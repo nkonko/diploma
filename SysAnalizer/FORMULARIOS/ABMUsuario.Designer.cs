@@ -31,6 +31,11 @@ namespace UI
         {
             this.btnVolver = new System.Windows.Forms.Button();
             this.dgusuario = new System.Windows.Forms.DataGridView();
+            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Apellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Telefono = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Domicilio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -42,16 +47,14 @@ namespace UI
             this.btnNuevo = new System.Windows.Forms.Button();
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtDNI = new System.Windows.Forms.TextBox();
-            this.txtCP = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
             this.txtTel = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.cboFamilia = new System.Windows.Forms.ComboBox();
-            this.chkLstPatentes = new System.Windows.Forms.CheckedListBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.btnNegarPat = new System.Windows.Forms.Button();
+            this.btnUsuariosInactivos = new System.Windows.Forms.Button();
+            this.btnAsignarPat = new System.Windows.Forms.Button();
+            this.btnAsignarFam = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgusuario)).BeginInit();
             this.SuspendLayout();
             // 
@@ -68,19 +71,68 @@ namespace UI
             // 
             // dgusuario
             // 
+            this.dgusuario.AllowUserToAddRows = false;
+            this.dgusuario.AllowUserToDeleteRows = false;
+            this.dgusuario.AllowUserToResizeRows = false;
             this.dgusuario.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgusuario.Location = new System.Drawing.Point(15, 259);
+            this.dgusuario.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Nombre,
+            this.Apellido,
+            this.Email,
+            this.Telefono,
+            this.Domicilio});
+            this.dgusuario.Location = new System.Drawing.Point(15, 262);
             this.dgusuario.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dgusuario.MultiSelect = false;
             this.dgusuario.Name = "dgusuario";
+            this.dgusuario.ReadOnly = true;
             this.dgusuario.RowTemplate.Height = 24;
-            this.dgusuario.Size = new System.Drawing.Size(755, 224);
+            this.dgusuario.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgusuario.Size = new System.Drawing.Size(739, 224);
             this.dgusuario.TabIndex = 26;
-            this.dgusuario.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            this.dgusuario.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgusuario_CellClick);
+            this.dgusuario.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgusuario_CellContentClick);
+            this.dgusuario.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgusuario_DataError);
+            // 
+            // Nombre
+            // 
+            this.Nombre.DataPropertyName = "Nombre";
+            this.Nombre.HeaderText = "Nombre";
+            this.Nombre.Name = "Nombre";
+            this.Nombre.ReadOnly = true;
+            // 
+            // Apellido
+            // 
+            this.Apellido.DataPropertyName = "Apellido";
+            this.Apellido.HeaderText = "Apellido";
+            this.Apellido.Name = "Apellido";
+            this.Apellido.ReadOnly = true;
+            // 
+            // Email
+            // 
+            this.Email.DataPropertyName = "Email";
+            this.Email.HeaderText = "Email";
+            this.Email.Name = "Email";
+            this.Email.ReadOnly = true;
+            // 
+            // Telefono
+            // 
+            this.Telefono.DataPropertyName = "Telefono";
+            this.Telefono.HeaderText = "Telefono";
+            this.Telefono.Name = "Telefono";
+            this.Telefono.ReadOnly = true;
+            // 
+            // Domicilio
+            // 
+            this.Domicilio.DataPropertyName = "Domicilio";
+            this.Domicilio.HeaderText = "Domicilio";
+            this.Domicilio.Name = "Domicilio";
+            this.Domicilio.ReadOnly = true;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(330, 81);
+            this.label3.Location = new System.Drawing.Point(331, 81);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(68, 17);
             this.label3.TabIndex = 23;
@@ -106,7 +158,7 @@ namespace UI
             // 
             // btnBorrar
             // 
-            this.btnBorrar.Location = new System.Drawing.Point(15, 200);
+            this.btnBorrar.Location = new System.Drawing.Point(15, 199);
             this.btnBorrar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnBorrar.Name = "btnBorrar";
             this.btnBorrar.Size = new System.Drawing.Size(99, 33);
@@ -144,7 +196,7 @@ namespace UI
             // 
             // txtNombre
             // 
-            this.txtNombre.Location = new System.Drawing.Point(139, 51);
+            this.txtNombre.Location = new System.Drawing.Point(139, 50);
             this.txtNombre.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(165, 22);
@@ -163,8 +215,8 @@ namespace UI
             // 
             // txtEmail
             // 
-            this.txtEmail.Location = new System.Drawing.Point(333, 51);
-            this.txtEmail.Margin = new System.Windows.Forms.Padding(4);
+            this.txtEmail.Location = new System.Drawing.Point(333, 50);
+            this.txtEmail.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(265, 22);
             this.txtEmail.TabIndex = 2;
@@ -172,7 +224,7 @@ namespace UI
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(330, 30);
+            this.label12.Location = new System.Drawing.Point(331, 30);
             this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(51, 17);
@@ -180,46 +232,10 @@ namespace UI
             this.label12.Text = "E-mail:";
             this.label12.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(135, 138);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(35, 17);
-            this.label4.TabIndex = 31;
-            this.label4.Text = "DNI:";
-            // 
-            // txtDNI
-            // 
-            this.txtDNI.Location = new System.Drawing.Point(139, 156);
-            this.txtDNI.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.txtDNI.Name = "txtDNI";
-            this.txtDNI.Size = new System.Drawing.Size(165, 22);
-            this.txtDNI.TabIndex = 5;
-            // 
-            // txtCP
-            // 
-            this.txtCP.Location = new System.Drawing.Point(333, 158);
-            this.txtCP.Margin = new System.Windows.Forms.Padding(4);
-            this.txtCP.Name = "txtCP";
-            this.txtCP.Size = new System.Drawing.Size(97, 22);
-            this.txtCP.TabIndex = 6;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(331, 135);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(99, 17);
-            this.label5.TabIndex = 33;
-            this.label5.Text = "Código Postal:";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
             // txtTel
             // 
-            this.txtTel.Location = new System.Drawing.Point(139, 211);
-            this.txtTel.Margin = new System.Windows.Forms.Padding(4);
+            this.txtTel.Location = new System.Drawing.Point(139, 158);
+            this.txtTel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtTel.Name = "txtTel";
             this.txtTel.Size = new System.Drawing.Size(165, 22);
             this.txtTel.TabIndex = 7;
@@ -227,7 +243,7 @@ namespace UI
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(135, 190);
+            this.label6.Location = new System.Drawing.Point(135, 138);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(68, 17);
@@ -235,26 +251,10 @@ namespace UI
             this.label6.Text = "Teléfono:";
             this.label6.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // cboFamilia
-            // 
-            this.cboFamilia.FormattingEnabled = true;
-            this.cboFamilia.Location = new System.Drawing.Point(453, 156);
-            this.cboFamilia.Name = "cboFamilia";
-            this.cboFamilia.Size = new System.Drawing.Size(145, 24);
-            this.cboFamilia.TabIndex = 36;
-            // 
-            // chkLstPatentes
-            // 
-            this.chkLstPatentes.FormattingEnabled = true;
-            this.chkLstPatentes.Location = new System.Drawing.Point(619, 51);
-            this.chkLstPatentes.Name = "chkLstPatentes";
-            this.chkLstPatentes.Size = new System.Drawing.Size(151, 191);
-            this.chkLstPatentes.TabIndex = 37;
-            // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(450, 136);
+            this.label7.Location = new System.Drawing.Point(615, 110);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(56, 17);
             this.label7.TabIndex = 38;
@@ -263,27 +263,69 @@ namespace UI
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(619, 29);
+            this.label8.Location = new System.Drawing.Point(615, 30);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(68, 17);
             this.label8.TabIndex = 39;
             this.label8.Text = "Patentes:";
             // 
+            // btnNegarPat
+            // 
+            this.btnNegarPat.Location = new System.Drawing.Point(761, 50);
+            this.btnNegarPat.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnNegarPat.Name = "btnNegarPat";
+            this.btnNegarPat.Size = new System.Drawing.Size(129, 47);
+            this.btnNegarPat.TabIndex = 41;
+            this.btnNegarPat.Text = "Negar/Habilitar Patentes";
+            this.btnNegarPat.UseVisualStyleBackColor = true;
+            this.btnNegarPat.Click += new System.EventHandler(this.btnNegarPat_Click);
+            // 
+            // btnUsuariosInactivos
+            // 
+            this.btnUsuariosInactivos.Location = new System.Drawing.Point(795, 421);
+            this.btnUsuariosInactivos.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnUsuariosInactivos.Name = "btnUsuariosInactivos";
+            this.btnUsuariosInactivos.Size = new System.Drawing.Size(100, 65);
+            this.btnUsuariosInactivos.TabIndex = 42;
+            this.btnUsuariosInactivos.Text = "Usuarios Inactivos";
+            this.btnUsuariosInactivos.UseVisualStyleBackColor = true;
+            this.btnUsuariosInactivos.Click += new System.EventHandler(this.btnUsuariosInactivos_Click);
+            // 
+            // btnAsignarPat
+            // 
+            this.btnAsignarPat.Location = new System.Drawing.Point(624, 50);
+            this.btnAsignarPat.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnAsignarPat.Name = "btnAsignarPat";
+            this.btnAsignarPat.Size = new System.Drawing.Size(129, 47);
+            this.btnAsignarPat.TabIndex = 43;
+            this.btnAsignarPat.Text = "Asignar/Quitar Patentes";
+            this.btnAsignarPat.UseVisualStyleBackColor = true;
+            this.btnAsignarPat.Click += new System.EventHandler(this.btnAsignarPat_Click);
+            // 
+            // btnAsignarFam
+            // 
+            this.btnAsignarFam.Location = new System.Drawing.Point(624, 138);
+            this.btnAsignarFam.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnAsignarFam.Name = "btnAsignarFam";
+            this.btnAsignarFam.Size = new System.Drawing.Size(129, 47);
+            this.btnAsignarFam.TabIndex = 44;
+            this.btnAsignarFam.Text = "Asignar/Quitar Familia";
+            this.btnAsignarFam.UseVisualStyleBackColor = true;
+            this.btnAsignarFam.Click += new System.EventHandler(this.btnAsignarFam_Click);
+            // 
             // ABMusuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(793, 500);
+            this.ClientSize = new System.Drawing.Size(911, 500);
+            this.Controls.Add(this.btnAsignarFam);
+            this.Controls.Add(this.btnAsignarPat);
+            this.Controls.Add(this.btnUsuariosInactivos);
+            this.Controls.Add(this.btnNegarPat);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.chkLstPatentes);
-            this.Controls.Add(this.cboFamilia);
             this.Controls.Add(this.txtTel);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.txtCP);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.txtDNI);
             this.Controls.Add(this.txtEmail);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.btnVolver);
@@ -297,9 +339,10 @@ namespace UI
             this.Controls.Add(this.txtApellido);
             this.Controls.Add(this.txtNombre);
             this.Controls.Add(this.btnNuevo);
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "ABMusuario";
             this.Text = "ABM usuarios";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ABMusuario_FormClosing);
             this.Load += new System.EventHandler(this.usuarios_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgusuario)).EndInit();
             this.ResumeLayout(false);
@@ -322,15 +365,18 @@ namespace UI
         private System.Windows.Forms.Button btnNuevo;
         private System.Windows.Forms.TextBox txtEmail;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox txtDNI;
-        private System.Windows.Forms.TextBox txtCP;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtTel;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ComboBox cboFamilia;
-        private System.Windows.Forms.CheckedListBox chkLstPatentes;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button btnNegarPat;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Apellido;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Email;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Telefono;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Domicilio;
+        private System.Windows.Forms.Button btnUsuariosInactivos;
+        private System.Windows.Forms.Button btnAsignarPat;
+        private System.Windows.Forms.Button btnAsignarFam;
     }
 }

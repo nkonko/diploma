@@ -3,22 +3,34 @@ namespace UI
 {
     using BE.Entidades;
     using BLL;
-    using Microsoft.VisualBasic;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Windows.Forms;
 
     public partial class Familias : Form, IFamilias
     {
+        public Familia familiaSeleccionada = null;
         private readonly IFamiliaBLL familiaBLL;
+        private readonly IAdminPatFamilia adminPatFamilia;
+        private readonly IPatenteBLL patenteBLL;
+        private IUsuarioBLL usuarioBLL;
 
-        public Familias(IFamiliaBLL familiaBLL, IUsuarioBLL usuarioBLL)
+        public Familias(IFamiliaBLL familiaBLL, IUsuarioBLL usuarioBLL, IAdminPatFamilia adminPatFamilia, IPatenteBLL patenteBLL)
         {
             InitializeComponent();
             this.familiaBLL = familiaBLL;
+            this.adminPatFamilia = adminPatFamilia;
+            this.patenteBLL = patenteBLL;
         }
 
         private void Familias_Load(object sender, EventArgs e)
+        {
+            CargarFamilias();
+            usuarioBLL = IoCContainer.Resolve<IUsuarioBLL>();
+        }
+
+        private void CargarFamilias()
         {
             var descripciones = new List<string>();
 
@@ -32,15 +44,147 @@ namespace UI
 
         private void btnNueva_Click(object sender, EventArgs e)
         {
-            var nombreFamilia = Interaction.InputBox("Ingrese el nombre para la nueva familia", "Nueva familia", "");
+            var nombreFamilia = "";
 
-            familiaBLL.Crear(new Familia() { Descripcion = nombreFamilia });
+            var items = InputBox.fillItems("NombreFamilia", nombreFamilia);
+
+            InputBox input = InputBox.Show("Ingrese el nombre para la nueva familia", items, InputBoxButtons.OKCancel);
+
+            if (input.Result == InputBoxResult.OK)
+            {
+                nombreFamilia = input.Items["NombreFamilia"];
+            }
+
+            var familias = familiaBLL.Cargar();
+
+            if (!familias.Select(x => x.Descripcion).Contains(nombreFamilia))
+            {
+                var creada = familiaBLL.Crear(new Familia() { Descripcion = nombreFamilia });
+                var creadaId = familiaBLL.ObtenerIdFamiliaPorDescripcion(nombreFamilia);
+
+                familiaSeleccionada = new Familia() { FamiliaId = creadaId, Descripcion = nombreFamilia };
+
+                if (creada)
+                {
+                    adminPatFamilia.FamiliaNueva = true;
+
+                    var resultado = adminPatFamilia.ShowDialog();
+
+                    if (resultado == DialogResult.OK)
+                    {
+                        MessageBox.Show("Familia y Patentes registradas");
+                    }
+                }
+
+                CargarFamilias();
+                chklstFamilias.Refresh();
+            }
+            else
+            {
+                MessageBox.Show("La familia ya existe");
+            }
         }
 
-        private void btnSelect_Click(object sender, EventArgs e)
+        public Familia ObtenerFamiliaSeleccionada()
         {
-            ////Guardar en FamiliaUsuario
-           var fam = chklstFamilias.SelectedItem;
+            return familiaSeleccionada;
+        }
+
+        private void btnBaja_Click(object sender, EventArgs e)
+        {
+            var desc = chklstFamilias.SelectedItem.ToString();
+            var familia = familiaBLL.ObtenerFamiliaConDescripcion(desc);
+            var returnValue = false;
+
+            if (patenteBLL.CheckeoFamiliaParaBorrar(familia, usuarioBLL.TraerUsuariosConPatentesYFamilias()))
+            {
+                returnValue = true;
+            }
+            else
+            {
+                MessageBox.Show("La familia actualmente esta en uso");
+            }
+
+            if (returnValue)
+            {
+                var exitoso = familiaBLL.Borrar(new Familia() { Descripcion = desc, FamiliaId = familiaBLL.ObtenerIdFamiliaPorDescripcion(desc) });
+            }
+
+            CargarFamilias();
+            chklstFamilias.Refresh();
+        }
+
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            var desc = chklstFamilias.SelectedItem.ToString();
+            var nuevoNombre = "";
+
+            var items = InputBox.fillItems("Familia", nuevoNombre);
+            InputBox input = InputBox.Show("Ingrese un nuevo nombre", items, InputBoxButtons.OKCancel);
+
+            if (input.Result == InputBoxResult.OK)
+            {
+                nuevoNombre = input.Items["Familia"];
+            }
+
+            var familias = familiaBLL.Cargar();
+
+            if (nuevoNombre != string.Empty)
+            {
+                if (!familias.Select(x => x.Descripcion).Contains(nuevoNombre))
+                {
+                    var exitoso = familiaBLL.Actualizar(new Familia() { Descripcion = nuevoNombre, FamiliaId = familiaBLL.ObtenerIdFamiliaPorDescripcion(desc) });
+                    var creadaId = familiaBLL.ObtenerIdFamiliaPorDescripcion(nuevoNombre);
+
+                    familiaSeleccionada = new Familia() { FamiliaId = creadaId, Descripcion = nuevoNombre };
+
+                    if (exitoso)
+                    {
+                        MessageBox.Show("Nombre Actualizado");
+                    }
+
+                    CargarFamilias();
+                    chklstFamilias.Refresh();
+                }
+                else
+                {
+                    MessageBox.Show("La familia ya existe");
+                }
+                CargarFamilias();
+                chklstFamilias.Refresh();
+            }
+        }
+
+        private void Familias_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Hide();
+            e.Cancel = true;
+        }
+
+        private void btnVolver_Click(object sender, EventArgs e)
+        {
+            Hide();
+        }
+
+        private void Familias_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnModificarTodo_Click(object sender, EventArgs e)
+        {
+            adminPatFamilia.ShowDialog();
+
+            MessageBox.Show("Familia y Patentes Actualizadas");
+
+            CargarFamilias();
+            chklstFamilias.Refresh();
+        }
+
+        private void chklstFamilias_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var descFamilia = (List<string>)chklstFamilias.DataSource;
+            familiaSeleccionada = new Familia() { Descripcion = descFamilia.FirstOrDefault(), FamiliaId = familiaBLL.ObtenerIdFamiliaPorDescripcion(descFamilia.FirstOrDefault()) };
         }
     }
 }
