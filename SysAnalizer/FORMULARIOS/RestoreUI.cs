@@ -108,7 +108,8 @@ namespace UI
 
         private void RestoreUI_Load(object sender, EventArgs e)
         {
-
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
         }
 
         private void RestoreUI_FormClosing(object sender, FormClosingEventArgs e)

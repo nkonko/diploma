@@ -1,15 +1,19 @@
 ﻿namespace DAL.Utils
 {
+    using EasyEncryption;
     using System;
     using System.Collections.Generic;
     using System.Configuration;
     using System.Data;
     using System.Data.SqlClient;
+    using System.IO;
     using System.Linq;
+    using System.Xml;
 
     public class SqlUtils : BaseDao
     {
-        ////private static log4net.ILog log;
+        public static readonly string AppConfigFilePath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent?.FullName + "\\App.config";
+        public const string Key = "pass";
 
         public SqlUtils()
         {
@@ -17,7 +21,8 @@
 
         public static SqlConnection Connection()
         {
-            ////SetearConfiguracion();
+            //EncriptarConnectionString();
+            //var desencripted = DesEncriptarConnectionString();
             var conn = new SqlConnection(ConfigurationManager.AppSettings["connString"]);
             return conn;
         }
@@ -98,6 +103,41 @@
             }
 
             return returnValue;
+        }
+
+        public static string EncriptarASCII(string input)
+        {
+           return AesThenHmac.SimpleEncryptWithPassword(input, Key);
+        }
+
+        public static string DesencriptarASCII(string input)
+        {
+            return AesThenHmac.SimpleDecryptWithPassword(input, Key);
+        }
+
+        private static void EncriptarConnectionString()
+        {
+            var connString = ConfigurationManager.AppSettings["connString"];
+            var encriptedConnString = EncriptarASCII(connString);
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(AppConfigFilePath);
+            XmlNodeList xmlnode;
+            xmlnode = doc.GetElementsByTagName("appSettings");
+            foreach (XmlNode nodo in xmlnode)
+            {
+                nodo.FirstChild.Attributes[1].InnerText = encriptedConnString;
+            }
+
+            doc.Save(AppConfigFilePath);
+        }
+
+        private static string DesEncriptarConnectionString()
+        {
+            var connString = ConfigurationManager.AppSettings["connString"];
+            var decryptedConnString = DesencriptarASCII(connString);
+
+            return decryptedConnString;
         }
     }
 }

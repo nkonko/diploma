@@ -22,6 +22,8 @@ namespace UI
 
         private void BloqueUsuario_Load(object sender, EventArgs e)
         {
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             CargarUsuarios();
         }
 

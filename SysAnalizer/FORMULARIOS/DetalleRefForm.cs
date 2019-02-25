@@ -19,6 +19,8 @@ namespace UI
 
         private void DetalleRefForm_Load(object sender, EventArgs e)
         {
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             dgDetalleVenta.AutoGenerateColumns = false;
             CargarDetalle();
         }

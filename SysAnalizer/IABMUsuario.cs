@@ -13,5 +13,7 @@
         Usuario ObtenerUsuarioSeleccionado();
 
         List<Usuario> ObtenerUsuariosBd();
+
+        void HacerLoad();
     }
 }

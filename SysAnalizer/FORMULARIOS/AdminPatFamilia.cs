@@ -46,6 +46,8 @@ namespace UI
 
         private void AdminPatFamilia_Load(object sender, EventArgs e)
         {
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             usuarioBLL = IoCContainer.Resolve<IUsuarioBLL>();
             familias = IoCContainer.Resolve<IFamilias>();
             familia = familias.ObtenerFamiliaSeleccionada();

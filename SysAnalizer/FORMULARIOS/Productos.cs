@@ -25,6 +25,8 @@ namespace UI
 
         private void Productos_Load(object sender, EventArgs e)
         {
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             dgProd.AutoGenerateColumns = false;
             productoSeleccionado = null;
             CargarProductos();

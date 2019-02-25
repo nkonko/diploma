@@ -34,6 +34,9 @@ namespace UI
 
         private void DatosUsuario_Load(object sender, System.EventArgs e)
         {
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+
             UsuarioActivo = formControl.ObtenerInfoUsuario();
 
             lblNombre.Text = lblNombre.Text + UsuarioActivo.Nombre;

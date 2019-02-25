@@ -28,6 +28,8 @@ namespace UI
 
         private void AdminPatUsuario_Load(object sender, EventArgs e)
         {
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             aBMUsuario = IoCContainer.Resolve<IABMUsuario>();
 
             UsuarioSeleccionado = aBMUsuario.ObtenerUsuarioSeleccionado();

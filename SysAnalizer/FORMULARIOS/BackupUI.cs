@@ -16,7 +16,8 @@ namespace UI
 
         private void Backup_Load(object sender, EventArgs e)
         {
-
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)

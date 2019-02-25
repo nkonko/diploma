@@ -35,6 +35,9 @@ namespace UI
 
         private void NegarPatUsuario_Load(object sender, EventArgs e)
         {
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+
             aBMUsuario = IoCContainer.Resolve<IABMUsuario>();
 
             UsuarioSeleccionado = aBMUsuario.ObtenerUsuarioSeleccionado();

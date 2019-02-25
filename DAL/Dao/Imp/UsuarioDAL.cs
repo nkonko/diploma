@@ -98,7 +98,7 @@
         public bool Actualizar(Usuario objUpd)
         {
             var usu = ObtenerUsuarioConEmail(objUpd.Email);
-            var digitoVH = digitoVerificador.CalcularDVHorizontal(new List<string> { objUpd.Nombre, usu.Email }, new List<int> { usu.UsuarioId });
+            var digitoVH = digitoVerificador.CalcularDVHorizontal(new List<string> { objUpd.Nombre }, new List<int> { usu.UsuarioId });
 
             var queryString = $"UPDATE Usuario SET Nombre = @nombre, Apellido = @apellido, Email = @email, Telefono = @telefono, Domicilio = @domicilio, PrimerLogin = @primerLogin, DVH = @dvh WHERE UsuarioId = @usuarioId";
 

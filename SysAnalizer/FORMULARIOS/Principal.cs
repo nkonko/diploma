@@ -108,7 +108,6 @@ namespace UI
                     }
                     else
                     {
-                        //Log.Info("Fallo la actualizacion del password");
                         MessageBox.Show("Error contraseña no actualizada");
                     }
                 }

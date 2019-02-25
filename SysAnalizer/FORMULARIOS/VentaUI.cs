@@ -42,6 +42,8 @@ namespace UI
 
         private void VentaUI_Load(object sender, EventArgs e)
         {
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             traductor.Traduccir(this, nombreForm);
             HacerLoad();
         }

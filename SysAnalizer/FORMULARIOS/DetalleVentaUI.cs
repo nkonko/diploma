@@ -56,6 +56,8 @@ namespace UI
 
         private void VtaProd_Load(object sender, EventArgs e)
         {
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             UsuarioActivo = formControl.ObtenerInfoUsuario();
 
             traductor.Traduccir(this, nomEntidad);

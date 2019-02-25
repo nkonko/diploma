@@ -57,5 +57,11 @@ namespace UI
             DialogResult = DialogResult.OK;
             e.Cancel = true;
         }
+
+        private void BloqueoProductos_Load(object sender, EventArgs e)
+        {
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+        }
     }
 }

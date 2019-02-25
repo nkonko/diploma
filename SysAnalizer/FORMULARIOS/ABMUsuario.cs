@@ -79,6 +79,9 @@ namespace UI
 
         private void usuarios_Load(object sender, EventArgs e)
         {
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+
             usuarioBLL = IoCContainer.Resolve<IUsuarioBLL>();
 
             HacerLoad();
@@ -86,7 +89,7 @@ namespace UI
             Traduccir();
         }
 
-        private void HacerLoad()
+        public void HacerLoad()
         {
             UsuarioActivo = formControl.ObtenerInfoUsuario();
 
@@ -320,7 +323,16 @@ namespace UI
 
         private void btn_modificar_Click(object sender, EventArgs e)
         {
-            if (!usuariosBD.Exists(usuario => usuario.Email == txtEmail.Text))
+            var usuarios = usuarioBLL.TraerUsuariosConPatentesYFamilias();
+
+            foreach (var usuario in usuarios)
+            {
+                usuario.Email = DES.Decrypt(usuario.Email, key, iv);
+            }
+
+            usuarios.RemoveAll(x => x.UsuarioId == UsuarioSeleccionado.UsuarioId);
+
+            if (!usuarios.Exists(usuario => usuario.Email == txtEmail.Text))
             {
                 var permitir = verificarDatos();
                 if (permitir)
@@ -338,7 +350,7 @@ namespace UI
                             digitoVerificador.ActualizarDVVertical(digitoVerificador.Entidades.Find(x => x == entidad));
                         }
 
-                        Log4netExtensions.Baja(log, string.Format("Se ha modificado al usuario {0}", DES.Decrypt(UsuarioSeleccionado.Email, key, iv)));
+                        Log4netExtensions.Baja(log, string.Format("Se ha modificado al usuario {0}", UsuarioSeleccionado.Email));
                         bitacoraBLL.RegistrarEnBitacora(UsuarioActivo);
                         Alert.ShowSimpleAlert("Modificacion exitosa", "MSJ023");
                         CargarRefrescarDatagrid();

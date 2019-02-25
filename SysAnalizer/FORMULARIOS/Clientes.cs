@@ -34,6 +34,8 @@ namespace UI
 
         private void Clientes_Load(object sender, EventArgs e)
         {
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             dgClientes.AutoGenerateColumns = false;
             CargarClientes();
         }

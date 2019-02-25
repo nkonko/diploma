@@ -44,7 +44,7 @@ namespace UI
             this.lblActivos.AutoSize = true;
             this.lblActivos.Location = new System.Drawing.Point(25, 20);
             this.lblActivos.Name = "lblActivos";
-            this.lblActivos.Size = new System.Drawing.Size(125, 17);
+            this.lblActivos.Size = new System.Drawing.Size(96, 13);
             this.lblActivos.TabIndex = 1;
             this.lblActivos.Text = "Productos Activos:";
             this.lblActivos.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -54,7 +54,7 @@ namespace UI
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(338, 20);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(135, 17);
+            this.label1.Size = new System.Drawing.Size(104, 13);
             this.label1.TabIndex = 2;
             this.label1.Text = "Productos Inactivos:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -62,19 +62,17 @@ namespace UI
             // lstActivos
             // 
             this.lstActivos.FormattingEnabled = true;
-            this.lstActivos.ItemHeight = 16;
             this.lstActivos.Location = new System.Drawing.Point(28, 51);
             this.lstActivos.Name = "lstActivos";
-            this.lstActivos.Size = new System.Drawing.Size(167, 228);
+            this.lstActivos.Size = new System.Drawing.Size(167, 225);
             this.lstActivos.TabIndex = 3;
             // 
             // lstInactivos
             // 
             this.lstInactivos.FormattingEnabled = true;
-            this.lstInactivos.ItemHeight = 16;
             this.lstInactivos.Location = new System.Drawing.Point(341, 51);
             this.lstInactivos.Name = "lstInactivos";
-            this.lstInactivos.Size = new System.Drawing.Size(166, 228);
+            this.lstInactivos.Size = new System.Drawing.Size(166, 225);
             this.lstInactivos.TabIndex = 4;
             // 
             // btnActivar
@@ -108,6 +106,7 @@ namespace UI
             this.Controls.Add(this.lblActivos);
             this.Name = "BloqueoProductos";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BloqueoProductos_FormClosing);
+            this.Load += new System.EventHandler(this.BloqueoProductos_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
