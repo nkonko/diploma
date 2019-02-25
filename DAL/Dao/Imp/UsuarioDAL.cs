@@ -100,7 +100,7 @@
             var usu = ObtenerUsuarioConEmail(objUpd.Email);
             var digitoVH = digitoVerificador.CalcularDVHorizontal(new List<string> { objUpd.Nombre, usu.Email }, new List<int> { usu.UsuarioId });
 
-            var queryString = $"UPDATE Usuario SET Nombre = @nombre, Apellido = @apellido, Email = @email, Telefono = @telefono, Domicilio = @domicilio, DVH = @dvh WHERE UsuarioId = @usuarioId";
+            var queryString = $"UPDATE Usuario SET Nombre = @nombre, Apellido = @apellido, Email = @email, Telefono = @telefono, Domicilio = @domicilio, PrimerLogin = @primerLogin, DVH = @dvh WHERE UsuarioId = @usuarioId";
 
             return CatchException(() =>
             {
@@ -114,6 +114,7 @@
                         @email = usu.Email,
                         @telefono = objUpd.Telefono,
                         @domicilio = objUpd.Domicilio,
+                        @primerLogin = objUpd.PrimerLogin,
                         @dvh = digitoVH
                     });
             });

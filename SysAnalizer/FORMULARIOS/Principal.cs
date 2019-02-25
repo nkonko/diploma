@@ -178,18 +178,16 @@ namespace UI
         {
             try
             {
-                var path = "C:\\";
+                var path = "C:\\Users\\Public\\";
 
-                Directory.CreateDirectory(path);
-
-                using (var tw = new StreamWriter(path + "Password.txt", true))
+                using (var tw = new StreamWriter(path + "Password.txt"))
                 {
                     tw.WriteLine(nuevoPass);
 
                     MessageBox.Show("Contraseña creada con exito");
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 MessageBox.Show("Ocurrio un error al escribir su contraseña");
             }
