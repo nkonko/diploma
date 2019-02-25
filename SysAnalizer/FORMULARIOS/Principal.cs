@@ -4,6 +4,7 @@ namespace UI
     using BLL;
     using DAL.Dao;
     using System;
+    using System.IO;
     using System.Linq;
     using System.Windows.Forms;
 
@@ -102,7 +103,7 @@ namespace UI
                     var cambioExitoso = usuarioDAL.CambiarContraseña(usu, nuevaContraseña, true);
                     if (cambioExitoso)
                     {
-                        //Log.Info("Password Actualizado");
+                        GuardarPassword(nuevaContraseña);
                         MessageBox.Show("Su contraseña fue actualizada");
                     }
                     else
@@ -171,6 +172,27 @@ namespace UI
             ventaUI.HacerLoad();
             ventaUI.MdiParent = this;
             ventaUI.Show();
+        }
+
+        private void GuardarPassword(string nuevoPass)
+        {
+            try
+            {
+                var path = "C:\\";
+
+                Directory.CreateDirectory(path);
+
+                using (var tw = new StreamWriter(path + "Password.txt", true))
+                {
+                    tw.WriteLine(nuevoPass);
+
+                    MessageBox.Show("Contraseña creada con exito");
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Ocurrio un error al escribir su contraseña");
+            }
         }
     }
 }
